@@ -105,7 +105,7 @@ public final class Db {
                 config.setPassword(dbPassword);
 
             config.setMaximumPoolSize(10);
-            config.setAutoCommit(false);
+            config.setAutoCommit(true);
             config.addDataSourceProperty("cachePrepStmts", "true");
             config.addDataSourceProperty("prepStmtCacheSize", "250");
             config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
@@ -157,7 +157,7 @@ public final class Db {
             return con;
         }
         con = getPooledConnection();
-        con.setAutoCommit(true);
+        //con.setAutoCommit(true);
         return new DbConnection(con);
     }
 
@@ -195,7 +195,7 @@ public final class Db {
         }
         try {
             Connection con = getPooledConnection();
-            con.setAutoCommit(false);
+            //con.setAutoCommit(false);
             con = new DbConnection(con);
             localConnection.set((DbConnection)con);
             transactionCaches.set(new HashMap<String, Map<DbKey, Object>>());
