@@ -1,6 +1,5 @@
 /*.iml
 /dist
-/.idea
 burst.jar
 burst_test_db
 burst_db
@@ -9,3 +8,5 @@ nxt.log
 /conf/nxt.properties
 nxt.log.lck
 
+target/
+nxt.log.1

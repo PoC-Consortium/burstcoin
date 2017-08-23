@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="burst">
+    <output-path>$PROJECT_DIR$/out/artifacts/burst</output-path>
+    <root id="archive" name="burst.jar">
+      <element id="dir-copy" path="$PROJECT_DIR$/target/classes" />
+    </root>
+  </artifact>
+</component>
