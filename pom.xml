@@ -160,11 +160,35 @@
             <version>${metrics.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>io.dropwizard.metrics</groupId>
+            <artifactId>metrics-graphite</artifactId>
+            <version>${metrics.version}</version>
+        </dependency>
+
+
         <!-- https://mvnrepository.com/artifact/com.github.gquintana.metrics/metrics-sql -->
         <dependency>
             <groupId>com.github.gquintana.metrics</groupId>
             <artifactId>metrics-sql</artifactId>
             <version>3.2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-webapp</artifactId>
+            <version>${jetty.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.hawt</groupId>
+            <artifactId>hawtio-embedded</artifactId>
+            <version>1.5.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-jaas</artifactId>
+            <version>${jetty.version}</version>
         </dependency>
 
     </dependencies>
@@ -217,6 +241,7 @@
                                 <delete dir="${project.basedir}/dist"/>
                                 <mkdir dir="${project.basedir}/dist"/>
                                 <mkdir dir="${project.basedir}/dist/tmp"/>
+                                <mkdir dir="${project.basedir}/dist/hawt"/>
                             </target>
                         </configuration>
                     </execution>
@@ -255,6 +280,8 @@
                                         <include name="run.bat"/>
                                         <include name="createBinDump.bat"/>
                                         <include name="loadBinDump.bat"/>
+                                        <include name="createBinDump.sh"/>
+                                        <include name="loadBinDump.sh"/>
                                     </fileset>
                                 </copy>
 
@@ -265,6 +292,24 @@
                                 <!-- create zip file -->
                                 <zip destfile="${project.basedir}/dist/${project.build.finalName}.zip"
                                      basedir="${project.basedir}/dist/tmp"/>
+
+                                <!-- Separate hawtIo dist -->
+                                <copy todir="${project.basedir}/dist/hawt">
+                                    <fileset dir="${project.basedir}/dist/tmp">
+                                    </fileset>
+                                </copy>
+                                <copy todir="${project.basedir}/dist/hawt/hawtio">
+                                    <fileset dir="${project.basedir}/hawtio">
+                                        <include name="*.war"/>
+                                        <include name="login.conf"/>
+                                        <include name="login.properties"/>
+                                    </fileset>
+                                </copy>
+                                <mkdir dir="${project.basedir}/dist/hawt/hawtio/base"/>
+
+                                <zip destfile="${project.basedir}/dist/${project.build.finalName}-hawtIo.zip"
+                                     basedir="${project.basedir}/dist/hawt"/>
+
                             </target>
                         </configuration>
                     </execution>
