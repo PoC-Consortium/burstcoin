@@ -1,7 +1,10 @@
 package nxt;
 
 import com.codahale.metrics.JmxReporter;
+import com.codahale.metrics.MetricFilter;
 import com.codahale.metrics.MetricRegistry;
+import com.codahale.metrics.graphite.Graphite;
+import com.codahale.metrics.graphite.GraphiteReporter;
 import com.github.gquintana.metrics.util.SqlObjectNameFactory;
 import nxt.db.firebird.FirebirdDbs;
 import nxt.db.firebird.FirebirdStores;
@@ -24,10 +27,14 @@ import org.slf4j.LoggerFactory;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.InetSocketAddress;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 
 public final class Nxt {
 
@@ -88,6 +95,17 @@ public final class Nxt {
         }
     }
 
+    public static int getIntProperty(String name,int defaultValue) {
+        try {
+            int result = Integer.parseInt(properties.getProperty(name));
+            logger.info(name + " = \"" + result + "\"");
+            return result;
+        } catch (NumberFormatException e) {
+            logger.info(name + " not defined, assuming ",defaultValue);
+            return defaultValue;
+        }
+    }
+
     public static String getStringProperty(String name) {
         return getStringProperty(name, null);
     }
@@ -95,7 +113,10 @@ public final class Nxt {
     public static String getStringProperty(String name, String defaultValue) {
         String value = properties.getProperty(name);
         if (value != null && !"".equals(value)) {
-            logger.info(name + " = \"" + value + "\"");
+            if (name != null && name.toLowerCase().contains("password"))
+                logger.info(name + " = \"" + value.replaceAll(".", "*") + "\"");
+                    else
+                logger.info(name + " = \"" + value + "\"");
             return value;
         } else {
             logger.info(name + " not defined");
@@ -213,6 +234,42 @@ public final class Nxt {
         return dbs;
     }
 
+    private static void initGraphiteReporter()
+    {
+        logger.info("Initializing graphite Reporter");
+        final Graphite graphite = new Graphite(new InetSocketAddress(Nxt.getStringProperty("burst.graphiteHost"), Nxt.getIntProperty("burst.graphitePort")));
+        final GraphiteReporter reporter = GraphiteReporter.forRegistry(metrics)
+                .prefixedWith("burstWallet")
+                .convertRatesTo(TimeUnit.SECONDS)
+                .convertDurationsTo(TimeUnit.MILLISECONDS)
+                .filter(MetricFilter.ALL)
+                .build(graphite);
+        reporter.start(1, TimeUnit.MINUTES);
+    }
+
+    private static final String HAWTIO_WAR = "hawtio/hawtio-default-1.5.4.war";
+
+    private static void enableHawtIo() throws Exception {
+        if (!Files.exists(Paths.get(HAWTIO_WAR)))
+        {
+            logger.error("Unable to start hawtio - please make sure to use the right distribution or " +
+                    "manually create "+HAWTIO_WAR);
+        }
+        io.hawt.embedded.Main main = new io.hawt.embedded.Main();
+        System.setProperty("hawtio.config.dir", "hawtio/base");
+        System.setProperty("hawtio.authenticationEnabled", "true");
+        System.setProperty("hawtio.authenticationContainerDiscoveryClasses", "");
+        System.setProperty("hawtio.realm", "hawtio");
+        System.setProperty("java.security.auth.login.config", "hawtio/login.conf");
+
+
+        main.setWar(HAWTIO_WAR);
+        main.setPort(Nxt.getIntProperty("burst.hawtIoPort", 8124));
+        main.run();
+
+    }
+
+
     private static class Init {
 
         static {
@@ -254,6 +311,15 @@ public final class Nxt {
                 TransactionProcessorImpl.getInstance();
                 BlockchainProcessorImpl.getInstance();
 
+                if (Nxt.getBooleanProperty("burst.enableGraphiteMetrics", false))
+                {
+                    initGraphiteReporter();
+                }
+
+                if (Nxt.getBooleanProperty("burst.enableHawtIo", false))
+                {
+                    enableHawtIo();
+                }
 
                 Account.init();
                 Alias.init();
