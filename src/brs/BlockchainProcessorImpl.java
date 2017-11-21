@@ -961,7 +961,7 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
       int curTime = Burst.getEpochTime();
 
       synchronized (blockchain) {
-        logger.debug("Trying to push block " + block.getId() + " (height " + block.getHeight() + ")");
+        //logger.debug("Trying to push block " + block.getId() + " (height " + block.getHeight() + ")");
         TransactionProcessorImpl transactionProcessor = TransactionProcessorImpl.getInstance();
         BlockImpl previousLastBlock = null;
         try {
