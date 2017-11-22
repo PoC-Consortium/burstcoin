@@ -388,9 +388,10 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
 
 			long currentBlockId = commonBlockId;
 			
-			 /* This check that all blocks from commonBlockId in cache are consistent from chain
-			 * If not we reset to Last block from chain. This will override all CommonBlockId checks above.
-			 * We should also clear cache here if we reset
+			 /* 
+			  *  This check that all blocks from commonBlockId in cache are consistent from chain
+			  *  If not we reset to Last block from chain. This will sadly override all CommonBlockId checks above.
+			  *  Note: We should also clear cache here if we reset
 			 */
 			if(asumedChainHeight == asumedCommonBlockHeight) {
               synchronized (blockCache) {
