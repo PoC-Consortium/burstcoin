@@ -40,7 +40,7 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
   public static final int oclWaitThreshold = Burst.getIntProperty("brs.oclWaitThreshold") == 0 ? 2000 : Burst.getIntProperty("brs.oclWaitThreshold");
   private static final Semaphore gpuUsage = new Semaphore(2);
   /** If we are more than this many blocks behind we can engage "catch-up"-mode if enabled */
-  private static final long BLOCKCHAIN_CATCHUP_THRESHOLD = 2000;
+ // private static final long BLOCKCHAIN_CATCHUP_THRESHOLD = 2000;
 
   private static final BlockchainProcessorImpl instance = new BlockchainProcessorImpl();
 
@@ -67,7 +67,8 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
 
   private volatile boolean isScanning;
   private volatile boolean forceScan = Burst.getBooleanProperty("brs.forceScan");
-  private volatile boolean validateAtScan = Burst.getBooleanProperty("brs.forceValidate");
+ // disabled in function
+  // private volatile boolean validateAtScan = Burst.getBooleanProperty("brs.forceValidate");
 
 
   // Last downloaded block:
@@ -391,18 +392,22 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
 			 /* 
 			  *  This check that all blocks from commonBlockId in cache are consistent from chain
 			  *  If not we reset to Last block from chain. This will sadly override all CommonBlockId checks above.
-			  *  Note: We should also clear cache here if we reset
 			 */
 			if(asumedChainHeight == asumedCommonBlockHeight) {
+			  boolean resetcache =false;
               synchronized (blockCache) {
                 long checkBlockId = currentBlockId;
                 while (checkBlockId != blockchain.getLastBlock().getId()) {
                   if (blockCache.get(checkBlockId) == null) {
                     currentBlockId = blockchain.getLastBlock().getId();
+                    resetcache = true;
                     break;
                   }
                   checkBlockId = blockCache.get(checkBlockId).getPreviousBlockId();
                 }
+              }
+              if(resetcache){
+            	  clearblockCache(); //clear cache since it is not correct.
               }
             }
 
@@ -754,18 +759,22 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
           }
         } // synchronized
 
-        synchronized (blockCache) { // cache may no longer correspond with current chain, so dump it
-          blockCache.clear();
-          reverseCache.clear();
-          unverified.clear();
-          lastDownloaded = blockchain.getLastBlock().getId();
-          blockCacheSize = 0;
-          blockCache.notify();
-        }
+        clearblockCache();
       }
 
     };
-
+    private void clearblockCache(){
+      synchronized (blockCache) { // cache may no longer correspond with current chain, so dump it
+        blockCache.clear();
+        reverseCache.clear();
+        unverified.clear();
+        lastDownloaded = blockchain.getLastBlock().getId();
+        blockCacheSize = 0;
+        blockCache.notify();
+      }
+    }
+  
+  
   private BlockchainProcessorImpl() {
 
     blockListeners.addListener(new Listener<Block>() {
@@ -923,10 +932,14 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
     forceScan = true;
   }
 
+  /* scan function is Diabled 
   @Override
   public void validateAtNextScan() {
     validateAtScan = true;
+	 
   }
+  */
+  
 
   void setGetMoreBlocks(boolean getMoreBlocks) {
     this.getMoreBlocks = getMoreBlocks;
