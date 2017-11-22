@@ -68,7 +68,7 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
   private volatile boolean isScanning;
   private volatile boolean forceScan = Burst.getBooleanProperty("brs.forceScan");
  // disabled in function
-  // private volatile boolean validateAtScan = Burst.getBooleanProperty("brs.forceValidate");
+  private volatile boolean validateAtScan = Burst.getBooleanProperty("brs.forceValidate");
 
 
   // Last downloaded block:
@@ -298,6 +298,7 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
     }
 
     private boolean peerHasMore;
+    
 
     @Override
       public void run() {
@@ -344,7 +345,7 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
             	logger.debug("Peer has no chainheight");
             	return;
             }
-            
+         
             int asumedChainHeight = getAssumedChainHeight();
             
             /* This should remove the need for getMilestoneBlockID */
@@ -354,21 +355,19 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
             }
    			// We now have an assumption that the peer has a better or higher chain because more work is put into it (betterCumulativeDifficulty).
 			
-            
-                       
-			//Setting our commonBlockId to genesis to start from
+            //Setting our commonBlockId to genesis to start from
             long commonBlockId = Genesis.GENESIS_BLOCK_ID;
-
+            
 			//now to find the common block id. 
 			//Common block id is the highest id that both peer and local wallet share
             if (blockchain.getLastBlock().getId() != Genesis.GENESIS_BLOCK_ID) {
               commonBlockId = getCommonMilestoneBlockId(peer);
             }
 			
-			//If commonblock went to 0 the peer cannot feed us
+			//If common block went to 0 the peer cannot feed us
 			//this can be due to timeouts and other factors.
             if (commonBlockId == 0 || !peerHasMore) {
-			  logger.debug("Common blockid"+commonBlockId+ " peer has more:"+peerHasMore+" lastdownloaded:"+lastDownloaded+" cachesize: "+blockCache.size()+" curheight: "+blockchain.getLastBlock().getStringId());
+			  logger.debug("Common blockid"+commonBlockId+ " peer has more:"+peerHasMore+" cachesize: "+blockCache.size()+" curheight: "+blockchain.getLastBlock().getStringId());
 			  return;
             }
             
@@ -380,7 +379,7 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
             
             int asumedCommonBlockHeight = getAssumedBlockHeight(commonBlockId);
 			
-			logger.debug("Asumedchain:"+asumedChainHeight+" Commonblock:"+asumedCommonBlockHeight+" CacheSize:"+blockCache.size());
+			logger.debug("Asumedchain:"+asumedChainHeight+" Commonblock:"+asumedCommonBlockHeight+" CacheSize:"+blockCache.size()+" BlockId:"+commonBlockId);
 									
 			if (asumedChainHeight - asumedCommonBlockHeight >= 720) {
 			  logger.debug("We have bigger then 720 blocks in difference");
@@ -558,34 +557,25 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
     }
     private int getAssumedBlockHeight(long BlockId) {
       synchronized (blockCache){
-    	if(blockCache.size() > 0){ //we have a downloaded cache
-		  if (blockCache.containsKey(BlockId)) {
-			return blockCache.get(BlockId).getHeight();
-		  }else if(blockchain.hasBlock(BlockId)) {
-		    return blockchain.getBlock(BlockId).getHeight();
-	      }else {//this should not be needed will remove later when all checks out.
-		    logger.warn("Cannot get asumed blockheight. blockID: "+BlockId);
-		    return 0;
-		  }
-        }
+		if (blockCache.containsKey(BlockId)) {
+		  return blockCache.get(BlockId).getHeight();
+		}else if(blockchain.hasBlock(BlockId)) {
+		  return blockchain.getBlock(BlockId).getHeight();
+	    }else {//this should not be needed will remove later when all checks out.
+		  logger.warn("Cannot get asumed blockheight. blockID: "+BlockId);
+		  return 0;
+		}
       }
-      return 0;
     }  
- /* Never Used??
-      private long getPeerBlockchainHeight(Peer peer)
-      {
-        try{
-          JSONObject blockchainStatus = peer.sendGetRequest("/burst?requestType=getBlockchainStatus");
-          Long res = Long.parseLong(blockchainStatus.getOrDefault("numberOfBlocks", String.valueOf(BlockchainImpl.getInstance().getHeight())).toString()) -1;
-          return res;
-        } catch (Exception e)
-          {
-            logger.warn("unable to get blockchain height from peer", e);
-          }
-        return BlockchainImpl.getInstance().getHeight();
-
-      }
-*/
+    private long getLastAssumedBlockId() {
+      synchronized (blockCache){
+    	if (blockCache.size() >0){
+  		  return  blockCache.get(blockCache.keySet().toArray()[blockCache.keySet().size()-1]).getId(); 
+  		}else{
+  		  return blockchain.getLastBlock().getId();
+  		}
+      }	  
+    }  
 
       private long getCommonMilestoneBlockId(Peer peer) {
 
@@ -594,13 +584,8 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
         while (true) {
           JSONObject milestoneBlockIdsRequest = new JSONObject();
           milestoneBlockIdsRequest.put("requestType", "getMilestoneBlockIds");
-		  //String curChainID = blockchain.getLastBlock().getStringId();
-		  String curCacheId = Convert.toUnsignedLong(lastDownloaded).toString();
-          if(curCacheId == "0"){
-			  curCacheId = blockchain.getLastBlock().getStringId();
-		  }
 		  if (lastMilestoneBlockId == null) {
-  		    milestoneBlockIdsRequest.put("lastBlockId", curCacheId);
+  		    milestoneBlockIdsRequest.put("lastBlockId", Convert.toUnsignedLong(getLastAssumedBlockId()));
 		  } else {
             milestoneBlockIdsRequest.put("lastMilestoneBlockId", lastMilestoneBlockId);
           }
@@ -932,13 +917,12 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
     forceScan = true;
   }
 
-  /* scan function is Diabled 
+   
   @Override
   public void validateAtNextScan() {
     validateAtScan = true;
-	 
   }
-  */
+  
   
 
   void setGetMoreBlocks(boolean getMoreBlocks) {
