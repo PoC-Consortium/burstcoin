@@ -60,8 +60,8 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
   private volatile boolean getMoreBlocks = true;
 
   // blockCache for faster sync
-  public static final Map<Long, Block> blockCache = new HashMap<Long, Block>();
-  public static final Map<Long, Long> reverseCache = new HashMap<Long, Long>();
+  public static final Map<Long, Block> blockCache = new LinkedHashMap<Long, Block>();
+  public static final Map<Long, Long> reverseCache = new LinkedHashMap<Long, Long>();
   public static final List<Long> unverified = new LinkedList<Long>();
   private static int blockCacheSize = 0;
 
@@ -339,15 +339,26 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
             if (response.get("blockchainHeight") != null) {
               lastBlockchainFeeder = peer;
               lastBlockchainFeederHeight = ((Long) response.get("blockchainHeight")).intValue();
+            }else {
+            	logger.debug("Peer has no chainheight");
+            	return;
             }
+            
+            /* This should remove the need for getMilestoneBlockID */
+            if(lastBlockchainFeederHeight <= getAssumedChainHeight()-720) {
+            	logger.debug("Peer claims to have better cumulativeDifficulty but chainheight is to low to continue. PeerHeight:"+lastBlockchainFeederHeight);
+            	return;
+            }
+            
+            
 
-			// We now have an asumption that the peer has a better or higer chain because more work is put into it (betterCumulativeDifficulty).
+			// We now have an assumption that the peer has a better or higher chain because more work is put into it (betterCumulativeDifficulty).
 			
 			//Setting our commonBlockId to genesis to start from
             long commonBlockId = Genesis.GENESIS_BLOCK_ID;
 
 			//now to find the common block id. 
-			//Common block id is the higest id that both peer and local wallet share
+			//Common block id is the highest id that both peer and local wallet share
 			//since we can download before all blocks are confirmed we need to include our cache
 			//In a perfect scenario this should be our last downloaded block.
 			//But if we previously downloaded from a fork this id might be set back a little.
@@ -361,22 +372,36 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
 			  logger.debug("Common blockid"+commonBlockId+ " peer has more:"+peerHasMore+" lastdownloaded:"+lastDownloaded+" cachesize: "+blockCache.size()+" curheight: "+blockchain.getLastBlock().getStringId());
 			  return;
             }
-			
-			 /* Redundant get of commonblockid? (why?)
+            
+			 /* Redundant get of commonBlockId? (why?)
 			    Leave it on for now.
 			 */ 
             commonBlockId = getCommonBlockId(peer, commonBlockId);
             if (commonBlockId == 0 || !peerHasMore) {
               return;
             }
-			
-			/* Since we have non processed cacheblocks we need to add that to our process */ 
-			int asumedChainHeight = blockchain.getHeight() + blockCache.size();
-			int asumedCommonBlockHeight = asumedChainHeight;
-			if(blockCache.size() > 0){
-				asumedCommonBlockHeight = blockCache.get(commonBlockId).getHeight(); 
+			           
+			/* Since we have non processed cache blocks we need to add that to our process */ 
+			int asumedChainHeight = 0;
+			int asumedCommonBlockHeight = 0;
+			synchronized (blockCache){
+			  if(blockCache.size() > 0){ //we have a downloaded cache
+  			    asumedChainHeight =  blockCache.get(blockCache.keySet().toArray()[blockCache.keySet().size()-1]).getHeight(); //
+				if (blockCache.containsKey(commonBlockId)) {
+				  asumedCommonBlockHeight = blockCache.get(commonBlockId).getHeight();
+				}else if(blockchain.hasBlock(commonBlockId)) {
+				  asumedCommonBlockHeight = blockchain.getBlock(commonBlockId).getHeight();
+				}else {//this should not be needed will remove later when all checks out.
+				  logger.warn("Peer common block id: "+commonBlockId+" not found - Critical logic error.");
+				  return;
+				}
+			  }else{ //we have no cache so fetch from chain
+				asumedChainHeight = blockchain.getHeight();
+				asumedCommonBlockHeight = blockchain.getBlock(commonBlockId).getHeight();
+			  }
 			}
-			logger.debug("Asumedchain:"+asumedChainHeight+" AsumedBlock"+asumedCommonBlockHeight+" CacheSize:"+blockCache.size());
+
+			logger.debug("Asumedchain:"+asumedChainHeight+" Commonblock:"+asumedCommonBlockHeight+" CacheSize:"+blockCache.size());
 			
 			/* If commonblock still is in cache this will fail
             final Block commonBlock = blockDb.findBlock(commonBlockId);
@@ -389,25 +414,21 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
 			  logger.debug("We have bigger then 720 blocks in difference");
 			  return;
             }
-
 			
-            //We should not need to change currentblockid now.
+            //We should not need to change currentBlockId now.
             //long currentBlockId = (lastDownloaded == 0 ? commonBlockId : lastDownloaded);
 			long currentBlockId = commonBlockId;
-			
-			
+					
 			/* If the commonblock is lower then our chain this is because we got info from a better chain
 			   if commonblock is higher 
 			   we loop the cache untill we hit one we have.
 			   if we do not have it in cache we set it to our chain last block instead.
 			   The loop also makes sure that blocks are consistent reversable to our chain.
 			*/
-            if (asumedCommonBlockHeight < asumedChainHeight) { // fork point
-              currentBlockId = commonBlockId;
-            }
-            else {
+            if (asumedCommonBlockHeight == asumedChainHeight) {
               synchronized (blockCache) {
                 long checkBlockId = currentBlockId;
+                         
                 while (checkBlockId != blockchain.getLastBlock().getId()) {
                   if (blockCache.get(checkBlockId) == null) {
                     currentBlockId = blockchain.getLastBlock().getId();
@@ -415,12 +436,13 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
                   }
                   checkBlockId = blockCache.get(checkBlockId).getPreviousBlockId();
                 }
+                
               }
             }
 
             List<BlockImpl> forkBlocks = new ArrayList<>();
          
-            boolean processedAll = true;
+           // boolean processedAll = true;
             int requestCount = 0;
             outer:
             while (forkBlocks.size() < 1440 && requestCount++ < 10 && ((blockCacheSize < BLOCKCACHEMB * 1024 * 1024) || forkBlocks.size() > 0)) { // fork decision could be wrong if cut off so ignore cache size for forks
@@ -555,6 +577,20 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
       }
 
       /** Returns the current blockchain height for a peer (or the current height of this instance if something goes wrong) */
+    private int getAssumedChainHeight() {
+      synchronized (blockCache){
+	    if(blockCache.size() > 0){ //we have a downloaded cache
+		  return  blockCache.get(blockCache.keySet().toArray()[blockCache.keySet().size()-1]).getHeight(); //
+		}else{ //we have no cache so fetch from chain
+		  return blockchain.getHeight();
+		}
+	  }
+    }
+    private int getAssumedBlockHeight(long BlockId) {
+
+    	return 0;
+    }  
+ //  Never Used??
       private long getPeerBlockchainHeight(Peer peer)
       {
         try{
@@ -568,6 +604,7 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
         return BlockchainImpl.getInstance().getHeight();
 
       }
+
 
       private long getCommonMilestoneBlockId(Peer peer) {
 
