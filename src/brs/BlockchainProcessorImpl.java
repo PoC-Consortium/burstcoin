@@ -527,10 +527,20 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
             }
 			/* Modfied to include cache */
             if(forkBlocks.size() > 0 && asumedChainHeight - asumedCommonBlockHeight < 720) {
-				BlockImpl cblock;
-				Object obj = blockCache.get(commonBlockId);
-				JSONObject bData = (JSONObject) obj;
-				cblock = BlockImpl.parseBlock(bData);
+            	BlockImpl cblock;
+            	synchronized (blockCache){
+            	  if(blockCache.containsKey(commonBlockId)){
+    				Object obj = blockCache.get(commonBlockId);
+    				JSONObject bData = (JSONObject) obj;
+    				cblock = BlockImpl.parseBlock(bData);
+            	  }else if(blockchain.hasBlock(commonBlockId) ){
+            		cblock = blockchain.getBlock(commonBlockId);
+            	  }else{
+            		  logger.warn("We cannot find the commonblock to process fork. ");
+            		  return;
+            	  }
+            	}
+			
 				processFork(forkBlocks.get(0).getPeer(), forkBlocks, cblock);
             }
           } catch (BurstException.StopException e) {
@@ -696,12 +706,38 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
       }
 
       private void processFork(Peer peer, final List<BlockImpl> forkBlocks, final Block commonBlock) {
-
+    	  
+    	 /*
+    	  * Since we rely on alot of function in the chain for fork processing it is best to keep that consistent.
+    	  * We found the fork with last download and those blocks were put in cache.
+    	  * Therefore we will now sleep the thread until the whole cache is processed into the chain.
+    	  * It is better to be correct than speedy
+    	  */
+    	  logger.warn("We have got a forked chain. Waiting for cache to be processed.");
+    	  while(true){
+    	    synchronized (blockCache){
+    		  if(blockCache.size() == 0){
+    		    break;
+    		  }
+    		}
+    	    try {
+    	      Thread.sleep(1000);
+    	    }catch(InterruptedException ex){
+    	        Thread.currentThread().interrupt();
+    	    }
+    	  }
+    	  logger.warn("Cache is now processed. Starting to process fork.");
+    	  
+    	  
         synchronized (blockchain) {
+          //we read the current cumulative difficulty
           BigInteger curCumulativeDifficulty = blockchain.getLastBlock().getCumulativeDifficulty();
 
+          // we popoff to current cumlativeDifficulty and save those blocks in a list
           List<BlockImpl> myPoppedOffBlocks = popOffTo(commonBlock);
 
+          //now we check that our chain is popped off .if not it is saved to be processed later
+          //if the downloaded blocks does not fit in chain we blacklist peer and stop pushing blocks
           int pushedForkBlocks = 0;
           if (blockchain.getLastBlock().getId() == commonBlock.getId()) {
             for (BlockImpl block : forkBlocks) {
@@ -717,6 +753,7 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
             }
           }
 
+          //we check if we succeed to push any block and if we got wrong cumulative difficulty we now blacklist peer and try to restore chain
           if (pushedForkBlocks > 0 && blockchain.getLastBlock().getCumulativeDifficulty().compareTo(curCumulativeDifficulty) < 0) {
             logger.debug("Pop off caused by peer " + peer.getPeerAddress() + ", blacklisting");
             peer.blacklist();
@@ -727,6 +764,7 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
             }
           }
 
+          //if we did not push any blocks we try to restore chain.
           if (pushedForkBlocks == 0) {
             for (int i = myPoppedOffBlocks.size() - 1; i >= 0; i--) {
               BlockImpl block = myPoppedOffBlocks.remove(i);
@@ -737,7 +775,7 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
                 break;
               }
             }
-          } else {
+          } else { 
             for (BlockImpl block : myPoppedOffBlocks) {
               TransactionProcessorImpl.getInstance().processLater(block.getTransactions());
             }
