@@ -33,7 +33,7 @@ public final class DownloadCache {
 	  }
 	}
   }
-  public boolean IsCacheFull() {
+  public boolean IsFull() {
 	if(  blockCacheSize > BLOCKCACHEMB * 1024 * 1024) {
 		return true;
 	}
@@ -92,12 +92,25 @@ public final class DownloadCache {
     }
   }
   public BlockImpl GetBlock(long BlockId) {
-	  return (BlockImpl) blockCache.get(BlockId);
+	  if(blockCache.containsKey(BlockId)){
+	      return (BlockImpl) blockCache.get(BlockId);
+		}else if(blockchain.hasBlock(BlockId)){
+		  return blockchain.getBlock(BlockId);
+		}else{
+		  return null;
+		}
   }
   public BlockImpl GetBlock(Long BlockId) {
-	  return (BlockImpl) blockCache.get(BlockId);
+	  if(blockCache.containsKey(BlockId)){
+	      return (BlockImpl) blockCache.get(BlockId);
+		}else if(blockchain.hasBlock(BlockId)){
+		  return blockchain.getBlock(BlockId);
+		}else{
+		  return null;
+		}
   }
   public BlockImpl GetNextBlock(long prevBlockId) {
+	  /*we need to add againt chain aswell */
     if (!reverseCache.containsKey(prevBlockId)) {
 	  return null;
 	}
@@ -123,7 +136,7 @@ public final class DownloadCache {
       return false;  
     }
   }
-  public boolean IsFork(BlockImpl block) {
+  public boolean IsConflictingBlock(BlockImpl block) {
     if (reverseCache.containsKey(block.getPreviousBlockId())) {
       long existingId = reverseCache.get(block.getPreviousBlockId());
       if (existingId != block.getId()) {
@@ -131,6 +144,31 @@ public final class DownloadCache {
       }
     }
     return false;
+  }
+  public boolean CanBeFork(long oldBlockId){
+	  int curHeight = getChainHeight();
+	  BlockImpl block = null;
+	  if(blockCache.containsKey(oldBlockId)){
+		  block = (BlockImpl) blockCache.get(oldBlockId);
+	  }else if(blockchain.hasBlock(oldBlockId)){
+		  block = blockchain.getBlock(oldBlockId);
+	  }
+	  if(block == null){
+		  return false;
+	  }
+	  if((curHeight - block.getHeight()) >720){
+		  return false;
+	  }
+	  return true;
+  }
+  
+  public boolean IsFork(BlockImpl block){
+	  // we do not have reverse cache to look up against.
+	  if (HasBlock(block.getPreviousBlockId())){ //we have the block
+		  //get the block and check if it maps to this one
+	  }
+	  
+	  return true; //we do not have the block
   }
   public void AddBlock(BlockImpl block) {
       blockCache.put(block.getId(), block);
