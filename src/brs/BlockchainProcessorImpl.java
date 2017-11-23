@@ -419,74 +419,38 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
                       continue;
                     }
 
-                    if (reverseCache.containsKey(block.getPreviousBlockId())) {
-                      long existingId = reverseCache.get(block.getPreviousBlockId());
-                      if (existingId != block.getId()) {
+                    /*  Here we check if we already have a block at the position this block
+                     *  is going to be added to.
+                     * 
+                     * */
+                    DownloadCache.IsConflictingBlock();
+                    if (DownloadCache.IsFork(block)) {
                         logger.info("Aborting getMoreBlocks. Conflicting fork already in queue.");
                         return;
-                      }
                     }
 
                     block.setPeer(peer);
                     int blockSize = blockData.toString().length();
                     block.setByteLength(blockSize);
-
+                    BlockImpl prevBlock;
                     Long prevId = Convert.parseUnsignedLong((String) blockData.get("previousBlock"));
                     // Try to find previous Block:
-                    if (BlockchainProcessorImpl.blockCache.containsKey(prevId)) {
-                      block.setHeight(BlockchainProcessorImpl.blockCache.get(prevId).getHeight() + 1);
+                    
+                    //if we are saving on fork this will fail second time.
+               
+                    if (DownloadCache.HasBlock(prevId)) {
+                      block.setHeight(DownloadCache.GetBlock(prevId).getHeight() + 1);
+                      if (DownloadCache.IsFork(block)) { //we need to make sure we can map back to chain
+                    	  forkBlocks.add(block);
+                      }else {
+                    	  DownloadCache.AddBlock(block);  
+                      }
                     } else {
-                      // First in cache? Get from blockchain:
-                      BlockImpl prevBlock = (BlockImpl)Burst.getBlockchain().getBlock(prevId);
-                      if (prevBlock == null) {
-                        // We may be on a fork: Add all other Blocks to forkQueue:
-                        if (forkBlocks.size() > 0) {
-                          block.setHeight(forkBlocks.get(forkBlocks.size() - 1).getHeight() + 1);
-                          forkBlocks.add(block);
-                        } else {
-                          // logger.info("Previous Block with ID " + String.valueOf(prevId) + " not found. Blacklisting ...");
-                          // peer.blacklist();
-
-                          // We've already verified that we asked for a block with that prevBlock,
-                          // so not the peer's fault if we changed what we wanted before we receive the data.
-                          return;
-                        }
-                      }
-                      Long altBlockId = null;
-                      if (forkBlocks.size() == 0) {
-                        try {
-                          altBlockId = blockDb.findBlockIdAtHeight(prevBlock.getHeight() + 1);
-                        } catch (Exception e) {}
-                        if (altBlockId != null) {
-                          if (altBlockId.longValue() != block.getId()) {
-                            // fork
-                            forkBlocks.add(block);
-                          }
-                          else {
-                            lastDownloaded = currentBlockId;
-                            continue; // don't clutter cache with stuff we already have
-                          }
-                        }
-                        block.setHeight(prevBlock.getHeight() + 1);
-                      }
+                    	if (forkBlocks.size() > 0) {
+                            //check that theese blocks maps ok ?
+                    		forkBlocks.add(block);
+                    	}
                     }
-                    //logger.info("Block Height " + String.valueOf(block.getHeight()) + " ID " + String.valueOf(block.getId()));
-
-                    if (forkBlocks.size() == 0) { // keep old cache separate from fork. blindly adding to reverseCache could cause it to end up in an uncleanable state
-                      // Add to Blockcache
-                      BlockchainProcessorImpl.blockCache.put(block.getId(), block);
-
-                      // Add to reverse cache
-                      BlockchainProcessorImpl.reverseCache.put(prevId, currentBlockId);
-
-                      // Mark for threaded poc verification
-                      BlockchainProcessorImpl.unverified.add(block.getId());
-
-                      blockCacheSize += blockSize;
-
-                      lastDownloaded = currentBlockId;
-                    }
-
                   } catch (RuntimeException | BurstException.ValidationException e) {
                     logger.info("Failed to parse block: " + e.toString(), e);
                     peer.blacklist(e);
@@ -495,10 +459,10 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
                     logger.warn("Unhandled exception",e);
                   }
                 }
-                blockCache.notify();
-                logger.trace("Unverified blocks: " + String.valueOf(unverified.size()));
-                logger.trace("Blocks in cache: " + String.valueOf(blockCache.size()));
-                logger.trace("Bytes in cache: " + String.valueOf(blockCacheSize));
+                DownloadCache.notify();
+                logger.trace("Unverified blocks: " + String.valueOf(DownloadCache.getUnverifiedSize()));
+                logger.trace("Blocks in cache: " + String.valueOf(DownloadCache.size()));
+                logger.trace("Bytes in cache: " + String.valueOf(DownloadCache.blockCacheSize));
               }
             }
 			/* Modfied to include cache */

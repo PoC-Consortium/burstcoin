@@ -23,6 +23,7 @@ public final class DownloadCache {
   private final BlockchainImpl blockchain = BlockchainImpl.getInstance();
   private static final Logger logger = LoggerFactory.getLogger(DownloadCache.class);
   public static int blockCacheSize = 0;
+  
   public int getChainHeight() {
     synchronized (blockCache){
 	  if(blockCache.size() > 0){ //we have a downloaded cache
@@ -122,6 +123,21 @@ public final class DownloadCache {
       return false;  
     }
   }
+  public boolean IsFork(BlockImpl block) {
+    if (reverseCache.containsKey(block.getPreviousBlockId())) {
+      long existingId = reverseCache.get(block.getPreviousBlockId());
+      if (existingId != block.getId()) {
+        return true;
+      }
+    }
+    return false;
+  }
+  public void AddBlock(BlockImpl block) {
+      blockCache.put(block.getId(), block);
+      reverseCache.put(block.getPreviousBlockId(), block.getId());
+      unverified.add(block.getId());
+      blockCacheSize += block.getByteLength();
+  }
   public void SetCacheBackTo(long BadBlockId) {
 	  /* Starting from lowest poing and erase all up to lastblock */
 	  if(blockCache.containsKey(BadBlockId)) { //we have something to remove
@@ -141,22 +157,15 @@ public final class DownloadCache {
 		  blockCache.notify();
 	  }
   }
-  public void RemoveBlock(long BlockId) {
-   //remove in cache and reversecache	  
-	  
-	  
-  }
-  
   public boolean RemoveBlock(BlockImpl block) {
-	  if (blockCache.containsKey(block.getId())) { // make sure it wasn't already removed(ex failed preValidate) to avoid double subtracting from blockCacheSize
-          reverseCache.remove(block.getId());
-          blockCache.remove(block.getId());
-          blockCacheSize -= block.getByteLength();
-          return true;
-       }else {
-    	   return false;
-       }
-	  
+    if (blockCache.containsKey(block.getId())) { // make sure it wasn't already removed(ex failed preValidate) to avoid double subtracting from blockCacheSize
+      reverseCache.remove(block.getId());
+      blockCache.remove(block.getId());
+      blockCacheSize -= block.getByteLength();
+      return true;
+    }else {
+      return false;
+    }
   }
   public long getLastBlockId() {
     synchronized (blockCache){
