@@ -13,6 +13,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.*;
 
+
 public final class BlockImpl implements Block {
 
   private static final Logger logger = LoggerFactory.getLogger(BlockImpl.class);
@@ -442,9 +443,9 @@ public final class BlockImpl implements Block {
   public void preVerify(byte[] scoopData) throws BlockchainProcessor.BlockNotAcceptedException {
     synchronized(this) {
       // Remove from todo-list:
- //     synchronized(BlockchainProcessorImpl.DownloadCacache) {
- //       BlockchainProcessorImpl.unverified.remove(this.getId());
- //     }
+      synchronized(BlockchainProcessorImpl.DownloadCache) {
+        BlockchainProcessorImpl.DownloadCache.removeUnverified(this.getId());
+      }
 
       // Just in case its already verified
       if(this.pocTime != null)

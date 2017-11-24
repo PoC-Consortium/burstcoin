@@ -13,7 +13,7 @@ import brs.BlockchainImpl;
 import brs.Burst;
 
 
-public final class DownloadCache {
+public final class DownloadCacheImpl {
   public final int BLOCKCACHEMB = Burst.getIntProperty("brs.blockCacheMB") == 0 ? 40 : Burst.getIntProperty("brs.blockCacheMB");
 	
   public static final Map<Long, Block> blockCache = new LinkedHashMap<Long, Block>();
@@ -21,8 +21,10 @@ public final class DownloadCache {
   public static final List<Long> unverified = new LinkedList<Long>();
   
   private final BlockchainImpl blockchain = BlockchainImpl.getInstance();
-  private static final Logger logger = LoggerFactory.getLogger(DownloadCache.class);
+  private static final Logger logger = LoggerFactory.getLogger(DownloadCacheImpl.class);
   public static int blockCacheSize = 0;
+  
+ 
   
   public int getChainHeight() {
     synchronized (blockCache){

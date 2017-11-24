@@ -12,6 +12,7 @@ import brs.db.DerivedTable;
 import brs.peer.Peer;
 import brs.peer.Peers;
 import brs.util.*;
+import brs.util.DownloadCacheImpl;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONStreamAware;
@@ -33,7 +34,7 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
   private final BlockDb blockDb = Burst.getDbs().getBlockDb();
   private final TransactionDb transactionDb = Burst.getDbs().getTransactionDb();
   /* DownloadCache returns values from cache or blockchain */
-  public static DownloadCache DownloadCache = new DownloadCache();
+  public static final DownloadCacheImpl DownloadCache = new DownloadCacheImpl() ; // = new DownloadCache();
   
   
   public static final int MAX_TIMESTAMP_DIFFERENCE = 15;
@@ -1312,7 +1313,10 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
     }
     return transaction != null && hasAllReferencedTransactions(transaction, timestamp, count + 1);
   }
-
+  public void RemoveUnverified(long BlockId) {
+	  
+  }
+  
   @Override
   public void scan(int height) {
     throw new UnsupportedOperationException("scan is disabled for the moment - please use the pop off feature");
