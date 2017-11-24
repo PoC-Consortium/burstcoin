@@ -137,13 +137,29 @@ public final class DownloadCache {
     }
   }
   public boolean IsConflictingBlock(BlockImpl block) {
-    if (reverseCache.containsKey(block.getPreviousBlockId())) {
-      long existingId = reverseCache.get(block.getPreviousBlockId());
-      if (existingId != block.getId()) {
-        return true;
-      }
-    }
-    return false;
+	
+	/*
+	 * We want to make sure that there is no block at the position we want to place input block.
+	 * We should not call this function without having checked that block is not in chain.
+     *
+	 */
+	
+		Long ChainBlockId = null;
+		//check reverse cache and get input block id from it
+        ChainBlockId = reverseCache.get(block.getPreviousBlockId());
+		
+	    if(ChainBlockId == null) { 
+	    	int Height;
+	    	Height =  blockchain.getBlock(block.getPreviousBlockId()).getHeight();
+	    	ChainBlockId = blockchain.getBlockIdAtHeight(Height +1);	  
+	    }
+	    if(ChainBlockId != null) {
+			if(ChainBlockId == block.getId()) {
+				return false;
+			}
+		}
+    
+	return true;
   }
   public boolean CanBeFork(long oldBlockId){
 	  int curHeight = getChainHeight();
@@ -171,7 +187,8 @@ public final class DownloadCache {
 	  return true; //we do not have the block
   }
   public void AddBlock(BlockImpl block) {
-      blockCache.put(block.getId(), block);
+	  blockCacheSize += block.getByteLength();
+	  blockCache.put(block.getId(), block);
       reverseCache.put(block.getPreviousBlockId(), block.getId());
       unverified.add(block.getId());
       blockCacheSize += block.getByteLength();
@@ -204,6 +221,15 @@ public final class DownloadCache {
     }else {
       return false;
     }
+  }
+  public BlockImpl getLastBlock() {
+    synchronized (blockCache){
+	  if (blockCache.size() >0){
+		return  GetBlock(blockCache.get(blockCache.keySet().toArray()[blockCache.keySet().size()-1]).getId()); 
+      }else{
+		return blockchain.getLastBlock();
+	  }
+	}	    
   }
   public long getLastBlockId() {
     synchronized (blockCache){

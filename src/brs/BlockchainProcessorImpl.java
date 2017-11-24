@@ -33,7 +33,7 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
   private final BlockDb blockDb = Burst.getDbs().getBlockDb();
   private final TransactionDb transactionDb = Burst.getDbs().getTransactionDb();
   /* DownloadCache returns values from cache or blockchain */
-  private DownloadCache DownloadCache = new DownloadCache();
+  public static DownloadCache DownloadCache = new DownloadCache();
   
   
   public static final int MAX_TIMESTAMP_DIFFERENCE = 15;
@@ -484,7 +484,7 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
           JSONObject milestoneBlockIdsRequest = new JSONObject();
           milestoneBlockIdsRequest.put("requestType", "getMilestoneBlockIds");
 		  if (lastMilestoneBlockId == null) {
-  		    milestoneBlockIdsRequest.put("lastBlockId", Convert.toUnsignedLong(getLastAssumedBlockId()));
+  		    milestoneBlockIdsRequest.put("lastBlockId", Convert.toUnsignedLong(DownloadCache.getLastBlockId()));
 		  } else {
             milestoneBlockIdsRequest.put("lastMilestoneBlockId", lastMilestoneBlockId);
           }
@@ -515,7 +515,7 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
           for (Object milestoneBlockId : milestoneBlockIds) {
             long blockId = Convert.parseUnsignedLong((String) milestoneBlockId);
 
-			if(blockCache.get(blockId) != null){
+			if(DownloadCache.GetBlock(blockId) != null){
 				if (lastMilestoneBlockId == null && milestoneBlockIds.size() > 1) {
 					peerHasMore = false;
 					logger.debug("Peer dont have more (cache)");
@@ -778,41 +778,26 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
 
   @Override
   public void processPeerBlock(JSONObject request) throws BurstException {
-    BlockImpl block = BlockImpl.parseBlock(request);
+    BlockImpl newBlock = BlockImpl.parseBlock(request);
+    if(newBlock == null) {
+    	logger.debug("Peer has announced an unprocessable block.");
+    	return;
+    }
     synchronized (blockchain) {
       synchronized (DownloadCache) {
-        Block prevBlock = blockchain.getLastBlock();
-        if (blockCache.containsKey(block.getPreviousBlockId()) && !(reverseCache.containsKey(block.getPreviousBlockId()))) {
-          prevBlock = blockCache.get(block.getPreviousBlockId());
-        }
-        if (block.getPreviousBlockId() == prevBlock.getId()) {
-          if (reverseCache.containsKey(prevBlock.getId())) {
-            Long existingId = reverseCache.get(prevBlock.getId());
-            if (existingId != block.getId()) {
-              logger.info("Ignoring peer broadcast block with ID " + Convert.toUnsignedLong(block.getId())
-                          + ". Conflicting block " + Convert.toUnsignedLong(existingId) + " already exists in queue");
-            }
-            else {
-              logger.debug("Ignoring peer broadcast block with ID " + Convert.toUnsignedLong(block.getId()) + ". Already exists in queue");
-            }
-          }
-          else {
-            block.setHeight(prevBlock.getHeight() + 1);
-            blockCache.put(block.getId(), block);
-            reverseCache.put(block.getPreviousBlockId(), block.getId());
-            int blockSize = block.toString().length();
-            block.setByteLength(blockSize);
-            blockCacheSize += block.getByteLength();
-            // do not add to unverified as it will be processed immediately
-            lastDownloaded = block.getId();
-            blockCache.notify();
-          }
-        }
-        else {
-          logger.debug("Ignoring peer broadcast block with ID " + Convert.toUnsignedLong(block.getId())
-                       + ". Previous block " + Convert.toUnsignedLong(block.getPreviousBlockId())
-                       + " does not match actual previous block ID " + Convert.toUnsignedLong(prevBlock.getId()));
-        }
+       /*
+        * This process takes care of the blocks that is announced by peers
+        * Here we check that the block is mapped back to our chain 
+        * Peers should not feed us forks. We download them from peers only
+        */
+    	BlockImpl chainblock = DownloadCache.getLastBlock(); 
+    	if(chainblock.getId() == newBlock.getPreviousBlockId()) {
+    		newBlock.setHeight(chainblock.getHeight() + 1);
+    		newBlock.setByteLength(newBlock.toString().length());
+    		DownloadCache.AddBlock(newBlock);
+    	}else {
+    		logger.debug("Peer sent us block: "+newBlock.getPreviousBlockId()+ " that does not match our chain.");
+    	}
       }
     }
   }
