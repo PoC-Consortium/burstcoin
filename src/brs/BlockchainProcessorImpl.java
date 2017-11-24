@@ -60,24 +60,10 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
   private volatile int lastBlockchainFeederHeight;
   private volatile boolean getMoreBlocks = true;
 
-  // blockCache for faster sync
-//  public static final Map<Long, Block> blockCache = new LinkedHashMap<Long, Block>();
-//  public static final Map<Long, Long> reverseCache = new LinkedHashMap<Long, Long>();
-//  public static final List<Long> unverified = new LinkedList<Long>();
- // private static int blockCacheSize = 0;
-
   private volatile boolean isScanning;
   private volatile boolean forceScan = Burst.getBooleanProperty("brs.forceScan");
  // disabled in function
   private volatile boolean validateAtScan = Burst.getBooleanProperty("brs.forceValidate");
-
-
-  // Last downloaded block:
- // private Long lastDownloaded = 0L;
-
-
-  
-  
   
   private final Runnable debugInfoThread = new Runnable() {
       @Override
@@ -89,7 +75,7 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
     };
 
     
-
+/*
   private static void addCollectionGauge (MetricRegistry metrics, final Collection c, String name) {
     metrics.register(MetricRegistry.name(BlockchainProcessorImpl.class, name, "size"),
                      (Gauge<Integer>) () -> c.size());
@@ -102,6 +88,7 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
  //                        (Gauge<Integer>) () -> DownloadCache.blockCacheSize);
   }
 
+*/
   private final Timer pocTimer = Burst.metrics.timer(MetricRegistry.name(BlockchainImpl.class, "pocVerification"));
 
   private final Runnable pocVerificationThread = new Runnable() {
@@ -254,8 +241,8 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
             }
             
             /* Why is this? */
-            synchronized(DownloadCache) {
-            	DownloadCache.WaitForMapToBlockChain();
+            synchronized (DownloadCache){
+              DownloadCache.WaitForMapToBlockChain();
             }
             
           }
@@ -294,156 +281,138 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
     
 
     @Override
-      public void run() {
+    public void run() {
+      while(true){
+      try {
         try {
-          try {
-            if (!getMoreBlocks) {
-              return;
+          if (!getMoreBlocks) {
+        	  logger.debug("just exit");
+            return;
+          }
+          /*
+           * Since we rely on a Cache it does not make sense to use cumulative difficulty when syncing.
+           * only if our real blockchain is < 1440 block behind peers height it makes sense.
+           * To make sync a bit more safe we are not going to max out our cache from one peer.
+           * one peer will feed us max 1440 blocks and if that maps to a fork it will be processed.
+           * we will not block if only one peer is connected.
+           * 
+           */
+            
+           if (DownloadCache.IsFull()){
+             logger.debug("blockcache full.");
+             return;
+           }
+            
+           peerHasMore = true;
+           
+           Peer peer = Peers.getAnyPeer(Peer.State.CONNECTED, true);
+           if (peer == null) {
+             logger.debug("No peer connected.");	
+             return;
+           }
+
+           JSONObject response = peer.send(getCumulativeDifficultyRequest);
+           if (response == null) {
+			 logger.debug("Peer Response is null");
+             return;
+           }
+            
+           if (response.get("blockchainHeight") != null) {
+             lastBlockchainFeeder = peer;
+             lastBlockchainFeederHeight = ((Long) response.get("blockchainHeight")).intValue();
+           }else {
+             logger.debug("Peer has no chainheight");
+             return;
+           }
+            
+           /* do we check Cumulative Difficulty= */
+           if(lastBlockchainFeederHeight - blockchain.getHeight() <= Constants.MAX_ROLLBACK){
+             BigInteger curCumulativeDifficulty = blockchain.getLastBlock().getCumulativeDifficulty();
+             logger.debug("My culm from cache: "+curCumulativeDifficulty.toString());
+             String peerCumulativeDifficulty = (String) response.get("cumulativeDifficulty");
+             if (peerCumulativeDifficulty == null) {
+  		       logger.debug("Peer CumulativeDifficulty is null");
+               return;
+             }
+             BigInteger betterCumulativeDifficulty = new BigInteger(peerCumulativeDifficulty);
+             if (betterCumulativeDifficulty.compareTo(curCumulativeDifficulty) < 0) {
+			   logger.debug("Peer is on fork or has lower chain.");
+               return;
+             }
+             if (betterCumulativeDifficulty.equals(curCumulativeDifficulty)) {
+			   logger.debug("We are on same height.");
+               return;
+             }
             }
 
-            if (DownloadCache.IsFull()){
-			  logger.debug("blockcache full.");
-			  return;
-			}
-            peerHasMore = true;
-            Peer peer = Peers.getAnyPeer(Peer.State.CONNECTED, true);
-            if (peer == null) {
-			   logger.debug("No peer connected.");	
-              return;
-            }
-            JSONObject response = peer.send(getCumulativeDifficultyRequest);
-            if (response == null) {
-			  logger.debug("Peer Response is null");
-              return;
-            }
-            BigInteger curCumulativeDifficulty = DownloadCache.getCumulativeDifficulty();
-            String peerCumulativeDifficulty = (String) response.get("cumulativeDifficulty");
-            if (peerCumulativeDifficulty == null) {
-  			  logger.debug("Peer CumulativeDifficulty is null");
-              return;
-            }
-            BigInteger betterCumulativeDifficulty = new BigInteger(peerCumulativeDifficulty);
-            if (betterCumulativeDifficulty.compareTo(curCumulativeDifficulty) < 0) {
-			  logger.debug("Peer is on fork or has lower chain.");
-              return;
-            }
-            if (betterCumulativeDifficulty.equals(curCumulativeDifficulty)) {
-			  logger.debug("We are on same height.");
-              return;
-            }
-            if (response.get("blockchainHeight") != null) {
-              lastBlockchainFeeder = peer;
-              lastBlockchainFeederHeight = ((Long) response.get("blockchainHeight")).intValue();
-            }else {
-            	logger.debug("Peer has no chainheight");
-            	return;
-            }
-         
-            int asumedChainHeight = DownloadCache.getChainHeight();
             
-            /* This should remove the need for getMilestoneBlockID */
-            if(lastBlockchainFeederHeight <= (asumedChainHeight-720)) {
-            	logger.debug("Peer claims to have better cumulativeDifficulty but chainheight is to low to continue. PeerHeight:"+lastBlockchainFeederHeight);
-            	return;
-            }
-   			// We now have an assumption that the peer has a better or higher chain because more work is put into it (betterCumulativeDifficulty).
-			
-            //Setting our commonBlockId to genesis to start from
             long commonBlockId = Genesis.GENESIS_BLOCK_ID;
-            
-			//now to find the common block id. 
-			//Common block id is the highest id that both peer and local wallet share
-            if (blockchain.getLastBlock().getId() != Genesis.GENESIS_BLOCK_ID) {
-              commonBlockId = getCommonMilestoneBlockId(peer);
-            }
+            long cacheLastBlock = DownloadCache.getLastBlockId();
 
-			//If common block went to 0 the peer cannot feed us
-			//this can be due to timeouts and other factors.
-            if (commonBlockId == 0 || !peerHasMore) {
-			  logger.debug("Common blockid: "+commonBlockId+ " peer has more:"+peerHasMore+" cachesize: "+DownloadCache.size()+" RealChainHeight: "+blockchain.getLastBlock().getStringId());
-			  return;
+            // Now we will find the highest common block between ourself and our peer
+            if (cacheLastBlock != Genesis.GENESIS_BLOCK_ID) {
+              commonBlockId = getCommonMilestoneBlockId(peer);
+              if (commonBlockId == 0 || !peerHasMore) {
+                logger.debug("Common blockid: "+commonBlockId+ " peer has more:"+peerHasMore+" cachesize: "+DownloadCache.size()+" RealChainHeight: "+blockchain.getLastBlock().getStringId());
+  			    return;
+              }
             }
             
-            commonBlockId = getCommonBlockId(peer, commonBlockId);
-            if (commonBlockId == 0 || !peerHasMore) {
+            /* if we did not get the last block in chain we will download a fork */
+            /* however if it is to far off we cannot process it anyway.*/
+            boolean SaveInCache = true;
+            if(commonBlockId != cacheLastBlock){
+              if(DownloadCache.CanBeFork(commonBlockId)){
+                //the fork is not that old. Lets download and process it.
+                commonBlockId = getCommonBlockId(peer, commonBlockId);
+                if (commonBlockId == 0 || !peerHasMore) {
+                  logger.debug("exit out from fork getcommonblock");
+                  return;
+                }
+                SaveInCache = false;
+              }else{
+            	logger.warn("Our peer want to feed us a fork that is more than "+Constants.MAX_ROLLBACK+" blocks old.");
+            	return;
+              }
+            }
+            
+            List<BlockImpl> forkBlocks = new ArrayList<>();
+            JSONArray nextBlocks = getNextBlocks(peer, commonBlockId); //we are not changing peer for every download????
+            if (nextBlocks == null || nextBlocks.size() == 0) {
+              logger.debug("Peer did not feed us any blocks");
               return;
             }
-	
-            
-            int asumedCommonBlockHeight = DownloadCache.getChainHeight();
-			
-			logger.debug("Asumedchain:"+asumedChainHeight+" Commonblock:"+asumedCommonBlockHeight+" CacheSize:"+DownloadCache.size()+" BlockId:"+commonBlockId);
-									
-			if (asumedChainHeight - asumedCommonBlockHeight >= 720) {
-			  logger.debug("We have bigger then 720 blocks in difference");
-			  return;
-            }
-
-			long currentBlockId = commonBlockId;
-			
-			/*if we setback cache we cannot process forks correctly. This is a quickfix until chain catches up*/
-			synchronized (DownloadCache) {
-			  if(currentBlockId != DownloadCache.getLastBlockId()) {
-			    DownloadCache.SetCacheBackTo(currentBlockId);
-			    DownloadCache.VerifyCacheIntegrity();
-			  }
-			}  
-	
-            List<BlockImpl> forkBlocks = new ArrayList<>();
-         
-
-            int requestCount = 0;
-            outer:
-            while (forkBlocks.size() < 1440 && requestCount++ < 10 && (!DownloadCache.IsFull() || forkBlocks.size() > 0)) { // fork decision could be wrong if cut off so ignore cache size for forks
-          
-              JSONArray nextBlocks = getNextBlocks(peer, currentBlockId); //we are not changing peer for every download????
-              if (nextBlocks == null || nextBlocks.size() == 0) {
-                break;
-              }
-              // Insert Blocks to blockCache
-              boolean firstblock = true;
-              boolean SaveInCache = true;
-              long blockLastId = currentBlockId;
-              synchronized(DownloadCache) {
-            	BlockImpl block;
-            	JSONObject blockData;
-                for(Object o : nextBlocks) {
-                  blockData = (JSONObject) o;
-
-                  try {
-                    block = BlockImpl.parseBlock(blockData);
-                    if(block == null){
-                      logger.debug("Unable to process downloaded blocks.");
-                      return;
-                    }  
+            // Insert Blocks to blockCache
+            boolean first = true;
+            long blockLastId = commonBlockId;
+            synchronized(DownloadCache) {
+              BlockImpl block;
+              JSONObject blockData;
+              for(Object o : nextBlocks) {
+                blockData = (JSONObject) o;
+                try {
+                  block = BlockImpl.parseBlock(blockData);
+                  if(block == null){
+                    logger.debug("Unable to process downloaded blocks.");
+                    return;
+                  }  
                   
-                  if(firstblock){
-                    if(DownloadCache.getLastBlockId() != block.getPreviousBlockId()){ /*does it not map back to chain?*/
-                	  SaveInCache = false;
-                	  if(!DownloadCache.CanBeFork(block.getId())){
-                	    logger.debug("Discarding downloaded data. Last downloaded blocks is rubbish");
-                		return;
-                	  }
-                	}
-                    firstblock = false;
-                  }else{
-            		if(blockLastId != block.getPreviousBlockId()){
-            		  logger.debug("Peer sent inconsistent blocks. Blacklisting peer and discards data.");
-            		  peer.blacklist();
-            		  DownloadCache.SetCacheBackTo(currentBlockId);
-            		  return;
-            		}
+                  
+                  if(blockLastId != block.getPreviousBlockId()){ /*does it not map back?*/
+                    logger.debug("Discarding downloaded data. Last downloaded blocks is rubbish");
+                    return;
                   }
                   
                   block.setHeight(DownloadCache.GetBlock(blockLastId).getHeight() + 1);
                   block.setPeer(peer);
                   block.setByteLength(blockData.toString().length());
-
+                  
                   if(SaveInCache){
                     DownloadCache.AddBlock(block);
                   }else{
                     forkBlocks.add(block);
                   }
+                  
                   blockLastId = block.getId();
 
                   } catch (RuntimeException | BurstException.ValidationException e) {
@@ -453,16 +422,16 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
                   } catch (Exception e) {
                     logger.warn("Unhandled exception",e);
                   }
-                }
-                DownloadCache.notify();
-                logger.trace("Unverified blocks: " + String.valueOf(DownloadCache.getUnverifiedSize()));
-                logger.trace("Blocks in cache: " + String.valueOf(DownloadCache.size()));
-                logger.trace("Bytes in cache: " + String.valueOf(DownloadCache.blockCacheSize));
               }
+              DownloadCache.notify();
+              logger.trace("Unverified blocks: " + String.valueOf(DownloadCache.getUnverifiedSize()));
+              logger.trace("Blocks in cache: " + String.valueOf(DownloadCache.size()));
+              logger.trace("Bytes in cache: " + String.valueOf(DownloadCache.blockCacheSize));
             }
+            logger.debug("DownloadThread complete CacheSize: "+DownloadCache.size());
            
             if(forkBlocks.size() > 0) {
-            	processFork(forkBlocks.get(0).getPeer(), forkBlocks,currentBlockId);
+            	processFork(forkBlocks.get(0).getPeer(), forkBlocks, commonBlockId);
             }
           } catch (BurstException.StopException e) {
             logger.info("Blockchain download stopped: " + e.getMessage());
@@ -475,6 +444,8 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
           System.exit(1);
         }
 
+    }//end while
+      
       }
     
       private long getCommonMilestoneBlockId(Peer peer) {

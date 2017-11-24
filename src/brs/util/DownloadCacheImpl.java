@@ -1,6 +1,5 @@
 package brs.util;
 
-import java.math.BigInteger;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -27,7 +26,7 @@ public final class DownloadCacheImpl {
  
   
   public int getChainHeight() {
-    synchronized (blockCache){
+    synchronized (this){
 	  if(blockCache.size() > 0){ //we have a downloaded cache
 		return  blockCache.get(blockCache.keySet().toArray()[blockCache.keySet().size()-1]).getHeight(); 
 	  }else{ //we have no cache so fetch from chain
@@ -36,53 +35,48 @@ public final class DownloadCacheImpl {
 	}
   }
   public boolean IsFull() {
-	if(  blockCacheSize > BLOCKCACHEMB * 1024 * 1024) {
-		return true;
-	}
+    if(  blockCacheSize > BLOCKCACHEMB * 1024 * 1024) {
+      return true;
+    }
 	return false;
   }
   public int getUnverifiedSize() {
-	  return unverified.size();
+    return unverified.size();
   }
   public long GetUnverifiedBlockId(int BlockId) {
-	  return unverified.get(0);
+    return unverified.get(0);
   }
   public void removeUnverified(long BlockId) {
-	  unverified.remove(BlockId);
-  }
-  public BigInteger getCumulativeDifficulty() {
-    if (blockCache.size() >0) {
-	  return blockCache.get(getLastBlockId()).getCumulativeDifficulty();
-	}else {
-	  return blockchain.getLastBlock().getCumulativeDifficulty();	  
-	}
+    unverified.remove(BlockId);
   }
   public void VerifyCacheIntegrity() {
-    if (blockCache.size() >0) {
-      long checkBlockId = getLastBlockId();
-      while (checkBlockId != blockchain.getLastBlock().getId()) {
-        if (blockCache.get(checkBlockId) == null) {
-          clearblockCache();
-          break;
+    synchronized (this){
+      if (blockCache.size() >0) {
+        long checkBlockId = getLastBlockId();
+        while (checkBlockId != blockchain.getLastBlock().getId()) {
+          if (blockCache.get(checkBlockId) == null) {
+            clearblockCache();
+            break;
+          }
+          checkBlockId = blockCache.get(checkBlockId).getPreviousBlockId();
         }
-        checkBlockId = blockCache.get(checkBlockId).getPreviousBlockId();
       }
-	}
+    }
   }
   
   public void clearblockCache(){
-      synchronized (blockCache) { // cache may no longer correspond with current chain, so dump it
+      synchronized (this) { // cache may no longer correspond with current chain, so dump it
         blockCache.clear();
         reverseCache.clear();
         unverified.clear();
         blockCacheSize = 0;
-        blockCache.notify();
+     //   this.notify();
       }
     }
   
   
   public int getBlockHeight(long BlockId) {
-	synchronized (blockCache){
+	synchronized (this){
 	  if (blockCache.containsKey(BlockId)) {
 		return blockCache.get(BlockId).getHeight();
       }else if(blockchain.hasBlock(BlockId)) {
@@ -94,27 +88,26 @@ public final class DownloadCacheImpl {
     }
   }
   public BlockImpl GetBlock(long BlockId) {
-	  if(blockCache.containsKey(BlockId)){
-	      return (BlockImpl) blockCache.get(BlockId);
-		}else if(blockchain.hasBlock(BlockId)){
-		  return blockchain.getBlock(BlockId);
-		}else{
-		  return null;
-		}
+    if(blockCache.containsKey(BlockId)){
+	  return (BlockImpl) blockCache.get(BlockId);
+    }else if(blockchain.hasBlock(BlockId)){
+      return blockchain.getBlock(BlockId);
+    }else{
+      return null;
+    }
   }
   public BlockImpl GetBlock(Long BlockId) {
-	  if(blockCache.containsKey(BlockId)){
-	      return (BlockImpl) blockCache.get(BlockId);
-		}else if(blockchain.hasBlock(BlockId)){
-		  return blockchain.getBlock(BlockId);
-		}else{
-		  return null;
-		}
+    if(blockCache.containsKey(BlockId)){
+      return (BlockImpl) blockCache.get(BlockId);
+    }else if(blockchain.hasBlock(BlockId)){
+      return blockchain.getBlock(BlockId);
+    }else{
+      return null;
+    }
   }
   public BlockImpl GetNextBlock(long prevBlockId) {
-	  /*we need to add againt chain aswell */
     if (!reverseCache.containsKey(prevBlockId)) {
-	  return null;
+      return null;
 	}
     try {
       return (BlockImpl) blockCache.get(reverseCache.get(prevBlockId)); 
@@ -122,12 +115,13 @@ public final class DownloadCacheImpl {
   }
 
   public void WaitForMapToBlockChain() {
-    while (!reverseCache.containsKey(blockchain.getLastBlock().getId())) {
-	  try {
-		logger.debug("Cache is waiting for a map to blockchain.");
-	    blockCache.wait(2000);
+	while (!reverseCache.containsKey(blockchain.getLastBlock().getId())) {
+      try {
+     //   logger.debug("PoC Verification waiting for. "+blockchain.getLastBlock().getId());
+      //  printDebug();
+	    this.wait(2000);
 	  } catch (InterruptedException ignore) {}
-	}
+    }
   }
   public boolean HasBlock(long BlockId) {
     if(blockCache.containsKey(BlockId)) {
@@ -180,43 +174,39 @@ public final class DownloadCacheImpl {
 	  return true;
   }
   
-  public boolean IsFork(BlockImpl block){
-	  // we do not have reverse cache to look up against.
-	  if (HasBlock(block.getPreviousBlockId())){ //we have the block
-		  //get the block and check if it maps to this one
-	  }
-	  
-	  return true; //we do not have the block
-  }
+  
   public void AddBlock(BlockImpl block) {
-	  blockCacheSize += block.getByteLength();
+	synchronized (this){
 	  blockCache.put(block.getId(), block);
       reverseCache.put(block.getPreviousBlockId(), block.getId());
       unverified.add(block.getId());
       blockCacheSize += block.getByteLength();
+	}
   }
+  
   public void SetCacheBackTo(long BadBlockId) {
 	  /* Starting from lowest poing and erase all up to lastblock */
 	  if(blockCache.containsKey(BadBlockId)) { //we have something to remove
-		  BlockImpl badBlock;
-		  long id;
-		  badBlock = (BlockImpl)blockCache.get(BadBlockId);
-		  reverseCache.remove(badBlock.getPreviousBlockId());
-		  blockCacheSize -= badBlock.getByteLength();
-		  blockCache.remove(BadBlockId);
-		  while(reverseCache.containsKey(BadBlockId)) {
-			  id = reverseCache.get(BadBlockId);
-			  reverseCache.remove(BadBlockId);
-			  blockCacheSize -= ((BlockImpl)blockCache.get(id)).getByteLength();
-			  blockCache.remove(id);
-			  BadBlockId = id;
-		  }
-		  blockCache.notify();
+        BlockImpl badBlock;
+        long id;
+        badBlock = (BlockImpl)blockCache.get(BadBlockId);
+        reverseCache.remove(badBlock.getPreviousBlockId());
+        blockCacheSize -= badBlock.getByteLength();
+        blockCache.remove(BadBlockId);
+        while(reverseCache.containsKey(BadBlockId)) {
+          id = reverseCache.get(BadBlockId);
+          reverseCache.remove(BadBlockId);
+          blockCacheSize -= ((BlockImpl)blockCache.get(id)).getByteLength();
+          blockCache.remove(id);
+          BadBlockId = id;
+        }
 	  }
+
   }
   public boolean RemoveBlock(BlockImpl block) {
-    if (blockCache.containsKey(block.getId())) { // make sure it wasn't already removed(ex failed preValidate) to avoid double subtracting from blockCacheSize
-      reverseCache.remove(block.getId());
+   synchronized (this){
+	if (blockCache.containsKey(block.getId())) { // make sure it wasn't already removed(ex failed preValidate) to avoid double subtracting from blockCacheSize
+      reverseCache.remove(block.getPreviousBlockId());
       blockCache.remove(block.getId());
       blockCacheSize -= block.getByteLength();
       return true;
@@ -224,8 +214,9 @@ public final class DownloadCacheImpl {
       return false;
     }
   }
+  }
   public BlockImpl getLastBlock() {
-    synchronized (blockCache){
+    synchronized (this){
 	  if (blockCache.size() >0){
 		return  GetBlock(blockCache.get(blockCache.keySet().toArray()[blockCache.keySet().size()-1]).getId()); 
       }else{
@@ -234,7 +225,7 @@ public final class DownloadCacheImpl {
 	}	    
   }
   public long getLastBlockId() {
-    synchronized (blockCache){
+    synchronized (this){
 	  if (blockCache.size() >0){
 	    return  blockCache.get(blockCache.keySet().toArray()[blockCache.keySet().size()-1]).getId(); 
 	  }else{
@@ -244,6 +235,20 @@ public final class DownloadCacheImpl {
   }
   public int size() {
 	  return blockCache.size();
+  }
+
+  public void printDebug(){
+	 if(reverseCache.size()>0){ 
+	  logger.debug("BlockCache First block key:"+blockCache.keySet().toArray()[0]);
+	  logger.debug("revCache First block key:"+reverseCache.keySet().toArray()[0]);
+	  logger.debug("revCache First block Val:"+reverseCache.get(reverseCache.keySet().toArray()[0]));
+	  logger.debug("BlockCache size:"+blockCache.size());
+	  logger.debug("revCache size:"+reverseCache.size());
+	 }else{
+	  logger.debug("BlockCache size:"+blockCache.size());
+  	  logger.debug("revCache size:"+reverseCache.size());
+	 }
+	  
   }
   
 }
