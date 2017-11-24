@@ -25,7 +25,7 @@ public class Subnet
     this.bigMask = BigInteger.valueOf(-1).shiftLeft(this.bytesSubnetCount * 8 - bits); // mask = -1 << 32 - bits
     this.bigSubnetMasked = new BigInteger(subnetAddress.getAddress()).and(this.bigMask);
   }
-
+      
   /**
    * For use via format "192.168.0.0/255.255.255.0" or single address
    * @param subnetAddress java.net.InetAddress (IP address)
@@ -70,12 +70,13 @@ public class Subnet
   @Override
   final public boolean equals(Object obj)
   {
-    if (!(obj instanceof Subnet))
+    if (!(obj instanceof Subnet)){
       return false;
+    }
     final Subnet other = (Subnet) obj;
     return this.bigSubnetMasked.equals(other.bigSubnetMasked) &&
-        this.bigMask.equals(other.bigMask) &&
-        this.bytesSubnetCount == other.bytesSubnetCount;
+          this.bigMask.equals(other.bigMask) &&
+                this.bytesSubnetCount == other.bytesSubnetCount;
   }
 
   @Override
