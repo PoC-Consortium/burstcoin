@@ -1,5 +1,6 @@
 package brs.util;
 
+import java.math.BigInteger;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -24,35 +25,42 @@ public final class DownloadCacheImpl {
   private static final Logger logger = LoggerFactory.getLogger(DownloadCacheImpl.class);
   public static int blockCacheSize = 0;
   
-  private long LastBlockId = -1;
+  private Long LastBlockId = null;
   private int LastHeight = -1;
-  
+  BigInteger HigestCumulativeDifficulty = BigInteger.ZERO;
   public int getChainHeight() {
-    synchronized (this){
-      if(LastHeight > -1){ 
+     if(LastHeight > -1){ 
         return LastHeight;
       }else{ 
         return blockchain.getHeight();
       }
-    }
-  }
+   }
   public boolean IsFull() {
-    if(  blockCacheSize > BLOCKCACHEMB * 1024 * 1024) {
+    if(blockCacheSize > BLOCKCACHEMB * 1024 * 1024) {
       return true;
     }
-  return false;
+    return false;
   }
   public int getUnverifiedSize() {
-    return unverified.size();
+
+	  return unverified.size();
+
+  }
+  public BigInteger getCumulativeDifficulty() {
+	return HigestCumulativeDifficulty;
   }
   public long GetUnverifiedBlockId(int BlockId) {
-    return unverified.get(0);
+
+	  return unverified.get(0);
+
   }
   public void removeUnverified(long BlockId) {
-    unverified.remove(BlockId);
+
+	  unverified.remove(BlockId);
+
   }
   public void VerifyCacheIntegrity() {
-    synchronized (this){
+
       if (blockCache.size() >0) {
         long checkBlockId = getLastBlockId();
         while (checkBlockId != blockchain.getLastBlock().getId()) {
@@ -63,24 +71,20 @@ public final class DownloadCacheImpl {
           checkBlockId = blockCache.get(checkBlockId).getPreviousBlockId();
         }
       }
-    }
+
   }
   
   public void clearblockCache(){
-      synchronized (this) { // cache may no longer correspond with current chain, so dump it
         blockCache.clear();
         reverseCache.clear();
         unverified.clear();
         blockCacheSize = 0;
-        LastBlockId = -1;
+        LastBlockId = null;
         LastHeight = -1;
-     //   this.notify();
-      }
     }
   
   
   public int getBlockHeight(long BlockId) {
-    synchronized (this){
       if (blockCache.containsKey(BlockId)) {
         return blockCache.get(BlockId).getHeight();
       }else if(blockchain.hasBlock(BlockId)) {
@@ -89,10 +93,9 @@ public final class DownloadCacheImpl {
        logger.warn("Cannot get blockheight. blockID: "+BlockId);
        return 0;
       }
-    }
   }
   public BlockImpl GetBlock(long BlockId) {
-    if(blockCache.containsKey(BlockId)){
+	if(blockCache.containsKey(BlockId)){
       return (BlockImpl) blockCache.get(BlockId);
     }else if(blockchain.hasBlock(BlockId)){
       return blockchain.getBlock(BlockId);
@@ -101,7 +104,7 @@ public final class DownloadCacheImpl {
     }
   }
   public BlockImpl GetBlock(Long BlockId) {
-    if(blockCache.containsKey(BlockId)){
+	if(blockCache.containsKey(BlockId)){
       return (BlockImpl) blockCache.get(BlockId);
     }else if(blockchain.hasBlock(BlockId)){
       return blockchain.getBlock(BlockId);
@@ -110,33 +113,38 @@ public final class DownloadCacheImpl {
     }
   }
   public BlockImpl GetNextBlock(long prevBlockId) {
-    if (!reverseCache.containsKey(prevBlockId)) {
+  if (!reverseCache.containsKey(prevBlockId)) {
       return null;
   }
     try {
       return (BlockImpl) blockCache.get(reverseCache.get(prevBlockId)); 
     } finally {}
-  }
+
+	  }
 
   public void WaitForMapToBlockChain() {
     while (!reverseCache.containsKey(blockchain.getLastBlock().getId())) {
       try {
+    	printDebug();
         this.wait(2000);
       } catch (InterruptedException ignore) {}
     }
   }
   public boolean HasBlock(long BlockId) {
-    if(blockCache.containsKey(BlockId)) {
+
+	if(blockCache.containsKey(BlockId)) {
       return true;
     }else if(blockchain.hasBlock(BlockId)) {
       return true;
     }else {
       return false;  
     }
+
   }
 
   public boolean CanBeFork(long oldBlockId){
-    int curHeight = getChainHeight();
+
+	  int curHeight = getChainHeight();
     BlockImpl block = null;
     if(blockCache.containsKey(oldBlockId)){
       block = (BlockImpl) blockCache.get(oldBlockId);
@@ -150,23 +158,25 @@ public final class DownloadCacheImpl {
       return false;
     }
     return true;
+
   }
   
   
   public void AddBlock(BlockImpl block) {
-    synchronized (this){
+
       blockCache.put(block.getId(), block);
       reverseCache.put(block.getPreviousBlockId(), block.getId());
       unverified.add(block.getId());
       blockCacheSize += block.getByteLength();
       LastBlockId = block.getId();
       LastHeight = block.getHeight();
-    }
+      HigestCumulativeDifficulty = block.getCumulativeDifficulty();
   }
   
   public void SetCacheBackTo(long BadBlockId) {
     // Starting from lowest point and erase all up to last block.
-    if(blockCache.containsKey(BadBlockId)) { 
+
+	if(blockCache.containsKey(BadBlockId)) { 
       BlockImpl badBlock;
       long id;
       badBlock = (BlockImpl)blockCache.get(BadBlockId);
@@ -181,40 +191,39 @@ public final class DownloadCacheImpl {
         BadBlockId = id;
       }
       setLastVars();
-    }
+
+	  }
   }
   public boolean RemoveBlock(BlockImpl block) {
-    synchronized (this){
       if (blockCache.containsKey(block.getId())) { //make sure there is something to remove
         reverseCache.remove(block.getPreviousBlockId());
         blockCache.remove(block.getId());
         blockCacheSize -= block.getByteLength();
         if(block.getId() == LastBlockId){
-          setLastVars();
+        	setLastVars();
         }
         return true;
       }else {
         return false;
       }
-    }
   }
   public BlockImpl getLastBlock() {
-    synchronized (this){
-      if (LastBlockId >-1){
+
+	  if (LastBlockId !=null){
         return (BlockImpl) blockCache.get(LastBlockId); 
       }else{
         return blockchain.getLastBlock();
       }
-    }      
+      
   }
   public long getLastBlockId() {
-    synchronized (this){
-      if (LastBlockId >-1){
+
+      if (LastBlockId !=null){
         return  LastBlockId; 
       }else{
         return blockchain.getLastBlock().getId();
       }
-    }    
+    
   }
   public int size() {
     return blockCache.size();
@@ -233,12 +242,14 @@ public final class DownloadCacheImpl {
     }
   }
   private void setLastVars(){
-    if (blockCache.size() >0){
+    if (blockCache.size() > 0){
     	LastBlockId = blockCache.get(blockCache.keySet().toArray()[blockCache.keySet().size()-1]).getId();
     	LastHeight = blockCache.get(LastBlockId).getHeight();
+    	HigestCumulativeDifficulty = blockCache.get(LastBlockId).getCumulativeDifficulty();
 	}else{
-		LastBlockId = -1;
-		LastHeight = -1;
+		LastBlockId = blockchain.getLastBlock().getId();
+		LastHeight = blockchain.getHeight();
+		HigestCumulativeDifficulty = blockchain.getLastBlock().getCumulativeDifficulty();
 	}
   }
 }

@@ -125,7 +125,7 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
                       blocks.add(DownloadCache.GetBlock(blockId));
                     }
                   }
-                }
+                } // end synchronized
                 try {
                   if (blocks.size() > 1) {
                     OCLPoC.validatePoC(blocks);
@@ -179,7 +179,7 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
                   Long lastId = blockchain.getLastBlock().getId();
                   BlockImpl currentBlock;
                   synchronized (DownloadCache) {
-                    currentBlock = DownloadCache.GetNextBlock(lastId);
+                    currentBlock = DownloadCache.GetNextBlock(lastId); //should  fetch first block in cache
                     if (currentBlock == null) {
                         break;
                     }  
@@ -195,7 +195,7 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
                     break;
                   }
                   // Remove processed block.
-                  synchronized (DownloadCache) {
+                 synchronized (DownloadCache) {
                     DownloadCache.RemoveBlock(currentBlock);
                   }
                 }
@@ -205,9 +205,9 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
               }
             }
             /* waiting for cache to be filled */
-            synchronized (DownloadCache){
+       /*     synchronized (DownloadCache){
               DownloadCache.WaitForMapToBlockChain();
-            }
+            }*/
           }
         }
         catch (Throwable exception) {
@@ -252,6 +252,7 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
               logger.debug("just exit");
               return;
             }
+           
             if (DownloadCache.IsFull()){
               logger.debug("blockcache full.");
               return;
@@ -281,7 +282,7 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
             
             /* Cache now contains Cumulative Difficulty */
            
-            BigInteger curCumulativeDifficulty = DownloadCache.getLastBlock().getCumulativeDifficulty();
+            BigInteger curCumulativeDifficulty = DownloadCache.getCumulativeDifficulty();
             String peerCumulativeDifficulty = (String) response.get("cumulativeDifficulty");
             if (peerCumulativeDifficulty == null) {
               logger.debug("Peer CumulativeDifficulty is null");
@@ -395,6 +396,7 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
             if(forkBlocks.size() > 0) {
               processFork(peer, forkBlocks, commonBlockId);
             }
+            
           } catch (BurstException.StopException e) {
             logger.info("Blockchain download stopped: " + e.getMessage());
           } catch (Exception e) {
@@ -447,21 +449,14 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
           for (Object milestoneBlockId : milestoneBlockIds) {
             long blockId = Convert.parseUnsignedLong((String) milestoneBlockId);
 
-      if(DownloadCache.GetBlock(blockId) != null){
-        if (lastMilestoneBlockId == null && milestoneBlockIds.size() > 1) {
-          peerHasMore = false;
-          logger.debug("Peer dont have more (cache)");
-        }
-        return blockId;
-      }
-      if (blockDb.hasBlock(blockId)) {
+            if(DownloadCache.HasBlock(blockId)){
               if (lastMilestoneBlockId == null && milestoneBlockIds.size() > 1) {
                 peerHasMore = false;
-                logger.debug("Peer dont have more (blockdb)");
+                logger.debug("Peer dont have more (cache)");
               }
               return blockId;
             }
-          lastMilestoneBlockId = (String) milestoneBlockId;
+            lastMilestoneBlockId = (String) milestoneBlockId;
           }
         }
       }
@@ -489,7 +484,7 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
 
           for (Object nextBlockId : nextBlockIds) {
             long blockId = Convert.parseUnsignedLong((String) nextBlockId);
-            if (! blockDb.hasBlock(blockId)) {
+            if (! DownloadCache.HasBlock(blockId)) {
               return commonBlockId;
             }
             commonBlockId = blockId;
