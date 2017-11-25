@@ -10,6 +10,7 @@ import brs.Block;
 import brs.BlockImpl;
 import brs.BlockchainImpl;
 import brs.Burst;
+import brs.Constants;
 
 
 public final class DownloadCacheImpl {
@@ -165,7 +166,7 @@ public final class DownloadCacheImpl {
     if(block == null){
       return false;
     }
-    if((curHeight - block.getHeight()) >720){
+    if((curHeight - block.getHeight()) >Constants.MAX_ROLLBACK){
       return false;
     }
     return true;

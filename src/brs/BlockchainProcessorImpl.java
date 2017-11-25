@@ -325,7 +325,7 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
              return;
            }
             
-           /* do we check Cumulative Difficulty= */
+           /* do we check Cumulative Difficulty? */
            
            if((lastBlockchainFeederHeight - blockchain.getHeight()) <= Constants.MAX_ROLLBACK){
              BigInteger curCumulativeDifficulty = blockchain.getLastBlock().getCumulativeDifficulty();
