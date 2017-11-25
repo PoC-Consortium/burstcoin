@@ -34,7 +34,7 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
   private final BlockDb blockDb = Burst.getDbs().getBlockDb();
   private final TransactionDb transactionDb = Burst.getDbs().getTransactionDb();
   /* DownloadCache returns values from cache or blockchain */
-  public static final DownloadCacheImpl DownloadCache = new DownloadCacheImpl() ; // = new DownloadCache();
+  public static final DownloadCacheImpl DownloadCache = new DownloadCacheImpl() ; 
   
   
   public static final int MAX_TIMESTAMP_DIFFERENCE = 15;
@@ -298,27 +298,29 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
             }
             
             long commonBlockId = Genesis.GENESIS_BLOCK_ID;
-            long cacheLastBlock = DownloadCache.getLastBlockId();
+            long cacheLastBlockId = DownloadCache.getLastBlockId();
 
             // Now we will find the highest common block between ourself and our peer
-            if (cacheLastBlock != Genesis.GENESIS_BLOCK_ID) {
+            if (cacheLastBlockId != Genesis.GENESIS_BLOCK_ID) {
               commonBlockId = getCommonMilestoneBlockId(peer);
               if (commonBlockId == 0 || !peerHasMore) {
-                logger.debug("Common blockid: "+commonBlockId+ " peer has more:"+peerHasMore+" cachesize: "+DownloadCache.size()+" RealChainHeight: "+blockchain.getLastBlock().getStringId());
+                logger.debug("We could not get a common block from peer.");
                 return;
               }
             }
             
-           /* if we did not get the last block in chain we will be downloading a fork.
+           /* if we did not get the last block in chain as common block we will be downloading a fork.
             * however if it is to far off we cannot process it anyway.
+            * CanBeFork will check where in chain this common block is fitting and return true
+            * if it is worth to continue.
             */
             boolean SaveInCache = true;
-            if(commonBlockId != cacheLastBlock){
+            if(commonBlockId != cacheLastBlockId){
               if(DownloadCache.CanBeFork(commonBlockId)){
-               //the fork is not that old. Lets download and process it.
+               //the fork is not that old. Lets see if we can get more precise.
                 commonBlockId = getCommonBlockId(peer, commonBlockId);
                 if (commonBlockId == 0 || !peerHasMore) {
-                  logger.debug("exit out from fork getcommonblock");
+                  logger.debug("Trying to get a more precise common block resulted in an error.");
                   return;
                 }
                 SaveInCache = false;
@@ -329,15 +331,17 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
             }
             
             List<BlockImpl> forkBlocks = new ArrayList<>();
-            JSONArray nextBlocks = getNextBlocks(peer, commonBlockId); //we are not changing peer for every download????
+            JSONArray nextBlocks = getNextBlocks(peer, commonBlockId); 
             if (nextBlocks == null || nextBlocks.size() == 0) {
               logger.debug("Peer did not feed us any blocks");
               return;
             }
-            // Insert Blocks to blockCache
-         
+
+            //download blocks from peer
             int ChainHeight = DownloadCache.getChainHeight();
             BlockImpl LastBlock = DownloadCache.GetBlock(commonBlockId);
+            
+            //loop blocks and make sure they fit in chain
             synchronized(DownloadCache) {
               BlockImpl block;
               JSONObject blockData;
@@ -349,18 +353,20 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
                     logger.debug("Unable to process downloaded blocks.");
                     return;
                   }  
-                  if(LastBlock.getId() != block.getPreviousBlockId()){ /*does it not map back?*/
+                  //Make sure it maps back to chain
+                  if(LastBlock.getId() != block.getPreviousBlockId()){ 
                     logger.debug("Discarding downloaded data. Last downloaded blocks is rubbish");
                     return;
                   }
-                  block.setHeight(DownloadCache.GetBlock(LastBlock.getId()).getHeight() + 1);
+                  //set height and cumulative difficulty to block
+                  block.setHeight(LastBlock.getHeight() + 1);
                   block.setPeer(peer);
                   block.setByteLength(blockData.toString().length());
                   block.calculateBaseTarget(LastBlock);
                   if(SaveInCache){
                     DownloadCache.AddBlock(block);
                   }else{
-                	  //we can check if this fork even is worth processing.
+                	  //at correct height we can check if this fork even is worth processing.
                     if(ChainHeight == block.getHeight()){
                       if(block.getCumulativeDifficulty().compareTo(curCumulativeDifficulty) < 0){
                         //peer does not have better Cumulative difficulty at same height as us.
@@ -380,14 +386,12 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
                 } catch (Exception e) {
                   logger.warn("Unhandled exception {}"+ e.toString(),e);
                 }
-              }
+              } //end block loop
               DownloadCache.notify();
               logger.trace("Unverified blocks: " + String.valueOf(DownloadCache.getUnverifiedSize()));
               logger.trace("Blocks in cache: " + String.valueOf(DownloadCache.size()));
               logger.trace("Bytes in cache: " + String.valueOf(DownloadCache.blockCacheSize));
-            }
-            logger.debug("chain Cumulative:"+blockchain.getLastBlock().getCumulativeDifficulty());
-            logger.debug("Last Cumulative:"+DownloadCache.getLastBlock().getCumulativeDifficulty());
+            } //end synchronized
             if(forkBlocks.size() > 0) {
               processFork(peer, forkBlocks, commonBlockId);
             }
@@ -395,12 +399,12 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
             logger.info("Blockchain download stopped: " + e.getMessage());
           } catch (Exception e) {
             logger.info("Error in blockchain download thread", e);
-          }
+          }//end second try
         } catch (Throwable t) {
           logger.info("CRITICAL ERROR. PLEASE REPORT TO THE DEVELOPERS.\n" + t.toString());
           t.printStackTrace();
           System.exit(1);
-        }
+        }// end first try
      }//end while
    }
     
