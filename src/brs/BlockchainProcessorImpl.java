@@ -311,7 +311,6 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
             
            /* if we did not get the last block in chain we will be downloading a fork.
             * however if it is to far off we cannot process it anyway.
-            *  
             */
             boolean SaveInCache = true;
             if(commonBlockId != cacheLastBlock){
@@ -362,24 +361,24 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
                     DownloadCache.AddBlock(block);
                   }else{
                 	  //we can check if this fork even is worth processing.
-                	  if(ChainHeight == block.getHeight()){
-                		  if(block.getCumulativeDifficulty().compareTo(curCumulativeDifficulty) < 0){
-                            //peer does not have better Cumulative difficulty at same height as us.
-                            logger.debug("Peer alsmot caused us to popoff blocks. Blacklisting.");
-                            peer.blacklist();
-                            forkBlocks.clear();
-                            break;
-                		  }
-                	  }
-                	  forkBlocks.add(block);
+                    if(ChainHeight == block.getHeight()){
+                      if(block.getCumulativeDifficulty().compareTo(curCumulativeDifficulty) < 0){
+                        //peer does not have better Cumulative difficulty at same height as us.
+                        logger.debug("Peer almost caused us to popoff blocks. Blacklisting.");
+                        peer.blacklist();
+                        forkBlocks.clear();
+                        break;
+                      }
+                	}
+                    forkBlocks.add(block);
                   }
                   LastBlock = block;
                 } catch (RuntimeException | BurstException.ValidationException e) {
-                  logger.info("Failed to parse block: " + e.toString(), e);
+                  logger.info("Failed to parse block: {}" + e.toString(), e);
                   peer.blacklist(e);
                   return;
                 } catch (Exception e) {
-                  logger.warn("Unhandled exception",e);
+                  logger.warn("Unhandled exception {}"+ e.toString(),e);
                 }
               }
               DownloadCache.notify();

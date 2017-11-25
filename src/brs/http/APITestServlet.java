@@ -197,7 +197,7 @@ public class APITestServlet extends HttpServlet {
     resp.setDateHeader("Expires", 0);
     resp.setContentType("text/html; charset=UTF-8");
 
-    if (API.allowedBotHosts != null && ! API.allowedBotHosts.contains(req.getRemoteHost())) {
+    if (API.allowedBotHosts != null && ! API.allowedBotHosts.toString().contains(req.getRemoteHost())) {
       resp.sendError(HttpServletResponse.SC_FORBIDDEN);
       return;
     }
