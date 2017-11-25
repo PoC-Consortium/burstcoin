@@ -529,7 +529,7 @@ public final class BlockImpl implements Block {
     }
   }
 
-  private void calculateBaseTarget(BlockImpl previousBlock) {
+  public void calculateBaseTarget(BlockImpl previousBlock) {
 
     if (this.getId() == Genesis.GENESIS_BLOCK_ID && previousBlockId == 0) {
       baseTarget = Constants.INITIAL_BASE_TARGET;
@@ -541,7 +541,7 @@ public final class BlockImpl implements Block {
       Block itBlock = previousBlock;
       BigInteger avgBaseTarget = BigInteger.valueOf(itBlock.getBaseTarget());
       do {
-        itBlock = Burst.getBlockchain().getBlock(itBlock.getPreviousBlockId());
+        itBlock = BlockchainProcessorImpl.DownloadCache.GetBlock(itBlock.getPreviousBlockId());
         avgBaseTarget = avgBaseTarget.add(BigInteger.valueOf(itBlock.getBaseTarget()));
       } while(itBlock.getHeight() > this.height - 4);
       avgBaseTarget = avgBaseTarget.divide(BigInteger.valueOf(4));
@@ -575,7 +575,7 @@ public final class BlockImpl implements Block {
       BigInteger avgBaseTarget = BigInteger.valueOf(itBlock.getBaseTarget());
       int blockCounter = 1;
       do {
-        itBlock = Burst.getBlockchain().getBlock(itBlock.getPreviousBlockId());
+        itBlock = BlockchainProcessorImpl.DownloadCache.GetBlock(itBlock.getPreviousBlockId());
         blockCounter++;
         avgBaseTarget = (avgBaseTarget.multiply(BigInteger.valueOf(blockCounter))
                          .add(BigInteger.valueOf(itBlock.getBaseTarget())))
