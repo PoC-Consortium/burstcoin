@@ -55,6 +55,7 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
   public static boolean oclVerify = Burst.getBooleanProperty("brs.oclVerify");
   public static final int oclThreshold = Burst.getIntProperty("brs.oclThreshold") == 0 ? 50 : Burst.getIntProperty("brs.oclThreshold");
   public static final int oclWaitThreshold = Burst.getIntProperty("brs.oclWaitThreshold") == 0 ? 2000 : Burst.getIntProperty("brs.oclWaitThreshold");
+  private static boolean DisableVerification = Burst.getBooleanProperty("brs.DisableVerification");
   private static final Semaphore gpuUsage = new Semaphore(2);
 
   private static final BlockchainProcessorImpl instance = new BlockchainProcessorImpl();
@@ -103,6 +104,9 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
       for (;;) {
         final Timer.Context context = pocTimer.time();
         try {
+          if (DisableVerification) {
+            return;
+          }
           if (oclVerify) {
             boolean gpuAcquired = false;
             try {
@@ -168,6 +172,13 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
         } finally {
           context.stop();
         }
+        //a small sleep
+        try {
+          Thread.sleep(100);
+        } catch (InterruptedException ex) {
+          Thread.currentThread().interrupt();
+        }
+
       }
     }
   };
@@ -208,6 +219,7 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
               }
             }
           }
+
         }
       } catch (Throwable exception) {
         logger.error("Uncaught exception in blockImporterThread", exception);
@@ -358,7 +370,11 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
                   block.setPeer(peer);
                   block.setByteLength(blockData.toString().length());
                   block.calculateBaseTarget(LastBlock);
+
                   if (SaveInCache) {
+                    if (DisableVerification) {
+                      block.DisableVerification();
+                    }
                     DownloadCache.AddBlock(block);
                   } else {
                     // at correct height we can check if this fork even is worth processing.
@@ -382,7 +398,7 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
                   logger.warn("Unhandled exception {}" + e.toString(), e);
                 }
               } // end block loop
-              DownloadCache.notify();
+              //    DownloadCache.notify();
               logger.trace("Unverified blocks: " + String.valueOf(DownloadCache.getUnverifiedSize()));
               logger.trace("Blocks in cache: " + String.valueOf(DownloadCache.size()));
               logger.trace("Bytes in cache: " + String.valueOf(DownloadCache.blockCacheSize));

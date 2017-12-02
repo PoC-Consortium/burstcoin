@@ -1,6 +1,10 @@
 package brs.crypto;
 
-import brs.util.Convert;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.util.Arrays;
+
 import org.bouncycastle.crypto.CipherParameters;
 import org.bouncycastle.crypto.InvalidCipherTextException;
 import org.bouncycastle.crypto.engines.AESEngine;
@@ -11,23 +15,21 @@ import org.bouncycastle.crypto.params.ParametersWithIV;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-import java.util.Arrays;
+import brs.util.Convert;
 
 public final class Crypto {
 
   private static final Logger logger = LoggerFactory.getLogger(Crypto.class);
 
   private static final ThreadLocal<SecureRandom> secureRandom = new ThreadLocal<SecureRandom>() {
-      @Override
-      protected SecureRandom initialValue() {
-        return new SecureRandom();
-      }
-    };
+    @Override
+    protected SecureRandom initialValue() {
+      return new SecureRandom();
+    }
+  };
 
-  private Crypto() {} //never
+  private Crypto() {
+  } //never
 
   public static MessageDigest getMessageDigest(String algorithm) {
     try {
@@ -138,8 +140,7 @@ public final class Crypto {
       byte[] key = sha256().digest(dhSharedSecret);
       byte[] iv = new byte[16];
       secureRandom.get().nextBytes(iv);
-      PaddedBufferedBlockCipher aes = new PaddedBufferedBlockCipher(new CBCBlockCipher(
-                                                                                       new AESEngine()));
+      PaddedBufferedBlockCipher aes = new PaddedBufferedBlockCipher(new CBCBlockCipher(new AESEngine()));
       CipherParameters ivAndKey = new ParametersWithIV(new KeyParameter(key), iv);
       aes.init(true, ivAndKey);
       byte[] output = new byte[aes.getOutputSize(plaintext.length)];
@@ -190,8 +191,7 @@ public final class Crypto {
         dhSharedSecret[i] ^= nonce[i];
       }
       byte[] key = sha256().digest(dhSharedSecret);
-      PaddedBufferedBlockCipher aes = new PaddedBufferedBlockCipher(new CBCBlockCipher(
-                                                                                       new AESEngine()));
+      PaddedBufferedBlockCipher aes = new PaddedBufferedBlockCipher(new CBCBlockCipher(new AESEngine()));
       CipherParameters ivAndKey = new ParametersWithIV(new KeyParameter(key), iv);
       aes.init(false, ivAndKey);
       byte[] output = new byte[aes.getOutputSize(ciphertext.length)];
@@ -224,8 +224,7 @@ public final class Crypto {
     }
   */
 
-  private static void xorProcess(byte[] data, int position, int length, byte[] myPrivateKey, byte[] theirPublicKey,
-                                 byte[] nonce) {
+  private static void xorProcess(byte[] data, int position, int length, byte[] myPrivateKey, byte[] theirPublicKey, byte[] nonce) {
 
     byte[] seed = new byte[32];
     Curve25519.curve(seed, myPrivateKey, theirPublicKey);
@@ -240,7 +239,7 @@ public final class Crypto {
       byte[] key = sha256.digest(seed);
       for (int j = 0; j < 32; j++) {
         data[position++] ^= key[j];
-        seed[j] = (byte)(~seed[j]);
+        seed[j] = (byte) (~seed[j]);
       }
       seed = sha256.digest(seed);
     }
@@ -260,8 +259,7 @@ public final class Crypto {
   }
 
   @Deprecated
-  public static void xorDecrypt(byte[] data, int position, int length, byte[] myPrivateKey, byte[] theirPublicKey,
-                                byte[] nonce) {
+  public static void xorDecrypt(byte[] data, int position, int length, byte[] myPrivateKey, byte[] theirPublicKey, byte[] nonce) {
     xorProcess(data, position, length, myPrivateKey, theirPublicKey, nonce);
   }
 
@@ -284,9 +282,8 @@ public final class Crypto {
     rsString = rsString.toUpperCase();
     try {
       long id = ReedSolomon.decode(rsString);
-      if (! rsString.equals(ReedSolomon.encode(id))) {
-        throw new RuntimeException("ERROR: Reed-Solomon decoding of " + rsString
-                                   + " not reversible, decoded to " + id);
+      if (!rsString.equals(ReedSolomon.encode(id))) {
+        throw new RuntimeException("ERROR: Reed-Solomon decoding of " + rsString + " not reversible, decoded to " + id);
       }
       return id;
     } catch (ReedSolomon.DecodeException e) {
