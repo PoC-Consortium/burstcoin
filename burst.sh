@@ -1,4 +1,5 @@
 #!/bin/bash
+#made by BurningPixels
 
 export FIREBIRD=$(dirname $0)/lib/firebird/$(getconf LONG_BIT)
 
