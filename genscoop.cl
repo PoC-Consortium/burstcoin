@@ -589,3 +589,106 @@ __kernel void get_scoops(__global int* scoop_nums, __global unsigned char* buffe
         optr[i] ^= bptr[i];
     }
 }
+
+__kernel void get_scoops2(__global int* scoop_nums, __global unsigned char* buffer, __global unsigned char* scoops_out, int num) {
+    int gid = get_global_id(0);
+
+    if (gid >= num)
+        return;
+    
+    __global unsigned char* bptr = buffer + (gid * GEN_SIZE);
+    __global unsigned char* bptr_cur = bptr;
+
+    sph_u32
+        A00 = A_init_256[0], A01 = A_init_256[1], A02 = A_init_256[2], A03 = A_init_256[3],
+        A04 = A_init_256[4], A05 = A_init_256[5], A06 = A_init_256[6], A07 = A_init_256[7],
+        A08 = A_init_256[8], A09 = A_init_256[9], A0A = A_init_256[10], A0B = A_init_256[11];
+    sph_u32
+        B0 = B_init_256[0], B1 = B_init_256[1], B2 = B_init_256[2], B3 = B_init_256[3],
+        B4 = B_init_256[4], B5 = B_init_256[5], B6 = B_init_256[6], B7 = B_init_256[7],
+        B8 = B_init_256[8], B9 = B_init_256[9], BA = B_init_256[10], BB = B_init_256[11],
+        BC = B_init_256[12], BD = B_init_256[13], BE = B_init_256[14], BF = B_init_256[15];
+    sph_u32
+        C0 = C_init_256[0], C1 = C_init_256[1], C2 = C_init_256[2], C3 = C_init_256[3],
+        C4 = C_init_256[4], C5 = C_init_256[5], C6 = C_init_256[6], C7 = C_init_256[7],
+        C8 = C_init_256[8], C9 = C_init_256[9], CA = C_init_256[10], CB = C_init_256[11],
+        CC = C_init_256[12], CD = C_init_256[13], CE = C_init_256[14], CF = C_init_256[15];
+    sph_u32 M0, M1, M2, M3, M4, M5, M6, M7, M8, M9, MA, MB, MC, MD, ME, MF;
+    sph_u32 Wlow = 1, Whigh = 0;
+
+    int amount = 0;
+    while(amount < PLOT_SIZE) {
+        M0 = ((__global unsigned int*)bptr_cur)[0];
+        M1 = ((__global unsigned int*)bptr_cur)[1];
+        M2 = ((__global unsigned int*)bptr_cur)[2];
+        M3 = ((__global unsigned int*)bptr_cur)[3];
+        M4 = ((__global unsigned int*)bptr_cur)[4];
+        M5 = ((__global unsigned int*)bptr_cur)[5];
+        M6 = ((__global unsigned int*)bptr_cur)[6];
+        M7 = ((__global unsigned int*)bptr_cur)[7];
+        M8 = ((__global unsigned int*)bptr_cur)[8];
+        M9 = ((__global unsigned int*)bptr_cur)[9];
+        MA = ((__global unsigned int*)bptr_cur)[10];
+        MB = ((__global unsigned int*)bptr_cur)[11];
+        MC = ((__global unsigned int*)bptr_cur)[12];
+        MD = ((__global unsigned int*)bptr_cur)[13];
+        ME = ((__global unsigned int*)bptr_cur)[14];
+        MF = ((__global unsigned int*)bptr_cur)[15];
+
+        INPUT_BLOCK_ADD;
+        XOR_W;
+        APPLY_P;
+        INPUT_BLOCK_SUB;
+        SWAP_BC;
+        INCR_W;
+
+        bptr_cur += 64;
+        amount += 64;
+    }
+
+    M0 = ((__global unsigned int*)bptr_cur)[0];
+    M1 = ((__global unsigned int*)bptr_cur)[1];
+    M2 = ((__global unsigned int*)bptr_cur)[2];
+    M3 = ((__global unsigned int*)bptr_cur)[3];
+    M4 = 0x80;
+    M5 = M6 = M7 = M8 = M9 = MA = MB = MC = MD = ME = MF = 0;
+
+    INPUT_BLOCK_ADD;
+    XOR_W;
+    APPLY_P;
+    for (unsigned i = 0; i < 3; i ++) {
+        SWAP_BC;
+        XOR_W;
+        APPLY_P;
+    }
+
+    bptr += (scoop_nums[gid] * 64);
+
+    __global unsigned char* optr = scoops_out + (gid * 64);
+    ((__global unsigned int*)optr)[0] = B8;
+    ((__global unsigned int*)optr)[1] = B9;
+    ((__global unsigned int*)optr)[2] = BA;
+    ((__global unsigned int*)optr)[3] = BB;
+    ((__global unsigned int*)optr)[4] = BC;
+    ((__global unsigned int*)optr)[5] = BD;
+    ((__global unsigned int*)optr)[6] = BE;
+    ((__global unsigned int*)optr)[7] = BF;
+    ((__global unsigned int*)optr)[8] = B8;
+    ((__global unsigned int*)optr)[9] = B9;
+    ((__global unsigned int*)optr)[10] = BA;
+    ((__global unsigned int*)optr)[11] = BB;
+    ((__global unsigned int*)optr)[12] = BC;
+    ((__global unsigned int*)optr)[13] = BD;
+    ((__global unsigned int*)optr)[14] = BE;
+    ((__global unsigned int*)optr)[15] = BF;
+
+    for(int i = 0; i < 32; i++) {
+        optr[i] ^= bptr[i];
+    }
+	
+	bptr += (((scoop_nums[gid] ^ 4095) - scoop_nums[gid]) * 64);
+	
+	for(int i = 32; i < 64; i++) {
+        optr[i] ^= bptr[i];
+    }
+}
