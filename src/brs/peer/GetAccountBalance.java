@@ -5,12 +5,12 @@ import brs.util.Convert;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONStreamAware;
 
+import static brs.http.common.Parameters.ACCOUNT_PARAMETER;
+import static brs.http.common.ResultFields.BALANCE_NQT_RESPONSE;
+
 public class GetAccountBalance extends PeerServlet.PeerRequestHandler {
 
   static final GetAccountBalance instance = new GetAccountBalance();
-
-  static final String ACCOUNT_ID_PARAMETER_FIELD = "account";
-  static final String BALANCE_NQT_RESPONSE_FIELD = "balanceNQT";
 
   private GetAccountBalance() {
   }
@@ -21,12 +21,12 @@ public class GetAccountBalance extends PeerServlet.PeerRequestHandler {
     JSONObject response = new JSONObject();
 
     try {
-      Long accountId = Convert.parseAccountId((String) request.get(ACCOUNT_ID_PARAMETER_FIELD));
+      Long accountId = Convert.parseAccountId((String) request.get(ACCOUNT_PARAMETER));
       Account account = Account.getAccount(accountId);
       if (account != null) {
-        response.put(BALANCE_NQT_RESPONSE_FIELD, Convert.toUnsignedLong(account.getBalanceNQT()));
+        response.put(BALANCE_NQT_RESPONSE, Convert.toUnsignedLong(account.getBalanceNQT()));
       } else {
-        response.put(BALANCE_NQT_RESPONSE_FIELD, "0");
+        response.put(BALANCE_NQT_RESPONSE, "0");
       }
     } catch (Exception e) {
     }

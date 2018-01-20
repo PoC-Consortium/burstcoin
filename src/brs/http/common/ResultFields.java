@@ -29,6 +29,7 @@ public class ResultFields {
   public static final String NAME_RESPONSE = "name";
   public static final String DESCRIPTION_RESPONSE = "description";
   public static final String ASSET_RESPONSE = "asset";
+  public static final String ASSETS_RESPONSE = "assets";
   public static final String ASSET_BALANCES_RESPONSE = "assetBalances";
   public static final String UNCONFIRMED_ASSET_BALANCES_RESPONSE = "unconfirmedAssetBalances";
   public static final String ACCOUNT_RESPONSE = "account";
@@ -54,5 +55,7 @@ public class ResultFields {
   public static final String PREVIOUS_BLOCK_HASH_RESPONSE = "previousBlockHash";
   public static final String BLOCK_SIGNATURE_RESPONSE = "blockSignature";
   public static final String TRANSACTIONS_RESPONSE = "transactions";
+  public static final String RESULT_RESPONSE = "result";
+  public static final String PEERS_RESPONSE = "peers";
 
 }

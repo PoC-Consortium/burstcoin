@@ -6,6 +6,8 @@ import brs.util.JSON;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONStreamAware;
 
+import static brs.http.common.ResultFields.ERROR_RESPONSE;
+
 final class ProcessTransactions extends PeerServlet.PeerRequestHandler {
 
   static final ProcessTransactions instance = new ProcessTransactions();
@@ -23,7 +25,7 @@ final class ProcessTransactions extends PeerServlet.PeerRequestHandler {
       //logger.debug("Failed to parse peer transactions: " + request.toJSONString());
       peer.blacklist(e);
       JSONObject response = new JSONObject();
-      response.put("error", e.toString());
+      response.put(ERROR_RESPONSE, e.toString());
       return response;
     }
 

@@ -1,6 +1,7 @@
 package brs.http;
 
 import static brs.http.common.Parameters.ACCOUNT_PARAMETER;
+import static brs.http.common.ResultFields.PUBLIC_KEY_RESPONSE;
 
 import brs.Account;
 import brs.BurstException;
@@ -28,7 +29,7 @@ public final class GetAccountPublicKey extends APIServlet.APIRequestHandler {
 
     if (account.getPublicKey() != null) {
       JSONObject response = new JSONObject();
-      response.put("publicKey", Convert.toHexString(account.getPublicKey()));
+      response.put(PUBLIC_KEY_RESPONSE, Convert.toHexString(account.getPublicKey()));
       return response;
     } else {
       return JSON.emptyJSON;

@@ -21,6 +21,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static brs.Constants.*;
+import static brs.http.common.Parameters.HALLMARK_PARAMETER;
+import static brs.http.common.Parameters.REQUEST_TYPE_PARAMETER;
+import static brs.http.common.ResultFields.ERROR_RESPONSE;
 
 public final class PeerServlet extends HttpServlet {
 
@@ -52,14 +55,14 @@ public final class PeerServlet extends HttpServlet {
   private static final JSONStreamAware UNSUPPORTED_REQUEST_TYPE;
   static {
     final JSONObject response = new JSONObject();
-    response.put("error", "Unsupported request type!");
+    response.put(ERROR_RESPONSE, "Unsupported request type!");
     UNSUPPORTED_REQUEST_TYPE = JSON.prepare(response);
   }
 
   private static final JSONStreamAware UNSUPPORTED_PROTOCOL;
   static {
     final JSONObject response = new JSONObject();
-    response.put("error", "Unsupported protocol!");
+    response.put(ERROR_RESPONSE, "Unsupported protocol!");
     UNSUPPORTED_PROTOCOL = JSON.prepare(response);
   }
 
@@ -102,13 +105,13 @@ public final class PeerServlet extends HttpServlet {
         }
       }
       peer.updateDownloadedVolume(cis.getCount());
-      if (! peer.analyzeHallmark(peer.getPeerAddress(), (String)request.get("hallmark"))) {
+      if (! peer.analyzeHallmark(peer.getPeerAddress(), (String)request.get(HALLMARK_PARAMETER))) {
         peer.blacklist();
         return;
       }
 
       if (request.get(PROTOCOL) != null && ((String)request.get(PROTOCOL)).equals("B1")) {
-        PeerRequestHandler peerRequestHandler = peerRequestHandlers.get(request.get("requestType"));
+        PeerRequestHandler peerRequestHandler = peerRequestHandlers.get(request.get(REQUEST_TYPE_PARAMETER));
         if (peerRequestHandler != null) {
           response = peerRequestHandler.processRequest(request, peer);
         } else {
@@ -122,7 +125,7 @@ public final class PeerServlet extends HttpServlet {
     } catch (RuntimeException e) {
       logger.debug("Error processing POST request", e);
       JSONObject json = new JSONObject();
-      json.put("error", e.toString());
+      json.put(ERROR_RESPONSE, e.toString());
       response = json;
     }
 

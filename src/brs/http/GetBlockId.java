@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import static brs.http.JSONResponses.INCORRECT_HEIGHT;
 import static brs.http.JSONResponses.MISSING_HEIGHT;
 import static brs.http.common.Parameters.HEIGHT_PARAMETER;
+import static brs.http.common.ResultFields.BLOCK_RESPONSE;
 
 public final class GetBlockId extends APIServlet.APIRequestHandler {
 
@@ -36,7 +37,7 @@ public final class GetBlockId extends APIServlet.APIRequestHandler {
 
     try {
       JSONObject response = new JSONObject();
-      response.put("block", Convert.toUnsignedLong(blockchain.getBlockIdAtHeight(height)));
+      response.put(BLOCK_RESPONSE, Convert.toUnsignedLong(blockchain.getBlockIdAtHeight(height)));
       return response;
     } catch (RuntimeException e) {
       return INCORRECT_HEIGHT;

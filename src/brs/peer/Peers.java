@@ -23,6 +23,8 @@ import java.net.UnknownHostException;
 import java.util.*;
 import java.util.concurrent.*;
 
+import static brs.http.common.ResultFields.ERROR_RESPONSE;
+
 public final class Peers {
 
   private static final Logger logger = LoggerFactory.getLogger(Peers.class);
@@ -681,7 +683,7 @@ public final class Peers {
               for (Future<JSONObject> future : expectedResponses) {
                 try {
                   JSONObject response = future.get();
-                  if (response != null && response.get("error") == null) {
+                  if (response != null && response.get(ERROR_RESPONSE) == null) {
                     successful += 1;
                   }
                 } catch (InterruptedException e) {

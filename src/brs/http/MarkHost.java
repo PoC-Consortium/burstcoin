@@ -8,7 +8,10 @@ import org.json.simple.JSONStreamAware;
 import javax.servlet.http.HttpServletRequest;
 
 import static brs.http.JSONResponses.*;
+import static brs.http.common.Parameters.DATE_PARAMETER;
+import static brs.http.common.Parameters.HOST_PARAMETER;
 import static brs.http.common.Parameters.SECRET_PHRASE_PARAMETER;
+import static brs.http.common.Parameters.WEIGHT_PARAMETER;
 
 
 public final class MarkHost extends APIServlet.APIRequestHandler {
@@ -23,9 +26,9 @@ public final class MarkHost extends APIServlet.APIRequestHandler {
   JSONStreamAware processRequest(HttpServletRequest req) {
 
     String secretPhrase = req.getParameter(SECRET_PHRASE_PARAMETER);
-    String host = req.getParameter("host");
-    String weightValue = req.getParameter("weight");
-    String dateValue = req.getParameter("date");
+    String host = req.getParameter(HOST_PARAMETER);
+    String weightValue = req.getParameter(WEIGHT_PARAMETER);
+    String dateValue = req.getParameter(DATE_PARAMETER);
     if (secretPhrase == null) {
       return MISSING_SECRET_PHRASE;
     } else if (host == null) {

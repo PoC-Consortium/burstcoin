@@ -58,7 +58,7 @@ public final class GetState extends APIServlet.APIRequestHandler {
     response.put("totalEffectiveBalanceNXT", totalEffectiveBalance / Constants.ONE_BURST);
 
 
-    if (!"false".equalsIgnoreCase(req.getParameter("includeCounts"))) {
+    if (!"false".equalsIgnoreCase(req.getParameter(INCLUDE_COUNTS_PARAMETER))) {
       response.put("numberOfBlocks", blockchain.getHeight() + 1);
       response.put("numberOfTransactions", blockchain.getTransactionCount());
       response.put("numberOfAccounts", Account.getCount());

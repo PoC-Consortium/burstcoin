@@ -13,6 +13,9 @@ import java.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static brs.http.common.Parameters.REQUEST_TAG_PARAMETER;
+import static brs.http.common.Parameters.REQUEST_TYPE_PARAMETER;
+
 public class APITestServlet extends HttpServlet {
 
   private static final Logger logger = LoggerFactory.getLogger(APITestServlet.class);
@@ -178,7 +181,7 @@ public class APITestServlet extends HttpServlet {
 
   private static String buildLinks(HttpServletRequest req) {
     final StringBuilder buf = new StringBuilder();
-    final String requestTag = Convert.nullToEmpty(req.getParameter("requestTag"));
+    final String requestTag = Convert.nullToEmpty(req.getParameter(REQUEST_TAG_PARAMETER));
     buf.append("<li");
     if (requestTag.equals("")) {
       buf.append(" class=\"active\"");
@@ -219,7 +222,7 @@ public class APITestServlet extends HttpServlet {
         writer.print(header1);
         writer.print(buildLinks(req));
         writer.print(header2);
-        String requestType = Convert.nullToEmpty(req.getParameter("requestType"));
+        String requestType = Convert.nullToEmpty(req.getParameter(REQUEST_TYPE_PARAMETER));
         APIServlet.APIRequestHandler requestHandler = APIServlet.apiRequestHandlers.get(requestType);
         StringBuilder bufJSCalls = new StringBuilder();
         if (requestHandler != null) {
@@ -227,7 +230,7 @@ public class APITestServlet extends HttpServlet {
           bufJSCalls.append("apiCalls.push(\"").append(requestType).append("\");\n");
         }
         else {
-          String requestTag = Convert.nullToEmpty(req.getParameter("requestTag"));
+          String requestTag = Convert.nullToEmpty(req.getParameter(REQUEST_TAG_PARAMETER));
           Set<String> taggedTypes = requestTags.get(requestTag);
           for (String type : (taggedTypes != null ? taggedTypes : allRequestTypes)) {
             requestHandler = APIServlet.apiRequestHandlers.get(type);

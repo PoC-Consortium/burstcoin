@@ -3,6 +3,7 @@ package brs.http;
 import static brs.http.common.Parameters.ACCOUNT_ID_PARAMETER;
 import static brs.http.common.Parameters.NONCE_PARAMETER;
 import static brs.http.common.Parameters.SECRET_PHRASE_PARAMETER;
+import static brs.http.common.ResultFields.RESULT_RESPONSE;
 
 import brs.Account;
 import brs.Blockchain;
@@ -40,12 +41,12 @@ public final class SubmitNonce extends APIServlet.APIRequestHandler {
     JSONObject response = new JSONObject();
 		
     if(secret == null) {
-      response.put("result", "Missing Passphrase");
+      response.put(RESULT_RESPONSE, "Missing Passphrase");
       return response;
     }
 		
     if(nonce == null) {
-      response.put("result", "Missing Nonce");
+      response.put(RESULT_RESPONSE, "Missing Nonce");
       return response;
     }
 		
@@ -73,12 +74,12 @@ public final class SubmitNonce extends APIServlet.APIRequestHandler {
           rewardId = assignment.getRecipientId();
         }
         if(rewardId != secretAccount.getId()) {
-          response.put("result", "Passphrase does not match reward recipient");
+          response.put(RESULT_RESPONSE, "Passphrase does not match reward recipient");
           return response;
         }
       }
       else {
-        response.put("result", "Passphrase is for a different account");
+        response.put(RESULT_RESPONSE, "Passphrase is for a different account");
         return response;
       }
     }
@@ -90,7 +91,7 @@ public final class SubmitNonce extends APIServlet.APIRequestHandler {
     else {
       Account genAccount = accountService.getAccount(Convert.parseUnsignedLong(accountId));
       if(genAccount == null || genAccount.getPublicKey() == null) {
-        response.put("result", "Passthrough mining requires public key in blockchain");
+        response.put(RESULT_RESPONSE, "Passthrough mining requires public key in blockchain");
       }
       else {
         byte[] publicKey = genAccount.getPublicKey();
@@ -99,12 +100,12 @@ public final class SubmitNonce extends APIServlet.APIRequestHandler {
     }
 		
     if(generator == null) {
-      response.put("result", "failed to create generator");
+      response.put(RESULT_RESPONSE, "failed to create generator");
       return response;
     }
 		
     //response.put("result", "deadline: " + generator.getDeadline());
-    response.put("result", "success");
+    response.put(RESULT_RESPONSE, "success");
     response.put("deadline", generator.getDeadline());
 		
     return response;

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import static brs.http.common.Parameters.FIRST_INDEX_PARAMETER;
 import static brs.http.common.Parameters.LAST_INDEX_PARAMETER;
+import static brs.http.common.ResultFields.ASSETS_RESPONSE;
 
 public final class GetAllAssets extends APIServlet.APIRequestHandler {
 
@@ -27,7 +28,7 @@ public final class GetAllAssets extends APIServlet.APIRequestHandler {
 
     JSONObject response = new JSONObject();
     JSONArray assetsJSONArray = new JSONArray();
-    response.put("assets", assetsJSONArray);
+    response.put(ASSETS_RESPONSE, assetsJSONArray);
     try (BurstIterator<Asset> assets = Asset.getAllAssets(firstIndex, lastIndex)) {
       while (assets.hasNext()) {
         assetsJSONArray.add(JSONData.asset(assets.next()));

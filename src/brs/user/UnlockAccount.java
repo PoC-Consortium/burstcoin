@@ -15,6 +15,8 @@ import java.util.*;
 
 import static brs.Constants.*;
 import static brs.http.common.Parameters.SECRET_PHRASE_PARAMETER;
+import static brs.http.common.ResultFields.ACCOUNT_RESPONSE;
+import static brs.http.common.ResultFields.BALANCE_NQT_RESPONSE;
 import static brs.user.JSONResponses.LOCK_ACCOUNT;
 
 public final class UnlockAccount extends UserServlet.UserRequestHandler {
@@ -57,7 +59,7 @@ public final class UnlockAccount extends UserServlet.UserRequestHandler {
 
     JSONObject response = new JSONObject();
     response.put(RESPONSE, "unlockAccount");
-    response.put("account", Convert.toUnsignedLong(accountId));
+    response.put(ACCOUNT_RESPONSE, Convert.toUnsignedLong(accountId));
 
     if (secretPhrase.length() < 30) {
 
@@ -72,11 +74,11 @@ public final class UnlockAccount extends UserServlet.UserRequestHandler {
     Account account = Account.getAccount(accountId);
     if (account == null) {
 
-      response.put("balanceNQT", 0);
+      response.put(BALANCE_NQT_RESPONSE, 0);
 
     } else {
 
-      response.put("balanceNQT", account.getUnconfirmedBalanceNQT());
+      response.put(BALANCE_NQT_RESPONSE, account.getUnconfirmedBalanceNQT());
 
       JSONArray myTransactions = new JSONArray();
       byte[] accountPublicKey = account.getPublicKey();

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import static brs.http.JSONResponses.INCORRECT_ASSET;
 import static brs.http.JSONResponses.UNKNOWN_ASSET;
 import static brs.http.common.Parameters.ASSETS_PARAMETER;
+import static brs.http.common.ResultFields.ASSETS_RESPONSE;
 
 public final class GetAssets extends APIServlet.APIRequestHandler {
 
@@ -27,7 +28,7 @@ public final class GetAssets extends APIServlet.APIRequestHandler {
 
     JSONObject response = new JSONObject();
     JSONArray assetsJSONArray = new JSONArray();
-    response.put("assets", assetsJSONArray);
+    response.put(ASSETS_RESPONSE, assetsJSONArray);
     for (String assetIdString : assets) {
       if (assetIdString == null || assetIdString.equals("")) {
         continue;

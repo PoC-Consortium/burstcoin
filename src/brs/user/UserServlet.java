@@ -17,6 +17,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import static brs.http.common.Parameters.REQUEST_TYPE_PARAMETER;
+import static brs.http.common.Parameters.USER_PARAMETER;
 import static brs.user.JSONResponses.*;
 import static brs.Constants.*;
 
@@ -77,7 +79,7 @@ public final class UserServlet extends HttpServlet  {
 
     try {
 
-      String userPasscode = req.getParameter("user");
+      String userPasscode = req.getParameter(USER_PARAMETER);
       if (userPasscode == null) {
         return;
       }
@@ -101,7 +103,7 @@ public final class UserServlet extends HttpServlet  {
           }
       }
 
-      String requestType = req.getParameter("requestType");
+      String requestType = req.getParameter(REQUEST_TYPE_PARAMETER);
       if (requestType == null) {
         user.enqueue(INCORRECT_REQUEST);
         return;

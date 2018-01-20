@@ -78,8 +78,6 @@ public class Parameters {
   public static final String UNSIGNED_TRANSACTION_BYTES_PARAMETER = "unsignedTransactionBytes";
   public static final String SIGNATURE_HASH_PARAMETER = "signatureHash";
 
-  public static final String FULL_HASH_RESPONSE = "fullHash";
-
   public static final String TRANSACTION_PARAMETER = "transaction";
   public static final String FULL_HASH_PARAMETER = "fullHash";
   public static final String ACCOUNT_ID_PARAMETER = "accountId";
@@ -105,6 +103,15 @@ public class Parameters {
   public static final String ACTIVE_PARAMETER = "active";
   public static final String STATE_PARAMETER = "state";
   public static final String ID_PARAMETER = "id";
+  public static final String ANNOUNCED_ADDRESS_PARAMETER = "announcedAddress";
+  public static final String REQUEST_TYPE_PARAMETER = "requestType";
+  public static final String REQUEST_TAG_PARAMETER = "requestTag";
+  public static final String BLOCK_ID_PARAMETER = "blockId";
+  public static final String PEERS_PARAMETER = "peers";
+  public static final String HOST_PARAMETER = "host";
+  public static final String WEIGHT_PARAMETER = "weight";
+  public static final String DATE_PARAMETER = "date";
+  public static final String USER_PARAMETER = "user";
 
   public static boolean isFalse(String text) {
     return "false".equalsIgnoreCase(text);

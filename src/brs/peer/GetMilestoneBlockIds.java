@@ -9,6 +9,8 @@ import org.json.simple.JSONStreamAware;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static brs.http.common.ResultFields.ERROR_RESPONSE;
+
 final class GetMilestoneBlockIds extends PeerServlet.PeerRequestHandler {
 
   private static final Logger logger = LoggerFactory.getLogger(GetMilestoneBlockIds.class);
@@ -73,7 +75,7 @@ final class GetMilestoneBlockIds extends PeerServlet.PeerRequestHandler {
 
     } catch (RuntimeException e) {
       logger.debug(e.toString());
-      response.put("error", e.toString());
+      response.put(ERROR_RESPONSE, e.toString());
     }
 
     return response;

@@ -3,6 +3,7 @@ package brs.http;
 import static brs.http.common.Parameters.FIRST_INDEX_PARAMETER;
 import static brs.http.common.Parameters.INCLUDE_TRANSACTIONS_PARAMETER;
 import static brs.http.common.Parameters.LAST_INDEX_PARAMETER;
+import static brs.http.common.ResultFields.BLOCKS_RESPONSE;
 
 import brs.Block;
 import brs.Blockchain;
@@ -44,7 +45,7 @@ public final class GetBlocks extends APIServlet.APIRequestHandler {
     }
 
     JSONObject response = new JSONObject();
-    response.put("blocks", blocks);
+    response.put(BLOCKS_RESPONSE, blocks);
 
     return response;
   }

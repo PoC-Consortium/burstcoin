@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import static brs.http.JSONResponses.*;
 import static brs.http.common.Parameters.TRANSACTION_PARAMETER;
+import static brs.http.common.ResultFields.TRANSACTION_BYTES_RESPONSE;
+import static brs.http.common.ResultFields.UNSIGNED_TRANSACTION_BYTES_RESPONSE;
 
 public final class GetTransactionBytes extends APIServlet.APIRequestHandler {
 
@@ -50,8 +52,8 @@ public final class GetTransactionBytes extends APIServlet.APIRequestHandler {
       response.put("confirmations", blockchain.getHeight() - transaction.getHeight());
     }
 
-    response.put("transactionBytes", Convert.toHexString(transaction.getBytes()));
-    response.put("unsignedTransactionBytes", Convert.toHexString(transaction.getUnsignedBytes()));
+    response.put(TRANSACTION_BYTES_RESPONSE, Convert.toHexString(transaction.getBytes()));
+    response.put(UNSIGNED_TRANSACTION_BYTES_RESPONSE, Convert.toHexString(transaction.getUnsignedBytes()));
 
     return response;
   }

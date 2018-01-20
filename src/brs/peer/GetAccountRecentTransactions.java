@@ -9,6 +9,8 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONStreamAware;
 
+import static brs.http.common.Parameters.ACCOUNT_PARAMETER;
+
 public class GetAccountRecentTransactions extends PeerServlet.PeerRequestHandler {
 	
   static final GetAccountRecentTransactions instance = new GetAccountRecentTransactions();
@@ -21,7 +23,7 @@ public class GetAccountRecentTransactions extends PeerServlet.PeerRequestHandler
     JSONObject response = new JSONObject();
 		
     try {
-      Long accountId = Convert.parseAccountId((String)request.get("account"));
+      Long accountId = Convert.parseAccountId((String)request.get(ACCOUNT_PARAMETER));
       Account account = Account.getAccount(accountId);
       JSONArray transactions = new JSONArray();
       if(account != null) {

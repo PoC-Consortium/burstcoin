@@ -11,6 +11,10 @@ import org.json.simple.JSONStreamAware;
 import javax.servlet.http.HttpServletRequest;
 import java.nio.ByteBuffer;
 
+import static brs.http.common.ResultFields.BASE_TARGET_RESPONSE;
+import static brs.http.common.ResultFields.GENERATION_SIGNATURE_RESPONSE;
+import static brs.http.common.ResultFields.HEIGHT_RESPONSE;
+
 public final class GetMiningInfo extends APIServlet.APIRequestHandler {
 
   private final Blockchain blockchain;
@@ -24,7 +28,7 @@ public final class GetMiningInfo extends APIServlet.APIRequestHandler {
   JSONStreamAware processRequest(HttpServletRequest req) {
     JSONObject response = new JSONObject();
 		
-    response.put("height", Long.toString((long)Burst.getBlockchain().getHeight() + 1));
+    response.put(HEIGHT_RESPONSE, Long.toString((long)Burst.getBlockchain().getHeight() + 1));
 		
     Block lastBlock = blockchain.getLastBlock();
     byte[] lastGenSig = lastBlock.getGenerationSignature();
@@ -38,8 +42,8 @@ public final class GetMiningInfo extends APIServlet.APIRequestHandler {
     md.update(buf.array());
     byte[] newGenSig = md.digest();
 		
-    response.put("generationSignature", Convert.toHexString(newGenSig));
-    response.put("baseTarget", Long.toString(lastBlock.getBaseTarget()));
+    response.put(GENERATION_SIGNATURE_RESPONSE, Convert.toHexString(newGenSig));
+    response.put(BASE_TARGET_RESPONSE, Long.toString(lastBlock.getBaseTarget()));
 		
     return response;
   }
