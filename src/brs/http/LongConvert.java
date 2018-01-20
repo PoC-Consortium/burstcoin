@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.math.BigInteger;
 
 import static brs.http.common.Parameters.ID_PARAMETER;
+import static brs.http.common.ResultFields.ERROR_RESPONSE;
 
 public final class LongConvert extends APIServlet.APIRequestHandler {
 
@@ -28,7 +29,7 @@ public final class LongConvert extends APIServlet.APIRequestHandler {
     BigInteger bigInteger = new BigInteger(id);
     if (bigInteger.signum() < 0) {
       if (bigInteger.negate().compareTo(Convert.two64) > 0) {
-        response.put("error", "overflow");
+        response.put(ERROR_RESPONSE, "overflow");
       }
       else {
         response.put("stringId", bigInteger.add(Convert.two64).toString());
@@ -37,7 +38,7 @@ public final class LongConvert extends APIServlet.APIRequestHandler {
     }
     else {
       if (bigInteger.compareTo(Convert.two64) >= 0) {
-        response.put("error", "overflow");
+        response.put(ERROR_RESPONSE, "overflow");
       }
       else {
         response.put("stringId", bigInteger.toString());

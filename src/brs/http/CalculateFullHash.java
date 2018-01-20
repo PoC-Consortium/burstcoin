@@ -2,6 +2,7 @@ package brs.http;
 
 import static brs.http.common.Parameters.*;
 import static brs.http.JSONResponses.*;
+import static brs.http.common.ResultFields.FULL_HASH_RESPONSE;
 
 import brs.crypto.Crypto;
 import brs.util.Convert;

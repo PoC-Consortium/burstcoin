@@ -4,6 +4,8 @@ import brs.Burst;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONStreamAware;
 
+import static brs.http.common.Parameters.ANNOUNCED_ADDRESS_PARAMETER;
+
 final class GetInfo extends PeerServlet.PeerRequestHandler {
 
   static final GetInfo instance = new GetInfo();
@@ -14,7 +16,7 @@ final class GetInfo extends PeerServlet.PeerRequestHandler {
   @Override
   JSONStreamAware processRequest(JSONObject request, Peer peer) {
     PeerImpl peerImpl = (PeerImpl)peer;
-    String announcedAddress = (String)request.get("announcedAddress");
+    String announcedAddress = (String)request.get(ANNOUNCED_ADDRESS_PARAMETER);
     if (announcedAddress != null && (announcedAddress = announcedAddress.trim()).length() > 0) {
       if (peerImpl.getAnnouncedAddress() != null && ! announcedAddress.equals(peerImpl.getAnnouncedAddress())) {
         // force verification of changed announced address

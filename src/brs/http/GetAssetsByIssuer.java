@@ -3,6 +3,7 @@ package brs.http;
 import static brs.http.common.Parameters.ACCOUNT_PARAMETER;
 import static brs.http.common.Parameters.FIRST_INDEX_PARAMETER;
 import static brs.http.common.Parameters.LAST_INDEX_PARAMETER;
+import static brs.http.common.ResultFields.ASSETS_RESPONSE;
 
 import brs.Account;
 import brs.Asset;
@@ -32,7 +33,7 @@ public final class GetAssetsByIssuer extends APIServlet.APIRequestHandler {
 
     JSONObject response = new JSONObject();
     JSONArray accountsJSONArray = new JSONArray();
-    response.put("assets", accountsJSONArray);
+    response.put(ASSETS_RESPONSE, accountsJSONArray);
     for (Account account : accounts) {
       JSONArray assetsJSONArray = new JSONArray();
       try (BurstIterator<Asset> assets = Asset.getAssetsIssuedBy(account.getId(), firstIndex, lastIndex)) {

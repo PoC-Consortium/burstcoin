@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import static brs.http.JSONResponses.*;
 import static brs.http.common.Parameters.SECRET_PHRASE_PARAMETER;
 import static brs.http.common.Parameters.TRANSACTION_PARAMETER;
+import static brs.http.common.ResultFields.DECRYPTED_MESSAGE_RESPONSE;
 
 public final class ReadMessage extends APIServlet.APIRequestHandler {
 
@@ -69,7 +70,7 @@ public final class ReadMessage extends APIServlet.APIRequestHandler {
         if (account != null) {
           try {
             byte[] decrypted = account.decryptFrom(encryptedMessage.getEncryptedData(), secretPhrase);
-            response.put("decryptedMessage", encryptedMessage.isText() ? Convert.toString(decrypted) : Convert.toHexString(decrypted));
+            response.put(DECRYPTED_MESSAGE_RESPONSE, encryptedMessage.isText() ? Convert.toString(decrypted) : Convert.toHexString(decrypted));
           } catch (RuntimeException e) {
             logger.debug("Decryption of message to recipient failed: " + e.toString());
           }

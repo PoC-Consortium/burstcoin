@@ -8,6 +8,8 @@ import org.json.simple.JSONStreamAware;
 
 import java.util.List;
 
+import static brs.http.common.Parameters.BLOCK_ID_PARAMETER;
+
 final class GetNextBlockIds extends PeerServlet.PeerRequestHandler {
 
   static final GetNextBlockIds instance = new GetNextBlockIds();
@@ -21,7 +23,7 @@ final class GetNextBlockIds extends PeerServlet.PeerRequestHandler {
     JSONObject response = new JSONObject();
 
     JSONArray nextBlockIds = new JSONArray();
-    long blockId = Convert.parseUnsignedLong((String) request.get("blockId"));
+    long blockId = Convert.parseUnsignedLong((String) request.get(BLOCK_ID_PARAMETER));
     List<Long> ids = Burst.getBlockchain().getBlockIdsAfter(blockId, 1440);
 
     for (Long id : ids) {

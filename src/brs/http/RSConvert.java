@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import static brs.http.JSONResponses.INCORRECT_ACCOUNT;
 import static brs.http.JSONResponses.MISSING_ACCOUNT;
 import static brs.http.common.Parameters.ACCOUNT_PARAMETER;
+import static brs.http.common.ResultFields.ACCOUNT_RESPONSE;
 
 public final class RSConvert extends APIServlet.APIRequestHandler {
 
@@ -30,7 +31,7 @@ public final class RSConvert extends APIServlet.APIRequestHandler {
         return INCORRECT_ACCOUNT;
       }
       JSONObject response = new JSONObject();
-      JSONData.putAccount(response, "account", accountId);
+      JSONData.putAccount(response, ACCOUNT_RESPONSE, accountId);
       return response;
     } catch (RuntimeException e) {
       return INCORRECT_ACCOUNT;

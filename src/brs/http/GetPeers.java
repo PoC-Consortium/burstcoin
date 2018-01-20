@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import static brs.http.common.Parameters.ACTIVE_PARAMETER;
 import static brs.http.common.Parameters.STATE_PARAMETER;
+import static brs.http.common.ResultFields.PEERS_RESPONSE;
 
 public final class GetPeers extends APIServlet.APIRequestHandler {
 
@@ -32,7 +33,7 @@ public final class GetPeers extends APIServlet.APIRequestHandler {
     }
 
     JSONObject response = new JSONObject();
-    response.put("peers", peers);
+    response.put(PEERS_RESPONSE, peers);
     return response;
   }
 

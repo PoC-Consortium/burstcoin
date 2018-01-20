@@ -5,6 +5,8 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONStreamAware;
 
+import static brs.http.common.Parameters.PEERS_PARAMETER;
+
 final class AddPeers extends PeerServlet.PeerRequestHandler {
 
   static final AddPeers instance = new AddPeers();
@@ -13,7 +15,7 @@ final class AddPeers extends PeerServlet.PeerRequestHandler {
 
   @Override
   JSONStreamAware processRequest(JSONObject request, Peer peer) {
-    JSONArray peers = (JSONArray)request.get("peers");
+    JSONArray peers = (JSONArray)request.get(PEERS_PARAMETER);
     if (peers != null && Peers.getMorePeers) {
       for (Object announcedAddress : peers) {
         Peers.addPeer((String) announcedAddress);

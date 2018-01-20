@@ -3,6 +3,7 @@ package brs.http;
 import static brs.http.JSONResponses.ERROR_INCORRECT_REQUEST;
 import static brs.http.JSONResponses.ERROR_NOT_ALLOWED;
 import static brs.http.JSONResponses.POST_REQUIRED;
+import static brs.http.common.Parameters.REQUEST_TYPE_PARAMETER;
 
 import brs.Blockchain;
 import brs.BlockchainProcessor;
@@ -244,7 +245,7 @@ public final class APIServlet extends HttpServlet {
         }
       }
 
-      String requestType = req.getParameter("requestType");
+      String requestType = req.getParameter(REQUEST_TYPE_PARAMETER);
       if (requestType == null) {
         response = ERROR_INCORRECT_REQUEST;
         return;

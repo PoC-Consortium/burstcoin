@@ -2,8 +2,8 @@ package brs.peer;
 
 import static brs.common.TestConstants.TEST_ACCOUNT_ID;
 import static brs.common.TestConstants.TEST_ACCOUNT_NUMERIC_ID_PARSED;
-import static brs.peer.GetAccountBalance.ACCOUNT_ID_PARAMETER_FIELD;
-import static brs.peer.GetAccountBalance.BALANCE_NQT_RESPONSE_FIELD;
+import static brs.http.common.Parameters.ACCOUNT_PARAMETER;
+import static brs.http.common.ResultFields.BALANCE_NQT_RESPONSE;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
@@ -34,7 +34,7 @@ public class GetAccountBalanceTest {
     PowerMockito.mockStatic(Account.class);
 
     final JSONObject req = new JSONObject();
-    req.put(ACCOUNT_ID_PARAMETER_FIELD, TEST_ACCOUNT_ID);
+    req.put(ACCOUNT_PARAMETER, TEST_ACCOUNT_ID);
     final Peer peer = mock(Peer.class);
 
     long mockBalanceNQT = 5;
@@ -45,7 +45,7 @@ public class GetAccountBalanceTest {
 
     final JSONObject result = (JSONObject) t.processRequest(req, peer);
 
-    assertEquals("" + mockBalanceNQT, result.get(BALANCE_NQT_RESPONSE_FIELD));
+    assertEquals("" + mockBalanceNQT, result.get(BALANCE_NQT_RESPONSE));
   }
 
   @Test
@@ -53,13 +53,13 @@ public class GetAccountBalanceTest {
     PowerMockito.mockStatic(Account.class);
 
     final JSONObject req = new JSONObject();
-    req.put(ACCOUNT_ID_PARAMETER_FIELD, TEST_ACCOUNT_ID);
+    req.put(ACCOUNT_PARAMETER, TEST_ACCOUNT_ID);
     final Peer peer = mock(Peer.class);
 
     when(Account.getAccount(eq(TEST_ACCOUNT_NUMERIC_ID_PARSED))).thenReturn(null);
 
     final JSONObject result = (JSONObject) t.processRequest(req, peer);
 
-    assertEquals("0", result.get(BALANCE_NQT_RESPONSE_FIELD));
+    assertEquals("0", result.get(BALANCE_NQT_RESPONSE));
   }
 }
