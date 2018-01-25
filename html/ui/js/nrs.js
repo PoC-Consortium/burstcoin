@@ -71,11 +71,11 @@ var NRS = (function(NRS, $, undefined) {
 	var isScanning = false;
 
 	NRS.init = function() {
-		if (window.location.port && window.location.port != "6876") {
-			$(".testnet_only").hide();
-		} else {
+		if (window.location.port && window.location.port == "6876") {
 			NRS.isTestNet = true;
 			$(".testnet_only, #testnet_login, #testnet_warning").show();
+		} else {
+			$(".testnet_only").hide();
 		}
 
 		if (!NRS.server) {
