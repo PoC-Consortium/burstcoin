@@ -814,7 +814,7 @@
     "maximum_nr_choices": "Максималан Број Избора",
     "nrs_info": "Информације о BRS-у",
     "add_to_group": "Додајте у Групу",
-    "send_nxt": "Пошаљите NXТ",
+    "send_burst": "Пошаљите NXТ",
     "balance_leasing_help": "<strong>Запамтите<\/strong>: Једном потврђено изнајмљивање не може бити отказано.",
     "error_generate_account_id": "Није могуће генерисати адресу вашег налога.",
     "error_no_public_key": "Ваш налог не поседује јавни кључ.",
