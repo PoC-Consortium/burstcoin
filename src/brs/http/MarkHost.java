@@ -43,7 +43,7 @@ public final class MarkHost extends APIServlet.APIRequestHandler {
     int weight;
     try {
       weight = Integer.parseInt(weightValue);
-      if (weight <= 0 || weight > Constants.MAX_BALANCE_NXT) {
+      if (weight <= 0 || weight > Constants.MAX_BALANCE_BURST) {
         return INCORRECT_WEIGHT;
       }
     } catch (NumberFormatException e) {
