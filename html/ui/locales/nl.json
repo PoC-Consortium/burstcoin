@@ -814,7 +814,7 @@
     "maximum_nr_choices": "Maximale aantal keuzes",
     "nrs_info": "BRS Info",
     "add_to_group": "Toevoegen aan groep",
-    "send_nxt": "BURST verzenden",
+    "send_burst": "BURST verzenden",
     "balance_leasing_help": "<strong>Opletten!<\/strong>: Na inzending kan de lease-overeenkomst niet worden geannuleerd.",
     "error_generate_account_id": "Kan adres van uw account niet aanmaken.",
     "error_no_public_key": "Account heeft geen openbare sleutel.",
