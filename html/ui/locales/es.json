@@ -786,7 +786,7 @@
     "poll_creation": "Creación de Encuesta",
     "remember_passphrase_by_default": "Recordar Contraseña Por Defecto",
     "nr_blocks": "# Bloques",
-    "copy_send_nxt_link": "Copiar el Enlace 'Enviar BURST'",
+    "copy_send_burst_link": "Copiar el Enlace 'Enviar BURST'",
     "success_passphrase_confirmed": "Contraseña confirmada con éxito, ha iniciado su sesión.",
     "your_name": "Su Nombre",
     "stop_forging": "Detener Forja",
