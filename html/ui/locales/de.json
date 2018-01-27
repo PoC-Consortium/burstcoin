@@ -787,7 +787,7 @@
     "poll_creation": "Abstimmung erstellen",
     "remember_passphrase_by_default": "Passphrase standardmäßig merken",
     "nr_blocks": "# Blöcke",
-    "copy_send_nxt_link": "'BURST senden'-Link kopieren",
+    "copy_send_burst_link": "'BURST senden'-Link kopieren",
     "success_passphrase_confirmed": "Die Passphrase wurde bestätigt. Sie sind jetzt eingeloggt.",
     "your_name": "Ihr Name",
     "stop_forging": "Blockgenerierung beenden",
