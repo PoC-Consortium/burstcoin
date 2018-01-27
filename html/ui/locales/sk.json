@@ -28,7 +28,7 @@
     "delivery_deadline": "Dodacia lehota",
     "delivery_deadline_hours": "Dodacia lehota (hodiny)",
     "sell_asset_for_burst": "Predať __assetName__ za BURST",
-    "buy_asset_with_nxt": "Kúpiť __assetName__ za BURST",
+    "buy_asset_with_burst": "Kúpiť __assetName__ za BURST",
     "not_delivered_in_time": "Nedoručené včas",
     "purchase_not_delivered_in_time": "Nákup nebol doručený včas.",
     "purchase_failed": "Nákup sa nepodaril.",
