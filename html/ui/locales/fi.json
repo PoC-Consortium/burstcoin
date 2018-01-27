@@ -28,7 +28,7 @@
     "delivery_deadline": "Toimituksen määräaika",
     "delivery_deadline_hours": "Toimituksen määräaika (tuntia)",
     "sell_asset_for_burst": "Myy __assetName__ BURST:ksi",
-    "buy_asset_with_nxt": "Osta __assetName__ BURST:llä",
+    "buy_asset_with_burst": "Osta __assetName__ BURST:llä",
     "not_delivered_in_time": "Ei toimitettu ajoissa",
     "purchase_not_delivered_in_time": "Ostosta ei toimitettu ajoissa.",
     "purchase_failed": "Ostos epäonnistui.",
