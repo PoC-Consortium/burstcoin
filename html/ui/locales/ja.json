@@ -27,7 +27,7 @@
     "error_could_not_decrypt_message": "メッセージを解読できませんでした。",
     "delivery_deadline": "配信の期限",
     "delivery_deadline_hours": "配信の期限（時間）",
-    "sell_asset_for_nxt": "__assetName__をBURSTで販売",
+    "sell_asset_for_burst": "__assetName__をBURSTで販売",
     "buy_asset_with_nxt": "__assetName__をBURSTで購入",
     "not_delivered_in_time": "時間内に配信されず",
     "purchase_not_delivered_in_time": "購入が時間内に配信されませんでした。",
