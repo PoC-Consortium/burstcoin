@@ -818,7 +818,7 @@
     "maximum_nr_choices": "Maximum Nr Of Choices",
     "nrs_info": "BRS Info",
     "add_to_group": "Add to Group",
-    "send_nxt": "Send BURST",
+    "send_burst": "Send BURST",
     "balance_leasing_help": "<strong>Remember<\/strong>: Once submitted the lease cannot be cancelled.",
     "error_generate_account_id": "Could not generate your account address.",
     "error_no_public_key": "Account does not have a public key.",
