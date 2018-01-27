@@ -814,7 +814,7 @@
     "maximum_nr_choices": "Nbre de choix maximum",
     "nrs_info": "Infos à propos du client BRS",
     "add_to_group": "Ajouter au groupe",
-    "send_nxt": "Envoyer des BURST",
+    "send_burst": "Envoyer des BURST",
     "balance_leasing_help": "<strong>A noter<\/strong> : une fois effectué, le bail ne pourra pas être annulé.",
     "error_generate_account_id": "Impossible de générer une adresse pour votre compte.",
     "error_no_public_key": "Ce compte n'a pas de clef publique.",
