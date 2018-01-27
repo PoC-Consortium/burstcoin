@@ -27,7 +27,7 @@
     "error_could_not_decrypt_message": "No se pudo descifrar el mensaje.",
     "delivery_deadline": "Plazo de Entrega",
     "delivery_deadline_hours": "Plazo de Entrega (Horas)",
-    "sell_asset_for_nxt": "Vender__assetName__ por BURST",
+    "sell_asset_for_burst": "Vender__assetName__ por BURST",
     "buy_asset_with_nxt": "Comprar__assetName__ con BURST",
     "not_delivered_in_time": "No entregado a tiempo",
     "purchase_not_delivered_in_time": "La compra no se entregó a tiempo.",
