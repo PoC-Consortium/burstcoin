@@ -786,7 +786,7 @@
     "poll_creation": "投票調査の作成",
     "remember_passphrase_by_default": "デフォルトでパスフレーズを暗記",
     "nr_blocks": "ブロック数",
-    "copy_send_nxt_link": "「BURST を送信」のリンクをコピー",
+    "copy_send_burst_link": "「BURST を送信」のリンクをコピー",
     "success_passphrase_confirmed": "パスフレーズが正常に確認されました。現在ログインしています。",
     "your_name": "名前",
     "stop_forging": "鋳造を停止",
