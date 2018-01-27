@@ -786,7 +786,7 @@
     "poll_creation": "Membuat Pemilihan",
     "remember_passphrase_by_default": "Ingat Passphrase otomatis",
     "nr_blocks": "# Blok",
-    "copy_send_nxt_link": "Salin Link 'Kirim BURST'",
+    "copy_send_burst_link": "Salin Link 'Kirim BURST'",
     "success_passphrase_confirmed": "Passphrase dikonfirmasi berhasil, Anda sekarang masuk.",
     "your_name": "Namamu",
     "stop_forging": "Berhenti penyusunan",
