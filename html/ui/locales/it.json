@@ -786,7 +786,7 @@
     "poll_creation": "Creazione sondaggio",
     "remember_passphrase_by_default": "Ricordate la Passphrase come impostazione predefinita",
     "nr_blocks": "# Blocchi",
-    "copy_send_nxt_link": "Copia il Link 'Invia BURST'",
+    "copy_send_burst_link": "Copia il Link 'Invia BURST'",
     "success_passphrase_confirmed": "Passphrase confermata con successo, ora sei connesso.",
     "your_name": "Il tuo nome",
     "stop_forging": "Arresta forgiatura",
