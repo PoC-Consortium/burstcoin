@@ -727,7 +727,7 @@ var NRS = (function(NRS, $, undefined) {
 			$("#lease_balance_message").html($.t("balance_leasing_help"));
 		}
 
-		if (NRS.accountInfo.effectiveBalanceNXT == 0) {
+		if (NRS.accountInfo.effectiveBalanceBURST == 0) {
 			$("#forging_indicator").removeClass("forging");
 			$("#forging_indicator span").html($.t("not_forging")).attr("data-i18n", "not_forging");
 			$("#forging_indicator").show();

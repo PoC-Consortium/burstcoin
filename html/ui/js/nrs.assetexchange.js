@@ -574,10 +574,10 @@ var NRS = (function(NRS, $, undefined) {
 			$(".asset_name").html(String(asset.name).escapeHTML());
 			$("#sell_asset_button").data("asset", assetId);
 			$("#buy_asset_button").data("asset", assetId);
-			$("#sell_asset_for_nxt").html($.t("sell_asset_for_nxt", {
+			$("#sell_asset_for_burst").html($.t("sell_asset_for_burst", {
 				"assetName": String(asset.name).escapeHTML()
 			}));
-			$("#buy_asset_with_nxt").html($.t("buy_asset_with_nxt", {
+			$("#buy_asset_with_burst").html($.t("buy_asset_with_burst", {
 				"assetName": String(asset.name).escapeHTML()
 			}));
 			$("#sell_asset_price, #buy_asset_price").val("");
