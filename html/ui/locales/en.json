@@ -790,7 +790,7 @@
     "poll_creation": "Poll Creation",
     "remember_passphrase_by_default": "Remember Passphrase By Default",
     "nr_blocks": "# Blocks",
-    "copy_send_nxt_link": "Copy 'Send BURST' Link",
+    "copy_send_burst_link": "Copy 'Send BURST' Link",
     "success_passphrase_confirmed": "Passphrase confirmed successfully, you are now logged in.",
     "your_name": "Your Name",
     "stop_forging": "Stop Forging",
