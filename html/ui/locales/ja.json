@@ -814,7 +814,7 @@
     "maximum_nr_choices": "選択肢の最大数",
     "nrs_info": "BRS情報",
     "add_to_group": "グループに追加",
-    "send_nxt": "BURST を送信",
+    "send_burst": "BURST を送信",
     "balance_leasing_help": "<strong>注意<\/strong>: 一度提出されたリースを取り消すことはできません。",
     "error_generate_account_id": "あなたのアカウントのアドレスを生成できませんでした。",
     "error_no_public_key": "アカウントには公開キーがありません。",

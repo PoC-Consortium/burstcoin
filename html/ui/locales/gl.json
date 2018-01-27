@@ -814,7 +814,7 @@
     "maximum_nr_choices": "Máximo Nº de opcións",
     "nrs_info": "Info de BRS",
     "add_to_group": "Engadir a grupo",
-    "send_nxt": "Enviar BURST",
+    "send_burst": "Enviar BURST",
     "balance_leasing_help": "<strong>Recorde<\/strong>: Unha vez enviado, o Leasing non se pode cancelar.",
     "error_generate_account_id": "Non se puido xerala súa dirección da conta.",
     "error_no_public_key": "A conta non ten chave pública.",

@@ -814,7 +814,7 @@
     "maximum_nr_choices": "Minimálny počet možností",
     "nrs_info": "BRS Info",
     "add_to_group": "Pridať do skupiny",
-    "send_nxt": "Odoslať BURST",
+    "send_burst": "Odoslať BURST",
     "balance_leasing_help": "<strong>Pamätajte<\/strong>: po odoslaní už prenájom nemôže byť zrušený.",
     "error_generate_account_id": "Adresy vášho účtu nemohli byť vygenerované.",
     "error_no_public_key": "Účet nemá verejný kľúč.",

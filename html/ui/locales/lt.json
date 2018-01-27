@@ -814,7 +814,7 @@
     "maximum_nr_choices": "Maksimalus pasirinkimų kiekis",
     "nrs_info": "BRS info",
     "add_to_group": "Įtraukti į grupę",
-    "send_nxt": "Siųsti BURST",
+    "send_burst": "Siųsti BURST",
     "balance_leasing_help": "<strong>Atminkite<\/strong>: pateikus nuomą, negalima bus jos atšaukti.",
     "error_generate_account_id": "Nepavyko sugeneruoti Jūsų sąskaitos adreso.",
     "error_no_public_key": "Sąskaita neturi viešojo rakto.",

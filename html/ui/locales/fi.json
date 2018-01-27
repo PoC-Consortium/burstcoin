@@ -814,7 +814,7 @@
     "maximum_nr_choices": "Valintojen maksimimäärä",
     "nrs_info": "BRS:n tiedot",
     "add_to_group": "Lisää ryhmään",
-    "send_nxt": "Lähetä BURST",
+    "send_burst": "Lähetä BURST",
     "balance_leasing_help": "<strong>Muista<\/strong>: kun vuokrasopimus on lähetetty, sitä ei voi perua.",
     "error_generate_account_id": "Tilinumeron luominen epäonnistui.",
     "error_no_public_key": "Tilillä ei ole julkista avainta.",
