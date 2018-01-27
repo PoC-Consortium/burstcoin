@@ -814,7 +814,7 @@
     "maximum_nr_choices": "選擇的最大值",
     "nrs_info": "BRS 信息",
     "add_to_group": "添加到群組",
-    "send_nxt": "發送 BURST",
+    "send_burst": "發送 BURST",
     "balance_leasing_help": "<STRONG>記住<\/ STRONG>：一旦提交將不能取消租約。",
     "error_generate_account_id": "無法生成您的帳戶地址。",
     "error_no_public_key": "帳戶沒有公鑰 。",
