@@ -28,7 +28,7 @@
     "delivery_deadline": "Krajnji Rok Isporuke",
     "delivery_deadline_hours": "Krajnji Rok Isporuke (u satima)",
     "sell_asset_for_burst": "Prodajte __assetName__ za BURST",
-    "buy_asset_with_nxt": "Kupite __assetName__ za BURST",
+    "buy_asset_with_burst": "Kupite __assetName__ za BURST",
     "not_delivered_in_time": "Nije isporučeno na vreme",
     "purchase_not_delivered_in_time": "Kupovina nije isporučena na vreme.",
     "purchase_failed": "Kupovina nije uspela.",
