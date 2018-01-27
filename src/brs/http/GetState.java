@@ -54,9 +54,9 @@ public final class GetState extends APIServlet.APIRequestHandler {
     long totalEffectiveBalance = 0;
     try (BurstIterator<Account> accounts = accountService.getAllAccounts(0, -1)) {
       while(accounts.hasNext()) {
-        long effectiveBalanceNXT = accounts.next().getBalanceNQT();
-        if (effectiveBalanceNXT > 0) {
-          totalEffectiveBalance += effectiveBalanceNXT;
+        long effectiveBalanceBURST = accounts.next().getBalanceNQT();
+        if (effectiveBalanceBURST > 0) {
+          totalEffectiveBalance += effectiveBalanceBURST;
         }
       }
     }

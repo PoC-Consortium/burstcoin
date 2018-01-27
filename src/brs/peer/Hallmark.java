@@ -29,8 +29,8 @@ public final class Hallmark {
     if (host.length() == 0 || host.length() > 100) {
       throw new IllegalArgumentException("Hostname length should be between 1 and 100");
     }
-    if (weight <= 0 || weight > Constants.MAX_BALANCE_NXT) {
-      throw new IllegalArgumentException("Weight should be between 1 and " + Constants.MAX_BALANCE_NXT);
+    if (weight <= 0 || weight > Constants.MAX_BALANCE_BURST) {
+      throw new IllegalArgumentException("Weight should be between 1 and " + Constants.MAX_BALANCE_BURST);
     }
 
     byte[] publicKey = Crypto.getPublicKey(secretPhrase);
