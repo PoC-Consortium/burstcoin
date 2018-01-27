@@ -814,7 +814,7 @@
 	"seller": "Seller",
 	"error_fraction_decimals": "Fraction can only have __decimals__ decimals max.",
 	"buy_asset_with_nxt": "Buy __assetName__ with NXT",
-	"sell_asset_for_nxt": "Sell __assetName__ for NXT",
+	"sell_asset_for_burst": "Sell __assetName__ for BURST",
 	"not_delivered_in_time": "Not delivered in time",
 	"purchase_not_delivered_in_time": "The purchase was not delivered in time.",
 	"purchase_failed": "The purchase failed.",
