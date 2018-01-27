@@ -28,7 +28,7 @@
     "delivery_deadline": "Batas waktu pengiriman",
     "delivery_deadline_hours": "Batas waktu pengiriman (jam)",
     "sell_asset_for_burst": "Jual __assetName__ untuk BURST",
-    "buy_asset_with_nxt": "Beli __assetName__ dengan Burst",
+    "buy_asset_with_burst": "Beli __assetName__ dengan BURST",
     "not_delivered_in_time": "Tidak dikirim tepat waktu",
     "purchase_not_delivered_in_time": "Pembelian tidak dikirim tepat waktu.",
     "purchase_failed": "Pembelian gagal.",
