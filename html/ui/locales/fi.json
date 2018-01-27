@@ -786,7 +786,7 @@
     "poll_creation": "Gallupin luominen",
     "remember_passphrase_by_default": "Muista tunnuslause oletuksena",
     "nr_blocks": "# Lohkoja",
-    "copy_send_nxt_link": "Kopioi 'Lähetä BURST:tä' -linkki",
+    "copy_send_burst_link": "Kopioi 'Lähetä BURST:tä' -linkki",
     "success_passphrase_confirmed": "Tunnuslause vahvistettu, olet nyt kirjautunut sisään.",
     "your_name": "Nimesi",
     "stop_forging": "Lopeta takominen",
