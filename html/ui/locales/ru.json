@@ -787,7 +787,7 @@
     "poll_creation": "Создание опроса",
     "remember_passphrase_by_default": "Запомнить пароль по умолчанию",
     "nr_blocks": "# Блоков",
-    "copy_send_nxt_link": "Скопировать ссылку 'Отправить BURST'",
+    "copy_send_burst_link": "Скопировать ссылку 'Отправить BURST'",
     "success_passphrase_confirmed": "Парольная фраза подтверждена успешно, теперь вы вошли в систему.",
     "your_name": "Ваше имя",
     "stop_forging": "Остановить форжинг",
