@@ -815,7 +815,7 @@
     "maximum_nr_choices": "Höchstanzahl an Auswahlmöglichkeiten",
     "nrs_info": "BRS-Info",
     "add_to_group": "Zur Gruppe hinzufügen",
-    "send_nxt": "BURST überweisen",
+    "send_burst": "BURST überweisen",
     "balance_leasing_help": "<strong>Denken Sie daran<\/strong>: Das Verleasen kann nach dem Absenden nicht mehr abgebrochen werden.",
     "error_generate_account_id": "Die Konto-ID konnte nicht erstellt werden.",
     "error_no_public_key": "Konto hat keinen öffentlichen Schlüssel.",
