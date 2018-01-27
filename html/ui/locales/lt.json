@@ -28,7 +28,7 @@
     "delivery_deadline": "Pristatymo galutinis terminas",
     "delivery_deadline_hours": "Pristatymo galutinis terminas (valandomis)",
     "sell_asset_for_burst": "Parduoti __assetName__ už BURST",
-    "buy_asset_with_nxt": "Pirkti __assetName__ su BURST",
+    "buy_asset_with_burst": "Pirkti __assetName__ su BURST",
     "not_delivered_in_time": "Nepristatyta laiku",
     "purchase_not_delivered_in_time": "Pirkimas nebuvo pristatytas laiku.",
     "purchase_failed": "Pirkimas nepavyko.",
