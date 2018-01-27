@@ -814,7 +814,7 @@
     "maximum_nr_choices": "Nr massimo di scelte",
     "nrs_info": "Info BRS",
     "add_to_group": "Aggiungi al gruppo",
-    "send_nxt": "Invia BURST",
+    "send_burst": "Invia BURST",
     "balance_leasing_help": "<strong>Ricorda<\/strong>: una volta invitato il leasing non può essere annullato.",
     "error_generate_account_id": "Impossibile generare l'indirizzo del tuo account.",
     "error_no_public_key": "L'account non dispone di una chiave pubblica.",
