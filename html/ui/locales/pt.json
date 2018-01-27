@@ -28,7 +28,7 @@
     "delivery_deadline": "Prazo de Entrega",
     "delivery_deadline_hours": "Prazo de Entrega (Horas)",
     "sell_asset_for_burst": "Vender __assetName__ por BURST",
-    "buy_asset_with_nxt": "Comprar __assetName__ com BURST",
+    "buy_asset_with_burst": "Comprar __assetName__ com BURST",
     "not_delivered_in_time": "Não entregue a tempo",
     "purchase_not_delivered_in_time": "A compra não foi entregue a tempo.",
     "purchase_failed": "A compra falhou.",
