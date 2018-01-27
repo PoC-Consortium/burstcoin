@@ -27,7 +27,7 @@
     "error_could_not_decrypt_message": "Nemogućnost dekodiranja poruke.",
     "delivery_deadline": "Krajnji rok isporuke",
     "delivery_deadline_hours": "Krajnji rok isporuke (sati)",
-    "sell_asset_for_nxt": "Prodaj __assetName__ za BURST",
+    "sell_asset_for_burst": "Prodaj __assetName__ za BURST",
     "buy_asset_with_nxt": "Kupi __assetName__ za BURST",
     "not_delivered_in_time": "Nije isporučeno na vrijeme",
     "purchase_not_delivered_in_time": "Kupovina nije isporučena na vrijeme.",
