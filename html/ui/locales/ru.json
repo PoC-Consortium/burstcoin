@@ -29,7 +29,7 @@
     "delivery_deadline": "Срок доставки",
     "delivery_deadline_hours": "Срок доставки (в часах)",
     "sell_asset_for_burst": "Продать __assetName__ за BURST",
-    "buy_asset_with_nxt": "Купить __assetName__ за BURST",
+    "buy_asset_with_burst": "Купить __assetName__ за BURST",
     "not_delivered_in_time": "Не доставлено вовремя",
     "purchase_not_delivered_in_time": "Покупки не были доставлены вовремя.",
     "purchase_failed": "Покупка не удалась.",
