@@ -235,7 +235,7 @@ var NRS = (function(NRS, $, undefined) {
 						}
 
 						//forging requires password to be sent to the server, so we don't do it automatically if not localhost
-						if (!NRS.accountInfo.publicKey || NRS.accountInfo.effectiveBalanceNXT == 0 || !NRS.isLocalHost || NRS.downloadingBlockchain || NRS.isLeased) {
+						if (!NRS.accountInfo.publicKey || NRS.accountInfo.effectiveBalanceBURST == 0 || !NRS.isLocalHost || NRS.downloadingBlockchain || NRS.isLeased) {
 							$("#forging_indicator").removeClass("forging");
 							$("#forging_indicator span").html($.t("not_forging")).attr("data-i18n", "not_forging");
 							$("#forging_indicator").show();
