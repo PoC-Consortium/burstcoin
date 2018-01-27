@@ -28,7 +28,7 @@
     "delivery_deadline": "Deadline voor levering",
     "delivery_deadline_hours": "Deadline voor levering (in uren)",
     "sell_asset_for_burst": "Verkoop __assetName__ voor BURST",
-    "buy_asset_with_nxt": "Koop __assetName__ met BURST",
+    "buy_asset_with_burst": "Koop __assetName__ met BURST",
     "not_delivered_in_time": "Niet op tijd geleverd",
     "purchase_not_delivered_in_time": "De aankoop werd niet op tijd geleverd.",
     "purchase_failed": "De aankoop is niet gelukt.",
