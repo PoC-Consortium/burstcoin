@@ -814,7 +814,7 @@
     "maximum_nr_choices": "Мінімальна кількість варіантів",
     "nrs_info": "BRS інформація",
     "add_to_group": "Додати до групи",
-    "send_nxt": "Відправити BURST",
+    "send_burst": "Відправити BURST",
     "balance_leasing_help": "<strong>Пам'ятайте<\/strong>: після підтвердження договору оренди, він не може бути скасований.",
     "error_generate_account_id": "Не вдається створити адресу вашого аккаунта.",
     "error_no_public_key": "Аккаунт не має відкритого ключа.",
