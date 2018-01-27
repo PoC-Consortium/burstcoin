@@ -27,7 +27,7 @@
     "error_could_not_decrypt_message": "Не вдалося розшифрувати повідомлення.",
     "delivery_deadline": "Термін виконання",
     "delivery_deadline_hours": "Термін виконання (годин)",
-    "sell_asset_for_nxt": "Продати __assetName__  за BURST",
+    "sell_asset_for_burst": "Продати __assetName__  за BURST",
     "buy_asset_with_nxt": "Купити __assetName__ за BURST",
     "not_delivered_in_time": "Не доставлено вчасно",
     "purchase_not_delivered_in_time": "Покупки не були доставлені вчасно.",
