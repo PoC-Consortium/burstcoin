@@ -786,7 +786,7 @@
     "poll_creation": "Kreirajte anketu",
     "remember_passphrase_by_default": "Remember Passphrase By Default",
     "nr_blocks": "# Blokova",
-    "copy_send_nxt_link": "Kopiraj 'pošalji BURST' poveznicu",
+    "copy_send_burst_link": "Kopiraj 'pošalji BURST' poveznicu",
     "success_passphrase_confirmed": "Lozinka uspješno potvrđena, sad ste prijavljeni.",
     "your_name": "Vaše ime",
     "stop_forging": "Prestani kovati",
