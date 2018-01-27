@@ -206,7 +206,7 @@ final class PeerImpl implements Peer {
       hallmarkBalanceHeight = Burst.getBlockchain().getHeight();
     }
 
-    return (int)(adjustedWeight * (hallmarkBalance / Constants.ONE_BURST) / Constants.MAX_BALANCE_NXT);
+    return (int)(adjustedWeight * (hallmarkBalance / Constants.ONE_BURST) / Constants.MAX_BALANCE_BURST);
   }
 
   @Override
