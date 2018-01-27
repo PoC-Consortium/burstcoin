@@ -27,7 +27,7 @@
     "error_could_not_decrypt_message": "Viestin salauksen purkaminen ei onnistunut.",
     "delivery_deadline": "Toimituksen määräaika",
     "delivery_deadline_hours": "Toimituksen määräaika (tuntia)",
-    "sell_asset_for_nxt": "Myy __assetName__ BURST:ksi",
+    "sell_asset_for_burst": "Myy __assetName__ BURST:ksi",
     "buy_asset_with_nxt": "Osta __assetName__ BURST:llä",
     "not_delivered_in_time": "Ei toimitettu ajoissa",
     "purchase_not_delivered_in_time": "Ostosta ei toimitettu ajoissa.",
