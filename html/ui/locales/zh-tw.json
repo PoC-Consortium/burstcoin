@@ -786,7 +786,7 @@
     "poll_creation": "創建投票",
     "remember_passphrase_by_default": "默認情況下記住密碼",
     "nr_blocks": "# 區塊",
-    "copy_send_nxt_link": "複製“發送 BURST\"連結",
+    "copy_send_burst_link": "複製“發送 BURST\"連結",
     "success_passphrase_confirmed": "密碼確認成功，您現在已登錄。",
     "your_name": "您的名字",
     "stop_forging": "停止鍛造",
