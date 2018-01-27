@@ -786,7 +786,7 @@
     "poll_creation": "Création d'un sondage",
     "remember_passphrase_by_default": "Se souvenir de la phrase de passe par défaut",
     "nr_blocks": "# Blocs",
-    "copy_send_nxt_link": "Copier le lien « Envoyer des BURST »",
+    "copy_send_burst_link": "Copier le lien « Envoyer des BURST »",
     "success_passphrase_confirmed": "Phrase de passe confirmée avec succès, vous êtes maintenant connecté.",
     "your_name": "Votre nom",
     "stop_forging": "Arrêter de forger",
