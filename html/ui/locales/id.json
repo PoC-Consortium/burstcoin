@@ -27,7 +27,7 @@
     "error_could_not_decrypt_message": "Tidak dapat mendekripsi pesan.",
     "delivery_deadline": "Batas waktu pengiriman",
     "delivery_deadline_hours": "Batas waktu pengiriman (jam)",
-    "sell_asset_for_nxt": "Jual __assetName__ untuk BURST",
+    "sell_asset_for_burst": "Jual __assetName__ untuk BURST",
     "buy_asset_with_nxt": "Beli __assetName__ dengan Burst",
     "not_delivered_in_time": "Tidak dikirim tepat waktu",
     "purchase_not_delivered_in_time": "Pembelian tidak dikirim tepat waktu.",
