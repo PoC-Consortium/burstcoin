@@ -786,7 +786,7 @@
     "poll_creation": "Napravite Anketu",
     "remember_passphrase_by_default": "Zapamtite Lozinku po Default-u",
     "nr_blocks": "# Blokovi",
-    "copy_send_nxt_link": "Kopirajte link 'Pošalji BURST'",
+    "copy_send_burst_link": "Kopirajte link 'Pošalji BURST'",
     "success_passphrase_confirmed": "Lozinka je tačna, uspešno ste ušli u svoj nalog.",
     "your_name": "Vaše Ime",
     "stop_forging": "Prestanite Kovati",
