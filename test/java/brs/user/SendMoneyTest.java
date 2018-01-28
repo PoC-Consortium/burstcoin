@@ -142,8 +142,8 @@ public class SendMoneyTest {
     @Test
     public void successfulTransaction_Test() throws Exception {
         Account mockAccount = mock(Account.class);
-        long nxtPlusFee = Convert.parseNXT(TRANSACTION_AMOUNT) + Convert.parseNXT(FEE);
-        when(mockAccount.getUnconfirmedBalanceNQT()).thenReturn(nxtPlusFee + 1);
+        long burstPlusFee = Convert.parseNXT(TRANSACTION_AMOUNT) + Convert.parseNXT(FEE);
+        when(mockAccount.getUnconfirmedBalanceNQT()).thenReturn(burstPlusFee + 1);
 
         PowerMockito.mockStatic(Account.class);
         when(Account.getAccount(any(byte[].class))).thenReturn(mockAccount);

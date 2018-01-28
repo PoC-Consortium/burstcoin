@@ -162,13 +162,13 @@ var NRS = (function(NRS, $, undefined) {
 		var errorMessage = "";
 
 		if (data.modal == "cancel_alias_sale") {
-			data.priceNXT = "0";
+			data.priceBURST = "0";
 			data.recipient = NRS.accountRS;
 
 			successMessage = $.t("success_cancel_alias");
 			errorMessage = $.t("error_cancel_alias");
 		} else if (data.modal == "transfer_alias") {
-			data.priceNXT = "0";
+			data.priceBURST = "0";
 
 			successMessage = $.t("success_transfer_alias");
 			errorMessage = $.t("error_transfer_alias");
@@ -311,7 +311,7 @@ var NRS = (function(NRS, $, undefined) {
 					$modal.find("input[name=recipient]").val(String(response.accountRS).escapeHTML());
 					$modal.find("input[name=aliasName]").val(alias.escapeHTML());
 					$modal.find(".alias_name_display").html(alias.escapeHTML());
-					$modal.find("input[name=amountNXT]").val(NRS.convertToNXT(response.priceNQT)).prop("readonly", true);
+					$modal.find("input[name=amountBURST]").val(NRS.convertToNXT(response.priceNQT)).prop("readonly", true);
 				}
 			}
 		}, false);
