@@ -69,7 +69,7 @@ public final class GetState extends APIServlet.APIRequestHandler {
         totalEffectiveBalance += escrows.next().getAmountNQT();
       }
     }
-    response.put("totalEffectiveBalanceNXT", totalEffectiveBalance / Constants.ONE_BURST);
+    response.put("totalEffectiveBalanceBURST", totalEffectiveBalance / Constants.ONE_BURST);
 
 
     if (!"false".equalsIgnoreCase(req.getParameter("includeCounts"))) {

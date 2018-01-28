@@ -55,7 +55,7 @@ public abstract class TransactionType {
   private static final byte SUBTYPE_DIGITAL_GOODS_REFUND = 7;
 
   private static final byte SUBTYPE_AT_CREATION = 0;
-  private static final byte SUBTYPE_AT_NXT_PAYMENT = 1;
+  private static final byte SUBTYPE_AT_BURST_PAYMENT = 1;
 
   private static final byte SUBTYPE_ACCOUNT_CONTROL_EFFECTIVE_BALANCE_LEASING = 0;
 
@@ -172,7 +172,7 @@ public abstract class TransactionType {
         switch (subtype) {
           case SUBTYPE_AT_CREATION:
             return AutomatedTransactions.AUTOMATED_TRANSACTION_CREATION;
-          case SUBTYPE_AT_NXT_PAYMENT:
+          case SUBTYPE_AT_BURST_PAYMENT:
             return AutomatedTransactions.AT_PAYMENT;
           default:
             return null;
