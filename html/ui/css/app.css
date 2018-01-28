@@ -3063,7 +3063,7 @@ a.list-group-item-header:hover {
     overflow-x: hidden;
 }
 
-#nrs_update_drop_zone, #nrs_update_result {
+#brs_update_drop_zone, #brs_update_result {
     padding: 25px;
     text-align: center;
     font-weight:bold;
@@ -3074,21 +3074,21 @@ a.list-group-item-header:hover {
     border:1px solid #D6E8C7;
     display:none;
 }
-#nrs_update_hash_progress {
+#brs_update_hash_progress {
     height:15px;
     background:#48874A;  
     display:none;
     margin-top:20px;
 }
 
-.nrs_message {
+.brs_message {
     background:#DFF0D9;
     color:#48874A;
     padding:5px;
     border:1px solid #D6E8C7;
     display:none;
 }
-#nrs_update_explanation span {
+#brs_update_explanation span {
 	display:none;
 }
 .incorrect {
@@ -3096,21 +3096,21 @@ a.list-group-item-header:hover {
     color:white !important;
     border:1px solid #E4404B !important;
 }
-#nrs_update_explanation_1, #nrs_update_explanation_2, #nrs_update_explanation_3, #nrs_update_explanation_4 {
+#brs_update_explanation_1, #brs_update_explanation_2, #brs_update_explanation_3, #brs_update_explanation_4 {
 
     display:none;
 }
-nrs_update_hashes {
+brs_update_hashes {
     display:none;
     margin-top:20px;
 }
     
-#nrs_update_hashes table {
+#brs_update_hashes table {
     border-collapse:collapse;
     border:1px solid #bbb;
 }
 
-#nrs_update_hashes table td {
+#brs_update_hashes table td {
     padding:2px;
     margin-bottom:1px;
 }

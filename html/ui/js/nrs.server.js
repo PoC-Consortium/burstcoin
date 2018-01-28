@@ -68,17 +68,17 @@ var NRS = (function(NRS, $, undefined) {
 			}
 		});
 
-		//convert NXT to NQT...
+		//convert BURST to NQT...
 		try {
-			var nxtFields = ["feeNXT", "amountNXT", "priceNXT", "refundNXT", "discountNXT", "minActivationAmountNXT"];
+			var BURSTFields = ["feeBURST", "amountBURST", "priceBURST", "refundBURST", "discountBURST", "minActivationAmountBURST"];
 
-			for (var i = 0; i < nxtFields.length; i++) {
-				var nxtField = nxtFields[i];
-				var field = nxtField.replace("NXT", "");
+			for (var i = 0; i < BURSTFields.length; i++) {
+				var BURSTField = BURSTFields[i];
+				var field = BURSTField.replace("NXT", "");
 
-				if (nxtField in data) {
-					data[field + "NQT"] = NRS.convertToNQT(data[nxtField]);
-					delete data[nxtField];
+				if (BURSTField in data) {
+					data[field + "NQT"] = NRS.convertToNQT(data[BURSTField]);
+					delete data[BURSTField];
 				}
 			}
 		} catch (err) {

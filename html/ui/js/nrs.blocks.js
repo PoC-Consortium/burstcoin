@@ -48,9 +48,9 @@ var NRS = (function(NRS, $, undefined) {
 						NRS.setStateInterval(10);
 					}
 					NRS.downloadingBlockchain = true;
-					$("#nrs_update_explanation span").hide();
-					$("#nrs_update_explanation_wait").attr("style", "display: none !important");
-					$("#downloading_blockchain, #nrs_update_explanation_blockchain_sync").show();
+					$("#brs_update_explanation span").hide();
+					$("#brs_update_explanation_wait").attr("style", "display: none !important");
+					$("#downloading_blockchain, #brs_update_explanation_blockchain_sync").show();
 					$("#show_console").hide();
 					NRS.updateBlockchainDownloadProgress();
 				} else {
@@ -145,8 +145,8 @@ var NRS = (function(NRS, $, undefined) {
 					}
 					NRS.downloadingBlockchain = false;
 					$("#dashboard_message").hide();
-					$("#downloading_blockchain, #nrs_update_explanation_blockchain_sync").hide();
-					$("#nrs_update_explanation_wait").removeAttr("style");
+					$("#downloading_blockchain, #brs_update_explanation_blockchain_sync").hide();
+					$("#brs_update_explanation_wait").removeAttr("style");
 					if (NRS.settings["console_log"] && !NRS.inApp) {
 						$("#show_console").show();
 					}

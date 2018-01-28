@@ -149,7 +149,7 @@ var NRS = (function(NRS, $, undefined) {
 			$(obj).removeClass("col-xs-" + advancedSize + " col-sm-" + advancedSize + " col-md-" + advancedSize).addClass("col-xs-" + normalSize + " col-sm-" + normalSize + " col-md-" + normalSize);
 		});
 
-		var $feeInput = $(this).find("input[name=feeNXT]");
+		var $feeInput = $(this).find("input[name=feeBURST]");
 
 		if ($feeInput.length) {
 			var defaultFee = $feeInput.data("default");
@@ -187,7 +187,7 @@ var NRS = (function(NRS, $, undefined) {
 		$modal.modal("hide");
 	}
 
-	$("input[name=feeNXT]").on("change", function() {
+	$("input[name=feeBURST]").on("change", function() {
 		var $modal = $(this).closest(".modal");
 
 		var $feeInfo = $modal.find(".advanced_fee");

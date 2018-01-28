@@ -111,7 +111,7 @@ var NRS = (function(NRS, $, undefined) {
 			"optionsAreBinary": "0",
 			"minNumberOfOptions": $("#create_poll_min_options").val(),
 			"maxNumberOfOptions": $("#create_poll_max_options").val(),
-			"feeNXT": "1",
+			"feeBURST": "1",
 			"deadline": "24",
 			"secretPhrase": $("#create_poll_password").val()
 		};
