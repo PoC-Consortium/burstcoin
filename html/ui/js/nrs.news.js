@@ -42,11 +42,10 @@ var NRS = (function(NRS, $, undefined) {
 				}
 			};
 
-			$("#nxtforum_news").rss("https://nxtforum.org/index.php?type=rss;action=.xml;sa=news;", settings, NRS.newsLoaded);
-			$("#reddit_news").rss("http://www.reddit.com/r/NXT/.rss", settingsReddit, NRS.newsLoaded);
-			$("#nxtcoin_blogspot_news").rss("http://nxtcoin.blogspot.com/feeds/posts/default", settings, NRS.newsLoaded);
-			$("#nxter_news").rss("http://nxter.org/feed/", settings, NRS.newsLoaded);
-			$("#nxtcommunity_news").rss("http://www.nxtcommunity.org/rss.xml", settings, NRS.newsLoaded);
+			$("#burstforum_news").rss("https://forums.getburst.net/c/burst-community-announcements", settings, NRS.newsLoaded);
+			$("#burstforum2_news").rss("https://burstforum.net/category/1/announcements", settings, NRS.newsLoaded);		
+			$("#reddit_news").rss("http://www.reddit.com/r/burstcoin/.rss", settingsReddit, NRS.newsLoaded);
+			$("#burstcoinist_news").rss("https://www.burstcoin.ist/category/articles/", settings, NRS.newsLoaded);
 		}
 
 		NRS.pageLoaded();
