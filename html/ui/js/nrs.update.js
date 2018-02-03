@@ -271,7 +271,7 @@ var NRS = (function(NRS, $, undefined) {
             }, "*");
             $("#nrs_modal").modal("hide");
         } else {
-            $("#nrs_update_iframe").attr("src", "https://github.com/ac0v/burstcoin/releases/download/" + NRS.downloadedVersion.versionNr + "/burstcoin-" + NRS.downloadedVersion.versionNr + ".zip");
+            $("#nrs_update_iframe").attr("src", "https://github.com/PoC-Consortium/burstcoin/releases/download/" + NRS.downloadedVersion.versionNr + "/burstcoin-" + NRS.downloadedVersion.versionNr + ".zip");
             $("#nrs_update_explanation").hide();
             $("#nrs_update_drop_zone").show();
 
