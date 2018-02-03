@@ -639,10 +639,10 @@ var NRS = (function(NRS, $, undefined) {
 		}
 
 		if (NRS.accountInfo.unconfirmedBalanceNQT == "0") {
-			$("#your_nxt_balance").html("0");
+			$("#your_burst_balance").html("0");
 			$("#buy_automatic_price").addClass("zero").removeClass("nonzero");
 		} else {
-			$("#your_nxt_balance").html(NRS.formatAmount(NRS.accountInfo.unconfirmedBalanceNQT));
+			$("#your_burst_balance").html(NRS.formatAmount(NRS.accountInfo.unconfirmedBalanceNQT));
 			$("#buy_automatic_price").addClass("nonzero").removeClass("zero");
 		}
 
