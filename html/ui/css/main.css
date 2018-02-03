@@ -1296,7 +1296,7 @@ a.list-group-item-header:hover {
     overflow-x: hidden;
 }
 
-#nrs_update_drop_zone, #nrs_update_result {
+#brs_update_drop_zone, #brs_update_result {
     padding: 25px;
     text-align: center;
     font-weight:bold;
