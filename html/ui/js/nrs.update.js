@@ -73,7 +73,7 @@ var NRS = (function(NRS, $, undefined) {
 
                 if (new Date() > noticeDate) {
 
-                    var downloadUrl = "https://github.com/ac0v/burstcoin/releases";
+                    var downloadUrl = "https://github.com/PoC-Consortium/burstcoin/releases";
 
                     $("#secondary_dashboard_message").removeClass("alert-success").addClass("alert-danger").html($.t("old_nxt_wallet_update", {
                         "link": downloadUrl
