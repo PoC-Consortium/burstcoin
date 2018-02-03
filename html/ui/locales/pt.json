@@ -91,7 +91,7 @@
     "data_is_encrypted": "Os dados estão cifrados.",
     "public_feedback": "Valorações Públicas",
     "private_feedback": "Valorações Privadas",
-    "old_nxt_wallet_update": "Há uma nova versão da aplicação BURST Wallet disponível para descarregar  <a href='__link__' target='_blank'>aquí<\/a>. Deve descarregar-se e instalar-se manualmente.",
+    "wallet_update_available": "Há uma nova versão da aplicação BURST Wallet disponível para descarregar  <a href='__link__' target='_blank'>aquí<\/a>. Deve descarregar-se e instalar-se manualmente.",
     "order_total": "Total da Encomenda",
     "message_empty": "A mensagem está vazia.",
     "search_marketplace": "Pesquisa em Mercado",

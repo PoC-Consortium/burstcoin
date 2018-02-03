@@ -75,7 +75,7 @@ var NRS = (function(NRS, $, undefined) {
 
                     var downloadUrl = "https://github.com/ac0v/burstcoin/releases";
 
-                    $("#secondary_dashboard_message").removeClass("alert-success").addClass("alert-danger").html($.t("old_nxt_wallet_update", {
+                    $("#secondary_dashboard_message").removeClass("alert-success").addClass("alert-danger").html($.t("wallet_update_available", {
                         "link": downloadUrl
                     })).show();
                 }

@@ -91,7 +91,7 @@
     "data_is_encrypted": "Duomenys šifruoti.",
     "public_feedback": "Viešas atsiliepimas",
     "private_feedback": "Privatus atsiliepimas",
-    "old_nxt_wallet_update": "Nauja BURST piniginės versiją galima parsisiųsti <a href='__link__' target='_blank'> čia<\/a>. Ji turi būti atsisiųsta ir įdiegta rankiniu būdu.",
+    "wallet_update_available": "Nauja BURST piniginės versiją galima parsisiųsti <a href='__link__' target='_blank'> čia<\/a>. Ji turi būti atsisiųsta ir įdiegta rankiniu būdu.",
     "order_total": "Užsakymo suma",
     "message_empty": "Žinutė yra tuščia.",
     "search_marketplace": "Ieškoti parduotuvėje",

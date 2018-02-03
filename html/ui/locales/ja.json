@@ -91,7 +91,7 @@
     "data_is_encrypted": "データは暗号化されます。",
     "public_feedback": "パブリックフィードバック",
     "private_feedback": "プライベートフィードバック",
-    "old_nxt_wallet_update": "BURST 財布アプリケーションの新しいバージョンを <a href='__link__' target='_blank'> ここ<\/a>  からダウンロードできます。それをダウンロードし、手動でインストールする必要があります。",
+    "wallet_update_available": "BURST 財布アプリケーションの新しいバージョンを <a href='__link__' target='_blank'> ここ<\/a>  からダウンロードできます。それをダウンロードし、手動でインストールする必要があります。",
     "order_total": "注文の合計",
     "message_empty": "メッセージが空です。",
     "search_marketplace": "マーケットプレイスを検索",
