@@ -92,7 +92,7 @@
     "data_is_encrypted": "Данные зашифрованы.",
     "public_feedback": "Публичный отзыв",
     "private_feedback": "Приватный отзыв",
-    "old_nxt_wallet_update": "Новая версия приложения BURST Wallet доступна для скачивания <a href='__link__' target='_blank'>здесь<\/a>. Ее необходимо скачать и установить вручную.",
+    "wallet_update_available": "Новая версия приложения BURST Wallet доступна для скачивания <a href='__link__' target='_blank'>здесь<\/a>. Ее необходимо скачать и установить вручную.",
     "order_total": "Общая сумма заказа",
     "message_empty": "Пустое сообщение.",
     "search_marketplace": "Поиск по Магазину товаров",

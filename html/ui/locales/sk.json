@@ -91,7 +91,7 @@
     "data_is_encrypted": "Dáta sú šifrované.",
     "public_feedback": "Spätná väzba",
     "private_feedback": "Súkromné pripomienky",
-    "old_nxt_wallet_update": "Nová verzia aplikácie peňaženky BURST je k dispozícii na stiahnutie <a href='__link__' target='_blank'>tu<\/a>. Musí byť stiahnutá a nainštalovaná ručne.",
+    "wallet_update_available": "Nová verzia aplikácie peňaženky BURST je k dispozícii na stiahnutie <a href='__link__' target='_blank'>tu<\/a>. Musí byť stiahnutá a nainštalovaná ručne.",
     "order_total": "Objednávka celkom",
     "message_empty": "Správa je prázdna.",
     "search_marketplace": "Prehľadať trhovisko",

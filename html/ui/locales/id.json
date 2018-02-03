@@ -91,7 +91,7 @@
     "data_is_encrypted": "Data dienkripsi.",
     "public_feedback": "Umpan balik Umum",
     "private_feedback": "Umpan balik pribadi",
-    "old_nxt_wallet_update": "Versi baru dari aplikasi dompet BURST telah tersedia untuk di-download <a href='__link__' target='_blank'> di sini<\/a>. Aplikasi tersebut harus didownload dan diinstal secara manual.",
+    "wallet_update_available": "Versi baru dari aplikasi dompet BURST telah tersedia untuk di-download <a href='__link__' target='_blank'> di sini<\/a>. Aplikasi tersebut harus didownload dan diinstal secara manual.",
     "order_total": "Total Order",
     "message_empty": "Pesan kosong.",
     "search_marketplace": "Cari Marketplace",

@@ -91,7 +91,7 @@
     "data_is_encrypted": "Podaci su zaštićeni.",
     "public_feedback": "Javna povratna informacija",
     "private_feedback": "Privatna povratna informacija",
-    "old_nxt_wallet_update": "Nova verzija BURST novčanika je spremna za preuzimanje <a href='__link__' target='_blank'>ovdje<\/a>. Nova verzija mora biti preuzeta i instalirana ručno.",
+    "wallet_update_available": "Nova verzija BURST novčanika je spremna za preuzimanje <a href='__link__' target='_blank'>ovdje<\/a>. Nova verzija mora biti preuzeta i instalirana ručno.",
     "order_total": "Ukupna Porudžbina",
     "message_empty": "Poruka je prazna.",
     "search_marketplace": "Pretražite Tržište",

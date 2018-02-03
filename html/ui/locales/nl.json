@@ -91,7 +91,7 @@
     "data_is_encrypted": "Gegevens zijn gecodeerd.",
     "public_feedback": "Openbare Feedback",
     "private_feedback": "Privé feedback",
-    "old_nxt_wallet_update": "Er is een nieuwe versie van de BURST wallet beschikbaar <a href='__link__' target='_blank'> hier<\/a>. Het moet handmatig worden gedownload en geïnstalleerd.",
+    "wallet_update_available": "Er is een nieuwe versie van de BURST wallet beschikbaar <a href='__link__' target='_blank'> hier<\/a>. Het moet handmatig worden gedownload en geïnstalleerd.",
     "order_total": "Ordertotaal",
     "message_empty": "Bericht is leeg.",
     "search_marketplace": "Zoek binnen Marktplaats",

@@ -91,7 +91,7 @@
     "data_is_encrypted": "Tiedot on salattu.",
     "public_feedback": "Julkinen palaute",
     "private_feedback": "Yksityinen palaute",
-    "old_nxt_wallet_update": "BURST-lompakon uusi versio on ladattavissa <a href='__link__' target='_blank'>täältä<\/a>. Se täytyy ladata ja asentaa manuaalisesti.",
+    "wallet_update_available": "BURST-lompakon uusi versio on ladattavissa <a href='__link__' target='_blank'>täältä<\/a>. Se täytyy ladata ja asentaa manuaalisesti.",
     "order_total": "Toimeksianto yhteensä",
     "message_empty": "Viesti on tyhjä.",
     "search_marketplace": "Hae kauppapaikasta",

@@ -91,7 +91,7 @@
     "data_is_encrypted": "數據是加密的。",
     "public_feedback": "公開的反饋",
     "private_feedback": "私密的反饋",
-    "old_nxt_wallet_update": "新版本的 BURST 錢包應用程序可以在 <a href='__link__' target='_blank'> 這裡<\/a>下載。必須手動下載并安裝它。",
+    "wallet_update_available": "新版本的 BURST 錢包應用程序可以在 <a href='__link__' target='_blank'> 這裡<\/a>下載。必須手動下載并安裝它。",
     "order_total": "訂單合計",
     "message_empty": "信息是空白的。",
     "search_marketplace": "搜索市場",

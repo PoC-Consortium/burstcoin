@@ -92,7 +92,7 @@
     "data_is_encrypted": "Die Daten sind verschlüsselt.",
     "public_feedback": "Öffentliches Feedback",
     "private_feedback": "Privates Feedback",
-    "old_nxt_wallet_update": "Eine neue Version des BURST-Wallets steht zum <a href='__link__' target='_blank'>Download<\/a> bereit. Es muss heruntergeladen und manuell installiert werden.",
+    "wallet_update_available": "Eine neue Version des BURST-Wallets steht zum <a href='__link__' target='_blank'>Download<\/a> bereit. Es muss heruntergeladen und manuell installiert werden.",
     "order_total": "Auftragssumme",
     "message_empty": "Die Nachricht ist leer.",
     "search_marketplace": "Marktplatz durchsuchen",

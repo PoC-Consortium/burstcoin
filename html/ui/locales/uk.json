@@ -91,7 +91,7 @@
     "data_is_encrypted": "Дані зашифровані.",
     "public_feedback": "Публічний відгук",
     "private_feedback": "Приватний відгук",
-    "old_nxt_wallet_update": "Нова версія BURST Wallet доступна для скачування <a href='__link__' target='_blank'>тут<\/a>. Її необхідно викачати і встановити вручну.",
+    "wallet_update_available": "Нова версія BURST Wallet доступна для скачування <a href='__link__' target='_blank'>тут<\/a>. Її необхідно викачати і встановити вручну.",
     "order_total": "Загальна сума замовлення",
     "message_empty": "Порожнє повідомлення.",
     "search_marketplace": "Пошук по Магазину товарів",
