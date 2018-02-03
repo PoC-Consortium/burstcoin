@@ -870,7 +870,7 @@ var NRS = (function(NRS, $, undefined) {
 
 			$("#" + type + "_asset_price").val(NRS.calculateOrderPricePerWholeQNT(priceNQT, NRS.currentAsset.decimals));
 			$("#" + type + "_asset_quantity").val(NRS.convertToQNTf(quantityQNT, NRS.currentAsset.decimals));
-			$("#" + type + "_asset_total").val(NRS.convertToNXT(totalNQT));
+			$("#" + type + "_asset_total").val(NRS.convertToBURST(totalNQT));
 		} catch (err) {
 			return;
 		}
@@ -919,7 +919,7 @@ var NRS = (function(NRS, $, undefined) {
 			if (price.cmp(new Big("0")) <= 0) {
 				//get minimum price if no offers exist, based on asset decimals..
 				price = new Big("" + Math.pow(10, NRS.currentAsset.decimals));
-				$("#" + type + "_asset_price").val(NRS.convertToNXT(price.toString()));
+				$("#" + type + "_asset_price").val(NRS.convertToBURST(price.toString()));
 			}
 
 			var quantity = new Big(NRS.amountToPrecision((type == "sell" ? balanceNQT : balance).div(price).toString(), NRS.currentAsset.decimals));
@@ -941,7 +941,7 @@ var NRS = (function(NRS, $, undefined) {
 			}
 
 			$("#" + type + "_asset_quantity").val(quantity.toString());
-			$("#" + type + "_asset_total").val(NRS.convertToNXT(total.toString()));
+			$("#" + type + "_asset_total").val(NRS.convertToBURST(total.toString()));
 
 			$("#" + type + "_asset_total").css({
 				"background": "",

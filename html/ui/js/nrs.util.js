@@ -271,7 +271,7 @@ var NRS = (function(NRS, $, undefined) {
 			price = new BigInteger(String(price));
 		}
 
-		return NRS.convertToNXT(price.multiply(new BigInteger("" + Math.pow(10, decimals))), returnAsObject);
+		return NRS.convertToBURST(price.multiply(new BigInteger("" + Math.pow(10, decimals))), returnAsObject);
 	}
 
 	NRS.calculatePricePerWholeQNT = function(price, decimals) {
@@ -314,7 +314,7 @@ var NRS = (function(NRS, $, undefined) {
 			priceNQT = new BigInteger(String(priceNQT));
 		}
 
-		return NRS.convertToNXT(quantityQNT.multiply(priceNQT));
+		return NRS.convertToBURST(quantityQNT.multiply(priceNQT));
 	}
 
 	NRS.calculatePercentage = function(a, b) {
@@ -326,7 +326,7 @@ var NRS = (function(NRS, $, undefined) {
 		return result.toString();
 	}
 
-	NRS.convertToNXT = function(amount, returnAsObject) {
+	NRS.convertToBURST = function(amount, returnAsObject) {
 		var negative = "";
 		var afterComma = "";
 
@@ -555,7 +555,7 @@ var NRS = (function(NRS, $, undefined) {
 		var formattedAmount = "";
 
 		if (typeof amount == "object") {
-			var params = NRS.convertToNXT(amount, true);
+			var params = NRS.convertToBURST(amount, true);
 
 			negative = params.negative;
 			amount = params.amount;

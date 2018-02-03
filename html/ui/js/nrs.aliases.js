@@ -311,7 +311,7 @@ var NRS = (function(NRS, $, undefined) {
 					$modal.find("input[name=recipient]").val(String(response.accountRS).escapeHTML());
 					$modal.find("input[name=aliasName]").val(alias.escapeHTML());
 					$modal.find(".alias_name_display").html(alias.escapeHTML());
-					$modal.find("input[name=amountNXT]").val(NRS.convertToNXT(response.priceNQT)).prop("readonly", true);
+					$modal.find("input[name=amountNXT]").val(NRS.convertToBURST(response.priceNQT)).prop("readonly", true);
 				}
 			}
 		}, false);
