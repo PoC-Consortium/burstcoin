@@ -317,7 +317,7 @@
     "actions": "Ações",
     "advanced_transaction_operations": "Operações Avançadas de Transações",
     "buy_order_description_help": "Por cada ativo comprado você vai pagar __nxt__ BURST, perfazendo um total de __total_nxt__ BURST, uma vez que tudo for comprado.",
-    "nrs_update": "Atualização de BRS",
+    "brs_update": "Atualização de BRS",
     "error_passphrase_required": "A senha é um campo obrigatório.",
     "option_x": "opção __x__",
     "error_goods_not_yet_delivered": "Os produtos ainda não foram entregues.",

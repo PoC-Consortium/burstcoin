@@ -429,7 +429,7 @@
 	"send_a_message": "Send a Message",
 	"add_as_contact": "Add as Contact",
 	"nrs_info": "BRS Info",
-	"nrs_update": "BRS Update",
+	"brs_update": "BRS Update",
 	"nrs_state": "BRS State",
 	"update_blockchain_downloading": "The blockchain is still downloading, check again after it's up to date.",
 	"update_testnet": "BRS cannot be updated whilst connected to the testnet.",

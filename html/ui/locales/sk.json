@@ -317,7 +317,7 @@
     "actions": "Akcie",
     "advanced_transaction_operations": "Pokročilé transakčné operácie",
     "buy_order_description_help": "Za každé aktívum zaplatíte __nxt__ BURST, teda celkom __total_nxt__ BURST akonáhle bude všetko zakúpené.",
-    "nrs_update": "Aktualizácia BRS",
+    "brs_update": "Aktualizácia BRS",
     "error_passphrase_required": "Heslo je povinné pole.",
     "option_x": "možnosť __x__",
     "error_goods_not_yet_delivered": "Tovar ešte nebol doručený.",

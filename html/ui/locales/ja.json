@@ -317,7 +317,7 @@
     "actions": "アクション",
     "advanced_transaction_operations": "高度なトランザクション操作",
     "buy_order_description_help": "資産購入毎にあなたは__nxt__ を支払い、全てを購入すればトータルで__total_nxt__ BURST支払うことになります。",
-    "nrs_update": "BRS更新",
+    "brs_update": "BRS更新",
     "error_passphrase_required": "パスフレーズは必須入力フィールドです。",
     "option_x": "オプション__x__",
     "error_goods_not_yet_delivered": "商品はまだ配信されていません。",

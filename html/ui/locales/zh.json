@@ -318,7 +318,7 @@
     "actions": "操作",
     "advanced_transaction_operations": "高级交易操作",
     "buy_order_description_help": "每购买一个整体资产，您将要支付 __nxt__ BURST，当购买所有时，总量为__total_nxt__ BURST。",
-    "nrs_update": "BRS 更新",
+    "brs_update": "BRS 更新",
     "error_passphrase_required": "必须输入密码。",
     "option_x": "选项 __x__",
     "error_goods_not_yet_delivered": "货物尚未交付。",

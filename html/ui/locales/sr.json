@@ -317,7 +317,7 @@
     "actions": "Акције",
     "advanced_transaction_operations": "Напредне Трансакцијске Операције",
     "buy_order_description_help": "За цену једног асета платићете __nxt__ BURST, što iznosi ukupno __total_nxt__ BURST кад комплетирате куповину.",
-    "nrs_update": "BRS Ажурирање",
+    "brs_update": "BRS Ажурирање",
     "error_passphrase_required": "Лозинка је обавезно поље.",
     "option_x": "опција __x__",
     "error_goods_not_yet_delivered": "Роба још није испоручена.",
