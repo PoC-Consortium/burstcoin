@@ -581,7 +581,7 @@
     "error_not_specified": "__name__ nenurodytas.",
     "start_forging": "Pradėti \"kalti",
     "refund": "Pinigų grąžinimai",
-    "nxt_forum": "BURST forumas",
+    "burst_forum": "BURST forumas",
     "new_price": "Nauja kaina",
     "balance_will_be_leased_out": "Jūsų sąskaitos efektyvus balansas bus išnuomotas nuo bloko __start__ iki bloko __end__ į sąskaitą <a href='#' data-user='__account__' class='user_info'> __account__<\/a>",
     "generating_passphrase_wait": "Generuojamas Jūsų slaptažodis. Prašome palaukti",

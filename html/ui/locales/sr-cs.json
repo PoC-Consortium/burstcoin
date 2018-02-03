@@ -581,7 +581,7 @@
     "error_not_specified": "__name__ nije specificirano.",
     "start_forging": "Počnite Kovati",
     "refund": "Refundacija",
-    "nxt_forum": "Burst Forum",
+    "burst_forum": "Burst Forum",
     "new_price": "Nova Cena",
     "balance_will_be_leased_out": "Vaš efektivni saldo je iznajmljen. Najam počinje od bloka __start__ do bloka __end__ za nalog <a href='#' data-user='__account__' class='user_info'>__account__<\/a>",
     "generating_passphrase_wait": "Generišemo vašu lozinku. Molimo Vas sačekajte",

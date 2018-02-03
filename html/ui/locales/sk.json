@@ -581,7 +581,7 @@
     "error_not_specified": "__name__ nešpecifikované.",
     "start_forging": "Začať kovanie",
     "refund": "Vrátiť",
-    "nxt_forum": "BURST Fórum",
+    "burst_forum": "BURST Fórum",
     "new_price": "Nová cena",
     "balance_will_be_leased_out": "Efektívny zostatok vášho účtu bude prenajatý od bloku __start__ do bloku __end__ na účet <a href='#' data-user='__account__' class='user_info'> __account__<\/a>",
     "generating_passphrase_wait": "Vaše heslo sa generuje. Počkajte prosím",

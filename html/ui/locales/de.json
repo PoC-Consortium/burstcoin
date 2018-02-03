@@ -582,7 +582,7 @@
     "error_not_specified": "__name__ nicht angegeben.",
     "start_forging": "Blockgeneration starten",
     "refund": "Rückerstattung",
-    "nxt_forum": "BURST-Forum",
+    "burst_forum": "BURST-Forum",
     "new_price": "Neuer Preis",
     "balance_will_be_leased_out": "Ihr effektives Guthaben wird ab Block __start__ bis Block __end__ an das Konto <a href='#' data-user='__account__' class='user_info'> __account__<\/a> verleast werden.",
     "generating_passphrase_wait": "Ihre Passphrase wird generiert. Bitte warten Sie.",

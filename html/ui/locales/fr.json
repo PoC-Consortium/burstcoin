@@ -581,7 +581,7 @@
     "error_not_specified": "__name__ non spécifié.",
     "start_forging": "Commencer à forger",
     "refund": "Rembourser",
-    "nxt_forum": "Forum Burst",
+    "burst_forum": "Forum Burst",
     "new_price": "Nouveau prix",
     "balance_will_be_leased_out": "Le solde effectif de votre compte sera baillé au compte <a href='#' data-user='__account__' class='user_info'>__account__<\/a> à compter du bloc __start__ et ce jusqu'au bloc __end__",
     "generating_passphrase_wait": "Votre phrase de passe est en cours de génération. Merci de patienter",

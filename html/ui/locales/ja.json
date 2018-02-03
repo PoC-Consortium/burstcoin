@@ -581,7 +581,7 @@
     "error_not_specified": "__name__ が指定されていません。",
     "start_forging": "鋳造を開始します。",
     "refund": "払い戻し",
-    "nxt_forum": "Burstフォーラム",
+    "burst_forum": "Burstフォーラム",
     "new_price": "新価格",
     "balance_will_be_leased_out": "あなたアカウントの有効残高は、__start__ブロック から__end__ブロックまで<a href='#' data-user='__account__' class='user_info'>__account__<\/a>のアカウントにリースされています。",
     "generating_passphrase_wait": "パスフレーズを生成しています。お待ちください。",

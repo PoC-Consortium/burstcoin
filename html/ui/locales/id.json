@@ -581,7 +581,7 @@
     "error_not_specified": "__name__ tidak ditentukan.",
     "start_forging": "Mulai penyusunan",
     "refund": "Pembayaran kembali",
-    "nxt_forum": "BURST Forum",
+    "burst_forum": "BURST Forum",
     "new_price": "Harga baru",
     "balance_will_be_leased_out": "Efektif saldo Anda disewakan keluar mulai dari blok __start__ sampai blok __end__ ke rekening <a href='#' data-user='__account__' class='user_info'> __account__<\/a>",
     "generating_passphrase_wait": "Menghasilkan password. Harap tunggu",

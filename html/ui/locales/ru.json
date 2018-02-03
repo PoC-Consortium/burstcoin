@@ -582,7 +582,7 @@
     "error_not_specified": "__name__ не указано.",
     "start_forging": "Начать Форжинг",
     "refund": "Возмещение",
-    "nxt_forum": "Форум BURST",
+    "burst_forum": "Форум BURST",
     "new_price": "Новая цена",
     "balance_will_be_leased_out": "Эффективный баланс вашего аккаунта будет передан в аренду начиная с block __start__ до block __end__ , аккаунту <a href='#' data-user='__account__' class='user_info'> __account__<\/a>",
     "generating_passphrase_wait": "Генерация пароля. Пожалуйста подождите",

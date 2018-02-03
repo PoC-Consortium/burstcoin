@@ -581,7 +581,7 @@
     "error_not_specified": "__name__ non especificado.",
     "start_forging": "Comenzar a forxar",
     "refund": "Reembolso",
-    "nxt_forum": "Foro de Burst",
+    "burst_forum": "Foro de Burst",
     "new_price": "Novo prezo",
     "balance_will_be_leased_out": "O saldo efectivo da súa conta arrendarase en Leasing dende o bloque __start__ ata o bloque __end__ á conta <a href='#' data-user='__account__' class='user_info'>__account__<\/a>",
     "generating_passphrase_wait": "Xerando o seu contrasinal. Por favor, agarde",

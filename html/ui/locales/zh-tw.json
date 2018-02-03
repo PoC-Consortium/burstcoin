@@ -581,7 +581,7 @@
     "error_not_specified": "__name__ 未指定。",
     "start_forging": "開始鍛造",
     "refund": "退款",
-    "nxt_forum": "Burst 論壇",
+    "burst_forum": "Burst 論壇",
     "new_price": "新的價格",
     "balance_will_be_leased_out": "您帳戶的有效餘額將會出租給<a href='#' data-user='__account__' class='user_info'> __account__<\/a>，從__start__ 區塊開始到__end__ 區塊",
     "generating_passphrase_wait": "正在生成您的密碼。請稍候",

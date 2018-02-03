@@ -581,7 +581,7 @@
     "error_not_specified": "__name__ non specificato.",
     "start_forging": "Inizia a forgiare",
     "refund": "Rimborso",
-    "nxt_forum": "BURST Forum",
+    "burst_forum": "BURST Forum",
     "new_price": "Nuovo prezzo",
     "balance_will_be_leased_out": "Il saldo effettivo del tuo conto sarà dato in leasing a partire dal blocco __start__ fino al blocco __end__ al conto <a href='#' data-user='__account__' class='user_info'> __account__<\/a>",
     "generating_passphrase_wait": "Generando la passphrase. Attendere prego",

@@ -581,7 +581,7 @@
     "error_not_specified": "__name__ није специфицирано.",
     "start_forging": "Почните Ковати",
     "refund": "Рефундација",
-    "nxt_forum": "Burst Форум",
+    "burst_forum": "Burst Форум",
     "new_price": "Нова Цена",
     "balance_will_be_leased_out": "Ваш ефективни салдо је изнајмљен. Најам почиње од блока __start__ до блокa __end__ за налог <a href='#' data-user='__account__' class='user_info'>__account__<\/a>",
     "generating_passphrase_wait": "Генеришемо вашу лозинку. Молимо Вас сачекајте",

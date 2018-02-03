@@ -581,7 +581,7 @@
     "error_not_specified": "__name__ ei ole määritetty.",
     "start_forging": "Aloita taonta",
     "refund": "Maksun palautus",
-    "nxt_forum": "Burst Forum",
+    "burst_forum": "Burst Forum",
     "new_price": "Uusi hinta",
     "balance_will_be_leased_out": "Tilisi efektiivinen saldo vuokrataan alkaen lohkosta __start__ lohkoon __end__ asti tilille <a href='#' data-user='__account__' class='user_info'>__account__<\/a>",
     "generating_passphrase_wait": "Luodaan tunnuslausettasi. Odota hetki",

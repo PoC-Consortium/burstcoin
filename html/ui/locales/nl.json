@@ -581,7 +581,7 @@
     "error_not_specified": "__name__ niet gespecificeerd.",
     "start_forging": "Start Forging",
     "refund": "Terugbetalen",
-    "nxt_forum": "Burst Forum",
+    "burst_forum": "Burst Forum",
     "new_price": "Nieuwe prijs",
     "balance_will_be_leased_out": "De effectieve balans van uw rekening wordt geleased vanaf blok __start__ tot blok __end__ aan rekening <a href='#' data-user='__account__' class='user_info'> __account__<\/a>",
     "generating_passphrase_wait": "Bezig met genereren van uw wachtwoord. Een ogenblik geduld a.u.b.",

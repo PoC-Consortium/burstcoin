@@ -581,7 +581,7 @@
     "error_not_specified": "__name__ не вказане.",
     "start_forging": "Почати форжинг",
     "refund": "Повернення грошей",
-    "nxt_forum": "BURST форум",
+    "burst_forum": "BURST форум",
     "new_price": "Нові ціни",
     "balance_will_be_leased_out": "Ефективний баланс вашого акаунта буде переданий в оренду починаючи з block __start__ до block __end__, аккаунту <a href='#' data-user='__account__' class='user_info'>__account__<\/a>",
     "generating_passphrase_wait": "Створення вашої парольної фрази. Будь ласка, зачекайте",
