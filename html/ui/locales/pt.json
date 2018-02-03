@@ -490,7 +490,7 @@
     "error_contact_account_id_exists": "Já existe um contato com este ID de conta.",
     "website_or_text": "Sitio web ou Texto",
     "error_could_not_decrypt_var": "Não foi possível decifrar __var__.",
-    "value_in_nxt": "Valor em BURST",
+    "value_in_burst": "Valor em BURST",
     "passphrase_warning": "<strong>Atenção<\/strong>: A senha é tudo que tem entre a sua conta e o resto do mundo. Não utilize qualquer frase com significado, especialmente qualquer uma que aparece na música ou literatura. <br \/><br \/> Jamais divulgue a sua senha. Se você a perde, você perderá o acesso à sua conta!",
     "no_polls_found": "Não se encontraram enquetes.",
     "vote_casting": "Emissão de Votos",

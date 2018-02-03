@@ -491,7 +491,7 @@
     "error_contact_account_id_exists": "此帐户 ID 的联系人已存在。",
     "website_or_text": "网站或文本",
     "error_could_not_decrypt_var": "不能解密 __var__。",
-    "value_in_nxt": "以BURST计算的价值",
+    "value_in_burst": "以BURST计算的价值",
     "passphrase_warning": "<strong>注意<\/strong>： 密码是您帐户的一切。不要使用任何有意义的句子，特别是歌词或文学作品 < br \/ > < br \/ > 千万不要透露您的密码。如果失去它您将无法访问您的帐户！",
     "no_polls_found": "未找到投票。",
     "vote_casting": "投票",

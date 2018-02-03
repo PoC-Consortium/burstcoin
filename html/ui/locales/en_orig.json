@@ -224,7 +224,7 @@
 	"total_fee": "Total Fee",
 	"lowest_ask": "Lowest Ask",
 	"highest_bid": "Highest Bid",
-	"value_in_nxt": "Value in NXT",
+	"value_in_burst": "Value in NXT",
 	"no_assets_yet": "No assets yet, go buy some on the exchange!",
 	"add_asset": "Add Asset",
 	"bookmark_asset": "Bookmark This Asset",

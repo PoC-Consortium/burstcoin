@@ -490,7 +490,7 @@
     "error_contact_account_id_exists": "Kontak dengan account ID sudah ada.",
     "website_or_text": "Situs web atau teks",
     "error_could_not_decrypt_var": "Tidak bisa mendekripsi __var__.",
-    "value_in_nxt": "Nilai dalam BURST",
+    "value_in_burst": "Nilai dalam BURST",
     "passphrase_warning": "<strong>Perhatian<\/strong>: Sandi melindungi akun Anda dari pencuri. Di internet seluruh dunia kadang-kadang dapat melihat password Anda. Jangan gunakan kalimat terkenal, dari lagu atau sastra. Pilih sesuatu yang sangat sulit.<br \/><br \/>Jangan memberitahu orang lain password Anda. Jika Anda kehilangan ini Anda kehilangan akses ke akun Anda!",
     "no_polls_found": "Ada jajak pemilihan ditemukan.",
     "vote_casting": "Memilih Casting",

@@ -496,7 +496,7 @@
     "error_contact_account_id_exists": "A contact with this account ID already exists.",
     "website_or_text": "Website or Text",
     "error_could_not_decrypt_var": "Could not decrypt __var__.",
-    "value_in_nxt": "Value in BURST",
+    "value_in_burst": "Value in BURST",
     "passphrase_warning": "<strong>Attention<\/strong>: The passphrase is everything that stands between your account and the rest of the world. Do not use any meaningful sentence, especially any that appears in song or literature.<br \/><br \/>Don't ever disclose your passphrase. If you lose it you lose access to your account!",
     "no_polls_found": "No polls found.",
     "vote_casting": "Vote Casting",

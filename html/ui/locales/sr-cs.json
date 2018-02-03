@@ -490,7 +490,7 @@
     "error_contact_account_id_exists": "Kontakt sa ovim ID-om naloga već postoji.",
     "website_or_text": "Web sajt ili Tekst",
     "error_could_not_decrypt_var": "Nemoguće dekodirati __var__.",
-    "value_in_nxt": "Vrednost u BURST-u",
+    "value_in_burst": "Vrednost u BURST-u",
     "passphrase_warning": "<strong>Upozorenje<\/strong>: Lozinka je jedino što deli vaš nalog od ostatka sveta. Ne koristite poznate rečenice, posebno izbegavate one iz popularnih pesama i sveta proze.<br \/><br \/>Nikada ne pokazujte vašu lozinku. Ako je izgubite, izgubili ste pristup vašem nalogu i svemu što se na njemu nalazi!",
     "no_polls_found": "Ankete nisu pronađenje.",
     "vote_casting": "Prikupljanje Glasova",

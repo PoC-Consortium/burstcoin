@@ -490,7 +490,7 @@
     "error_contact_account_id_exists": "此帳戶 ID 的聯絡人已經存在。",
     "website_or_text": "網站或文本",
     "error_could_not_decrypt_var": "不能解密 __var__。",
-    "value_in_nxt": "以BURST計算的價值",
+    "value_in_burst": "以BURST計算的價值",
     "passphrase_warning": "<strong>注意<\/strong>： 密碼是您帳戶的一切。不要使用任何有意義的句子，特別是歌詞或文學作品< br \/ > < br \/ > 千萬不要透露您的密碼。如果失去它您將無法訪問您的帳戶！",
     "no_polls_found": "未找到投票。",
     "vote_casting": "投票",

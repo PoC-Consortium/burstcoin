@@ -490,7 +490,7 @@
     "error_contact_account_id_exists": "Un contact portant ce numéro compte existe déjà.",
     "website_or_text": "Site web ou description",
     "error_could_not_decrypt_var": "Impossible de déchiffrer __var__.",
-    "value_in_nxt": "Valeur en BURST",
+    "value_in_burst": "Valeur en BURST",
     "passphrase_warning": "<strong>Attention<\/strong> : la phrase secrète est la seule barrière entre votre compte et le reste du monde. N'utilisez pas de phrase sensée, en particulier provenant d'une chansons ou d'un livre.<br \/><br \/>Ne partagez jamais votre phrase secrète. Si vous la perdez, vous perdez également l'accès à votre compte !",
     "no_polls_found": "Aucun sondage.",
     "vote_casting": "Vote ouvert",

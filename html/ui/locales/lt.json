@@ -490,7 +490,7 @@
     "error_contact_account_id_exists": "Kontaktas su šios sąskaitos ID jau yra.",
     "website_or_text": "Svetainė arba tekstas",
     "error_could_not_decrypt_var": "Negalima iššifruoti __var__.",
-    "value_in_nxt": "BURST vertė",
+    "value_in_burst": "BURST vertė",
     "passphrase_warning": "<strong>Dėmesio<\/strong>: slaptažodis yra viskas, kas stovi tarp Jūsų sąskaitos ir pasaulio. Nenaudokite standartinių sakinių, ypač jei jie yra iš dainos ar literatūros. < br \/ > < br \/ >Niekada neatskleiskite savo slaptažodžio. Jei jį prarasite, prarasite ir prieigą prie savo sąskaitos!",
     "no_polls_found": "Nerasta apklausų.",
     "vote_casting": "Balso padavimas",

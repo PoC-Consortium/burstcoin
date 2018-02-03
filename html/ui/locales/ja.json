@@ -490,7 +490,7 @@
     "error_contact_account_id_exists": "このアカウントID を持つ連絡先は既に存在します。",
     "website_or_text": "ウェブサイトまたはテキスト",
     "error_could_not_decrypt_var": "__Var__を解読できませんでした。",
-    "value_in_nxt": "BURST での価値",
+    "value_in_burst": "BURST での価値",
     "passphrase_warning": "<strong>注意<\/strong>： パスフレーズは、あなたのアカウントと他の世界をつなぐ間に立つ全てです。意味のある文章、特に歌や文学でつかわれるものを使用しないでください。< br\/> < br\/> 絶対にパスフレーズを開示してはいけません。紛失した場合、アカウントへのアクセスを失うことになります！",
     "no_polls_found": "投票調査が見つかりませんでした。",
     "vote_casting": "投票",

@@ -490,7 +490,7 @@
     "error_contact_account_id_exists": "Kontakt s ID tohto účtu už existuje.",
     "website_or_text": "Webstránka alebo text",
     "error_could_not_decrypt_var": "__Var__ sa nepodarilo dešifrovať.",
-    "value_in_nxt": "Hodnota v BURST",
+    "value_in_burst": "Hodnota v BURST",
     "passphrase_warning": "<strong>Pozor<\/strong>: Heslo je všetko, čo stojí medzi vaším kontom a zvyškom sveta. Nepoužívajte žiadne zmysluplné vety, najmä tie ktoré sa vyskytujú v piesni alebo literatúre.<br \/><br \/>Nikdy nezverejnite svoje heslo. Ak stratíte heslo, stratíte prístup k svojmu účtu!",
     "no_polls_found": "Žiadne hlasovanie sa nenašlo.",
     "vote_casting": "Zber hlasov",

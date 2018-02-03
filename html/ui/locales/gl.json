@@ -490,7 +490,7 @@
     "error_contact_account_id_exists": "Xa existe un contacto co mesmo ID de conta.",
     "website_or_text": "Sitio web ou texto",
     "error_could_not_decrypt_var": "Non se puido descifrar __var__.",
-    "value_in_nxt": "Valor en BURST",
+    "value_in_burst": "Valor en BURST",
     "passphrase_warning": "<strong>Atención<\/strong>: O seu contrasinal é o que se interpón entre a súa conta e o resto do mundo. Non empregue ningunha frase con sentido, especialmente se aparece en literatura ou música. <br \/><br \/>Nunca revele o seu contrasinal. ¡Se o perde, perderá o acceso a súa conta!",
     "no_polls_found": "Non se atoparon enquisas.",
     "vote_casting": "Emisión de votos",

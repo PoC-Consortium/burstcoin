@@ -490,7 +490,7 @@
     "error_contact_account_id_exists": "Yhteyshenkilö samalla tilinumerolla on jo olemassa.",
     "website_or_text": "Websivu tai teksti",
     "error_could_not_decrypt_var": "Salauksen purku epäonnistui: __var__.",
-    "value_in_nxt": "Arvo (BURST)",
+    "value_in_burst": "Arvo (BURST)",
     "passphrase_warning": "<strong>Varoitus<\/strong>: Tunnuslause on kaikki mikä erottaa tilisi muusta maailmasta. Älä käytä mitään selkokielistä lausetta. Vältä erityisesti lausetta joka löytyy esim. musiikista tai kirjallisuudesta.<br \/><br \/>Älä jaa tunnuslausettasi muille. Jos menetät sen, menetät pääsyn tiliisi!",
     "no_polls_found": "Ei galluppeja.",
     "vote_casting": "Äänestys",

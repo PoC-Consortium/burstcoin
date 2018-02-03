@@ -490,7 +490,7 @@
     "error_contact_account_id_exists": "Ya existe un contacto con este ID de cuenta.",
     "website_or_text": "Sitio web o Texto",
     "error_could_not_decrypt_var": "No se ha podido descifrar __var__.",
-    "value_in_nxt": "Valor en BURST",
+    "value_in_burst": "Valor en BURST",
     "passphrase_warning": "<strong>Atención<\/strong>: Su contraseña es lo que se interpone entre su cuenta y el resto del mundo. No utilice ninguna frase con sentido, especialmente si aparece en la literatura o la música. <br \/><br \/>Nunca revele su contraseña. ¡Si la pierde, perderá el acceso a su cuenta!",
     "no_polls_found": "No se han encontrado encuestas.",
     "vote_casting": "Emisión de Votos",

@@ -491,7 +491,7 @@
     "error_contact_account_id_exists": "Ein Kontakt mit dieser Konto-ID ist bereits vorhanden.",
     "website_or_text": "Webseite oder Text",
     "error_could_not_decrypt_var": "__var__ konnte nicht entschlüsselt werden.",
-    "value_in_nxt": "Wert in BURST",
+    "value_in_burst": "Wert in BURST",
     "passphrase_warning": "<strong>Achtung<\/strong>: Die Passphrase verhindert unerlaubten Zugriff auf Ihr Konto. Verwenden Sie keine sinnvollen Sätze - vor allem keine, die in Musikstücken oder Literatur vorkommen.<br \/><br \/>Verraten Sie niemals Ihre Passphrase. Wenn Sie sie verlieren, verlieren Sie den Zugriff auf Ihr Konto!",
     "no_polls_found": "Keine Abstimmungen gefunden.",
     "vote_casting": "Wählen",

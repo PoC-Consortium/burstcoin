@@ -490,7 +490,7 @@
     "error_contact_account_id_exists": "Er bestaat al een contactpersoon met deze account-ID.",
     "website_or_text": "Website of Tekst",
     "error_could_not_decrypt_var": "__var__ kon niet worden gedecodeerd.",
-    "value_in_nxt": "Waarde in BURST",
+    "value_in_burst": "Waarde in BURST",
     "passphrase_warning": "<strong>ATTENTIE<\/strong>: de wachtwoordzin is alles die tussen uw account en de rest van de wereld . Gebruik geen elke betekenisvolle zin, met name die wordt weergegeven in bijv. een lied of in literatuur. < br \/ > < br \/ > U moet nooit uw watchtwoordzin onthullen. Als u het verliest, verliest u toegang tot uw account!",
     "no_polls_found": "Geen peilingen gevonden.",
     "vote_casting": "Stem uitbrengen",
