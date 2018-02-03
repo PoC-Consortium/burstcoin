@@ -570,7 +570,7 @@
     "bid_order_cancellation": "买单取消",
     "recent_transactions": "最近的交易",
     "attachment": "附件",
-    "nrs_update_available": "新的 BRS 发布了。建议您更新。",
+    "brs_update_available": "新的 BRS 发布了。建议您更新。",
     "new_quantity": "新的数量",
     "error_contact": "无效的联系人。",
     "blocks": "区块",

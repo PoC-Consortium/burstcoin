@@ -570,7 +570,7 @@
     "bid_order_cancellation": "Отмена заявки на покупку",
     "recent_transactions": "Последние Транзакции",
     "attachment": "Вложение",
-    "nrs_update_available": "Доступна новая версия BRS. Рекомендуется обновиться.",
+    "brs_update_available": "Доступна новая версия BRS. Рекомендуется обновиться.",
     "new_quantity": "Новое количество",
     "error_contact": "Недопустимый контакт.",
     "blocks": "Блоки",

@@ -575,7 +575,7 @@
     "bid_order_cancellation": "Bid Order Cancellation",
     "recent_transactions": "Recent Transactions",
     "attachment": "Attachment",
-    "nrs_update_available": "A new BRS release is available. It is recommended that you update.",
+    "brs_update_available": "A new BRS release is available. It is recommended that you update.",
     "new_quantity": "New Quantity",
     "error_contact": "Invalid contact.",
     "blocks": "Blocks",

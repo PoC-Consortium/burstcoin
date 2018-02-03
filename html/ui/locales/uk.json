@@ -569,7 +569,7 @@
     "bid_order_cancellation": "Відміна Заявки на Купівлю",
     "recent_transactions": "Останні Транзакції",
     "attachment": "Вкладення",
-    "nrs_update_available": "Доступний новий реліз BRS. Ми рекомендуємо оновити.",
+    "brs_update_available": "Доступний новий реліз BRS. Ми рекомендуємо оновити.",
     "new_quantity": "Кількість нових",
     "error_contact": "Неприпустимий контакт.",
     "blocks": "Блоки",

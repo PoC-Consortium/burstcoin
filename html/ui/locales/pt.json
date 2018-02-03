@@ -569,7 +569,7 @@
     "bid_order_cancellation": "Cancelamento de Ordem de Compra",
     "recent_transactions": "Transações recentes",
     "attachment": "Anexo",
-    "nrs_update_available": "Uma nova versão do BRS está disponível. É recomendável que você atualize.",
+    "brs_update_available": "Uma nova versão do BRS está disponível. É recomendável que você atualize.",
     "new_quantity": "Nova Quantidade",
     "error_contact": "Contato Inválido.",
     "blocks": "Blocos",

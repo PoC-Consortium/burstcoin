@@ -569,7 +569,7 @@
     "bid_order_cancellation": "Otkaži Porudžbinu",
     "recent_transactions": "Poslednje Transakcije",
     "attachment": "Priložena datoteka",
-    "nrs_update_available": "Nova verzija BRS-a je dostupna. Preporučujemo Vam da ažurirate svoj BRS.",
+    "brs_update_available": "Nova verzija BRS-a je dostupna. Preporučujemo Vam da ažurirate svoj BRS.",
     "new_quantity": "Novi Iznos",
     "error_contact": "Netačan kontakt.",
     "blocks": "Blokovi",

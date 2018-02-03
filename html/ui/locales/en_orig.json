@@ -611,7 +611,7 @@
 	"error_account_taken": "This account is already taken. Please choose another pass phrase.",
 	"error_passphrase_length_secure": "Your passphrase is less than 35 characters long. This is not secure.",
 	"error_passphrase_strength_secure": "Your passphrase does not contain numbers and uppercase letters. This is not secure.",
-	"nrs_update_available": "A new BRS release is available. It is recommended that you update.",
+	"brs_update_available": "A new BRS release is available. It is recommended that you update.",
 	"error_decryption_unknown": "An unknown error occured during decryption.",
 	"error_passphrase_incorrect": "Incorrect passphrase.",
 	"success_message_sent": "Your message has been sent.",

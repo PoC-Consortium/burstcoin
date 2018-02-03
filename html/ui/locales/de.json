@@ -570,7 +570,7 @@
     "bid_order_cancellation": "Kauforder stornieren",
     "recent_transactions": "Letzte Transaktionen",
     "attachment": "Anhang",
-    "nrs_update_available": "Eine neue BRS-Version ist verfügbar. Diese Aktualisierung wird empfohlen.",
+    "brs_update_available": "Eine neue BRS-Version ist verfügbar. Diese Aktualisierung wird empfohlen.",
     "new_quantity": "Neue Menge",
     "error_contact": "Ungültiger Kontakt.",
     "blocks": "Blöcke",

@@ -569,7 +569,7 @@
     "bid_order_cancellation": "Zrušenie nákupného príkazu",
     "recent_transactions": "Nedávne transakcie",
     "attachment": "Príloha",
-    "nrs_update_available": "Nová verzia BRS je k dispozícii. Odporúča sa, aby ste aktualizovali.",
+    "brs_update_available": "Nová verzia BRS je k dispozícii. Odporúča sa, aby ste aktualizovali.",
     "new_quantity": "Nové množstvo",
     "error_contact": "Neplatný kontakt.",
     "blocks": "Bloky",

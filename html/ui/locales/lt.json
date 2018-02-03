@@ -569,7 +569,7 @@
     "bid_order_cancellation": "Kainos pasiūlymo užsakymo atšaukimas",
     "recent_transactions": "Paskutinės transakcijos",
     "attachment": "Priedas",
-    "nrs_update_available": "Nauja BRS versija yra prieinama. Rekomenduojama atnaujinti.",
+    "brs_update_available": "Nauja BRS versija yra prieinama. Rekomenduojama atnaujinti.",
     "new_quantity": "Naujas kiekis",
     "error_contact": "Neleistinas kontaktas.",
     "blocks": "Blokai",

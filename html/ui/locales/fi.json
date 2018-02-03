@@ -569,7 +569,7 @@
     "bid_order_cancellation": "Ostotoimeksiannon peruutus",
     "recent_transactions": "Viimeiset tapahtumat",
     "attachment": "Liite",
-    "nrs_update_available": "Uusi BRS versio on julkaistu. On suositeltavaa, että päivität ohjelman.",
+    "brs_update_available": "Uusi BRS versio on julkaistu. On suositeltavaa, että päivität ohjelman.",
     "new_quantity": "Uusi määrä",
     "error_contact": "Virheellinen yhteystieto.",
     "blocks": "Lohkot",

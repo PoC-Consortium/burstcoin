@@ -569,7 +569,7 @@
     "bid_order_cancellation": "買單取消",
     "recent_transactions": "最近的交易",
     "attachment": "附件",
-    "nrs_update_available": "新的 BRS 發佈了。建議您更新。",
+    "brs_update_available": "新的 BRS 發佈了。建議您更新。",
     "new_quantity": "新的数量",
     "error_contact": "無效的聯絡人。",
     "blocks": "區塊",

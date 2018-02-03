@@ -569,7 +569,7 @@
     "bid_order_cancellation": "入札の注文のキャンセル",
     "recent_transactions": "最近の取引",
     "attachment": "添付ファイル",
-    "nrs_update_available": "新しい BRS リリースが利用できます。更新することをお勧めします。",
+    "brs_update_available": "新しい BRS リリースが利用できます。更新することをお勧めします。",
     "new_quantity": "新しい数量",
     "error_contact": "無効な連絡先です。",
     "blocks": "ブロック",

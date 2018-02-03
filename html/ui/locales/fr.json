@@ -569,7 +569,7 @@
     "bid_order_cancellation": "Annulation d'un ordre d'achat",
     "recent_transactions": "Transactions récentes",
     "attachment": "Fichier joint",
-    "nrs_update_available": "Une nouvelle version du client BRS est disponible. Nous vous recommandons d'effectuer la mise à jour.",
+    "brs_update_available": "Une nouvelle version du client BRS est disponible. Nous vous recommandons d'effectuer la mise à jour.",
     "new_quantity": "Nouvelle quantité",
     "error_contact": "Contact invalide.",
     "blocks": "Blocs",
