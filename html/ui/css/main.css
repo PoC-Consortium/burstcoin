@@ -1331,17 +1331,17 @@ a.list-group-item-header:hover {
 #nrs_update_explanation_1, #nrs_update_explanation_2, #nrs_update_explanation_3, #nrs_update_explanation_4 {
     display:none;
 }
-nrs_update_hashes {
+brs_update_hashes {
     display:none;
     margin-top:20px;
 }
     
-#nrs_update_hashes table {
+#brs_update_hashes table {
     border-collapse:collapse;
     border:1px solid #bbb;
 }
 
-#nrs_update_hashes table td {
+#brs_update_hashes table td {
     padding:2px;
     margin-bottom:1px;
 }

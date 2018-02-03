@@ -239,7 +239,7 @@ var NRS = (function(NRS, $, undefined) {
                 $("#nrs_update_hash_version").html(NRS.downloadedVersion.versionNr);
                 $("#nrs_update_hash_download").html(e.data.sha256);
                 $("#nrs_update_hash_official").html(NRS.downloadedVersion.hash);
-                $("#nrs_update_hashes").show();
+                $("#brs_update_hashes").show();
                 $("#brs_update_result").show();
 
                 NRS.downloadedVersion = {};
