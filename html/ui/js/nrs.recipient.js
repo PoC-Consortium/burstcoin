@@ -107,7 +107,7 @@ var NRS = (function(NRS, $, undefined) {
 				callback({
 					"type": "info",
 					"message": $.t("recipient_info", {
-						"nxt": NRS.formatAmount(response.unconfirmedBalanceNQT, false, true)
+						"burst": NRS.formatAmount(response.unconfirmedBalanceNQT, false, true)
 					}),
 					"account": response
 				});
@@ -137,7 +137,7 @@ var NRS = (function(NRS, $, undefined) {
 					callback({
 						"type": "warning",
 						"message": $.t("recipient_no_public_key_pka", {
-							"nxt": NRS.formatAmount(response.unconfirmedBalanceNQT, false, true)
+							"burst": NRS.formatAmount(response.unconfirmedBalanceNQT, false, true)
 						}),
 						"account": response,
 						"noPublicKey": true

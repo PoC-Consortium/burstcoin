@@ -639,10 +639,10 @@ var NRS = (function(NRS, $, undefined) {
 		}
 
 		if (NRS.accountInfo.unconfirmedBalanceNQT == "0") {
-			$("#your_nxt_balance").html("0");
+			$("#your_burst_balance").html("0");
 			$("#buy_automatic_price").addClass("zero").removeClass("nonzero");
 		} else {
-			$("#your_nxt_balance").html(NRS.formatAmount(NRS.accountInfo.unconfirmedBalanceNQT));
+			$("#your_burst_balance").html(NRS.formatAmount(NRS.accountInfo.unconfirmedBalanceNQT));
 			$("#buy_automatic_price").addClass("nonzero").removeClass("zero");
 		}
 
@@ -1098,21 +1098,21 @@ var NRS = (function(NRS, $, undefined) {
 			var description = $.t("buy_order_description", {
 				"quantity": NRS.formatQuantity(quantityQNT, NRS.currentAsset.decimals, true),
 				"asset_name": $("#asset_name").html().escapeHTML(),
-				"nxt": NRS.formatAmount(priceNQTPerWholeQNT)
+				"burst": NRS.formatAmount(priceNQTPerWholeQNT)
 			});
 			var tooltipTitle = $.t("buy_order_description_help", {
-				"nxt": NRS.formatAmount(priceNQTPerWholeQNT, false, true),
-				"total_nxt": totalNXT
+				"burst": NRS.formatAmount(priceNQTPerWholeQNT, false, true),
+				"total_burst": totalNXT
 			});
 		} else {
 			var description = $.t("sell_order_description", {
 				"quantity": NRS.formatQuantity(quantityQNT, NRS.currentAsset.decimals, true),
 				"asset_name": $("#asset_name").html().escapeHTML(),
-				"nxt": NRS.formatAmount(priceNQTPerWholeQNT)
+				"burst": NRS.formatAmount(priceNQTPerWholeQNT)
 			});
 			var tooltipTitle = $.t("sell_order_description_help", {
-				"nxt": NRS.formatAmount(priceNQTPerWholeQNT, false, true),
-				"total_nxt": totalNXT
+				"burst": NRS.formatAmount(priceNQTPerWholeQNT, false, true),
+				"total_burst": totalNXT
 			});
 		}
 
