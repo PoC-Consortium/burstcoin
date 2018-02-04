@@ -1296,7 +1296,7 @@ a.list-group-item-header:hover {
     overflow-x: hidden;
 }
 
-#nrs_update_drop_zone, #nrs_update_result {
+#brs_update_drop_zone, #brs_update_result {
     padding: 25px;
     text-align: center;
     font-weight:bold;
@@ -1308,7 +1308,7 @@ a.list-group-item-header:hover {
     margin-top:20px;
     display:none;
 }
-#nrs_update_hash_progress {
+#brs_update_hash_progress {
     height:15px;
     background:#48874A;  
     display:none;

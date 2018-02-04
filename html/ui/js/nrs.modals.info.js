@@ -36,7 +36,7 @@ var NRS = (function(NRS, $, undefined) {
 	$("#nrs_modal").on("hide.bs.modal", function(e) {
 		$("body").off("dragover.nrs, drop.nrs");
 
-		$("#nrs_update_drop_zone, #nrs_update_result, #nrs_update_hashes, #nrs_update_hash_progress").hide();
+		$("#brs_update_drop_zone, #brs_update_result, #nrs_update_hashes, #brs_update_hash_progress").hide();
 
 		$(this).find("ul.nav li.active").removeClass("active");
 		$("#nrs_modal_state_nav").addClass("active");

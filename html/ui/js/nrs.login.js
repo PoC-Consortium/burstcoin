@@ -263,7 +263,7 @@ var NRS = (function(NRS, $, undefined) {
 					NRS.unlock();
 
 					if (NRS.isOutdated) {
-						$.growl($.t("nrs_update_available"), {
+						$.growl($.t("brs_update_available"), {
 							"type": "danger"
 						});
 					}

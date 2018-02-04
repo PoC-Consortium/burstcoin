@@ -408,9 +408,9 @@
               </a>
               <ul class="dropdown-menu dropdown-menu-website" role="menu">
                 <li><a role="menuitem" tabindex="-1" href="https://www.burst-coin.org/" target="_blank">Main Website</a></li>
-                <li><a role="menuitem" tabindex="-1" href="https://forums.getburst.net/" target="_blank" data-i18n="link.nxt_forum">Burst Forums</a></li>
-                <li><a role="menuitem" tabindex="-1" href="https://explore.burst.cryptoguru.org/" target="_blank" data-i18n="link.nxt_wiki">Block Explorer</a></li>
-                <li><a role="menuitem" tabindex="-1" href="https://burstwiki.org" target="_blank" data-i18n="link.burstwiki">BURST Wiki</a></li>
+                <li><a role="menuitem" tabindex="-1" href="https://forums.getburst.net/" target="_blank" data-i18n="link.burst_forum">Burst Forums</a></li>
+                <li><a role="menuitem" tabindex="-1" href="https://explore.burst.cryptoguru.org/" target="_blank" data-i18n="link.burst_explorer">Block Explorer</a></li>
+                <li><a role="menuitem" tabindex="-1" href="https://burstwiki.org" target="_blank" data-i18n="link.burst_wiki">BURST Wiki</a></li>
                 <li><a role="menuitem" tabindex="-1" href="https://nxtwiki.org/wiki/Asset_Exchange" target="_blank" data-i18n="link.asset_exchange_tutorial">Asset Exchange Tutorial</a></li>
               </ul>
             </li>
@@ -560,8 +560,8 @@
               <div class="col-lg-3 col-xs-6">
                 <div class="small-box bg-red">
                   <div class="inner">
-                    <h3><span id="nrs_version" class="loading_dots"><span>.</span><span>.</span><span>.</span></span></h3>
-                    <p><span id="nrs_version_info" data-i18n="nrs_version">BRS Version</span> <span class="label label-danger" id="nrs_update" style="display:none;"></span></p>
+                    <h3><span id="brs_version" class="loading_dots"><span>.</span><span>.</span><span>.</span></span></h3>
+                    <p><span id="nrs_version_info" data-i18n="brs_version">BRS Version</span> <span class="label label-danger" id="nrs_update" style="display:none;"></span></p>
                   </div>
                   <div class="icon"><i class="fa fa-code"></i></div>
                   <a href="#" class="small-box-footer" data-toggle="modal" data-target="#nrs_modal"><span data-i18n="more_info">More info</span> <i class="fa fa-arrow-circle-right"></i></a>
@@ -1066,7 +1066,7 @@
                     <th data-i18n="percentage">Percentage</th>
                     <th data-i18n="lowest_ask">Lowest Ask</th>
                     <th data-i18n="highest_bid">Highest Bid</th>
-                    <th data-i18n="value_in_nxt">Value in BURST</th>
+                    <th data-i18n="value_in_burst">Value in BURST</th>
                     <th data-i18n="transfer">Transfer</th>
                   </tr>
                 </thead>
@@ -1146,7 +1146,7 @@
                               </div>
                             </div>
                             <div class="box-body no-padding" style="display:none">
-                              <div style="background-color:#DFF0D9;color: #666;padding-left:10px;padding-right: 10px;padding-top: 0px;padding-bottom:3px;" id="buy_automatic_price"><strong data-i18n="balance">Balance</strong>: <span id="your_nxt_balance"></span> BURST</div>
+                              <div style="background-color:#DFF0D9;color: #666;padding-left:10px;padding-right: 10px;padding-top: 0px;padding-bottom:3px;" id="buy_automatic_price"><strong data-i18n="balance">Balance</strong>: <span id="your_burst_balance"></span> BURST</div>
                               <form role="form" class="form-horizontal" style="padding: 10px;;max-width:350px;margin-left:auto;margin-right:auto;" autocomplete="off">
                                 <div style="margin-left:-20px">
                                   <div class="form-group">
@@ -5275,7 +5275,7 @@
                   <div class="tab-pane" id="transaction_info_actions_tab">
                     <div class="row">
                       <div class="col-xs-8 col-md-8" style="margin-left:auto;margin-right:auto;float:none;">
-                        <button type="button" class="btn btn-default btn-lg btn-block" data-toggle="modal" data-target="#send_money_modal" data-account="" data-i18n="send_nxt_to_sender">Send BURST to Sender</button>
+                        <button type="button" class="btn btn-default btn-lg btn-block" data-toggle="modal" data-target="#send_money_modal" data-account="" data-i18n="send_burst_to_sender">Send BURST to Sender</button>
                         <button type="button" class="btn btn-default btn-lg btn-block" data-toggle="modal" data-target="#send_message_modal" data-account="" data-i18n="send_message_to_sender">Send Message to Sender</button>
                         <button type="button" id="transaction_info_modal_add_as_contact" class="btn btn-default btn-lg btn-block" data-toggle="modal" data-target="#add_contact_modal" data-account="" data-i18n="add_sender_as_contact">Add Sender as Contact</button>
                       </div>
@@ -5422,7 +5422,7 @@
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-              <h4 class="modal-title" data-i18n="nrs_info">BRS Info</h4>
+              <h4 class="modal-title" data-i18n="brs_info">BRS Info</h4>
             </div>
             <div class="modal-body">
               <ul class="nav nav-pills nav-justified" style="margin-bottom:10px">

@@ -523,11 +523,11 @@ var NRS = (function(NRS, $, undefined) {
 					if ("priceNQT" in response) {
 						if (response.buyer == NRS.account) {
 							message = $.t("alias_sale_direct_offer", {
-								"nxt": NRS.formatAmount(response.priceNQT)
+								"burst": NRS.formatAmount(response.priceNQT)
 							}) + " <a href='#' data-alias='" + String(response.aliasName).escapeHTML() + "' data-toggle='modal' data-target='#buy_alias_modal'>" + $.t("buy_it_q") + "</a>";
 						} else if (typeof response.buyer == "undefined") {
 							message = $.t("alias_sale_indirect_offer", {
-								"nxt": NRS.formatAmount(response.priceNQT)
+								"burst": NRS.formatAmount(response.priceNQT)
 							}) + " <a href='#' data-alias='" + String(response.aliasName).escapeHTML() + "' data-toggle='modal' data-target='#buy_alias_modal'>" + $.t("buy_it_q") + "</a>";
 						} else {
 							message = $.t("error_alias_sale_different_account");
@@ -646,11 +646,11 @@ var NRS = (function(NRS, $, undefined) {
 				if ("priceNQT" in response) {
 					if (response.buyer == NRS.account) {
 						$("#alias_sale_callout").html($.t("alias_sale_direct_offer", {
-							"nxt": NRS.formatAmount(response.priceNQT)
+							"burst": NRS.formatAmount(response.priceNQT)
 						}) + " <a href='#' data-alias='" + String(response.aliasName).escapeHTML() + "' data-toggle='modal' data-target='#buy_alias_modal'>" + $.t("buy_it_q") + "</a>").show();
 					} else if (typeof response.buyer == "undefined") {
 						$("#alias_sale_callout").html($.t("alias_sale_indirect_offer", {
-							"nxt": NRS.formatAmount(response.priceNQT)
+							"burst": NRS.formatAmount(response.priceNQT)
 						}) + " <a href='#' data-alias='" + String(response.aliasName).escapeHTML() + "' data-toggle='modal' data-target='#buy_alias_modal'>" + $.t("buy_it_q") + "</a>").show();
 					} else {
 						$("#alias_sale_callout").html($.t("error_alias_sale_different_account")).show();

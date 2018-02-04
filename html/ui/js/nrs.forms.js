@@ -447,7 +447,7 @@ var NRS = (function(NRS, $, undefined) {
 				if (new BigInteger(NRS.convertToNQT(data.amountNXT)).compareTo(new BigInteger(NRS.settings["amount_warning"])) > 0) {
 					NRS.showedFormWarning = true;
 					$form.find(".error_message").html($.t("error_max_amount_warning", {
-						"nxt": NRS.formatAmount(NRS.settings["amount_warning"])
+						"burst": NRS.formatAmount(NRS.settings["amount_warning"])
 					})).show();
 					if (formErrorFunction) {
 						formErrorFunction(false, data);
@@ -461,7 +461,7 @@ var NRS = (function(NRS, $, undefined) {
 				if (new BigInteger(NRS.convertToNQT(data.feeNXT)).compareTo(new BigInteger(NRS.settings["fee_warning"])) > 0) {
 					NRS.showedFormWarning = true;
 					$form.find(".error_message").html($.t("error_max_fee_warning", {
-						"nxt": NRS.formatAmount(NRS.settings["fee_warning"])
+						"burst": NRS.formatAmount(NRS.settings["fee_warning"])
 					})).show();
 					if (formErrorFunction) {
 						formErrorFunction(false, data);
