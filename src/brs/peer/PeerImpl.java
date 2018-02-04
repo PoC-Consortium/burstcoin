@@ -211,7 +211,7 @@ final class PeerImpl implements Peer {
       hallmarkBalanceHeight = Burst.getBlockchain().getHeight();
     }
 
-    return (int)(adjustedWeight * (hallmarkBalance / Constants.ONE_BURST) / Constants.MAX_BALANCE_BURST);
+    return (int)(adjustedWeight * (hallmarkBalance / Constants.ONE_BURST) / Constants.MAX_BALANCE_NXT);
   }
 
   @Override
@@ -572,7 +572,7 @@ final class PeerImpl implements Peer {
       }
 
       for (PeerImpl peer : groupedPeers) {
-        peer.adjustedWeight = Constants.MAX_BALANCE_BURST * peer.getHallmarkWeight(mostRecentDate) / totalWeight;
+        peer.adjustedWeight = Constants.MAX_BALANCE_NXT * peer.getHallmarkWeight(mostRecentDate) / totalWeight;
         Peers.notifyListeners(peer, Peers.Event.WEIGHT);
       }
 
