@@ -318,7 +318,7 @@
     "actions": "Aktionen",
     "advanced_transaction_operations": "Weitere Transaktionsoperationen",
     "buy_order_description_help": "Nach Abschluss des Kaufes haben Sie folgende Bilanz. Preis pro Asset: __nxt__ BURST; Summe: __total_nxt__ BURST.",
-    "nrs_update": "BRS-Aktualisierung",
+    "brs_update": "BRS-Aktualisierung",
     "error_passphrase_required": "Passphrase ist ein Pflichtfeld.",
     "option_x": "Option __x__",
     "error_goods_not_yet_delivered": "Die Waren wurden noch nicht geliefert.",

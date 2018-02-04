@@ -323,7 +323,7 @@
     "actions": "Actions",
     "advanced_transaction_operations": "Advanced Transaction Operations",
     "buy_order_description_help": "Per whole asset bought you will pay __nxt__ BURST, making a total of __total_nxt__ BURST once everything has been purchased.",
-    "nrs_update": "BRS Update",
+    "brs_update": "BRS Update",
     "error_passphrase_required": "Passphrase is a required field.",
     "option_x": "option __x__",
     "error_goods_not_yet_delivered": "The goods have not yet been delivered.",

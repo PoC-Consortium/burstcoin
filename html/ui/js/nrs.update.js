@@ -102,11 +102,11 @@ var NRS = (function(NRS, $, undefined) {
 
         if (installVersusNormal == -1 && installVersusBeta == -1) {
             NRS.isOutdated = true;
-            $("#nrs_update").html("Outdated! (Stable & Beta)").show();
+            $("#brs_update").html("Outdated! (Stable & Beta)").show();
             $("#nrs_update_explanation_new_choice").show();
         } else if (installVersusBeta == -1) {
             NRS.isOutdated = false;
-            $("#nrs_update").html("New Beta").show();
+            $("#brs_update").html("New Beta").show();
             $("#nrs_update_explanation_new_beta").show();
         } else if (installVersusNormal == -1) {
             NRS.isOutdated = true;

@@ -317,7 +317,7 @@
     "actions": "Accións",
     "advanced_transaction_operations": "Operacións avanzadas de transaccións",
     "buy_order_description_help": "Por cada activo mercado pagará __nxt__ BURST, por un total de __total_nxt__ BURST unha vez todo teña sido mercado.",
-    "nrs_update": "Actualización do BRS",
+    "brs_update": "Actualización do BRS",
     "error_passphrase_required": "O contrasinal é un campo obrigatorio.",
     "option_x": "opción __x__",
     "error_goods_not_yet_delivered": "As mercadorías aínda non foron entregadas.",

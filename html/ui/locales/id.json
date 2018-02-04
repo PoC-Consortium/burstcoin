@@ -317,7 +317,7 @@
     "actions": "Tindakan",
     "advanced_transaction_operations": "Operasi Maju Transaksi",
     "buy_order_description_help": "Per seluruh aset yang membeli Anda akan membayar __nxt__ BURST, membuat total __total_nxt__ BURST setelah segala sesuatu telah dibeli.",
-    "nrs_update": "BRS Membarui",
+    "brs_update": "BRS Membarui",
     "error_passphrase_required": "Password diperlukan.",
     "option_x": "pilihan __x__",
     "error_goods_not_yet_delivered": "Barang belum belum diselamatkan.",

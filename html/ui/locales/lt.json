@@ -317,7 +317,7 @@
     "actions": "Veiksmai",
     "advanced_transaction_operations": "Išplėstinės transakcijų operacijos",
     "buy_order_description_help": "Pirkdami visą aktyvą mokėsite __nxt__ BURST, o iš viso − __total_nxt__ BURST, kai visas nupirksite.",
-    "nrs_update": "BRS atnaujinimas",
+    "brs_update": "BRS atnaujinimas",
     "error_passphrase_required": "Slaptažodis yra būtinas laukas.",
     "option_x": "pasirinkimas __x__",
     "error_goods_not_yet_delivered": "Prekės dar nepristatytos.",

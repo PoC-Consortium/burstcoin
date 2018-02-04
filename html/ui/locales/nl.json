@@ -317,7 +317,7 @@
     "actions": "Acties",
     "advanced_transaction_operations": "Geavanceerde Transactie Opties",
     "buy_order_description_help": "U betaalt per hele Asset __nxt__ BURST, tot een totaal van __total_nxt__ BURST zodra alles is gekocht.",
-    "nrs_update": "BRS Update",
+    "brs_update": "BRS Update",
     "error_passphrase_required": "Wachtwoord is een verplicht veld.",
     "option_x": "optie __x__",
     "error_goods_not_yet_delivered": "De artikelen zijn nog niet geleverd.",

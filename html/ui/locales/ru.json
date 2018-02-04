@@ -318,7 +318,7 @@
     "actions": "Действия",
     "advanced_transaction_operations": "Расширенные действия с транзакциями",
     "buy_order_description_help": "За купленный целый актив вы заплатите __nxt__ BURST, заплатив в общей сложности __total_nxt__ BURST при покупке всего объема актива.",
-    "nrs_update": "Обновление BRS",
+    "brs_update": "Обновление BRS",
     "error_passphrase_required": "Парольная фраза является обязательным полем.",
     "option_x": "вариант __x__",
     "error_goods_not_yet_delivered": "Товары не были доставлены.",

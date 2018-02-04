@@ -317,7 +317,7 @@
     "actions": "Toiminnot",
     "advanced_transaction_operations": "Kehittyneet tapahtumien operaatiot",
     "buy_order_description_help": "Kokonaista arvopaperia kohden maksat __nxt__ BURST, eli yhteensä __total_nxt__ BURST kun koko arvopaperierä on ostettu.",
-    "nrs_update": "BRS päivitys",
+    "brs_update": "BRS päivitys",
     "error_passphrase_required": "Tunnuslause on pakollinen kenttä.",
     "option_x": "vaihtoehto __x__",
     "error_goods_not_yet_delivered": "Tavaroita ei ole vielä toimitettu.",
