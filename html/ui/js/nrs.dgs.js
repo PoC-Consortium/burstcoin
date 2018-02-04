@@ -679,7 +679,7 @@ var NRS = (function(NRS, $, undefined) {
 							var refund = orderTotal.subtract(new BigInteger(String(response.discountNQT)));
 
 							$("#dgs_refund_purchase").val(response.purchase);
-							$("#dgs_refund_refund").val(NRS.convertToNXT(refund));
+							$("#dgs_refund_refund").val(NRS.convertToBURST(refund));
 						} else if (type == "dgs_view_purchase_modal") {
 							var $btn = $modal.find("button.btn-primary");
 							$btn.data("purchase", response.purchase);
@@ -819,7 +819,7 @@ var NRS = (function(NRS, $, undefined) {
 			if (type == "dgs_quantity_change_modal") {
 				$("#dgs_quantity_change_current_quantity, #dgs_quantity_change_quantity").val(String(response.quantity).escapeHTML());
 			} else if (type == "dgs_price_change_modal") {
-				$("#dgs_price_change_current_price, #dgs_price_change_price").val(NRS.convertToNXT(response.priceNQT).escapeHTML());
+				$("#dgs_price_change_current_price, #dgs_price_change_price").val(NRS.convertToBURST(response.priceNQT).escapeHTML());
 			} else if (type == "dgs_purchase_modal") {
 				$modal.find("input[name=recipient]").val(response.sellerRS);
 

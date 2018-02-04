@@ -3063,7 +3063,7 @@ a.list-group-item-header:hover {
     overflow-x: hidden;
 }
 
-#nrs_update_drop_zone, #nrs_update_result {
+#brs_update_drop_zone, #brs_update_result {
     padding: 25px;
     text-align: center;
     font-weight:bold;
@@ -3100,17 +3100,17 @@ a.list-group-item-header:hover {
 
     display:none;
 }
-nrs_update_hashes {
+brs_update_hashes {
     display:none;
     margin-top:20px;
 }
     
-#nrs_update_hashes table {
+#brs_update_hashes table {
     border-collapse:collapse;
     border:1px solid #bbb;
 }
 
-#nrs_update_hashes table td {
+#brs_update_hashes table td {
     padding:2px;
     margin-bottom:1px;
 }

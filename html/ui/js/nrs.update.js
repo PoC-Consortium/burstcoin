@@ -228,19 +228,19 @@ var NRS = (function(NRS, $, undefined) {
                 $("#nrs_update_hash_progress").css("width", e.data.progress + "%");
             } else {
                 $("#nrs_update_hash_progress").hide();
-                $("#nrs_update_drop_zone").hide();
+                $("#brs_update_drop_zone").hide();
 
                 if (e.data.sha256 == NRS.downloadedVersion.hash) {
-                    $("#nrs_update_result").html($.t("success_hash_verification")).attr("class", " ");
+                    $("#brs_update_result").html($.t("success_hash_verification")).attr("class", " ");
                 } else {
-                    $("#nrs_update_result").html($.t("error_hash_verification")).attr("class", "incorrect");
+                    $("#brs_update_result").html($.t("error_hash_verification")).attr("class", "incorrect");
                 }
 
                 $("#nrs_update_hash_version").html(NRS.downloadedVersion.versionNr);
                 $("#nrs_update_hash_download").html(e.data.sha256);
                 $("#nrs_update_hash_official").html(NRS.downloadedVersion.hash);
-                $("#nrs_update_hashes").show();
-                $("#nrs_update_result").show();
+                $("#brs_update_hashes").show();
+                $("#brs_update_result").show();
 
                 NRS.downloadedVersion = {};
 
@@ -273,7 +273,7 @@ var NRS = (function(NRS, $, undefined) {
         } else {
             $("#nrs_update_iframe").attr("src", "https://github.com/PoC-Consortium/burstcoin/releases/download/" + NRS.downloadedVersion.versionNr + "/burstcoin-" + NRS.downloadedVersion.versionNr + ".zip");
             $("#nrs_update_explanation").hide();
-            $("#nrs_update_drop_zone").show();
+            $("#brs_update_drop_zone").show();
 
             $("body").on("dragover.nrs", function(e) {
                 e.preventDefault();
@@ -288,7 +288,7 @@ var NRS = (function(NRS, $, undefined) {
                 NRS.verifyClientUpdate(e);
             });
 
-            $("#nrs_update_drop_zone").on("click", function(e) {
+            $("#brs_update_drop_zone").on("click", function(e) {
                 e.preventDefault();
 
                 $("#nrs_update_file_select").trigger("click");
