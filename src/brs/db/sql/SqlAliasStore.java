@@ -100,6 +100,7 @@ public class SqlAliasStore implements AliasStore {
       set(ALIAS.ID, alias.getId()).
       set(ALIAS.ACCOUNT_ID, alias.getAccountId()).
       set(ALIAS.ALIAS_NAME, alias.getAliasName()).
+      set(ALIAS.ALIAS_NAME_LOWER, alias.getAliasName().toLowerCase()).
       set(ALIAS.ALIAS_URI, alias.getAliasURI()).
       set(ALIAS.TIMESTAMP, alias.getTimestamp()).
       set(ALIAS.HEIGHT, Burst.getBlockchain().getHeight()).execute();

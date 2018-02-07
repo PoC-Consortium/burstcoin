@@ -158,7 +158,7 @@ public class APITestServlet extends HttpServlet {
     Collections.sort(allRequestTypes);
   }
 
-  private static final SortedMap<String, SortedSet<String>> requestTags = new TreeMap<>();
+  private static final SortedMap<String, SortedSet<String>> requestTags = buildRequestTags();
   private static SortedMap<String, SortedSet<String>> buildRequestTags () {
     SortedMap<String, SortedSet<String>> r = new TreeMap<>();
     for (Map.Entry<String, APIServlet.APIRequestHandler> entry : APIServlet.apiRequestHandlers.entrySet()) {

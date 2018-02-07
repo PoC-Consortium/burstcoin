@@ -87,14 +87,14 @@ public class AliasRecord extends UpdatableRecordImpl<AliasRecord> implements Rec
     }
 
     /**
-     * Setter for <code>DB.alias.alias_name_LOWER</code>.
+     * Setter for <code>DB.alias.alias_name_lower</code>.
      */
     public void setAliasNameLower(String value) {
         set(4, value);
     }
 
     /**
-     * Getter for <code>DB.alias.alias_name_LOWER</code>.
+     * Getter for <code>DB.alias.alias_name_lower</code>.
      */
     public String getAliasNameLower() {
         return (String) get(4);

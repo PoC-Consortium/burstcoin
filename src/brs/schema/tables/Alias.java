@@ -75,9 +75,9 @@ public class Alias extends TableImpl<AliasRecord> {
     public final TableField<AliasRecord, String> ALIAS_NAME = createField("alias_name", org.jooq.impl.SQLDataType.VARCHAR(100).nullable(false), this, "");
 
     /**
-     * The column <code>DB.alias.alias_name_LOWER</code>.
+     * The column <code>DB.alias.alias_name_lower</code>.
      */
-    public final TableField<AliasRecord, String> ALIAS_NAME_LOWER = createField("alias_name_LOWER", org.jooq.impl.SQLDataType.VARCHAR(100).nullable(false).defaultValue(org.jooq.impl.DSL.field("", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
+    public final TableField<AliasRecord, String> ALIAS_NAME_LOWER = createField("alias_name_lower", org.jooq.impl.SQLDataType.VARCHAR(100).nullable(false).defaultValue(org.jooq.impl.DSL.field("", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
 
     /**
      * The column <code>DB.alias.alias_uri</code>.
