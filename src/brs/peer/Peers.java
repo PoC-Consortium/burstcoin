@@ -429,11 +429,6 @@ public final class Peers {
             }
           }
             
-          try {
-            Thread.sleep(10);
-          } catch (InterruptedException ex) {
-            Thread.currentThread().interrupt();
-          }
           //Executor shutdown?
           if (Thread.currentThread().isInterrupted()) {
             return;
