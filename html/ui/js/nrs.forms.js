@@ -433,6 +433,14 @@ var NRS = (function(NRS, $, undefined) {
 			data.deadline = String(data.deadline * 60); //hours to minutes
 		}
 
+		if (data.doNotBroadcast) {
+			data.broadcast = "false";
+			delete data.doNotBroadcast;
+			if (data.secretPhrase == "") {
+				delete data.secretPhrase;
+			}
+		}
+
 		if ("secretPhrase" in data && !data.secretPhrase.length && !NRS.rememberPassword) {
 			$form.find(".error_message").html($.t("error_passphrase_required")).show();
 			if (formErrorFunction) {
@@ -470,11 +478,6 @@ var NRS = (function(NRS, $, undefined) {
 					return;
 				}
 			}
-		}
-
-		if (data.doNotBroadcast) {
-			data.broadcast = "false";
-			delete data.doNotBroadcast;
 		}
 
 		NRS.sendRequest(requestType, data, function(response) {

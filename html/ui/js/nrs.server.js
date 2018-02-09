@@ -174,7 +174,7 @@ var NRS = (function(NRS, $, undefined) {
 			currentSubPage = NRS.currentSubPage;
 		}
 
-		var type = ("secretPhrase" in data ? "POST" : "GET");
+		var type = (("secretPhrase" in data) || (data.broadcast == "false") ? "POST" : "GET");
 		var url = NRS.server + "/burst?requestType=" + requestType;
 
 		if (type == "GET") {

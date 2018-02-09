@@ -234,6 +234,7 @@
         <tr>
           <td style="text-align:center;vertical-align:middle">
             <center><img src="img/burst_logo.png" alt="Burst" width="242" height="64" style="margin-bottom:40px;margin-right:20px;opacity: 0.75;" /></center>
+                        <center><img src="img/burst_logo.png" alt="Burst" width="320" height="88" style="margin-bottom:40px;opacity: 0.5;;" /></center>
             <div id="login_panel">
               <div class="callout callout-danger" id="testnet_login" style="max-width:400px;min-width:400px;display:none;" data-i18n="[html]testnet_login_warning">Log in with your <strong>TestNet</strong> account - not your real one!</div>
               <div id="login_error" style="max-width:400px;min-width:400px;display:none">
@@ -5594,6 +5595,7 @@
         </div>
       </div>
       <div class="modal fade" id="raw_transaction_modal" tabindex="-1" role="dialog" aria-hidden="true">
+                <form role="form" id="raw_transaction_form" autocomplete="off">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -5601,13 +5603,14 @@
               <h4 class="modal-title" data-i18n="raw_transaction_details">Raw Transaction Details</h4>
             </div>
             <div class="modal-body">
+                                <div class="callout callout-danger error_message" style="display:none"></div>
               <label data-i18n="unsigned_transaction_bytes">UNSIGNED TRANSACTION BYTES</label>
               <div class="form-group">
                 <textarea class="form-control" id="raw_transaction_modal_unsigned_transaction_bytes" rows="4"></textarea>
               </div>
               <label data-i18n="signed_transaction_bytes">SIGNED TRANSACTION BYTES</label>
               <div class="form-group">
-                <textarea class="form-control" id="raw_transaction_modal_transaction_bytes" rows="4"></textarea>
+                                    <textarea class="form-control" name="transactionBytes" id="raw_transaction_modal_transaction_bytes" rows="4"></textarea>
               </div>
               <div id="raw_transaction_modal_full_hash_container">
                 <label data-i18n="full_transaction_hash">FULL TRANSACTION HASH</label>
@@ -5623,10 +5626,13 @@
               </div>
             </div>
             <div class="modal-footer" style="margin-top:0;">
-              <button type="button" class="btn btn-primary" data-dismiss="modal" data-i18n="close">Close</button>
+                                <input type="hidden" name="request_type" value="broadcastTransaction"/>                                
+                                <button type="button" class="btn btn-primary" id="raw_transaction_modal_broadcast_button" data-loading-text="Submitting...">Broadcast Transaction</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal" data-i18n="close">Close</button>
             </div>
           </div>
         </div>
+                </form>
       </div>
       <div class="modal fade modal-no-hide" id="transaction_operations_modal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
