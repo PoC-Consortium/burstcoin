@@ -140,7 +140,7 @@ our $reqtypes = [ # we want to define a sequence of tests
             lastBlock => '//int',
             application => {
                 type => '//str',
-                value => "NRS",
+                value => "BRS",
             },
             time       => '//int',
             version    => '//str',
@@ -190,7 +190,7 @@ our $reqtypes = [ # we want to define a sequence of tests
     {
         name => 'getDGSGoods',
         required => {
-            goods => {
+            good => {
                 type => '//arr',
                 contents => '//any',
             },
