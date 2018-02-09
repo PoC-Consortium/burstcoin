@@ -11,8 +11,6 @@ import brs.db.store.BlockchainStore;
 import brs.db.store.Dbs;
 import brs.db.store.Stores;
 import brs.http.API;
-import brs.http.APIServlet;
-import brs.peer.PeerServlet;
 import brs.peer.Peers;
 import brs.services.ATService;
 import brs.services.AccountService;
@@ -49,7 +47,6 @@ import brs.util.Time;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
 import java.util.Properties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -202,7 +199,7 @@ public final class Burst {
 
       final ATService atService = new ATServiceImpl(Burst.getStores().getAtStore());
       final SubscriptionService subscriptionService = new SubscriptionServiceImpl(Burst.getStores().getSubscriptionStore());
-      final DGSGoodsStoreService digitalGoodsStoreService = new DGSGoodsStoreServiceImpl(Burst.getStores().getDigitalGoodsStoreStore(), accountService);
+      final DGSGoodsStoreService digitalGoodsStoreService = new DGSGoodsStoreServiceImpl(blockchain, Burst.getStores().getDigitalGoodsStoreStore(), accountService);
       final EscrowService escrowService = new EscrowServiceImpl(Burst.getStores().getEscrowStore());
       final TradeService tradeService = new TradeServiceImpl(Burst.getStores().getTradeStore());
       final AssetAccountService assetAccountService = new AssetAccountServiceImpl(stores.getAccountStore());
