@@ -39,7 +39,7 @@ public interface DGSGoodsStoreService {
 
   Purchase getPurchase(long purchaseId);
 
-  void changeQuantity(long goodsId, int deltaQuantity);
+  void changeQuantity(long goodsId, int deltaQuantity, boolean allowDelisted);
 
   void purchase(Transaction transaction, Attachment.DigitalGoodsPurchase attachment);
 

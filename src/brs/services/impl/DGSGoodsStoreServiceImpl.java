@@ -124,9 +124,9 @@ public class DGSGoodsStoreServiceImpl implements DGSGoodsStoreService {
   }
 
   @Override
-  public void changeQuantity(long goodsId, int deltaQuantity) {
+  public void changeQuantity(long goodsId, int deltaQuantity, boolean allowDelisted) {
     Goods goods = goodsTable.get(goodsDbKeyFactory.newKey(goodsId));
-    if (! goods.isDelisted()) {
+    if (allowDelisted || ! goods.isDelisted()) {
       goods.changeQuantity(deltaQuantity);
       goodsTable.insert(goods);
       goodsListeners.notify(goods, Event.GOODS_QUANTITY_CHANGE);
@@ -140,7 +140,7 @@ public class DGSGoodsStoreServiceImpl implements DGSGoodsStoreService {
     Goods goods = goodsTable.get(goodsDbKeyFactory.newKey(attachment.getGoodsId()));
     if (! goods.isDelisted() && attachment.getQuantity() <= goods.getQuantity() && attachment.getPriceNQT() == goods.getPriceNQT()
         && attachment.getDeliveryDeadlineTimestamp() > blockchain.getLastBlock().getTimestamp()) {
-      changeQuantity(goods.getId(), -attachment.getQuantity());
+      changeQuantity(goods.getId(), -attachment.getQuantity(), false);
       addPurchase(transaction, attachment, goods.getSellerId());
     } else {
       Account buyer = accountService.getAccount(transaction.getSenderId());

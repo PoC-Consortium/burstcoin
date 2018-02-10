@@ -1218,7 +1218,7 @@ public abstract class TransactionType {
         @Override
         void applyAttachment(Transaction transaction, Account senderAccount, Account recipientAccount) {
           Attachment.DigitalGoodsQuantityChange attachment = (Attachment.DigitalGoodsQuantityChange) transaction.getAttachment();
-          dgsGoodsStoreService.changeQuantity(attachment.getGoodsId(), attachment.getDeltaQuantity());
+          dgsGoodsStoreService.changeQuantity(attachment.getGoodsId(), attachment.getDeltaQuantity(), false);
         }
 
         @Override
