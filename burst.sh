@@ -15,6 +15,7 @@ usage: $0 [command] [arguments]
   load       [filename or url]  quick import by loading a binary dump
   loadsilent [filename or url]  quick import by loading a binary dump without interaction
   dump       [filename]         create a binary dump usable for doing a quick import
+  h2shell                       open a H2 shell for DB manipulation
   help                          shows the help you just read
   compile                       compile jar and create docs using maven
   upgrade                       upgrade the config files to BRS format
@@ -147,6 +148,9 @@ if [[ $# -gt 0 ]] ; then
             ;;
         "upgrade")
             upgrade_conf
+            ;;
+        "h2shell")
+            java -cp burst.jar org.h2.tools.Shell
             ;;
         *)
             usage
