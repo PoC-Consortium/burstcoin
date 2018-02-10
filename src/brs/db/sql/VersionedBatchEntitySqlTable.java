@@ -5,10 +5,12 @@ import brs.db.BurstKey;
 import brs.db.VersionedBatchEntityTable;
 import java.sql.SQLException;
 import java.util.*;
+import org.apache.commons.lang.ArrayUtils;
 import org.jooq.impl.TableImpl;
 import org.jooq.Condition;
 import org.jooq.SelectQuery;
 import org.jooq.UpdateQuery;
+import org.jooq.BatchBindStep;
 import org.jooq.DSLContext;
 import org.jooq.SortField;
 
@@ -53,24 +55,27 @@ public abstract class VersionedBatchEntitySqlTable<T> extends VersionedEntitySql
 
   @Override
   public void finish() {
-    if(!Db.isInTransaction()) {
+    if (!Db.isInTransaction()) {
       throw new IllegalStateException("Not in transaction");
     }
     DSLContext ctx = Db.getDSLContext();
     Set keySet = Db.getBatch(table).keySet();
-    Iterator<DbKey> it = keySet.iterator();
-    while(it.hasNext()) {
-      DbKey dbKey = it.next();
-
-      // ToDo: do a real batch here?
+    if (!keySet.isEmpty()) {
       UpdateQuery updateQuery = ctx.updateQuery(tableClass);
-      updateQuery.addValue(
-        tableClass.field("latest", Boolean.class),
-        false
-      );
-      updateQuery.addConditions(dbKey.getPKConditions(tableClass));
+      updateQuery.addValue(tableClass.field("latest", Boolean.class), false);
+      Arrays.asList(dbKeyFactory.getPKColumns()).forEach(idColumn->updateQuery.addConditions(tableClass.field(idColumn, Long.class).eq(0L)));
       updateQuery.addConditions(tableClass.field("latest", Boolean.class).isTrue());
-      updateQuery.execute();
+
+      BatchBindStep updateBatch = ctx.batch(updateQuery);
+      Iterator<DbKey> it = keySet.iterator();
+      while (it.hasNext()) {
+        DbKey dbKey = it.next();
+        ArrayList<Object> bindArgs = new ArrayList<>();
+        bindArgs.add(false);
+        Arrays.stream(dbKey.getPKValues()).forEach(pkValue -> bindArgs.add(pkValue));
+        updateBatch = updateBatch.bind(bindArgs.toArray());
+      }
+      updateBatch.execute();
     }
 
     // ToDo: do a real batch here?
