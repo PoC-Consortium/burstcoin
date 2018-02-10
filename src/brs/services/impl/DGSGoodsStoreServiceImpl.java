@@ -3,7 +3,7 @@ package brs.services.impl;
 import brs.Account;
 import brs.Appendix;
 import brs.Attachment;
-import brs.Burst;
+import brs.Blockchain;
 import brs.DigitalGoodsStore.Event;
 import brs.DigitalGoodsStore.Goods;
 import brs.DigitalGoodsStore.Purchase;
@@ -25,6 +25,7 @@ import java.util.List;
 
 public class DGSGoodsStoreServiceImpl implements DGSGoodsStoreService {
 
+  private final Blockchain blockchain;
   private final DigitalGoodsStoreStore digitalGoodsStoreStore;
   private final AccountService accountService;
   private final VersionedValuesTable<Purchase, EncryptedData> feedbackTable;
@@ -39,7 +40,8 @@ public class DGSGoodsStoreServiceImpl implements DGSGoodsStoreService {
 
   private final Listeners<Purchase,Event> purchaseListeners = new Listeners<>();
 
-  public DGSGoodsStoreServiceImpl(DigitalGoodsStoreStore digitalGoodsStoreStore, AccountService accountService) {
+  public DGSGoodsStoreServiceImpl(Blockchain blockchain, DigitalGoodsStoreStore digitalGoodsStoreStore, AccountService accountService) {
+    this.blockchain = blockchain;
     this.digitalGoodsStoreStore = digitalGoodsStoreStore;
     this.goodsTable = digitalGoodsStoreStore.getGoodsTable();
     this.purchaseTable = digitalGoodsStoreStore.getPurchaseTable();
@@ -122,9 +124,9 @@ public class DGSGoodsStoreServiceImpl implements DGSGoodsStoreService {
   }
 
   @Override
-  public void changeQuantity(long goodsId, int deltaQuantity) {
+  public void changeQuantity(long goodsId, int deltaQuantity, boolean allowDelisted) {
     Goods goods = goodsTable.get(goodsDbKeyFactory.newKey(goodsId));
-    if (! goods.isDelisted()) {
+    if (allowDelisted || ! goods.isDelisted()) {
       goods.changeQuantity(deltaQuantity);
       goodsTable.insert(goods);
       goodsListeners.notify(goods, Event.GOODS_QUANTITY_CHANGE);
@@ -137,8 +139,8 @@ public class DGSGoodsStoreServiceImpl implements DGSGoodsStoreService {
   public void purchase(Transaction transaction, Attachment.DigitalGoodsPurchase attachment) {
     Goods goods = goodsTable.get(goodsDbKeyFactory.newKey(attachment.getGoodsId()));
     if (! goods.isDelisted() && attachment.getQuantity() <= goods.getQuantity() && attachment.getPriceNQT() == goods.getPriceNQT()
-        && attachment.getDeliveryDeadlineTimestamp() > Burst.getBlockchain().getLastBlock().getTimestamp()) {
-      changeQuantity(goods.getId(), -attachment.getQuantity());
+        && attachment.getDeliveryDeadlineTimestamp() > blockchain.getLastBlock().getTimestamp()) {
+      changeQuantity(goods.getId(), -attachment.getQuantity(), false);
       addPurchase(transaction, attachment, goods.getSellerId());
     } else {
       Account buyer = accountService.getAccount(transaction.getSenderId());

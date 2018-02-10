@@ -68,7 +68,7 @@ public class ResultFields {
   public static final String NUMBER_OF_TRADES_RESPONSE = "numberOfTrades";
   public static final String NUMBER_OF_TRANSFERS_RESPONSE = "numberOfTransfers";
   public static final String NUMBER_OF_ACCOUNTS_RESPONSE = "numberOfAccounts";
-  public static final String GOODS_RESPONSE = "good";
+  public static final String GOODS_RESPONSE = "goods";
   public static final String QUANTITY_RESPONSE = "quantity";
   public static final String SELLER_RESPONSE = "seller";
   public static final String TAGS_RESPONSE = "tags";

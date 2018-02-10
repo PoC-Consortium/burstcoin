@@ -27,8 +27,7 @@ public class DevNullListener implements Listener<Block> {
         Purchase purchase = purchases.next();
         Account buyer = accountService.getAccount(purchase.getBuyerId());
         buyer.addToUnconfirmedBalanceNQT(Convert.safeMultiply(purchase.getQuantity(), purchase.getPriceNQT()));
-        Goods goods = goodsService.getGoods(purchase.getGoodsId());
-        goodsService.changeQuantity(goods.getId(), purchase.getQuantity());
+        goodsService.changeQuantity(purchase.getGoodsId(), purchase.getQuantity(), true);
         goodsService.setPending(purchase, false);
       }
     }

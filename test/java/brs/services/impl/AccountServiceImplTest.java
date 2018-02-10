@@ -1,6 +1,7 @@
 package brs.services.impl;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.mockito.Matchers.anyLong;
 import static org.mockito.Matchers.eq;
@@ -21,12 +22,12 @@ import org.junit.Test;
 
 public class AccountServiceImplTest {
 
-  private AccountServiceImpl t;
-
   private AccountStore accountStoreMock;
   private VersionedBatchEntityTable<Account> accountTableMock;
   private LongKeyFactory<Account> accountBurstKeyFactoryMock;
   private AssetTransferStore assetTransferStoreMock;
+
+  private AccountServiceImpl t;
 
   @Before
   public void setUp() {
@@ -186,4 +187,54 @@ public class AccountServiceImplTest {
     publicKeyMock[0] = (byte) 1;
     assertEquals(-4227678059763665589L, AccountServiceImpl.getId(publicKeyMock));
   }
+
+  // @Test
+  public void addOrGetAccount_addAccount() {
+    long accountId = 123L;
+
+    final BurstKey mockKey = mock(BurstKey.class);
+
+    when(accountBurstKeyFactoryMock.newKey(eq(accountId))).thenReturn(mockKey);
+    when(accountTableMock.get(eq(mockKey))).thenReturn(null);
+
+    final Account createdAccount = t.addOrGetAccount(accountId);
+
+    assertNotNull(createdAccount);
+    assertEquals(accountId, createdAccount.getId());
+
+    verify(accountTableMock).insert(eq(createdAccount));
+  }
+
+  @Test
+  public void addOrGetAccount_getAccount() {
+    long accountId = 123L;
+
+    final BurstKey mockKey = mock(BurstKey.class);
+    final Account mockAccount = mock(Account.class);
+
+    when(accountBurstKeyFactoryMock.newKey(eq(accountId))).thenReturn(mockKey);
+    when(accountTableMock.get(eq(mockKey))).thenReturn(mockAccount);
+
+    final Account retrievedAccount = t.addOrGetAccount(accountId);
+
+    assertNotNull(retrievedAccount);
+    assertEquals(mockAccount, retrievedAccount);
+  }
+
+  @Test
+  public void flushAccountTable() {
+    t.flushAccountTable();
+
+    verify(accountTableMock).finish();
+  }
+
+  @Test
+  public void getCount() {
+    int count = 5;
+
+    when(accountTableMock.getCount()).thenReturn(count);
+
+    assertEquals(count, t.getCount());
+  }
+
 }

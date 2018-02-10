@@ -5,6 +5,7 @@ import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import brs.Blockchain;
 import brs.DigitalGoodsStore;
 import brs.DigitalGoodsStore.Goods;
 import brs.DigitalGoodsStore.Purchase;
@@ -20,17 +21,20 @@ import org.junit.Test;
 
 public class DGSGoodsStoreServiceImplTest extends AbstractUnitTest {
 
-  private DGSGoodsStoreServiceImpl t;
+  private Blockchain blockchain;
 
   private AccountService mockAccountService;
-
   private DigitalGoodsStoreStore mockDigitalGoodsStoreStore;
+
   private VersionedEntityTable<DigitalGoodsStore.Goods> mockGoodsTable;
   private VersionedEntityTable<DigitalGoodsStore.Purchase> mockPurchaseTable;
   private LongKeyFactory<DigitalGoodsStore.Goods> mockGoodsDbKeyFactory;
 
+  private DGSGoodsStoreServiceImpl t;
+
   @Before
   public void setUp() {
+    blockchain = mock(Blockchain.class);
     mockGoodsTable = mock(VersionedEntityTable.class);
     mockPurchaseTable = mock(VersionedEntityTable.class);
     mockDigitalGoodsStoreStore = mock(DigitalGoodsStoreStore.class);
@@ -41,7 +45,7 @@ public class DGSGoodsStoreServiceImplTest extends AbstractUnitTest {
     when(mockDigitalGoodsStoreStore.getPurchaseTable()).thenReturn(mockPurchaseTable);
     when(mockDigitalGoodsStoreStore.getGoodsDbKeyFactory()).thenReturn(mockGoodsDbKeyFactory);
 
-    t = new DGSGoodsStoreServiceImpl(mockDigitalGoodsStoreStore, mockAccountService);
+    t = new DGSGoodsStoreServiceImpl(blockchain, mockDigitalGoodsStoreStore, mockAccountService);
   }
 
   @Test
