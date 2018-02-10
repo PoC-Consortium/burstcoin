@@ -985,7 +985,7 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
       firstBlockAdded = Burst.getEpochTime();
     }
     else if ( addedBlockCount % 500 == 0 ) {
-      logger.info("handling {} blocks per second", String.format("%.2g", 500 / (float) (Burst.getEpochTime() - firstBlockAdded)));
+      logger.info("handling {} blocks/s", String.format("%.2f", 500 / (float) (Burst.getEpochTime() - firstBlockAdded)));
       addedBlockCount = 0;
     }
 
