@@ -582,7 +582,7 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
 
     private void processFork(Peer peer, final List<BlockImpl> forkBlocks, long forkBlockId) {
 
-      logger.warn("We have got a forked chain. Waiting for cache to be processed.");
+      logger.warn("A fork is detected. Waiting for cache to be processed.");
       while (true) {
         synchronized (DownloadCache) {
           if (DownloadCache.size() == 0) {
@@ -630,7 +630,7 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
          */
         if (pushedForkBlocks > 0 && Burst.getBlockchain().getLastBlock().getCumulativeDifficulty()
             .compareTo(curCumulativeDifficulty) < 0) {
-          logger.debug("Pop off caused by peer " + peer.getPeerAddress() + ", blacklisting");
+          logger.warn("Fork was bad and Pop off was caused by peer " + peer.getPeerAddress() + ", blacklisting");
           peer.blacklist();
           List<BlockImpl> peerPoppedOffBlocks = popOffTo(forkBlock);
           pushedForkBlocks = 0;
@@ -644,16 +644,16 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
             try {
               pushBlock(block);
             } catch (BlockNotAcceptedException e) {
-              logger.error(
-                  "Popped off block no longer acceptable: " + block.getJSONObject().toJSONString(),
-                  e);
+              logger.warn("Popped off block no longer acceptable: " + block.getJSONObject().toJSONString(), e);
               break;
             }
           }
         } else {
           myPoppedOffBlocks.forEach(block -> Burst.getTransactionProcessor().processLater(block.getTransactions()));
+          logger.warn("Successfully switched to better chain.");
         }
       } // synchronized
+      logger.warn("Forkprocessing complete.");
       DownloadCache.ResetCache(); // Reset and set cached vars to chaindata.
     }
   };

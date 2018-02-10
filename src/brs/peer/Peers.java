@@ -51,10 +51,10 @@ public final class Peers {
 
   static Set<String> wellKnownPeers;
   static Set<String> knownBlacklistedPeers;
-
+  
   private static int connectWellKnownFirst;
   private static boolean connectWellKnownFinished;
-
+  
   static Set<String> rebroadcastPeers;
 
   static int connectTimeout;
@@ -75,8 +75,9 @@ public final class Peers {
   private static int sendToPeersLimit;
   private static boolean usePeersDb;
   private static boolean savePeers;
+  private static int getMorePeersThreshold;
   private static String dumpPeersVersion;
-
+  private static int lastSavedPeers;
 
   static JSONStreamAware myPeerInfoRequest;
   static JSONStreamAware myPeerInfoResponse;
@@ -215,6 +216,7 @@ public final class Peers {
     usePeersDb       = propertyService.getBooleanProperty("brs.usePeersDb") && ! Constants.isOffline;
     savePeers        = usePeersDb && propertyService.getBooleanProperty("brs.savePeers");
     getMorePeers     = propertyService.getBooleanProperty("brs.getMorePeers");
+    getMorePeersThreshold = propertyService.getIntProperty("brs.getMorePeersThreshold");
     dumpPeersVersion = propertyService.getStringProperty("brs.dumpPeersVersion");
 
     final List<Future<String>> unresolvedPeers = Collections.synchronizedList(new ArrayList<Future<String>>());
@@ -240,6 +242,7 @@ public final class Peers {
             logger.debug("Loading known peers from the database...");
             loadPeers(Burst.getDbs().getPeerDb().loadPeers());
           }
+          lastSavedPeers= peers.size();
         }
       }, false);
 
@@ -400,32 +403,83 @@ public final class Peers {
 
   };
 
-  private static final Runnable peerConnectingThread = () -> {
-
-    try {
+  private static final Runnable peerConnectingThread = new Runnable() {
+    @Override
+    public void run() {
       try {
-
-        if (getNumberOfConnectedPublicPeers() < Peers.maxNumberOfConnectedPublicPeers) {
+        int numConnectedPeers = getNumberOfConnectedPublicPeers();
+        /*
+         * aggressive connection with while loop. 
+         * if we have connected to our target amount we can exit loop. 
+         * if peers size is equal or below connected value we have nothing to connect to
+         */
+        while (numConnectedPeers < maxNumberOfConnectedPublicPeers && peers.size() > numConnectedPeers) {
           PeerImpl peer = (PeerImpl)getAnyPeer(ThreadLocalRandom.current().nextInt(2) == 0 ? Peer.State.NON_CONNECTED : Peer.State.DISCONNECTED, false);
           if (peer != null) {
             peer.connect();
+            /*
+             * remove non connected peer. if peer is blacklisted, keep it to maintain blacklist time.
+             * Peers should never be removed if total peers are below our target to prevent total erase of peers 
+             * if we loose Internet connection
+             */
+            if(peer.getState() != Peer.State.CONNECTED && !peer.isBlacklisted() && peers.size() > maxNumberOfConnectedPublicPeers) {
+              removePeer(peer);
+            }else {
+              numConnectedPeers++;
+            }
+          }
+            
+          //Executor shutdown?
+          if (Thread.currentThread().isInterrupted()) {
+            return;
           }
         }
-
+                
         int now = Burst.getEpochTime();
         for (PeerImpl peer : peers.values()) {
           if (peer.getState() == Peer.State.CONNECTED && now - peer.getLastUpdated() > 3600) {
             peer.connect();
+            if(peer.getState() != Peer.State.CONNECTED && !peer.isBlacklisted() && peers.size() > maxNumberOfConnectedPublicPeers) {
+              removePeer(peer);
+            }
           }
         }
-
+            
+        if(lastSavedPeers != peers.size()) {
+          lastSavedPeers = peers.size();
+          updateSavedPeers();
+        }
+          
       } catch (Exception e) {
         logger.debug("Error connecting to peer", e);
       }
-    } catch (Throwable t) {
-      logger.info("CRITICAL ERROR. PLEASE REPORT TO THE DEVELOPERS.\n" + t.toString(), t);
-      System.exit(1);
+  }
+    private void updateSavedPeers() {
+      Set<String> oldPeers = new HashSet<>(Burst.getDbs().getPeerDb().loadPeers());
+      Set<String> currentPeers = new HashSet<>();
+      for (Peer peer : Peers.peers.values()) {
+        if (peer.getAnnouncedAddress() != null && ! peer.isBlacklisted() && ! peer.isWellKnown()) {
+          currentPeers.add(peer.getAnnouncedAddress());
+        }
+      }
+      Set<String> toDelete = new HashSet<>(oldPeers);
+      toDelete.removeAll(currentPeers);
+      try {
+        Burst.getStores().beginTransaction();
+        Burst.getDbs().getPeerDb().deletePeers(toDelete);
+     //   logger.debug("Deleted " + toDelete.size() + " peers from the peers database");
+        currentPeers.removeAll(oldPeers);
+        Burst.getDbs().getPeerDb().addPeers(currentPeers);
+     //   logger.debug("Added " + currentPeers.size() + " peers to the peers database");
+        Burst.getStores().commitTransaction();
+      } catch (Exception e) {
+        Burst.getStores().rollbackTransaction();
+        throw e;
+      } finally {
+        Burst.getStores().endTransaction();
+      }
     }
+    
 
   };
 
@@ -453,7 +507,13 @@ public final class Peers {
 
         try {
           try {
-
+           /* We do not want more peers if above Threshold but we need enough to 
+            * connect to selected number of peers
+            */
+           if(peers.size() >= getMorePeersThreshold && peers.size() > maxNumberOfConnectedPublicPeers) {
+             return;
+           }
+            
             Peer peer = getAnyPeer(Peer.State.CONNECTED, true);
             if (peer == null) {
               return;
@@ -471,7 +531,7 @@ public final class Peers {
                 }
               }
               if (savePeers && addedNewPeer) {
-                updateSavedPeers();
+              //  updateSavedPeers();
                 addedNewPeer = false;
               }
             }
@@ -507,31 +567,7 @@ public final class Peers {
 
       }
 
-      private void updateSavedPeers() {
-        Set<String> oldPeers = new HashSet<>(Burst.getDbs().getPeerDb().loadPeers());
-        Set<String> currentPeers = new HashSet<>();
-        for (Peer peer : Peers.peers.values()) {
-          if (peer.getAnnouncedAddress() != null && ! peer.isBlacklisted()) {
-            currentPeers.add(peer.getAnnouncedAddress());
-          }
-        }
-        Set<String> toDelete = new HashSet<>(oldPeers);
-        toDelete.removeAll(currentPeers);
-        try {
-          Burst.getStores().beginTransaction();
-          Burst.getDbs().getPeerDb().deletePeers(toDelete);
-          //logger.debug("Deleted " + toDelete.size() + " peers from the peers database");
-          currentPeers.removeAll(oldPeers);
-          Burst.getDbs().getPeerDb().addPeers(currentPeers);
-          //logger.debug("Added " + currentPeers.size() + " peers to the peers database");
-          Burst.getStores().commitTransaction();
-        } catch (Exception e) {
-          Burst.getStores().rollbackTransaction();
-          throw e;
-        } finally {
-          Burst.getStores().endTransaction();
-        }
-      }
+     
 
     };
 
@@ -872,9 +908,11 @@ public final class Peers {
   private static int getNumberOfConnectedPublicPeers() {
     int numberOfConnectedPeers = 0;
     for (Peer peer : peers.values()) {
-      if (peer.getState() == Peer.State.CONNECTED && peer.getAnnouncedAddress() != null
-          && (! Peers.enableHallmarkProtection || peer.getWeight() > 0)) {
-        numberOfConnectedPeers++;
+      // If hallmark enabled below line will return 0.
+      // if (peer.getState() == Peer.State.CONNECTED) && peer.getAnnouncedAddress() != null
+      //     && (! Peers.enableHallmarkProtection || peer.getWeight() > 0)) {
+      if (peer.getState() == Peer.State.CONNECTED) {
+    	numberOfConnectedPeers++;
       }
     }
     return numberOfConnectedPeers;
