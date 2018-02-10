@@ -555,6 +555,8 @@ final class MariadbDbVersion {
       case 174:
         apply("ALTER TABLE alias CHANGE COLUMN alias_name_LOWER alias_name_lower VARCHAR(100) NOT NULL;");
       case 175:
+        apply("CREATE INDEX account_id_latest_idx ON account(id, latest);");
+      case 176:
         return;
       default:
         throw new RuntimeException("Database inconsistent with code, probably trying to run older code on newer database");

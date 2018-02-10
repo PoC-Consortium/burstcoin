@@ -500,6 +500,10 @@ final class H2DbVersion {
       case 173:
         apply("UPDATE \"version\" SET \"next_update\" = '173';");
       case 174:
+        apply("ALTER TABLE alias ALTER COLUMN alias_name_LOWER RENAME TO alias_name_lower");
+      case 175:
+        apply("CREATE INDEX IF NOT EXISTS account_id_latest_idx ON account(id, latest)");
+      case 176:
         return;
       default:
         throw new RuntimeException("Database inconsistent with code, probably trying to run older code on newer database");
