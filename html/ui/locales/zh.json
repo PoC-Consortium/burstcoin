@@ -1,6 +1,5 @@
 {
-    "get_burst": "收到 BURST",
-	"deadline": "截止时间",
+    "deadline": "截止时间",
     "recipient": "接收者",
     "subtype": "子类型",
     "error_description": "错误描述",
