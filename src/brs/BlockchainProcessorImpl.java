@@ -106,7 +106,6 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
   private final Runnable pocVerificationThread = () -> {
     boolean verifyWithOcl;
     int QueueThreashold = oclVerify ? oclUnverifiedQueue : 0;
-    logger.info("Started PreVerifier thread");
     while (true) {
       int unVerified = DownloadCache.getUnverifiedSize();
       if (unVerified > QueueThreashold) { //Is there anything to verify
