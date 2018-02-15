@@ -138,8 +138,10 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
           } catch (OCLPoC.PreValidateFailException e) {
             logger.info(e.toString(), e);
             blacklistClean(e.getBlock(), e);
+          }catch (OCLPoC.OCLCheckerException e) {
+            logger.info("Open CL error. slow verify will occur for the next "+oclUnverifiedQueue+" Blocks", e);
           } finally {
-            gpuUsage.release();
+           
           }
         }else { //verify using java
           try {
@@ -148,6 +150,7 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
             logger.error("Block failed to preverify: ", e);
           }
         }
+        gpuUsage.release();
       }
       try {
         Thread.sleep(10);
@@ -645,6 +648,7 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
     if(oclVerify) {
       Burst.getThreadPool().scheduleThread("VerifyPoc", pocVerificationThread, 9);  
     }else {
+      logger.info("going cpu");
       Burst.getThreadPool().scheduleThreadCores("VerifyPoc", pocVerificationThread, 9);  
     }
     
