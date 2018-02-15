@@ -106,6 +106,7 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
   private final Runnable pocVerificationThread = () -> {
     boolean verifyWithOcl;
     int QueueThreashold = oclVerify ? oclUnverifiedQueue : 0;
+    logger.info("Started PreVerifier thread");
     while (true) {
       int unVerified = DownloadCache.getUnverifiedSize();
       if (unVerified > QueueThreashold) { //Is there anything to verify
@@ -131,18 +132,21 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
             blocks.add(DownloadCache.GetBlock(blockId));
             pos+=1;
           }
-          DownloadCache.removeUnverifiedBatch(blocks);
           
           try {
             OCLPoC.validatePoC(blocks, poCVersion);
+            DownloadCache.removeUnverifiedBatch(blocks);
           } catch (OCLPoC.PreValidateFailException e) {
             logger.info(e.toString(), e);
             blacklistClean(e.getBlock(), e);
           }catch (OCLPoC.OCLCheckerException e) {
             logger.info("Open CL error. slow verify will occur for the next "+oclUnverifiedQueue+" Blocks", e);
+          }catch (Exception e) {
+            logger.info("Unspecified Open CL error: ", e);
           } finally {
-           
+            gpuUsage.release();
           }
+          
         }else { //verify using java
           try {
             DownloadCache.getFirstUnverifiedBlock().preVerify();
@@ -150,7 +154,7 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
             logger.error("Block failed to preverify: ", e);
           }
         }
-        gpuUsage.release();
+       
       }
       try {
         Thread.sleep(10);
@@ -645,10 +649,11 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
 
     Burst.getThreadPool().scheduleThread("GetMoreBlocks", getMoreBlocksThread, 2);
     Burst.getThreadPool().scheduleThread("ImportBlocks", blockImporterThread, 10);
-    if(oclVerify) {
+    if(Burst.getPropertyService().getBooleanProperty("GPU.Acceleration")) {
+      logger.debug("Starting preverifier thread in Open CL mode.");
       Burst.getThreadPool().scheduleThread("VerifyPoc", pocVerificationThread, 9);  
     }else {
-      logger.info("going cpu");
+      logger.debug("Starting preverifier thread in CPU mode.");
       Burst.getThreadPool().scheduleThreadCores("VerifyPoc", pocVerificationThread, 9);  
     }
     
