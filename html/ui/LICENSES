@@ -4,7 +4,7 @@ Theme - MIT - https://github.com/almasaeed2010/AdminLTE
 jquery.js - MIT - http://jquery.com/
 bootstrap.js / bootstrap.css - APACHE2 - http://getbootstrap.com
 font-awesome.css - MIT - http://fortawesome.github.io
-growl - MIT - https://github.com/mouse0270/bootstrap-growl
+notify - MIT - https://github.com/mouse0270/bootstrap-notify
 ionicons.css - MIT - http://ionicons.com
 jquery.rss.js - MIT - https://github.com/sdepold/jquery-rss
 webdb.js - MIT - http://github.com/haas85/webdb

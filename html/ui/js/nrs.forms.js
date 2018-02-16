@@ -487,7 +487,7 @@ var NRS = (function(NRS, $, undefined) {
 				}
 
 				if (successMessage) {
-					$.growl(successMessage.escapeHTML(), {
+					$.notify(successMessage.escapeHTML(), {
 						type: "success"
 					});
 				}
@@ -552,7 +552,7 @@ var NRS = (function(NRS, $, undefined) {
 				if (!sentToFunction) {
 					NRS.unlockForm($modal, $btn, true);
 
-					$.growl(errorMessage.escapeHTML(), {
+					$.notify(errorMessage.escapeHTML(), {
 						type: 'danger'
 					});
 				}

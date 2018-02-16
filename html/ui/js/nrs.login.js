@@ -120,7 +120,7 @@ var NRS = (function(NRS, $, undefined) {
 
 	NRS.login = function(password, callback) {
 		if (!password.length) {
-			$.growl($.t("error_passphrase_required_login"), {
+			$.notify($.t("error_passphrase_required_login"), {
 				"type": "danger",
 				"offset": 10
 			});
@@ -149,7 +149,7 @@ var NRS = (function(NRS, $, undefined) {
 
 		NRS.sendRequest("getBlockchainStatus", function(response) {
 			if (response.errorCode) {
-				$.growl($.t("error_server_connect"), {
+				$.notify($.t("error_server_connect"), {
 					"type": "danger",
 					"offset": 10
 				});
@@ -167,13 +167,13 @@ var NRS = (function(NRS, $, undefined) {
 				}
 
 				if (!NRS.account) {
-					$.growl($.t("error_find_account_id"), {
+					$.notify($.t("error_find_account_id"), {
 						"type": "danger",
 						"offset": 10
 					});
 					return;
 				} else if (!NRS.accountRS) {
-					$.growl($.t("error_generate_account_id"), {
+					$.notify($.t("error_generate_account_id"), {
 						"type": "danger",
 						"offset": 10
 					});
@@ -186,7 +186,7 @@ var NRS = (function(NRS, $, undefined) {
 				}, function(response) {
 					if (response && response.publicKey && response.publicKey != NRS.generatePublicKey(password)) {
 						if (watch_only != true) {
-							$.growl($.t("error_account_taken"), {
+							$.notify($.t("error_account_taken"), {
 								"type": "danger",
 								"offset": 10
 							});
@@ -218,7 +218,7 @@ var NRS = (function(NRS, $, undefined) {
 					}
 
 					if (passwordNotice) {
-						$.growl("<strong>" + $.t("warning") + "</strong>: " + passwordNotice, {
+						$.notify("<strong>" + $.t("warning") + "</strong>: " + passwordNotice, {
 							"type": "danger"
 						});
 					}
@@ -263,7 +263,7 @@ var NRS = (function(NRS, $, undefined) {
 					NRS.unlock();
 
 					if (NRS.isOutdated) {
-						$.growl($.t("brs_update_available"), {
+						$.notify($.t("brs_update_available"), {
 							"type": "danger"
 						});
 					}
@@ -302,7 +302,7 @@ var NRS = (function(NRS, $, undefined) {
 					} else {
 						// Otherwise, show an error.  The address is in the right format perhaps, but
 						// an address does not exist on the blockchain so there's nothing to see.						
-						$.growl("<strong>" + $.t("warning") + "</strong>: " + response.errorDescription, {
+						$.notify("<strong>" + $.t("warning") + "</strong>: " + response.errorDescription, {
 							"type": "danger"
 						});
 					}

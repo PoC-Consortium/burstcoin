@@ -195,7 +195,7 @@ var NRS = (function(NRS, $, undefined) {
 					"errorDescription": $.t("error_new_account")
 				}, data);
 			} else {
-				$.growl($.t("error_new_account"), {
+				$.notify($.t("error_new_account"), {
 					"type": "danger"
 				});
 			}
@@ -210,7 +210,7 @@ var NRS = (function(NRS, $, undefined) {
 						"errorDescription": $.t("error_invalid_referenced_transaction_hash")
 					}, data);
 				} else {
-					$.growl($.t("error_invalid_referenced_transaction_hash"), {
+					$.notify($.t("error_invalid_referenced_transaction_hash"), {
 						"type": "danger"
 					});
 				}
@@ -300,7 +300,7 @@ var NRS = (function(NRS, $, undefined) {
 							"errorDescription": $.t("error_signature_verification_client")
 						}, data);
 					} else {
-						$.growl($.t("error_signature_verification_client"), {
+						$.notify($.t("error_signature_verification_client"), {
 							"type": "danger"
 						});
 					}
@@ -315,7 +315,7 @@ var NRS = (function(NRS, $, undefined) {
 								"errorDescription": $.t("error_signature_verification_server")
 							}, data);
 						} else {
-							$.growl($.t("error_signature_verification_server"), {
+							$.notify($.t("error_signature_verification_server"), {
 								"type": "danger"
 							});
 						}
@@ -367,7 +367,7 @@ var NRS = (function(NRS, $, undefined) {
 						callback(response, data);
 					}
 					if (data.referencedTransactionFullHash && !response.errorCode) {
-						$.growl($.t("info_referenced_transaction_hash"), {
+						$.notify($.t("info_referenced_transaction_hash"), {
 							"type": "info"
 						});
 					}
@@ -380,7 +380,7 @@ var NRS = (function(NRS, $, undefined) {
 
 			if ((error == "error" || textStatus == "error") && (xhr.status == 404 || xhr.status == 0)) {
 				if (type == "POST") {
-					$.growl($.t("error_server_connect"), {
+					$.notify($.t("error_server_connect"), {
 						"type": "danger",
 						"offset": 10
 					});
@@ -1189,7 +1189,7 @@ var NRS = (function(NRS, $, undefined) {
 					originalResponse.fullHash = response.fullHash;
 					callback(originalResponse, originalData);
 					if (originalData.referencedTransactionFullHash) {
-						$.growl($.t("info_referenced_transaction_hash"), {
+						$.notify($.t("info_referenced_transaction_hash"), {
 							"type": "info"
 						});
 					}

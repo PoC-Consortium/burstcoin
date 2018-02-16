@@ -10,12 +10,12 @@ var NRS = (function(NRS, $, undefined) {
 			$("#forging_indicator").addClass("forging");
 			$("#forging_indicator span").html($.t("forging")).attr("data-i18n", "forging");
 			NRS.isForging = true;
-			$.growl($.t("success_start_forging"), {
+			$.notify($.t("success_start_forging"), {
 				type: "success"
 			});
 		} else {
 			NRS.isForging = false;
-			$.growl($.t("error_start_forging"), {
+			$.notify($.t("error_start_forging"), {
 				type: 'danger'
 			});
 		}
@@ -33,11 +33,11 @@ var NRS = (function(NRS, $, undefined) {
 		NRS.isForging = false;
 
 		if (response.foundAndStopped) {
-			$.growl($.t("success_stop_forging"), {
+			$.notify($.t("success_stop_forging"), {
 				type: 'success'
 			});
 		} else {
-			$.growl($.t("error_stop_forging"), {
+			$.notify($.t("error_stop_forging"), {
 				type: 'danger'
 			});
 		}
@@ -47,24 +47,24 @@ var NRS = (function(NRS, $, undefined) {
 		e.preventDefault();
 
 		if (NRS.downloadingBlockchain) {
-			$.growl($.t("error_forging_blockchain_downloading"), {
+			$.notify($.t("error_forging_blockchain_downloading"), {
 				"type": "danger"
 			});
 		} else if (NRS.state.isScanning) {
-			$.growl($.t("error_forging_blockchain_rescanning"), {
+			$.notify($.t("error_forging_blockchain_rescanning"), {
 				"type": "danger"
 			});
 		} else if (!NRS.accountInfo.publicKey) {
-			$.growl($.t("error_forging_no_public_key"), {
+			$.notify($.t("error_forging_no_public_key"), {
 				"type": "danger"
 			});
 		} else if (NRS.accountInfo.effectiveBalanceBURST == 0) {
 			if (NRS.lastBlockHeight >= NRS.accountInfo.currentLeasingHeightFrom && NRS.lastBlockHeight <= NRS.accountInfo.currentLeasingHeightTo) {
-				$.growl($.t("error_forging_lease"), {
+				$.notify($.t("error_forging_lease"), {
 					"type": "danger"
 				});
 			} else {
-				$.growl($.t("error_forging_effective_balance"), {
+				$.notify($.t("error_forging_effective_balance"), {
 					"type": "danger"
 				});
 			}

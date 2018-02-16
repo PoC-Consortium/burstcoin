@@ -166,7 +166,7 @@ var NRS = (function(NRS, $, undefined) {
 						$btn.button("reset");
 						$modal.modal("unlock");
 						$modal.modal("hide");
-						$.growl($.t("success_contact_add"), {
+						$.notify($.t("success_contact_add"), {
 							"type": "success"
 						});
 
@@ -328,7 +328,7 @@ var NRS = (function(NRS, $, undefined) {
 						$btn.button("reset");
 						$modal.modal("unlock");
 						$modal.modal("hide");
-						$.growl($.t("success_contact_update"), {
+						$.notify($.t("success_contact_update"), {
 							"type": "success"
 						});
 
@@ -372,7 +372,7 @@ var NRS = (function(NRS, $, undefined) {
 			delete NRS.contacts[$("#delete_contact_account_id").val()];
 
 			setTimeout(function() {
-				$.growl($.t("success_contact_delete"), {
+				$.notify($.t("success_contact_delete"), {
 					"type": "success"
 				});
 
@@ -417,11 +417,11 @@ var NRS = (function(NRS, $, undefined) {
 				if (contacts && contacts.length) {
 					if (contacts[0].name == imported_contact.name) {
 						//$modal.find(".error_message").html($.t("error_contact_name_exists")).show();
-						$.growl($.t("error_contact_name_exists")).show();
+						$.notify($.t("error_contact_name_exists")).show();
 						console.log('Error, contact already exists with same name:'+imported_contact.name);
 					} else {
 						//$modal.find(".error_message").html($.t("error_contact_account_id_exists")).show();
-						$.growl($.t("error_contact_account_id_exists")).show();
+						$.notify($.t("error_contact_account_id_exists")).show();
 						console.log('Error, contact already exists with same account ID:'+imported_contact.account);
 					}
 					/*$btn.button("reset");
@@ -446,7 +446,7 @@ var NRS = (function(NRS, $, undefined) {
 							/*$btn.button("reset");
 							$modal.modal("unlock");
 							$modal.modal("hide");*/
-							$.growl($.t("success_contact_add"), {
+							$.notify($.t("success_contact_add"), {
 								"type": "success"
 							});
 

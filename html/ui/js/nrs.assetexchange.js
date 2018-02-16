@@ -196,7 +196,7 @@ var NRS = (function(NRS, $, undefined) {
 
 		if (newAssets.length == 0) {
 			NRS.closeModal();
-			$.growl($.t("error_asset_already_bookmarked", {
+			$.notify($.t("error_asset_already_bookmarked", {
 				"count": submittedAssets.length
 			}), {
 				"type": "danger"
@@ -215,7 +215,7 @@ var NRS = (function(NRS, $, undefined) {
 				message += " " + $.t("error_assets_save_db");
 			}
 
-			$.growl(message, {
+			$.notify(message, {
 				"type": "success"
 			});
 
@@ -619,7 +619,7 @@ var NRS = (function(NRS, $, undefined) {
 							}], function() {
 								setTimeout(function() {
 									NRS.loadPage("asset_exchange");
-									$.growl("Invalid asset.", {
+									$.notify("Invalid asset.", {
 										"type": "danger"
 									});
 								}, 50);
@@ -985,7 +985,7 @@ var NRS = (function(NRS, $, undefined) {
 		} else {
 			//do not allow period
 			if (charCode == 110 || charCode == 190 || charCode == 188) {
-				$.growl($.t("error_fractions"), {
+				$.notify($.t("error_fractions"), {
 					"type": "danger"
 				});
 				e.preventDefault();
@@ -1014,7 +1014,7 @@ var NRS = (function(NRS, $, undefined) {
 					});
 				}
 
-				$.growl(errorMessage, {
+				$.notify(errorMessage, {
 					"type": "danger"
 				});
 
@@ -1029,7 +1029,7 @@ var NRS = (function(NRS, $, undefined) {
 		} else {
 			//comma
 			if (charCode == 188) {
-				$.growl($.t("error_comma_not_allowed"), {
+				$.notify($.t("error_comma_not_allowed"), {
 					"type": "danger"
 				});
 			}
@@ -1075,14 +1075,14 @@ var NRS = (function(NRS, $, undefined) {
 			var feeNQT = new BigInteger(NRS.convertToNQT(String($("#" + orderType + "_asset_fee").val())));
 			var totalNXT = NRS.formatAmount(NRS.calculateOrderTotalNQT(quantityQNT, priceNQT, NRS.currentAsset.decimals), false, true);
 		} catch (err) {
-			$.growl("Invalid input.", {
+			$.notify("Invalid input.", {
 				"type": "danger"
 			});
 			return e.preventDefault();
 		}
 
 		if (priceNQT.toString() == "0" || quantityQNT.toString() == "0") {
-			$.growl($.t("error_amount_price_required"), {
+			$.notify($.t("error_amount_price_required"), {
 				"type": "danger"
 			});
 			return e.preventDefault();
@@ -1257,7 +1257,7 @@ var NRS = (function(NRS, $, undefined) {
 		}], function() {
 			setTimeout(function() {
 				NRS.loadPage("asset_exchange");
-				$.growl($.t("success_group_name_update"), {
+				$.notify($.t("success_group_name_update"), {
 					"type": "success"
 				});
 			}, 50);
@@ -1330,7 +1330,7 @@ var NRS = (function(NRS, $, undefined) {
 			}], function() {
 				setTimeout(function() {
 					NRS.loadPage("asset_exchange");
-					$.growl($.t("success_asset_group_removal"), {
+					$.notify($.t("success_asset_group_removal"), {
 						"type": "success"
 					});
 				}, 50);
@@ -1348,7 +1348,7 @@ var NRS = (function(NRS, $, undefined) {
 			}
 
 			if (ownsAsset) {
-				$.growl($.t("error_owned_asset_no_removal"), {
+				$.notify($.t("error_owned_asset_no_removal"), {
 					"type": "danger"
 				});
 			} else {
@@ -1358,7 +1358,7 @@ var NRS = (function(NRS, $, undefined) {
 				}], function(error, affected) {
 					setTimeout(function() {
 						NRS.loadPage("asset_exchange");
-						$.growl($.t("success_asset_bookmark_removal"), {
+						$.notify($.t("success_asset_bookmark_removal"), {
 							"type": "success"
 						});
 					}, 50);
@@ -1395,11 +1395,11 @@ var NRS = (function(NRS, $, undefined) {
 			setTimeout(function() {
 				NRS.loadPage("asset_exchange");
 				if (!groupName) {
-					$.growl($.t("success_asset_group_removal"), {
+					$.notify($.t("success_asset_group_removal"), {
 						"type": "success"
 					});
 				} else {
-					$.growl($.t("sucess_asset_group_add"), {
+					$.notify($.t("sucess_asset_group_add"), {
 						"type": "success"
 					});
 				}
@@ -1759,7 +1759,7 @@ var NRS = (function(NRS, $, undefined) {
 								NRS.loadAsset(response);
 							});
 						} else {
-							$.growl($.t("error_asset_not_found"), {
+							$.notify($.t("error_asset_not_found"), {
 								"type": "danger"
 							});
 						}
@@ -2010,11 +2010,11 @@ var NRS = (function(NRS, $, undefined) {
 
 	NRS.forms.cancelOrderComplete = function(response, data) {
 		if (data.requestType == "cancelAskOrder") {
-			$.growl($.t("success_cancel_sell_order"), {
+			$.notify($.t("success_cancel_sell_order"), {
 				"type": "success"
 			});
 		} else {
-			$.growl($.t("success_cancel_buy_order"), {
+			$.notify($.t("success_cancel_buy_order"), {
 				"type": "success"
 			});
 		}

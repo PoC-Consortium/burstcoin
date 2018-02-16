@@ -10,7 +10,7 @@ ajaxretry.js       180203 ia90j7KZ3lHwnJ/jSofQNFuwwtGrcTHwjd9+SY8Ls7EFiyx+vFfXvU
 big.min.js         180203 moVXZQ1vNulkMKTp26lnzWzlS0pdCeEDS2/ncCgejy/9cOlc0SHI8GiCWT/c3Vxx
 bootstrap.js       180203 AruvSWLzKMR8e97hqmCIYfZSC/91zOJyRyu6DOjiRZ9B8g32h15x0QQvHlRm+/18
 clipboard.js       180203 E8q4FF0C3cBKqHxayVjOHWaPICaSEqWybiuRAkkxVrUO21syLamc+aHtgFVYTbe2
-growl.js           180203 hK/hvSrlOJAhQWT9VhBM64cgZixSYK2Ok78th8vHtTACsWrCMlMb0ZvOiCSzdP41
+notify.js          180203 <update me>
 i18next.js         180203 zd9+xsXTO8I12YKO9I72ZhKI9Qa+4nUzoqbYPMsUBIt+IZio8wLxNULPppITb9rR
 jquery.min.js      180204 tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT
 jquery.rss.min.js  180204 jMZFnqgk/XQDYHVdaLBtSIKIFLAXPzyeCratYIu70z8GHOuxPx3mQUWsNWC1o9uq

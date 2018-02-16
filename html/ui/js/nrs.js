@@ -7,7 +7,7 @@
  * @depends {3rdparty/pako.js}
  * @depends {3rdparty/webdb.js}
  * @depends {3rdparty/ajaxmultiqueue.js}
- * @depends {3rdparty/growl.js}
+ * @depends {3rdparty/notify.js}
  * @depends {3rdparty/clipboard.js}
  * @depends {crypto/curve25519.js}
  * @depends {crypto/curve25519_.js}
@@ -591,7 +591,7 @@ var NRS = (function(NRS, $, undefined) {
 				}
 			} else {
 				if (NRS.accountRS && NRS.accountInfo.accountRS != NRS.accountRS) {
-					$.growl("Generated Reed Solomon address different from the one in the blockchain!", {
+					$.notify("Generated Reed Solomon address different from the one in the blockchain!", {
 						"type": "danger"
 					});
 					NRS.accountRS = NRS.accountInfo.accountRS;
@@ -832,7 +832,7 @@ var NRS = (function(NRS, $, undefined) {
 						var quantity = NRS.formatQuantity(asset.difference, asset.decimals)
 
 						if (quantity != "0") {
-							$.growl($.t("you_received_assets", {
+							$.notify($.t("you_received_assets", {
 								"asset": String(asset.asset).escapeHTML(),
 								"name": String(asset.name).escapeHTML(),
 								"count": quantity
@@ -846,7 +846,7 @@ var NRS = (function(NRS, $, undefined) {
 						var quantity = NRS.formatQuantity(asset.difference, asset.decimals)
 
 						if (quantity != "0") {
-							$.growl($.t("you_sold_assets", {
+							$.notify($.t("you_sold_assets", {
 								"asset": String(asset.asset).escapeHTML(),
 								"name": String(asset.name).escapeHTML(),
 								"count": quantity
@@ -858,7 +858,7 @@ var NRS = (function(NRS, $, undefined) {
 				});
 			}
 		} else {
-			$.growl($.t("multiple_assets_differences"), {
+			$.notify($.t("multiple_assets_differences"), {
 				"type": "success"
 			});
 		}
@@ -933,7 +933,7 @@ var NRS = (function(NRS, $, undefined) {
 			}
 
 			if (onAFork) {
-				$.growl($.t("fork_warning"), {
+				$.notify($.t("fork_warning"), {
 					"type": "danger"
 				});
 			}
@@ -953,14 +953,14 @@ var NRS = (function(NRS, $, undefined) {
 					response.account = input.account;
 					NRS.showAccountModal(response);
 				} else {
-					$.growl($.t("error_search_no_results"), {
+					$.notify($.t("error_search_no_results"), {
 						"type": "danger"
 					});
 				}
 			});
 		} else {
 			if (!/^\d+$/.test(id)) {
-				$.growl($.t("error_search_invalid"), {
+				$.notify($.t("error_search_invalid"), {
 					"type": "danger"
 				});
 				return;
@@ -986,7 +986,7 @@ var NRS = (function(NRS, $, undefined) {
 									response.block = input.block;
 									NRS.showBlockModal(response);
 								} else {
-									$.growl($.t("error_search_no_results"), {
+									$.notify($.t("error_search_no_results"), {
 										"type": "danger"
 									});
 								}

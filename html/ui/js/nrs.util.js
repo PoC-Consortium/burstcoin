@@ -840,7 +840,7 @@ var NRS = (function(NRS, $, undefined) {
 					"text": NRS.getClipboardText($(this).data("type"))
 				}, "*");
 
-				$.growl($.t("success_clipboard_copy"), {
+				$.notify($.t("success_clipboard_copy"), {
 					"type": "success"
 				});
 			});
@@ -857,7 +857,7 @@ var NRS = (function(NRS, $, undefined) {
 			}
 
 			clipboard.on('success', function(e) {
-				$.growl($.t("success_clipboard_copy"), {
+				$.notify($.t("success_clipboard_copy"), {
 					"type": "success"
 				});
 			});
@@ -865,7 +865,7 @@ var NRS = (function(NRS, $, undefined) {
 			clipboard.on('error', function(e) {
 				$("#account_id_dropdown .dropdown-menu, #asset_id_dropdown .dropdown-menu").remove();
 				$("#account_id_dropdown, #asset_id").data("toggle", "");
-				$.growl($.t("error_clipboard_copy"));
+				$.notify($.t("error_clipboard_copy"));
 			});
 		}
 	}

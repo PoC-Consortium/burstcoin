@@ -605,7 +605,7 @@ var NRS = (function(NRS, $, undefined) {
 		}, function(response) {
 			if (response.errorCode) {
 				e.preventDefault();
-				$.growl($.t("error_purchase"), {
+				$.notify($.t("error_purchase"), {
 					"type": "danger"
 				});
 			} else {
@@ -614,7 +614,7 @@ var NRS = (function(NRS, $, undefined) {
 				}, function(good) {
 					if (response.errorCode) {
 						e.preventDefault();
-						$.growl($.t("error_products"), {
+						$.notify($.t("error_products"), {
 							"type": "danger"
 						});
 					} else {
@@ -695,7 +695,7 @@ var NRS = (function(NRS, $, undefined) {
 						} else if (type == "dgs_view_delivery_modal") {
 							if (response.pending) {
 								e.preventDefault();
-								$.growl($.t("error_goods_not_yet_delivered"), {
+								$.notify($.t("error_goods_not_yet_delivered"), {
 									"type": "warning"
 								});
 								return;
@@ -793,7 +793,7 @@ var NRS = (function(NRS, $, undefined) {
 		}, function(response) {
 			if (response.errorCode) {
 				e.preventDefault();
-				$.growl($.t("error_goods"), {
+				$.notify($.t("error_goods"), {
 					"type": "danger"
 				});
 			} else {
@@ -854,14 +854,14 @@ var NRS = (function(NRS, $, undefined) {
 			var address = new NxtAddress();
 
 			if (!address.set(seller)) {
-				$.growl($.t("error_invalid_seller"), {
+				$.notify($.t("error_invalid_seller"), {
 					"type": "danger"
 				});
 			} else {
 				NRS.pages.dgs_search();
 			}
 		} else {
-			$.growl($.t("error_invalid_seller"), {
+			$.notify($.t("error_invalid_seller"), {
 				"type": "danger"
 			});
 		}

@@ -311,18 +311,18 @@ var NRS = (function(NRS, $, undefined) {
 
             if (response.errorCode) {
                 e.preventDefault();
-                $.growl($.t("error_alias_not_found"), {
+                $.notify($.t("error_alias_not_found"), {
                     "type": "danger"
                 });
             } else {
                 if (!("priceNQT" in response)) {
                     e.preventDefault();
-                    $.growl($.t("error_alias_not_for_sale"), {
+                    $.notify($.t("error_alias_not_for_sale"), {
                         "type": "danger"
                     });
                 } else if (typeof response.buyer != "undefined" && response.buyer != NRS.account) {
                     e.preventDefault();
-                    $.growl($.t("error_alias_sale_different_account"), {
+                    $.notify($.t("error_alias_sale_different_account"), {
                         "type": "danger"
                     });
                 } else {
@@ -373,7 +373,7 @@ var NRS = (function(NRS, $, undefined) {
             }, function(response) {
                 if (response.errorCode) {
                     e.preventDefault();
-                    $.growl($.t("error_alias_not_found"), {
+                    $.notify($.t("error_alias_not_found"), {
                         "type": "danger"
                     });
                     NRS.fetchingModalData = false;
@@ -592,7 +592,7 @@ var NRS = (function(NRS, $, undefined) {
                     $row.find("td.uri").html(data.shortAliasURI);
                 }
 
-                $.growl($.t("success_alias_update"), {
+                $.notify($.t("success_alias_update"), {
                     "type": "success"
                 });
             } else {
@@ -624,7 +624,7 @@ var NRS = (function(NRS, $, undefined) {
                     $("#aliases_table").parent().removeClass("data-empty");
                 }
 
-                $.growl($.t("success_alias_register"), {
+                $.notify($.t("success_alias_register"), {
                     "type": "success"
                 });
             }
@@ -648,7 +648,7 @@ var NRS = (function(NRS, $, undefined) {
             "aliasName": alias
         }, function(response, input) {
             if (response.errorCode) {
-                $.growl($.t("error_alias_not_found")
+                $.notify($.t("error_alias_not_found")
                         + " <a href='#' data-toggle='modal' data-target='#register_alias_modal' data-prefill-alias='"
                         + String(alias).escapeHTML() + "'>"
                         + $.t("register_q") + "</a>", {

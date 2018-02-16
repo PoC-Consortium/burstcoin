@@ -817,7 +817,7 @@ var NRS = (function(NRS, $, undefined) {
 		}
 
 		if (incorrect) {
-			$.growl($.t("error_unknown_transaction_type"), {
+			$.notify($.t("error_unknown_transaction_type"), {
 				"type": "danger"
 			});
 

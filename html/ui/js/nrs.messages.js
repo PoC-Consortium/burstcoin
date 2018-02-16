@@ -119,7 +119,7 @@ var NRS = (function(NRS, $, undefined) {
 					if (trans.confirmed && trans.type == 1 && trans.subtype == 0 && trans.senderRS != NRS.accountRS) {
 						if (trans.height >= NRS.lastBlockHeight - 3 && !_latestMessages[trans.transaction]) {
 							_latestMessages[trans.transaction] = trans;
-							$.growl($.t("you_received_message", {
+							$.notify($.t("you_received_message", {
 								"account": NRS.getAccountFormatted(trans, "sender"),
 								"name": NRS.getAccountTitle(trans, "sender")
 							}), {
@@ -360,7 +360,7 @@ var NRS = (function(NRS, $, undefined) {
 
 		if (!NRS.rememberPassword) {
 			if ($("#inline_message_password").val() == "") {
-				$.growl($.t("error_passphrase_required"), {
+				$.notify($.t("error_passphrase_required"), {
 					"type": "danger"
 				});
 				return;
@@ -369,7 +369,7 @@ var NRS = (function(NRS, $, undefined) {
 			var accountId = NRS.getAccountId(data.secretPhrase);
 
 			if (accountId != NRS.account) {
-				$.growl($.t("error_passphrase_incorrect"), {
+				$.notify($.t("error_passphrase_incorrect"), {
 					"type": "danger"
 				});
 				return;
@@ -392,7 +392,7 @@ var NRS = (function(NRS, $, undefined) {
 			try {
 				data = NRS.addMessageData(data, "sendMessage");
 			} catch (err) {
-				$.growl(String(err.message).escapeHTMl(), {
+				$.notify(String(err.message).escapeHTMl(), {
 					"type": "danger"
 				});
 				return;
@@ -405,11 +405,11 @@ var NRS = (function(NRS, $, undefined) {
 
 		NRS.sendRequest(requestType, data, function(response, input) {
 			if (response.errorCode) {
-				$.growl(NRS.translateServerError(response).escapeHTML(), {
+				$.notify(NRS.translateServerError(response).escapeHTML(), {
 					type: "danger"
 				});
 			} else if (response.fullHash) {
-				$.growl($.t("success_message_sent"), {
+				$.notify($.t("success_message_sent"), {
 					type: "success"
 				});
 
@@ -431,7 +431,7 @@ var NRS = (function(NRS, $, undefined) {
 				//leave password alone until user moves to another page.
 			} else {
 				//TODO
-				$.growl($.t("error_send_message"), {
+				$.notify($.t("error_send_message"), {
 					type: "danger"
 				});
 			}
@@ -443,11 +443,11 @@ var NRS = (function(NRS, $, undefined) {
 		data.message = data._extra.message;
 
 		if (!(data["_extra"] && data["_extra"].convertedAccount)) {
-			$.growl($.t("success_message_sent") + " <a href='#' data-account='" + NRS.getAccountFormatted(data, "recipient") + "' data-toggle='modal' data-target='#add_contact_modal' style='text-decoration:underline'>" + $.t("add_recipient_to_contacts_q") + "</a>", {
+			$.notify($.t("success_message_sent") + " <a href='#' data-account='" + NRS.getAccountFormatted(data, "recipient") + "' data-toggle='modal' data-target='#add_contact_modal' style='text-decoration:underline'>" + $.t("add_recipient_to_contacts_q") + "</a>", {
 				"type": "success"
 			});
 		} else {
-			$.growl($.t("success_message_sent"), {
+			$.notify($.t("success_message_sent"), {
 				"type": "success"
 			});
 		}
@@ -549,11 +549,11 @@ var NRS = (function(NRS, $, undefined) {
 		$("#messages_sidebar a.active").trigger("click");
 
 		if (success) {
-			$.growl($.t("success_messages_decrypt"), {
+			$.notify($.t("success_messages_decrypt"), {
 				"type": "success"
 			});
 		} else {
-			$.growl($.t("error_messages_decrypt"), {
+			$.notify($.t("error_messages_decrypt"), {
 				"type": "danger"
 			});
 		}

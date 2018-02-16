@@ -150,7 +150,7 @@ var NRS = (function(NRS, $, undefined) {
 					if (NRS.settings["console_log"] && !NRS.inApp) {
 						$("#show_console").show();
 					}
-					$.growl($.t("success_blockchain_up_to_date"), {
+					$.notify($.t("success_blockchain_up_to_date"), {
 						"type": "success"
 					});
 					NRS.checkAliasVersions();
