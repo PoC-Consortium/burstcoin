@@ -784,7 +784,7 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
     
     BlockImpl previousLastBlock = null;
     try {
-     
+      Burst.getStores().beginTransaction(); //this should be here since we are having a end in finally
       previousLastBlock = Burst.getBlockchain().getLastBlock();
 
       if (previousLastBlock.getId() != block.getPreviousBlockId()) {
@@ -904,7 +904,7 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
       long remainingFee = Convert.safeSubtract(block.getTotalFeeNQT(), calculatedTotalFee);
 
       block.setPrevious(previousLastBlock);
-      Burst.getStores().beginTransaction(); //top of try
+     
       blockListeners.notify(block, Event.BEFORE_BLOCK_ACCEPT);
       transactionProcessor.requeueAllUnconfirmedTransactions();
       Account.flushAccountTable();
