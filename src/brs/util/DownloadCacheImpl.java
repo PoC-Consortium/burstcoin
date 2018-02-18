@@ -492,7 +492,7 @@ public final class DownloadCacheImpl {
   }
 
   public void printDebug() {
-    if (reverseCache.size() > 0) {
+/*    if (reverseCache.size() > 0) {
       logger.debug("BlockCache First block key:" + blockCache.keySet().toArray()[0]);
       logger.debug("revCache First block key:" + reverseCache.keySet().toArray()[0]);
       logger.debug("revCache First block Val:" + reverseCache.get(reverseCache.keySet().toArray()[0]));
@@ -500,8 +500,13 @@ public final class DownloadCacheImpl {
       logger.debug("revCache size:" + reverseCache.size());
     } else {
       logger.debug("BlockCache size:" + blockCache.size());
-      logger.debug("revCache size:" + reverseCache.size());
-    }
+      logger.debug("Unverified size:" + unverified.size());
+      logger.debug("Verified size:" + (blockCache.size() - unverified.size()));
+    }*/
+    logger.info("BlockCache size:" + blockCache.size());
+    logger.info("Unverified size:" + unverified.size());
+    logger.info("Verified size:" + (blockCache.size() - unverified.size()));
+    
   }
 
   private void setLastVars() {

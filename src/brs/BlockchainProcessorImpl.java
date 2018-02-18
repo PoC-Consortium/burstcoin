@@ -170,43 +170,45 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
     try {
       Long lastId = Burst.getBlockchain().getLastBlock().getId();
       while (true) {
-        if (DownloadCache.getBlockCacheSize() > 0) {
-          
-          BlockImpl currentBlock = DownloadCache.GetNextBlock(lastId); /* this should fetch first block in cache */
-          if (currentBlock == null) {
-            break;
-          }
-          try {
-            if (!currentBlock.isVerified()) {
-              DownloadCache.removeUnverified(currentBlock.getId());
-              currentBlock.preVerify();
+        while (true) {
+          if (DownloadCache.getBlockCacheSize() > 0) {
+            
+            BlockImpl currentBlock = DownloadCache.GetNextBlock(lastId); /* this should fetch first block in cache */
+            if (currentBlock == null) {
+              break;
             }
-            pushBlock(currentBlock);
-            lastId = currentBlock.getId();
-            DownloadCache.RemoveBlock(currentBlock);
-          
-          } catch (BlockNotAcceptedException e) {
-            logger.error("Block not accepted", e);
-            blacklistClean(currentBlock, e);
-            break;
-          }
-          //executor shutdown? 
-          if (Thread.currentThread().isInterrupted()) {
-            logger.debug("Blockimporter got interupted.");
-            return;
+            try {
+              if (!currentBlock.isVerified()) {
+                DownloadCache.removeUnverified(currentBlock.getId());
+                currentBlock.preVerify();
+              }
+              pushBlock(currentBlock);
+              lastId = currentBlock.getId();
+              DownloadCache.RemoveBlock(currentBlock);
+            
+            } catch (BlockNotAcceptedException e) {
+              logger.error("Block not accepted", e);
+              blacklistClean(currentBlock, e);
+              break;
+            }
+            //executor shutdown? 
+            if (Thread.currentThread().isInterrupted()) {
+              logger.debug("Blockimporter got interupted.");
+              return;
+            }
           }
         }
-      }
-      try {
-        Thread.sleep(10);
-      } catch (InterruptedException ex) {
-        logger.debug("Blockimporter fires interupt.");
-        Thread.currentThread().interrupt();
-      }
-      //executor shutdown? 
-      if (Thread.currentThread().isInterrupted()) {
-        logger.debug("Blockimporter got interupted.");
-        return;
+        try {
+          Thread.sleep(10);
+        } catch (InterruptedException ex) {
+          logger.debug("Blockimporter fires interupt.");
+          Thread.currentThread().interrupt();
+        }
+        //executor shutdown? 
+        if (Thread.currentThread().isInterrupted()) {
+          logger.debug("Blockimporter got interupted.");
+          return;
+        }
       }
     } catch (Throwable exception) {
       logger.error("Uncaught exception in blockImporterThread", exception);
@@ -329,10 +331,10 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
             }
 
             // download blocks from peer
-            int chainHeight = DownloadCache.getChainHeight();
             BlockImpl lastBlock = DownloadCache.GetBlock(commonBlockId); 
-            if(lastBlock ==null) {
+            if(lastBlock == null) {
               logger.info("Error: lastBlock is null");
+              return;
             }
             // loop blocks and make sure they fit in chain
          
@@ -780,6 +782,7 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
   }
 
   private void pushBlock(final BlockImpl block) throws BlockNotAcceptedException {
+    Burst.getStores().beginTransaction(); //top of try
     int curTime = Burst.getEpochTime();
     
     BlockImpl previousLastBlock = null;
@@ -904,7 +907,6 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
       long remainingFee = Convert.safeSubtract(block.getTotalFeeNQT(), calculatedTotalFee);
 
       block.setPrevious(previousLastBlock);
-      Burst.getStores().beginTransaction(); //top of try
       blockListeners.notify(block, Event.BEFORE_BLOCK_ACCEPT);
       transactionProcessor.requeueAllUnconfirmedTransactions();
       Account.flushAccountTable();
@@ -927,6 +929,7 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
     }
     else if ( addedBlockCount % 500 == 0 ) {
       logger.info("handling {} blocks/s", String.format("%.2f", 500 / (float) (Burst.getEpochTime() - firstBlockAdded)));
+   //   DownloadCache.printDebug();
       addedBlockCount = 0;
     }
 
