@@ -37,10 +37,10 @@ public class Props {
 
   public static final String BRS_TEST_DB_URL = "brs.testDbUrl";
   public static final String BRS_TEST_DB_USERNAME = "brs.testDbUsername";
-  public static final String BRS_TEST_DB_PASSWORD = "brs.testDbPassword";
+  public static final String BRS_TEST_DB_SECRET = "brs.testDbPassword";
   public static final String BRS_DB_URL = "brs.dbUrl";
   public static final String BRS_DB_USERNAME = "brs.dbUsername";
-  public static final String BRS_DB_PASSWORD = "brs.dbPassword";
+  public static final String BRS_DB_SECRET = "brs.dbPassword";
   public static final String BRS_DB_MAXIMUM_POOL_SIZE = "brs.dbMaximumPoolSize";
   public static final String BRS_DB_DEFAULT_LOCK_TIMEOUT = "brs.dbDefaultLockTimeout";
 
@@ -60,7 +60,7 @@ public class Props {
   public static final String API_UI_DIR = "API.UI_Dir";
   public static final String API_CROSS_ORIGIN_FILTER = "API.CrossOriginFilter";
   public static final String API_SSL_KEY_STORE_PATH = "API.SSL_keyStorePath";
-  public static final String API_SSL_KEY_STORE_PASSWORD = "API.SSL_keyStorePassword";
+  public static final String API_SSL_KEY_STORE_SECRET = "API.SSL_keyStorePassword";
   public static final String API_SERVER_IDLE_TIMEOUT = "API.ServerIdleTimeout";
   public static final String API_SERVER_ENFORCE_POST = "API.ServerEnforcePOST";
 
