@@ -57,12 +57,12 @@ public final class Db {
     if (Constants.isTestnet) {
       dbUrl = propertyService.getString(Props.BRS_TEST_DB_URL);
       dbUsername = propertyService.getString(Props.BRS_TEST_DB_USERNAME);
-      dbPassword = propertyService.getString(Props.BRS_TEST_DB_PASSWORD);
+      dbPassword = propertyService.getString(Props.BRS_TEST_DB_SECRET);
     }
     else {
       dbUrl = propertyService.getString(Props.BRS_DB_URL);
       dbUsername = propertyService.getString(Props.BRS_DB_USERNAME);
-      dbPassword = propertyService.getString(Props.BRS_DB_PASSWORD);
+      dbPassword = propertyService.getString(Props.BRS_DB_SECRET);
     }
     dialect = org.jooq.tools.jdbc.JDBCUtils.dialect(dbUrl);
 
