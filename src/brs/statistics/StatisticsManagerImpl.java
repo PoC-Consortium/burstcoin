@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 
 public class StatisticsManagerImpl {
 
-  private final Logger logger = LoggerFactory.getLogger(StatisticsCache.class);
+  private final Logger logger = LoggerFactory.getLogger(StatisticsManagerImpl.class);
 
   private TimeService timeService;
 
