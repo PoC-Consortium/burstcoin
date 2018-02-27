@@ -588,6 +588,7 @@
     "start_forging": "Start Forging",
     "refund": "Refund",
     "burst_forum": "Burst Forum",
+    "burst_explorer": "Burst Explorer",
     "new_price": "New Price",
     "balance_will_be_leased_out": "Your account effective balance will be leased out starting from block __start__ until block __end__ to account <a href='#' data-user='__account__' class='user_info'>__account__<\/a>",
     "generating_passphrase_wait": "Generating your passphrase. Please wait",
