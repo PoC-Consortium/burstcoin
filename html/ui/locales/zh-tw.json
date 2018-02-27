@@ -81,7 +81,7 @@
     "none": "無",
     "error_public_key_not_specified": "未指定公鑰。",
     "incorrect_purchase": "不正確的購買。",
-    "error_not_a_number": "__field__ 應為數字。"
+    "error_not_a_number": "__field__ 應為數字。",
     "success_set_reward_recipient": "Your reward recipient has been set successfully!",
     "error_set_reward_recipient": "An unknown error occured! Your reward recpieint has not been set.",
     "success_sell_alias": "您的別名銷售報價已創建成功 ！",
