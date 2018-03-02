@@ -10,10 +10,14 @@
 The world's first HDD-mined cryptocurrency using an energy efficient
 and fair Proof-of-Capacity (PoC) consensus algorithm.
 
-This wallet version is developed and maintained by the PoC consortium (PoCC) and supports several database backends:
+This wallet version is developed and maintained by the PoC consortium
+(PoCC) and supports a multitude of database backends. The two builtin
+backends are:
 - MariaDB (recommended, but complex installation)
-- Firebird (2nd best choice)
 - H2 (for compatibility/migration purposes)
+
+Other DB backends are supported by the Burstcoin DB manager:
+https://github.com/PoC-Consortium/burstcoin-db-manager
 
 
 ### Software Installation
@@ -43,28 +47,10 @@ brs.dbPassword=YOUR_PASSWORD
 The MariaDB installation will also install HeidiSQL, a gui tool to administer MariaDb.
 Use it to connect to the newly created mariaDb server and create a new DB called 'burstwallet'. 
 
-###### Firebird (alternative to MariaDb)
-
-If you are not familiar with MariaDB we recommend you to go for
-Firebird, in which case the following data needs to be added to
-`conf/brs.properties`
-
-```
-brs.dbUrl=jdbc:firebirdsql:embedded:burst.firebird.db
-brs.dbUsername=sysdba
-brs.dbPassword=
-```
-After that you can simply run `burst.cmd` and that should start your wallet.
-
-You can get all additional commands available by running `burst.cmd help`
-
 #### Unix-like systems
 
 Please install Java 8 (JRE 1.8) manually and run it by using burst.sh
 You can get further information calling `burst.sh help`
-
-Please note: Firebird (embedded) needs some more work on macOS at the moment.
-All other supported databases should work as expected.
 
 A good HowTo for running the wallet on a mac can be found here
 https://www.reddit.com/r/burstcoin/comments/7lrdc1/guide_to_getting_the_poc_wallet_running_on_a_mac/
@@ -153,7 +139,7 @@ base are not mentioned, however. In alphabetical order:
 * introduction of FirebirdDB to the list of supported DB backends, bugfixing, debugging
 * streamlining helper scripts (invocation, compilation)
 * work on macOS port, testing and release management
-* JOOQ migration
+* JOOQ migration and many more things
 
 @Brabantian
 * introduction of JUnit and Code Coverage reporting
@@ -184,11 +170,11 @@ base are not mentioned, however. In alphabetical order:
 @Quibus DownloadCache
 
 @rico666
-* moved the wallet from Nxt to BRS/Burst namespace
+* moved the wallet from NRS/Nxt to BRS/Burst namespace
 * improvements and fixes to the documentation - revival of javadoc references
 * general code refactoring and styleguide unification (Google JAVA Styleguide)
 * removed obsolete/unused code - tens of thousands of LOCs
-* fixes and enhancements to the UI
+* fixes and enhancements to the UI, config streamlining also JS updates
 
 Other contributors
 

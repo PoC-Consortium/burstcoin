@@ -30,7 +30,6 @@
     <mariadb.version>2.0.3</mariadb.version>
     <hikaricp.version>2.7.2</hikaricp.version>
     <h2.version>1.4.196</h2.version>
-    <jaybird.version>3.0.3</jaybird.version>
     <jna.version>4.5.1</jna.version>
     <reflections.version>0.9.11</reflections.version>
     <kryo.version>4.0.1</kryo.version>
@@ -44,7 +43,6 @@
     <jaxb.version>2.3.0</jaxb.version>
     <weupnp.version>0.1.4</weupnp.version>
     <ehcache.version>3.4.0</ehcache.version>
-    <derby.version>10.14.1.0</derby.version>
 
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
@@ -144,18 +142,6 @@
       <groupId>com.h2database</groupId>
       <artifactId>h2</artifactId>
       <version>${h2.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.firebirdsql.jdbc</groupId>
-      <artifactId>jaybird-jdk18</artifactId>
-      <version>${jaybird.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.derby</groupId>
-      <artifactId>derby</artifactId>
-      <version>${derby.version}</version>
     </dependency>
 
     <dependency>
