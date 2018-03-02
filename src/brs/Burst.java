@@ -70,7 +70,6 @@ public final class Burst {
   private static final String DEFAULT_PROPERTIES_NAME = "brs-default.properties";
 
   private static final Logger logger = LoggerFactory.getLogger(Burst.class);
-  private static Properties properties;
 
   private static Stores stores;
   private static Dbs dbs;
@@ -82,11 +81,14 @@ public final class Burst {
   private static TransactionProcessorImpl transactionProcessor;
 
   private static PropertyService propertyService;
+
   private static EconomicClustering economicClustering;
 
   private static DBCacheManagerImpl dbCacheManager;
 
   private static API api;
+
+  static Properties properties;
 
   private static PropertyService loadProperties() {
     final Properties defaultProperties = new Properties();
@@ -153,11 +155,16 @@ public final class Burst {
   }
 
   public static void init(Properties customProperties) {
-    properties.putAll(customProperties);
-    init();
+    loadWallet(new PropertyServiceImpl(customProperties));
   }
 
   public static void init() {
+    loadWallet(loadProperties());
+  }
+
+  private static void loadWallet(PropertyService propertyService) {
+    Burst.propertyService = propertyService;
+
     try {
       long startTime = System.currentTimeMillis();
 
@@ -168,15 +175,12 @@ public final class Burst {
       final StatisticsManagerImpl statisticsManager = new StatisticsManagerImpl(timeService);
       dbCacheManager = new DBCacheManagerImpl(statisticsManager);
 
-      propertyService = loadProperties();
-
       threadPool = new ThreadPool(propertyService);
 
       LoggerConfigurator.init();
 
       Db.init(propertyService, dbCacheManager);
       dbs = Db.getDbsByDatabaseType();
-
 
       stores = new Stores(derivedTableManager, dbCacheManager, timeService);
 
@@ -266,7 +270,7 @@ public final class Burst {
   }
 
   private static void addBlockchainListeners(BlockchainProcessor blockchainProcessor, AccountService accountService, DGSGoodsStoreService goodsService, Blockchain blockchain,
-     TransactionDb transactionDb) {
+      TransactionDb transactionDb) {
 
     final HandleATBlockTransactionsListener handleATBlockTransactionListener = new HandleATBlockTransactionsListener(accountService, blockchain, transactionDb);
     final DevNullListener devNullListener = new DevNullListener(accountService, goodsService);
