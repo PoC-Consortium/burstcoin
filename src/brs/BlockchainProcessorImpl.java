@@ -4,7 +4,6 @@ import brs.common.Props;
 import brs.db.store.BlockchainStore;
 import brs.db.store.DerivedTableManager;
 import brs.db.store.Stores;
-import brs.services.AccountService;
 import brs.services.BlockService;
 import brs.services.EscrowService;
 import brs.services.PropertyService;
@@ -48,7 +47,6 @@ import brs.util.FilteringIterator;
 import brs.util.JSON;
 import brs.util.Listener;
 import brs.util.Listeners;
-import brs.db.sql.SqlAccountStore;
 import brs.db.sql.Db;
 import org.jooq.DSLContext;
 
@@ -61,7 +59,6 @@ public final class BlockchainProcessorImpl implements BlockchainProcessor {
   private final SubscriptionService subscriptionService;
   private final EscrowService escrowService;
   private final TimeService timeService;
-  private final AccountService accountService;
   private final TransactionService transactionService;
   private TransactionProcessorImpl transactionProcessor;
   private EconomicClustering economicClustering;
@@ -107,7 +104,7 @@ public final class BlockchainProcessorImpl implements BlockchainProcessor {
 
   public BlockchainProcessorImpl(ThreadPool threadPool, BlockService blockService, TransactionProcessorImpl transactionProcessor, BlockchainImpl blockchain,
       PropertyService propertyService,
-      SubscriptionService subscriptionService, TimeService timeService, AccountService accountService, DerivedTableManager derivedTableManager,
+      SubscriptionService subscriptionService, TimeService timeService, DerivedTableManager derivedTableManager,
       BlockDb blockDb, TransactionDb transactionDb, EconomicClustering economicClustering, BlockchainStore blockchainStore, Stores stores, EscrowService escrowService,
       TransactionService transactionService, DownloadCacheImpl downloadCache, Generator generator, StatisticsManagerImpl statisticsManager) {
     this.blockService = blockService;
@@ -118,7 +115,6 @@ public final class BlockchainProcessorImpl implements BlockchainProcessor {
     this.transactionDb = transactionDb;
     this.blockchain = blockchain;
     this.subscriptionService = subscriptionService;
-    this.accountService = accountService;
     this.blockchainStore = blockchainStore;
     this.stores = stores;
     this.downloadCache = downloadCache;

@@ -8,7 +8,6 @@ import brs.db.VersionedEntityTable;
 import brs.util.Convert;
 import brs.util.Listener;
 import brs.util.Listeners;
-import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

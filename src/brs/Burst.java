@@ -223,7 +223,7 @@ public final class Burst {
 
       final BlockService blockService = new BlockServiceImpl(accountService, transactionService, blockchain, downloadCache, generator);
       blockchainProcessor = new BlockchainProcessorImpl(threadPool, blockService, transactionProcessor, blockchain, propertyService, subscriptionService,
-          timeService, accountService, derivedTableManager,
+          timeService, derivedTableManager,
           blockDb, transactionDb, economicClustering, blockchainStore, stores, escrowService, transactionService, downloadCache, generator, statisticsManager);
 
       generator.generateForBlockchainProcessor(threadPool, blockchainProcessor);

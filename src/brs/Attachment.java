@@ -354,7 +354,7 @@ public interface Attachment extends Appendix {
 
   }
 
-  final class ColoredCoinsAssetIssuance extends AbstractAttachment {
+  class ColoredCoinsAssetIssuance extends AbstractAttachment {
 
     private final String name;
     private final String description;
