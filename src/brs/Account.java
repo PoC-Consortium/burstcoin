@@ -141,15 +141,9 @@ public class Account {
     return Burst.getStores().getAccountStore().getAccountTable();
   }
 
-
-  public static void flushAccountTable() {
-    accountTable().finish();
-  }
-
   private static final VersionedEntityTable<AccountAsset> accountAssetTable() {
     return Burst.getStores().getAccountStore().getAccountAssetTable();
   }
-
 
   private static final VersionedEntityTable<RewardRecipientAssignment> rewardRecipientAssignmentTable() {
     return Burst.getStores().getAccountStore().getRewardRecipientAssignmentTable();
@@ -177,22 +171,6 @@ public class Account {
 
   public static Account getAccount(long id) {
     return id == 0 ? null : accountTable().get(accountBurstKeyFactory().newKey(id));
-  }
-
-  public static Account getAccount(long id, int height) {
-    return id == 0 ? null : accountTable().get(accountBurstKeyFactory().newKey(id), height);
-  }
-
-  public static Account getAccount(byte[] publicKey) {
-    Account account = accountTable().get(accountBurstKeyFactory().newKey(getId(publicKey)));
-    if (account == null) {
-      return null;
-    }
-    if (account.getPublicKey() == null || Arrays.equals(account.getPublicKey(), publicKey)) {
-      return account;
-    }
-    throw new RuntimeException("DUPLICATE KEY for account " + Convert.toUnsignedLong(account.getId())
-        + " existing key " + Convert.toHexString(account.getPublicKey()) + " new key " + Convert.toHexString(publicKey));
   }
 
   public static long getId(byte[] publicKey) {
@@ -316,10 +294,12 @@ public class Account {
     );
   }
 
+  //TODO can be moved to account service (partially)
   public void setRewardRecipientAssignment(Long recipient) {
     setRewardRecipientAssignment(id, recipient);
   }
 
+  //TODO can be moved to account service (partially)
   public static void setRewardRecipientAssignment(Long id, Long recipient) {
     int currentHeight = Burst.getBlockchain().getLastBlock().getHeight();
     RewardRecipientAssignment assignment = getRewardRecipientAssignment(id);
@@ -355,6 +335,7 @@ public class Account {
     }
   }
 
+  //TODO can be moved to account service
   public void addToAssetBalanceQNT(long assetId, long quantityQNT) {
     if (quantityQNT == 0) {
       return;
@@ -375,6 +356,7 @@ public class Account {
     assetListeners.notify(accountAsset, Event.ASSET_BALANCE);
   }
 
+  //TODO can be moved to account service
   void addToUnconfirmedAssetBalanceQNT(long assetId, long quantityQNT) {
     if (quantityQNT == 0) {
       return;
@@ -394,6 +376,7 @@ public class Account {
     assetListeners.notify(accountAsset, Event.UNCONFIRMED_ASSET_BALANCE);
   }
 
+  //TODO can be moved to account service
   public void addToAssetAndUnconfirmedAssetBalanceQNT(long assetId, long quantityQNT) {
     if (quantityQNT == 0) {
       return;
@@ -418,6 +401,7 @@ public class Account {
     assetListeners.notify(accountAsset, Event.UNCONFIRMED_ASSET_BALANCE);
   }
 
+  //TODO can be moved to account service
   public void addToBalanceNQT(long amountNQT) {
     if (amountNQT == 0) {
       return;
@@ -428,6 +412,7 @@ public class Account {
     listeners.notify(this, Event.BALANCE);
   }
 
+  //TODO can be moved to account service
   public void addToUnconfirmedBalanceNQT(long amountNQT) {
     if (amountNQT == 0) {
       return;
@@ -450,6 +435,7 @@ public class Account {
     listeners.notify(this, Event.UNCONFIRMED_BALANCE);
   }
 
+  //TODO can be moved to account service
   public void addToForgedBalanceNQT(long amountNQT) {
     if (amountNQT == 0) {
       return;
