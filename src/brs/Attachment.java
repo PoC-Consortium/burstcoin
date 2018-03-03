@@ -115,7 +115,7 @@ public interface Attachment extends Appendix {
 
     };
 
-  final class MessagingAliasAssignment extends AbstractAttachment {
+  class MessagingAliasAssignment extends AbstractAttachment {
 
     private final String aliasName;
     private final String aliasURI;
@@ -178,7 +178,7 @@ public interface Attachment extends Appendix {
     }
   }
 
-  final class MessagingAliasSell extends AbstractAttachment {
+  class MessagingAliasSell extends AbstractAttachment {
 
     private final String aliasName;
     private final long priceNQT;

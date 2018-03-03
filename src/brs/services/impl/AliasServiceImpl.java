@@ -74,27 +74,24 @@ public class AliasServiceImpl implements AliasService {
       if (offer == null) {
         BurstKey dbKey = offerDbKeyFactory.newKey(alias.getId());
         offerTable.insert(new Offer(dbKey, alias.getId(), priceNQT, buyerId));
-      }
-      else {
+      } else {
         offer.setPriceNQT(priceNQT);
         offer.setBuyerId(buyerId);
         offerTable.insert(offer);
       }
-    }
-    else {
+    } else {
       changeOwner(buyerId, aliasName, transaction.getBlockTimestamp());
     }
-
   }
 
   @Override
   public void changeOwner(long newOwnerId, String aliasName, int timestamp) {
-    Alias alias = getAlias(aliasName);
+    final Alias alias = getAlias(aliasName);
     alias.setAccountId(newOwnerId);
     alias.setTimestamp(timestamp);
     aliasTable.insert(alias);
-    Offer offer = getOffer(alias);
+
+    final Offer offer = getOffer(alias);
     offerTable.delete(offer);
   }
-
 }
