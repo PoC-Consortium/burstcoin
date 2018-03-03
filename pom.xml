@@ -181,25 +181,14 @@
 
     <dependency>
       <groupId>org.powermock</groupId>
-      <artifactId>powermock-mockito-release-full</artifactId>
+      <artifactId>powermock-module-junit4</artifactId>
       <version>${powermock.version}</version>
-      <type>pom</type>
       <scope>test</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>org.powermock</groupId>
-          <artifactId>powermock-module-testng</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.powermock</groupId>
-          <artifactId>powermock-module-testng-common</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
 
     <dependency>
       <groupId>org.powermock</groupId>
-      <artifactId>powermock-module-junit4</artifactId>
+      <artifactId>powermock-api-mockito</artifactId>
       <version>${powermock.version}</version>
       <scope>test</scope>
     </dependency>

@@ -4,7 +4,7 @@ import static junit.framework.TestCase.assertTrue;
 
 import org.junit.Test;
 
-public class InitialIT extends AbstractIT {
+public class InitialIntegrationTest extends AbstractIT {
 
   @Test
   public void canStartIntegrationTest() {
