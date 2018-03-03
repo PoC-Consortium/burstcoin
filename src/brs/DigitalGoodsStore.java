@@ -118,7 +118,7 @@ public final class DigitalGoodsStore {
 
   }
 
-  public static  class Purchase {
+  public static class Purchase {
 
     private static final BurstKey.LongKeyFactory<Purchase> purchaseDbKeyFactory() {
       return Burst.getStores().getDigitalGoodsStoreStore().getPurchaseDbKeyFactory();
