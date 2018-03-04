@@ -10,11 +10,8 @@ import brs.Attachment;
 import brs.Blockchain;
 import brs.Escrow;
 import brs.BurstException;
-import brs.TransactionProcessor;
-import brs.services.AccountService;
 import brs.services.EscrowService;
 import brs.services.ParameterService;
-import brs.services.TransactionService;
 import brs.util.Convert;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONStreamAware;
@@ -64,9 +61,7 @@ public final class EscrowSign extends CreateTransaction {
     }
 		
     Account sender = parameterService.getSenderAccount(req);
-    if(!(escrow.getSenderId().equals(sender.getId())) &&
-       !(escrow.getRecipientId().equals(sender.getId())) &&
-       !escrowService.isIdSigner(sender.getId(), escrow)) {
+    if(! isValidUser(escrow, sender)) {
       JSONObject response = new JSONObject();
       response.put(ERROR_CODE_RESPONSE, 5);
       response.put(ERROR_DESCRIPTION_RESPONSE, "Invalid or not specified action");
@@ -90,5 +85,12 @@ public final class EscrowSign extends CreateTransaction {
     Attachment.AdvancedPaymentEscrowSign attachment = new Attachment.AdvancedPaymentEscrowSign(escrow.getId(), decision, blockchain.getHeight());
 		
     return createTransaction(req, sender, null, 0, attachment);
+  }
+
+  private boolean isValidUser(Escrow escrow, Account sender) {
+    return
+        escrow.getSenderId().equals(sender.getId()) ||
+        escrow.getRecipientId().equals(sender.getId()) ||
+        escrowService.isIdSigner(sender.getId(), escrow);
   }
 }

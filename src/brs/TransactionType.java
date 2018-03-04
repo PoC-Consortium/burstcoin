@@ -295,16 +295,6 @@ public abstract class TransactionType {
     return "type: " + getType() + ", subtype: " + getSubtype();
   }
 
-  /*
-    Collection<TransactionType> getPhasingTransactionTypes() {
-    return Collections.emptyList();
-    }
-
-    Collection<TransactionType> getPhasedTransactionTypes() {
-    return Collections.emptyList();
-    }
-  */
-
   public static abstract class Payment extends TransactionType {
 
     private Payment() {
