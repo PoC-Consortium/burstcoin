@@ -11,7 +11,6 @@ import brs.db.store.DerivedTableManager;
 import brs.schema.tables.records.AccountRecord;
 import brs.util.Convert;
 import java.util.stream.Collectors;
-import org.ehcache.Cache;
 import org.jooq.BatchBindStep;
 import org.jooq.Cursor;
 import org.slf4j.LoggerFactory;
@@ -46,7 +45,7 @@ public class SqlAccountStore implements AccountStore {
     = new DbKey.LinkKeyFactory<Account.AccountAsset>("account_id", "asset_id") {
         @Override
         public DbKey newKey(Account.AccountAsset accountAsset) {
-          return (DbKey) accountAsset.nxtKey;
+          return (DbKey) accountAsset.burstKey;
         }
     };
 

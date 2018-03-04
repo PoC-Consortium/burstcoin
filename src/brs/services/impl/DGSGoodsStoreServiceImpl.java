@@ -144,7 +144,7 @@ public class DGSGoodsStoreServiceImpl implements DGSGoodsStoreService {
       addPurchase(transaction, attachment, goods.getSellerId());
     } else {
       Account buyer = accountService.getAccount(transaction.getSenderId());
-      buyer.addToUnconfirmedBalanceNQT(Convert.safeMultiply(attachment.getQuantity(), attachment.getPriceNQT()));
+      accountService.addToUnconfirmedBalanceNQT(buyer, Convert.safeMultiply(attachment.getQuantity(), attachment.getPriceNQT()));
       // restoring the unconfirmed balance if purchase not successful, however buyer still lost the transaction fees
     }
   }
@@ -205,7 +205,7 @@ public class DGSGoodsStoreServiceImpl implements DGSGoodsStoreService {
   public void refund(long sellerId, long purchaseId, long refundNQT, Appendix.EncryptedMessage encryptedMessage) {
     Purchase purchase = purchaseTable.get(purchaseDbKeyFactory.newKey(purchaseId));
     Account seller = accountService.getAccount(sellerId);
-    seller.addToBalanceNQT(-refundNQT);
+    accountService.addToBalanceNQT(seller, -refundNQT);
     Account buyer = accountService.getAccount(purchase.getBuyerId());
     buyer.addToBalanceAndUnconfirmedBalanceNQT(refundNQT);
     if (encryptedMessage != null) {
@@ -243,8 +243,8 @@ public class DGSGoodsStoreServiceImpl implements DGSGoodsStoreService {
     setPending(purchase, false);
     long totalWithoutDiscount = Convert.safeMultiply(purchase.getQuantity(), purchase.getPriceNQT());
     Account buyer = accountService.getAccount(purchase.getBuyerId());
-    buyer.addToBalanceNQT(Convert.safeSubtract(attachment.getDiscountNQT(), totalWithoutDiscount));
-    buyer.addToUnconfirmedBalanceNQT(attachment.getDiscountNQT());
+    accountService.addToBalanceNQT(buyer, Convert.safeSubtract(attachment.getDiscountNQT(), totalWithoutDiscount));
+    accountService.addToUnconfirmedBalanceNQT(buyer, attachment.getDiscountNQT());
     Account seller = accountService.getAccount(transaction.getSenderId());
     seller.addToBalanceAndUnconfirmedBalanceNQT(Convert.safeSubtract(totalWithoutDiscount, attachment.getDiscountNQT()));
     purchase.setEncryptedGoods(attachment.getGoods(), attachment.goodsIsText());

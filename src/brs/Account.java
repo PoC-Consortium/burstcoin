@@ -39,6 +39,14 @@ public class Account {
     this.description = description;
   }
 
+  public void setUnconfirmedBalanceNQT(long unconfirmedBalanceNQT) {
+    this.unconfirmedBalanceNQT = unconfirmedBalanceNQT;
+  }
+
+  public void setBalanceNQT(long balanceNQT) {
+    this.balanceNQT = balanceNQT;
+  }
+
   public enum Event {
     BALANCE, UNCONFIRMED_BALANCE, ASSET_BALANCE, UNCONFIRMED_ASSET_BALANCE,
     LEASE_SCHEDULED, LEASE_STARTED, LEASE_ENDED
@@ -48,7 +56,7 @@ public class Account {
   public static class AccountAsset {
     public final long accountId;
     public final long assetId;
-    public final BurstKey nxtKey;
+    public final BurstKey burstKey;
     private long quantityQNT;
     private long unconfirmedQuantityQNT;
 
@@ -58,13 +66,13 @@ public class Account {
       this.assetId = assetId;
       this.quantityQNT = quantityQNT;
       this.unconfirmedQuantityQNT = unconfirmedQuantityQNT;
-      this.nxtKey = burstKey;
+      this.burstKey = burstKey;
     }
 
-    protected AccountAsset(long accountId, long assetId, long quantityQNT, long unconfirmedQuantityQNT) {
+    public AccountAsset(BurstKey burstKey, long accountId, long assetId, long quantityQNT, long unconfirmedQuantityQNT) {
       this.accountId = accountId;
       this.assetId = assetId;
-      this.nxtKey = Burst.getStores().getAccountStore().getAccountAssetKeyFactory().newKey(this.accountId, this.assetId);
+      this.burstKey = burstKey;
       this.quantityQNT = quantityQNT;
       this.unconfirmedQuantityQNT = unconfirmedQuantityQNT;
     }
@@ -85,15 +93,6 @@ public class Account {
       return unconfirmedQuantityQNT;
     }
 
-    private void save() {
-      checkBalance();
-      if (this.quantityQNT > 0 || this.unconfirmedQuantityQNT > 0) {
-        accountAssetTable().insert(this);
-      } else {
-        accountAssetTable().delete(this);
-      }
-    }
-
     public void checkBalance() {
       Account.checkBalance(this.accountId, this.quantityQNT, this.unconfirmedQuantityQNT);
     }
@@ -110,6 +109,13 @@ public class Account {
           + unconfirmedQuantityQNT;
     }
 
+    public void setQuantityQNT(long quantityQNT) {
+      this.quantityQNT = quantityQNT;
+    }
+
+    public void setUnconfirmedQuantityQNT(long unconfirmedQuantityQNT) {
+      this.unconfirmedQuantityQNT = unconfirmedQuantityQNT;
+    }
   }
 
   public static class RewardRecipientAssignment {
@@ -335,94 +341,6 @@ public class Account {
       this.keyHeight = height;
       accountTable().insert(this);
     }
-  }
-
-  //TODO can be moved to account service
-  public void addToAssetBalanceQNT(long assetId, long quantityQNT) {
-    if (quantityQNT == 0) {
-      return;
-    }
-    AccountAsset accountAsset;
-
-    BurstKey newKey = Burst.getStores().getAccountStore().getAccountAssetKeyFactory().newKey(this.id, assetId);
-    accountAsset = accountAssetTable().get(newKey);
-    long assetBalance = accountAsset == null ? 0 : accountAsset.quantityQNT;
-    assetBalance = Convert.safeAdd(assetBalance, quantityQNT);
-    if (accountAsset == null) {
-      accountAsset = new AccountAsset(this.id, assetId, assetBalance, 0);
-    } else {
-      accountAsset.quantityQNT = assetBalance;
-    }
-    accountAsset.save();
-    listeners.notify(this, Event.ASSET_BALANCE);
-    assetListeners.notify(accountAsset, Event.ASSET_BALANCE);
-  }
-
-  //TODO can be moved to account service
-  void addToUnconfirmedAssetBalanceQNT(long assetId, long quantityQNT) {
-    if (quantityQNT == 0) {
-      return;
-    }
-    AccountAsset accountAsset;
-    BurstKey newKey = Burst.getStores().getAccountStore().getAccountAssetKeyFactory().newKey(this.id, assetId);
-    accountAsset = accountAssetTable().get(newKey);
-    long unconfirmedAssetBalance = accountAsset == null ? 0 : accountAsset.unconfirmedQuantityQNT;
-    unconfirmedAssetBalance = Convert.safeAdd(unconfirmedAssetBalance, quantityQNT);
-    if (accountAsset == null) {
-      accountAsset = new AccountAsset(this.id, assetId, 0, unconfirmedAssetBalance);
-    } else {
-      accountAsset.unconfirmedQuantityQNT = unconfirmedAssetBalance;
-    }
-    accountAsset.save();
-    listeners.notify(this, Event.UNCONFIRMED_ASSET_BALANCE);
-    assetListeners.notify(accountAsset, Event.UNCONFIRMED_ASSET_BALANCE);
-  }
-
-  //TODO can be moved to account service
-  public void addToAssetAndUnconfirmedAssetBalanceQNT(long assetId, long quantityQNT) {
-    if (quantityQNT == 0) {
-      return;
-    }
-    AccountAsset accountAsset;
-    BurstKey newKey = Burst.getStores().getAccountStore().getAccountAssetKeyFactory().newKey(this.id, assetId);
-    accountAsset = accountAssetTable().get(newKey);
-    long assetBalance = accountAsset == null ? 0 : accountAsset.quantityQNT;
-    assetBalance = Convert.safeAdd(assetBalance, quantityQNT);
-    long unconfirmedAssetBalance = accountAsset == null ? 0 : accountAsset.unconfirmedQuantityQNT;
-    unconfirmedAssetBalance = Convert.safeAdd(unconfirmedAssetBalance, quantityQNT);
-    if (accountAsset == null) {
-      accountAsset = new AccountAsset(this.id, assetId, assetBalance, unconfirmedAssetBalance);
-    } else {
-      accountAsset.quantityQNT = assetBalance;
-      accountAsset.unconfirmedQuantityQNT = unconfirmedAssetBalance;
-    }
-    accountAsset.save();
-    listeners.notify(this, Event.ASSET_BALANCE);
-    listeners.notify(this, Event.UNCONFIRMED_ASSET_BALANCE);
-    assetListeners.notify(accountAsset, Event.ASSET_BALANCE);
-    assetListeners.notify(accountAsset, Event.UNCONFIRMED_ASSET_BALANCE);
-  }
-
-  //TODO can be moved to account service
-  public void addToBalanceNQT(long amountNQT) {
-    if (amountNQT == 0) {
-      return;
-    }
-    this.balanceNQT = Convert.safeAdd(this.balanceNQT, amountNQT);
-    checkBalance(this.id, this.balanceNQT, this.unconfirmedBalanceNQT);
-    accountTable().insert(this);
-    listeners.notify(this, Event.BALANCE);
-  }
-
-  //TODO can be moved to account service
-  public void addToUnconfirmedBalanceNQT(long amountNQT) {
-    if (amountNQT == 0) {
-      return;
-    }
-    this.unconfirmedBalanceNQT = Convert.safeAdd(this.unconfirmedBalanceNQT, amountNQT);
-    checkBalance(this.id, this.balanceNQT, this.unconfirmedBalanceNQT);
-    accountTable().insert(this);
-    listeners.notify(this, Event.UNCONFIRMED_BALANCE);
   }
 
   public void addToBalanceAndUnconfirmedBalanceNQT(long amountNQT) {

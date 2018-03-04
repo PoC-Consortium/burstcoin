@@ -1,6 +1,5 @@
 package brs.blockchainlistener;
 
-import static org.junit.Assert.*;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -13,8 +12,6 @@ import brs.common.AbstractUnitTest;
 import brs.db.BurstIterator;
 import brs.services.AccountService;
 import brs.services.DGSGoodsStoreService;
-import java.util.ArrayList;
-import java.util.Arrays;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -54,7 +51,7 @@ public class DevNullListenerTest extends AbstractUnitTest {
 
     t.notify(block);
 
-    verify(purchaseBuyer).addToUnconfirmedBalanceNQT(eq(15000L));
+    verify(accountServiceMock).addToUnconfirmedBalanceNQT(eq(purchaseBuyer), eq(15000L));
 
     verify(dgsGoodsStoreServiceMock).setPending(eq(expiredPurchase), eq(false));
   }

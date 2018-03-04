@@ -7,8 +7,11 @@ import brs.Account.RewardRecipientAssignment;
 import brs.AssetTransfer;
 import brs.crypto.Crypto;
 import brs.db.BurstIterator;
+import brs.db.BurstKey;
+import brs.db.BurstKey.LinkKeyFactory;
 import brs.db.BurstKey.LongKeyFactory;
 import brs.db.VersionedBatchEntityTable;
+import brs.db.VersionedEntityTable;
 import brs.db.store.AccountStore;
 import brs.db.store.AssetTransferStore;
 import brs.services.AccountService;
@@ -22,6 +25,8 @@ public class AccountServiceImpl implements AccountService {
   private final AccountStore accountStore;
   private final VersionedBatchEntityTable<Account> accountTable;
   private final LongKeyFactory<Account> accountBurstKeyFactory;
+  private final VersionedEntityTable<AccountAsset> accountAssetTable;
+  private final LinkKeyFactory<AccountAsset> accountAssetKeyFactory;
 
   private final AssetTransferStore assetTransferStore;
 
@@ -33,6 +38,8 @@ public class AccountServiceImpl implements AccountService {
     this.accountTable = accountStore.getAccountTable();
     this.accountBurstKeyFactory = accountStore.getAccountKeyFactory();
     this.assetTransferStore = assetTransferStore;
+    this.accountAssetTable = accountStore.getAccountAssetTable();
+    this.accountAssetKeyFactory = accountStore.getAccountAssetKeyFactory();
   }
 
   @Override
@@ -136,4 +143,100 @@ public class AccountServiceImpl implements AccountService {
     accountTable.insert(account);
   }
 
+  @Override
+  public void addToAssetBalanceQNT(Account account, long assetId, long quantityQNT) {
+    if (quantityQNT == 0) {
+      return;
+    }
+    AccountAsset accountAsset;
+
+    BurstKey newKey = accountAssetKeyFactory.newKey(account.getId(), assetId);
+    accountAsset = accountAssetTable.get(newKey);
+    long assetBalance = accountAsset == null ? 0 : accountAsset.getQuantityQNT();
+    assetBalance = Convert.safeAdd(assetBalance, quantityQNT);
+    if (accountAsset == null) {
+      accountAsset = new AccountAsset(newKey, account.getId(), assetId, assetBalance, 0);
+    } else {
+      accountAsset.setQuantityQNT(assetBalance);
+    }
+    saveAccountAsset(accountAsset);
+    listeners.notify(account, Event.ASSET_BALANCE);
+    assetListeners.notify(accountAsset, Event.ASSET_BALANCE);
+  }
+
+  @Override
+  public void addToUnconfirmedAssetBalanceQNT(Account account, long assetId, long quantityQNT) {
+    if (quantityQNT == 0) {
+      return;
+    }
+    AccountAsset accountAsset;
+    BurstKey newKey = accountAssetKeyFactory.newKey(account.getId(), assetId);
+    accountAsset = accountAssetTable.get(newKey);
+    long unconfirmedAssetBalance = accountAsset == null ? 0 : accountAsset.getUnconfirmedQuantityQNT();
+    unconfirmedAssetBalance = Convert.safeAdd(unconfirmedAssetBalance, quantityQNT);
+    if (accountAsset == null) {
+      accountAsset = new AccountAsset(newKey, account.getId(), assetId, 0, unconfirmedAssetBalance);
+    } else {
+      accountAsset.setUnconfirmedQuantityQNT(unconfirmedAssetBalance);
+    }
+    saveAccountAsset(accountAsset);
+    listeners.notify(account, Event.UNCONFIRMED_ASSET_BALANCE);
+    assetListeners.notify(accountAsset, Event.UNCONFIRMED_ASSET_BALANCE);
+  }
+
+  @Override
+  public void addToAssetAndUnconfirmedAssetBalanceQNT(Account account, long assetId, long quantityQNT) {
+    if (quantityQNT == 0) {
+      return;
+    }
+    AccountAsset accountAsset;
+    BurstKey newKey = accountAssetKeyFactory.newKey(account.getId(), assetId);
+    accountAsset = accountAssetTable.get(newKey);
+    long assetBalance = accountAsset == null ? 0 : accountAsset.getQuantityQNT();
+    assetBalance = Convert.safeAdd(assetBalance, quantityQNT);
+    long unconfirmedAssetBalance = accountAsset == null ? 0 : accountAsset.getUnconfirmedQuantityQNT();
+    unconfirmedAssetBalance = Convert.safeAdd(unconfirmedAssetBalance, quantityQNT);
+    if (accountAsset == null) {
+      accountAsset = new AccountAsset(newKey, account.getId(), assetId, assetBalance, unconfirmedAssetBalance);
+    } else {
+      accountAsset.setQuantityQNT(assetBalance);
+      accountAsset.setUnconfirmedQuantityQNT(unconfirmedAssetBalance);
+    }
+    saveAccountAsset(accountAsset);
+    listeners.notify(account, Event.ASSET_BALANCE);
+    listeners.notify(account, Event.UNCONFIRMED_ASSET_BALANCE);
+    assetListeners.notify(accountAsset, Event.ASSET_BALANCE);
+    assetListeners.notify(accountAsset, Event.UNCONFIRMED_ASSET_BALANCE);
+  }
+
+  @Override
+  public void addToBalanceNQT(Account account, long amountNQT) {
+    if (amountNQT == 0) {
+      return;
+    }
+    account.setBalanceNQT(Convert.safeAdd(account.getBalanceNQT(), amountNQT));
+    account.checkBalance();
+    accountTable.insert(account);
+    listeners.notify(account, Event.BALANCE);
+  }
+
+  @Override
+  public void addToUnconfirmedBalanceNQT(Account account, long amountNQT) {
+    if (amountNQT == 0) {
+      return;
+    }
+    account.setUnconfirmedBalanceNQT(Convert.safeAdd(account.getUnconfirmedBalanceNQT(), amountNQT));
+    account.checkBalance();
+    accountTable.insert(account);
+    listeners.notify(account, Event.UNCONFIRMED_BALANCE);
+  }
+
+  private void saveAccountAsset(AccountAsset accountAsset) {
+    accountAsset.checkBalance();
+    if (accountAsset.getQuantityQNT() > 0 || accountAsset.getUnconfirmedQuantityQNT() > 0) {
+      accountAssetTable.insert(accountAsset);
+    } else {
+      accountAssetTable.delete(accountAsset);
+    }
+  }
 }

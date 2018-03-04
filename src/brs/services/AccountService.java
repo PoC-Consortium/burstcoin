@@ -37,4 +37,14 @@ public interface AccountService {
   void addToForgedBalanceNQT(Account account, long amountNQT);
 
   void setAccountInfo(Account account, String name, String description);
+
+  void addToAssetBalanceQNT(Account account, long assetId, long quantityQNT);
+
+  void addToUnconfirmedAssetBalanceQNT(Account account, long assetId, long quantityQNT);
+
+  void addToAssetAndUnconfirmedAssetBalanceQNT(Account account, long assetId, long quantityQNT);
+
+  void addToBalanceNQT(Account account, long amountNQT);
+
+  void addToUnconfirmedBalanceNQT(Account account, long amountNQT);
 }

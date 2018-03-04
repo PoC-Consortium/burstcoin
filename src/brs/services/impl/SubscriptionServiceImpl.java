@@ -169,7 +169,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
       return false;
     }
 
-    sender.addToUnconfirmedBalanceNQT(-totalAmountNQT);
+    accountService.addToUnconfirmedBalanceNQT(sender, -totalAmountNQT);
 
     return true;
   }
@@ -179,7 +179,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     long totalAmountNQT = Convert.safeAdd(subscription.getAmountNQT(), getFee());
 
     if (sender != null) {
-      sender.addToUnconfirmedBalanceNQT(totalAmountNQT);
+      accountService.addToUnconfirmedBalanceNQT(sender, totalAmountNQT);
     }
   }
 
@@ -189,7 +189,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 
     long totalAmountNQT = Convert.safeAdd(subscription.getAmountNQT(), getFee());
 
-    sender.addToBalanceNQT(-totalAmountNQT);
+    accountService.addToBalanceNQT(sender, -totalAmountNQT);
     recipient.addToBalanceAndUnconfirmedBalanceNQT(subscription.getAmountNQT());
 
     Attachment.AbstractAttachment attachment = new Attachment.AdvancedPaymentSubscriptionPayment(subscription.getId(), blockchainHeight);
