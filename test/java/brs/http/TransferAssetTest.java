@@ -20,6 +20,7 @@ import brs.BurstException;
 import brs.TransactionProcessor;
 import brs.common.QuickMocker;
 import brs.common.QuickMocker.MockParam;
+import brs.services.AccountService;
 import brs.services.ParameterService;
 import javax.servlet.http.HttpServletRequest;
 import org.junit.Before;
@@ -33,6 +34,7 @@ public class TransferAssetTest extends AbstractTransactionTest {
   private Blockchain blockchainMock;
   private TransactionProcessor transactionProcessorMock;
   private APITransactionManager apiTransactionManagerMock;
+  private AccountService accountServiceMock;
 
   @Before
   public void setUp() {
@@ -40,8 +42,9 @@ public class TransferAssetTest extends AbstractTransactionTest {
     blockchainMock = mock(Blockchain.class);
     apiTransactionManagerMock = mock(APITransactionManager.class);
     transactionProcessorMock = mock(TransactionProcessor.class);
+    accountServiceMock = mock(AccountService.class);
 
-    t = new TransferAsset(parameterServiceMock, blockchainMock, apiTransactionManagerMock);
+    t = new TransferAsset(parameterServiceMock, blockchainMock, apiTransactionManagerMock, accountServiceMock);
   }
 
   @Test
@@ -62,7 +65,7 @@ public class TransferAssetTest extends AbstractTransactionTest {
     when(mockAsset.getId()).thenReturn(assetIdParameter);
 
     final Account mockSenderAccount = mock(Account.class);
-    when(mockSenderAccount.getUnconfirmedAssetBalanceQNT(eq(assetIdParameter))).thenReturn(500L);
+    when(accountServiceMock.getUnconfirmedAssetBalanceQNT(eq(mockSenderAccount), eq(assetIdParameter))).thenReturn(500L);
 
     when(parameterServiceMock.getSenderAccount(eq(req))).thenReturn(mockSenderAccount);
 
@@ -90,7 +93,7 @@ public class TransferAssetTest extends AbstractTransactionTest {
     final Account mockSenderAccount = mock(Account.class);
     when(parameterServiceMock.getSenderAccount(eq(req))).thenReturn(mockSenderAccount);
 
-    when(mockSenderAccount.getUnconfirmedAssetBalanceQNT(anyLong())).thenReturn(2L);
+    when(accountServiceMock.getUnconfirmedAssetBalanceQNT(eq(mockSenderAccount), anyLong())).thenReturn(2L);
 
     assertEquals(NOT_ENOUGH_ASSETS, t.processRequest(req));
   }

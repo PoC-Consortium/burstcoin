@@ -5,6 +5,8 @@ import brs.Account.AccountAsset;
 import brs.Account.Event;
 import brs.Account.RewardRecipientAssignment;
 import brs.AssetTransfer;
+import brs.Burst;
+import brs.Constants;
 import brs.crypto.Crypto;
 import brs.db.BurstIterator;
 import brs.db.BurstKey;
@@ -27,6 +29,8 @@ public class AccountServiceImpl implements AccountService {
   private final LongKeyFactory<Account> accountBurstKeyFactory;
   private final VersionedEntityTable<AccountAsset> accountAssetTable;
   private final LinkKeyFactory<AccountAsset> accountAssetKeyFactory;
+  private final VersionedEntityTable<RewardRecipientAssignment> rewardRecipientAssignmentTable;
+  private final LongKeyFactory<RewardRecipientAssignment> rewardRecipientAssignmentKeyFactory;
 
   private final AssetTransferStore assetTransferStore;
 
@@ -40,6 +44,8 @@ public class AccountServiceImpl implements AccountService {
     this.assetTransferStore = assetTransferStore;
     this.accountAssetTable = accountStore.getAccountAssetTable();
     this.accountAssetKeyFactory = accountStore.getAccountAssetKeyFactory();
+    this.rewardRecipientAssignmentTable = accountStore.getRewardRecipientAssignmentTable();
+    this.rewardRecipientAssignmentKeyFactory = accountStore.getRewardRecipientAssignmentKeyFactory();
   }
 
   @Override
@@ -239,6 +245,36 @@ public class AccountServiceImpl implements AccountService {
     listeners.notify(account, Event.BALANCE);
     listeners.notify(account, Event.UNCONFIRMED_BALANCE);
   }
+
+  @Override
+  public RewardRecipientAssignment getRewardRecipientAssignment(Account account) {
+    return getRewardRecipientAssignment(account.getId());
+  }
+
+  private RewardRecipientAssignment getRewardRecipientAssignment(Long id) {
+    return rewardRecipientAssignmentTable.get(rewardRecipientAssignmentKeyFactory.newKey(id));
+  }
+
+  @Override
+  public void setRewardRecipientAssignment(Account account, Long recipient) {
+    int currentHeight = Burst.getBlockchain().getLastBlock().getHeight();
+    RewardRecipientAssignment assignment = getRewardRecipientAssignment(account.getId());
+    if (assignment == null) {
+      BurstKey burstKey = rewardRecipientAssignmentKeyFactory.newKey(account.getId());
+      assignment = new RewardRecipientAssignment(account.getId(), account.getId(), recipient, (int) (currentHeight + Constants.BURST_REWARD_RECIPIENT_ASSIGNMENT_WAIT_TIME), burstKey);
+    } else {
+      assignment.setRecipient(recipient, (int) (currentHeight + Constants.BURST_REWARD_RECIPIENT_ASSIGNMENT_WAIT_TIME));
+    }
+    rewardRecipientAssignmentTable.insert(assignment);
+  }
+
+  @Override
+  public long getUnconfirmedAssetBalanceQNT(Account account, long assetId) {
+    BurstKey newKey = Burst.getStores().getAccountStore().getAccountAssetKeyFactory().newKey(account.getId(), assetId);
+    AccountAsset accountAsset = accountAssetTable.get(newKey);
+    return accountAsset == null ? 0 : accountAsset.getUnconfirmedQuantityQNT();
+  }
+
 
   private void saveAccountAsset(AccountAsset accountAsset) {
     accountAsset.checkBalance();

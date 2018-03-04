@@ -37,7 +37,7 @@ public class SqlAccountStore implements AccountStore {
     = new DbKey.LongKeyFactory<Account.RewardRecipientAssignment>("account_id") {
         @Override
         public DbKey newKey(Account.RewardRecipientAssignment assignment) {
-          return (DbKey) assignment.nxtKey;
+          return (DbKey) assignment.burstKey;
         }
       };
   private static final org.slf4j.Logger logger = LoggerFactory.getLogger(SqlAccountStore.class);

@@ -49,4 +49,10 @@ public interface AccountService {
   void addToUnconfirmedBalanceNQT(Account account, long amountNQT);
 
   void addToBalanceAndUnconfirmedBalanceNQT(Account account, long amountNQT);
+
+  RewardRecipientAssignment getRewardRecipientAssignment(Account account);
+
+  void setRewardRecipientAssignment(Account account, Long recipient);
+
+  long getUnconfirmedAssetBalanceQNT(Account account, long assetId);
 }

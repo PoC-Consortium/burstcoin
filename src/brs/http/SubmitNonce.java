@@ -56,7 +56,7 @@ public final class SubmitNonce extends APIServlet.APIRequestHandler {
       }
 			
       if(genAccount != null) {
-        Account.RewardRecipientAssignment assignment = genAccount.getRewardRecipientAssignment();
+        Account.RewardRecipientAssignment assignment = accountService.getRewardRecipientAssignment(genAccount);
         Long rewardId;
         if(assignment == null) {
           rewardId = genAccount.getId();

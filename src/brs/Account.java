@@ -6,8 +6,6 @@ import brs.db.BurstKey;
 import brs.db.VersionedBatchEntityTable;
 import brs.db.VersionedEntityTable;
 import brs.util.Convert;
-import brs.util.Listener;
-import brs.util.Listeners;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -59,7 +57,6 @@ public class Account {
     public final BurstKey burstKey;
     private long quantityQNT;
     private long unconfirmedQuantityQNT;
-
 
     protected AccountAsset(long accountId, long assetId, long quantityQNT, long unconfirmedQuantityQNT, BurstKey burstKey) {
       this.accountId = accountId;
@@ -123,18 +120,15 @@ public class Account {
     private Long prevRecipientId;
     private Long recipientId;
     private int fromHeight;
-    public final BurstKey nxtKey;
+    public final BurstKey burstKey;
 
-
-
-    protected RewardRecipientAssignment(Long accountId, Long prevRecipientId, Long recipientId, int fromHeight, BurstKey burstKey) {
+    public RewardRecipientAssignment(Long accountId, Long prevRecipientId, Long recipientId, int fromHeight, BurstKey burstKey) {
       this.accountId = accountId;
       this.prevRecipientId = prevRecipientId;
       this.recipientId = recipientId;
       this.fromHeight = fromHeight;
-      this.nxtKey = burstKey;
+      this.burstKey = burstKey;
     }
-
 
     public long getAccountId() {
       return accountId;
@@ -156,7 +150,6 @@ public class Account {
       recipientId = newRecipientId;
       this.fromHeight = fromHeight;
     }
-
   }
 
   static class DoubleSpendingException extends RuntimeException {
@@ -173,14 +166,6 @@ public class Account {
 
   private static final VersionedBatchEntityTable<Account> accountTable() {
     return Burst.getStores().getAccountStore().getAccountTable();
-  }
-
-  private static final VersionedEntityTable<AccountAsset> accountAssetTable() {
-    return Burst.getStores().getAccountStore().getAccountAssetTable();
-  }
-
-  private static final VersionedEntityTable<RewardRecipientAssignment> rewardRecipientAssignmentTable() {
-    return Burst.getStores().getAccountStore().getRewardRecipientAssignmentTable();
   }
 
   public static Account getAccount(long id) {
@@ -200,7 +185,6 @@ public class Account {
     }
     return account;
   }
-
 
   public Account(long id) {
     if (id != Crypto.rsDecode(Crypto.rsEncode(id))) {
@@ -272,42 +256,6 @@ public class Account {
   public long getForgedBalanceNQT() {
     return forgedBalanceNQT;
   }
-
-
-  public long getUnconfirmedAssetBalanceQNT(long assetId) {
-    BurstKey newKey = Burst.getStores().getAccountStore().getAccountAssetKeyFactory().newKey(this.id, assetId);
-    AccountAsset accountAsset = accountAssetTable().get(newKey);
-    return accountAsset == null ? 0 : accountAsset.unconfirmedQuantityQNT;
-  }
-
-  public RewardRecipientAssignment getRewardRecipientAssignment() {
-    return getRewardRecipientAssignment(id);
-  }
-
-  public static RewardRecipientAssignment getRewardRecipientAssignment(Long id) {
-    return rewardRecipientAssignmentTable().get(
-        Burst.getStores().getAccountStore().getRewardRecipientAssignmentKeyFactory().newKey(id)
-    );
-  }
-
-  //TODO can be moved to account service (partially)
-  public void setRewardRecipientAssignment(Long recipient) {
-    setRewardRecipientAssignment(id, recipient);
-  }
-
-  //TODO can be moved to account service (partially)
-  public static void setRewardRecipientAssignment(Long id, Long recipient) {
-    int currentHeight = Burst.getBlockchain().getLastBlock().getHeight();
-    RewardRecipientAssignment assignment = getRewardRecipientAssignment(id);
-    if (assignment == null) {
-      BurstKey burstKey = Burst.getStores().getAccountStore().getRewardRecipientAssignmentKeyFactory().newKey(id);
-      assignment = new RewardRecipientAssignment(id, id, recipient, (int) (currentHeight + Constants.BURST_REWARD_RECIPIENT_ASSIGNMENT_WAIT_TIME), burstKey);
-    } else {
-      assignment.setRecipient(recipient, (int) (currentHeight + Constants.BURST_REWARD_RECIPIENT_ASSIGNMENT_WAIT_TIME));
-    }
-    rewardRecipientAssignmentTable().insert(assignment);
-  }
-
 
   // returns true iff:
   // this.publicKey is set to null (in which case this.publicKey also gets set to key)

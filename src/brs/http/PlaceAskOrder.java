@@ -5,10 +5,8 @@ import brs.Asset;
 import brs.Attachment;
 import brs.Blockchain;
 import brs.BurstException;
-import brs.TransactionProcessor;
 import brs.services.AccountService;
 import brs.services.ParameterService;
-import brs.services.TransactionService;
 import org.json.simple.JSONStreamAware;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,11 +20,13 @@ public final class PlaceAskOrder extends CreateTransaction {
 
   private final ParameterService parameterService;
   private final Blockchain blockchain;
+  private final AccountService accountService;
 
-  PlaceAskOrder(ParameterService parameterService, Blockchain blockchain, APITransactionManager apiTransactionManager) {
+  PlaceAskOrder(ParameterService parameterService, Blockchain blockchain, APITransactionManager apiTransactionManager, AccountService accountService) {
     super(new APITag[] {APITag.AE, APITag.CREATE_TRANSACTION}, apiTransactionManager, ASSET_PARAMETER, QUANTITY_NQT_PARAMETER, PRICE_NQT_PARAMETER);
     this.parameterService = parameterService;
     this.blockchain = blockchain;
+    this.accountService = accountService;
   }
 
   @Override
@@ -37,7 +37,7 @@ public final class PlaceAskOrder extends CreateTransaction {
     final long quantityQNT = ParameterParser.getQuantityQNT(req);
     final Account account = parameterService.getSenderAccount(req);
 
-    long assetBalance = account.getUnconfirmedAssetBalanceQNT(asset.getId());
+    long assetBalance = accountService.getUnconfirmedAssetBalanceQNT(account, asset.getId());
     if (assetBalance < 0 || quantityQNT > assetBalance) {
       return NOT_ENOUGH_ASSETS;
     }

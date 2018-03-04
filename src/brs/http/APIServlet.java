@@ -143,7 +143,7 @@ public final class APIServlet extends HttpServlet {
     map.put("longConvert", LongConvert.instance);
     map.put("markHost", MarkHost.instance);
     map.put("parseTransaction", new ParseTransaction(parameterService, transactionService));
-    map.put("placeAskOrder", new PlaceAskOrder(parameterService, blockchain, apiTransactionManager));
+    map.put("placeAskOrder", new PlaceAskOrder(parameterService, blockchain, apiTransactionManager, accountService));
     map.put("placeBidOrder", new PlaceBidOrder(parameterService, blockchain, apiTransactionManager));
     map.put("rsConvert", RSConvert.instance);
     map.put("readMessage", new ReadMessage(blockchain, accountService));
@@ -155,10 +155,10 @@ public final class APIServlet extends HttpServlet {
     //map.put("startForging", StartForging.instance);
     //map.put("stopForging", StopForging.instance);
     //map.put("getForging", GetForging.instance);
-    map.put("transferAsset", new TransferAsset(parameterService, blockchain, apiTransactionManager));
+    map.put("transferAsset", new TransferAsset(parameterService, blockchain, apiTransactionManager, accountService));
     map.put("getMiningInfo", new GetMiningInfo(blockchain));
     map.put("submitNonce", new SubmitNonce(accountService, blockchain, generator));
-    map.put("getRewardRecipient", new GetRewardRecipient(parameterService, blockchain));
+    map.put("getRewardRecipient", new GetRewardRecipient(parameterService, blockchain, accountService));
     map.put("setRewardRecipient", new SetRewardRecipient(parameterService, blockchain, accountService, apiTransactionManager));
     map.put("getAccountsWithRewardRecipient", new GetAccountsWithRewardRecipient(parameterService, accountService));
     map.put("sendMoneyEscrow", new SendMoneyEscrow(parameterService, blockchain, apiTransactionManager));

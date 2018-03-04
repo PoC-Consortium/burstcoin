@@ -54,7 +54,7 @@ public class BlockServiceImpl implements BlockService {
       byte[] publicKey;
       Account genAccount = accountService.getAccount(block.getGeneratorPublicKey());
       Account.RewardRecipientAssignment rewardAssignment;
-      rewardAssignment = genAccount == null ? null : genAccount.getRewardRecipientAssignment();
+      rewardAssignment = genAccount == null ? null : accountService.getRewardRecipientAssignment(genAccount);
       if (genAccount == null || rewardAssignment == null || previousBlock.getHeight()
           + 1 < Constants.BURST_REWARD_RECIPIENT_ASSIGNMENT_START_BLOCK) {
         publicKey = block.getGeneratorPublicKey();
@@ -146,8 +146,7 @@ public class BlockServiceImpl implements BlockService {
       accountService.addToForgedBalanceNQT(generatorAccount, block.getTotalFeeNQT() + getBlockReward(block));
     } else {
       Account rewardAccount;
-      Account.RewardRecipientAssignment rewardAssignment =
-          generatorAccount.getRewardRecipientAssignment();
+      Account.RewardRecipientAssignment rewardAssignment = accountService.getRewardRecipientAssignment(generatorAccount);
       if (rewardAssignment == null) {
         rewardAccount = generatorAccount;
       } else if (block.getHeight() >= rewardAssignment.getFromHeight()) {

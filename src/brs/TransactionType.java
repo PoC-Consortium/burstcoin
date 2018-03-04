@@ -760,7 +760,7 @@ public abstract class TransactionType {
         boolean applyAttachmentUnconfirmed(Transaction transaction, Account senderAccount) {
           logger.trace("TransactionType ASSET_TRANSFER");
           Attachment.ColoredCoinsAssetTransfer attachment = (Attachment.ColoredCoinsAssetTransfer) transaction.getAttachment();
-          long unconfirmedAssetBalance = senderAccount.getUnconfirmedAssetBalanceQNT(attachment.getAssetId());
+          long unconfirmedAssetBalance = accountService.getUnconfirmedAssetBalanceQNT(senderAccount, attachment.getAssetId());
           if (unconfirmedAssetBalance >= 0 && unconfirmedAssetBalance >= attachment.getQuantityQNT()) {
             accountService.addToUnconfirmedAssetBalanceQNT(senderAccount, attachment.getAssetId(), -attachment.getQuantityQNT());
             return true;
@@ -858,7 +858,7 @@ public abstract class TransactionType {
         boolean applyAttachmentUnconfirmed(Transaction transaction, Account senderAccount) {
           logger.trace("TransactionType ASK_ORDER_PLACEMENT");
           Attachment.ColoredCoinsAskOrderPlacement attachment = (Attachment.ColoredCoinsAskOrderPlacement) transaction.getAttachment();
-          long unconfirmedAssetBalance = senderAccount.getUnconfirmedAssetBalanceQNT(attachment.getAssetId());
+          long unconfirmedAssetBalance = accountService.getUnconfirmedAssetBalanceQNT(senderAccount, attachment.getAssetId());
           if (unconfirmedAssetBalance >= 0 && unconfirmedAssetBalance >= attachment.getQuantityQNT()) {
             accountService.addToUnconfirmedAssetBalanceQNT(senderAccount, attachment.getAssetId(), -attachment.getQuantityQNT());
             return true;
@@ -1623,7 +1623,7 @@ public abstract class TransactionType {
 
         @Override
         void applyAttachment(Transaction transaction, Account senderAccount, Account recipientAccount) {
-          senderAccount.setRewardRecipientAssignment(recipientAccount.getId());
+          accountService.setRewardRecipientAssignment(senderAccount, recipientAccount.getId());
         }
 
         @Override
@@ -1643,7 +1643,7 @@ public abstract class TransactionType {
             throw new BurstException.NotCurrentlyValidException("Sender not yet known ?!");
           }
 
-          Account.RewardRecipientAssignment rewardAssignment = sender.getRewardRecipientAssignment();
+          Account.RewardRecipientAssignment rewardAssignment = accountService.getRewardRecipientAssignment(sender);
           if (rewardAssignment != null && rewardAssignment.getFromHeight() >= height) {
             throw new BurstException.NotCurrentlyValidException("Cannot reassign reward recipient before previous goes into effect: "
                                                                 + transaction.getJSONObject());
