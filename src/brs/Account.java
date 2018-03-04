@@ -182,18 +182,6 @@ public class Account {
   private static final VersionedEntityTable<RewardRecipientAssignment> rewardRecipientAssignmentTable() {
     return Burst.getStores().getAccountStore().getRewardRecipientAssignmentTable();
   }
-  private static final Listeners<Account, Event> listeners = new Listeners<>();
-
-  private static final Listeners<AccountAsset, Event> assetListeners = new Listeners<>();
-
-
-  public static boolean addListener(Listener<Account> listener, Event eventType) {
-    return listeners.addListener(listener, eventType);
-  }
-
-  public static boolean addAssetListener(Listener<AccountAsset> listener, Event eventType) {
-    return assetListeners.addListener(listener, eventType);
-  }
 
   public static Account getAccount(long id) {
     return id == 0 ? null : accountTable().get(accountBurstKeyFactory().newKey(id));

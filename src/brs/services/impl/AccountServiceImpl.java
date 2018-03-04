@@ -44,15 +44,11 @@ public class AccountServiceImpl implements AccountService {
 
   @Override
   public boolean addListener(Listener<Account> listener, Event eventType) {
-    //Temporary..
-    Account.addListener(listener, eventType);
     return listeners.addListener(listener, eventType);
   }
 
   @Override
   public boolean addAssetListener(Listener<AccountAsset> listener, Event eventType) {
-    //Temporary..
-    Account.addAssetListener(listener, eventType);
     return assetListeners.addListener(listener, eventType);
   }
 
