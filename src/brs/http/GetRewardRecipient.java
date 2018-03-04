@@ -33,7 +33,7 @@ public final class GetRewardRecipient extends APIServlet.APIRequestHandler {
     final Account account = parameterService.getAccount(req);
     Account.RewardRecipientAssignment assignment = accountService.getRewardRecipientAssignment(account);
     long height = blockchain.getLastBlock().getHeight();
-    if (account == null || assignment == null) {
+    if (assignment == null) {
       response.put(REWARD_RECIPIENT_RESPONSE, Convert.toUnsignedLong(account.getId()));
     } else if (assignment.getFromHeight() > height + 1) {
       response.put(REWARD_RECIPIENT_RESPONSE, Convert.toUnsignedLong(assignment.getPrevRecipientId()));

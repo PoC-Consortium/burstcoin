@@ -4,7 +4,6 @@ import brs.crypto.Crypto;
 import brs.crypto.EncryptedData;
 import brs.db.BurstKey;
 import brs.db.VersionedBatchEntityTable;
-import brs.db.VersionedEntityTable;
 import brs.util.Convert;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,8 +15,8 @@ public class Account {
   public final long id;
   public final BurstKey nxtKey;
   protected final int creationHeight;
-  public byte[] publicKey;
-  public int keyHeight;
+  private byte[] publicKey;
+  private int keyHeight;
   protected long balanceNQT;
   protected long unconfirmedBalanceNQT;
   protected long forgedBalanceNQT;
@@ -43,6 +42,14 @@ public class Account {
 
   public void setBalanceNQT(long balanceNQT) {
     this.balanceNQT = balanceNQT;
+  }
+
+  public void setPublicKey(byte[] publicKey) {
+    this.publicKey = publicKey;
+  }
+
+  public void setKeyHeight(int keyHeight) {
+    this.keyHeight = keyHeight;
   }
 
   public enum Event {
