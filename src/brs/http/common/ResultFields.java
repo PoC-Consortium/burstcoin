@@ -128,5 +128,13 @@ public class ResultFields {
   public static final String BID_ORDER_IDS_RESPONSE = "bidOrderIds";
   public static final String TRANSFERS_RESPONSE = "transfers";
   public static final String LESSORS_RESPONSE = "lessors";
+  public static final String DELTA_QUANTITY_RESPONSE = "deltaQuantity";
+  public static final String URI_RESPONSE = "uri";
+  public static final String PERIOD_RESPONSE = "period";
+  public static final String COMMENT_RESPONSE = "comment";
+  public static final String GOODS_NONCE_RESPONSE = "goodsNonce";
+  public static final String ESCROW_ID_RESPONSE = "escrowId";
+  public static final String SUBSCRIPTION_ID_RESPONSE = "subscriptionId";
+  public static final String CREATION_BYTES_RESPONSE = "creationBytes";
 
 }

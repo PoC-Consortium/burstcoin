@@ -3,7 +3,7 @@ package brs.http;
 import static brs.http.JSONResponses.INCORRECT_DELTA_QUANTITY;
 import static brs.http.JSONResponses.MISSING_DELTA_QUANTITY;
 import static brs.http.JSONResponses.UNKNOWN_GOODS;
-import static brs.http.common.Parameters.DELTA_QUALITY_PARAMETER;
+import static brs.http.common.Parameters.DELTA_QUANTITY_PARAMETER;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Matchers.eq;
@@ -43,7 +43,7 @@ public class DGSQuantityChangeTest extends AbstractTransactionTest {
   public void processRequest() throws BurstException {
     final int deltaQualityParameter = 5;
     final HttpServletRequest req = QuickMocker.httpServletRequest(
-        new MockParam(DELTA_QUALITY_PARAMETER, deltaQualityParameter)
+        new MockParam(DELTA_QUANTITY_PARAMETER, deltaQualityParameter)
     );
 
     final long mockGoodsID = 123l;
@@ -101,7 +101,7 @@ public class DGSQuantityChangeTest extends AbstractTransactionTest {
   @Test
   public void processRequest_missingDeltaQuantity() throws BurstException {
     final HttpServletRequest req = QuickMocker.httpServletRequest(
-        new MockParam(DELTA_QUALITY_PARAMETER, null)
+        new MockParam(DELTA_QUANTITY_PARAMETER, null)
     );
 
     final Goods mockGoods = mock(Goods.class);
@@ -120,7 +120,7 @@ public class DGSQuantityChangeTest extends AbstractTransactionTest {
   @Test
   public void processRequest_deltaQuantityWrongFormat() throws BurstException {
     final HttpServletRequest req = QuickMocker.httpServletRequest(
-        new MockParam(DELTA_QUALITY_PARAMETER, "Bob")
+        new MockParam(DELTA_QUANTITY_PARAMETER, "Bob")
     );
 
     final Goods mockGoods = mock(Goods.class);
@@ -139,7 +139,7 @@ public class DGSQuantityChangeTest extends AbstractTransactionTest {
   @Test
   public void processRequest_deltaQuantityOverMaxIncorrectDeltaQuantity() throws BurstException {
     final HttpServletRequest req = QuickMocker.httpServletRequest(
-        new MockParam(DELTA_QUALITY_PARAMETER, Integer.MIN_VALUE)
+        new MockParam(DELTA_QUANTITY_PARAMETER, Integer.MIN_VALUE)
     );
 
     final Goods mockGoods = mock(Goods.class);
@@ -158,7 +158,7 @@ public class DGSQuantityChangeTest extends AbstractTransactionTest {
   @Test
   public void processRequest_deltaQuantityLowerThanNegativeMaxIncorrectDeltaQuantity() throws BurstException {
     final HttpServletRequest req = QuickMocker.httpServletRequest(
-        new MockParam(DELTA_QUALITY_PARAMETER, Integer.MAX_VALUE)
+        new MockParam(DELTA_QUANTITY_PARAMETER, Integer.MAX_VALUE)
     );
 
     final Goods mockGoods = mock(Goods.class);

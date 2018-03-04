@@ -61,7 +61,7 @@ public class Parameters {
   public static final String GOODS_IS_TEXT_PARAMETER = "goodsIsText";
   public static final String TAGS_PARAMETER = "tags";
   public static final String DELIVERY_DEADLINE_TIMESTAMP_PARAMETER = "deliveryDeadlineTimestamp";
-  public static final String DELTA_QUALITY_PARAMETER = "deltaQuantity";
+  public static final String DELTA_QUANTITY_PARAMETER = "deltaQuantity";
   public static final String ESCROW_PARAMETER = "escrow";
   public static final String DECISION_PARAMETER = "decision";
   public static final String DECIMALS_PARAMETER = "decimals";
@@ -105,6 +105,17 @@ public class Parameters {
   public static final String ACTIVE_PARAMETER = "active";
   public static final String STATE_PARAMETER = "state";
   public static final String ID_PARAMETER = "id";
+  public static final String URI_PARAMETER = "uri";
+  public static final String FEE_PARAMETER = "fee";
+  public static final String TOKEN_PARAMETER = "token";
+  public static final String WEBSITE_PARAMETER = "website";
+  public static final String AMOUNT_PARAMETER = "amount";
+  public static final String PRICE_PARAMETER = "price";
+  public static final String HOST_PARAMETER = "host";
+  public static final String DATE_PARAMETER = "date";
+  public static final String WEIGHT_PARAMETER = "weight";
+  public static final String ESCROW_ID_PARAMETER = "escrowId";
+  public static final String SUBSCRIPTION_ID_PARAMETER = "subscriptionId";
 
   public static boolean isFalse(String text) {
     return "false".equalsIgnoreCase(text);

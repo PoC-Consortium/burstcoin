@@ -1,5 +1,69 @@
 package brs;
 
+import static brs.http.common.Parameters.ALIAS_PARAMETER;
+import static brs.http.common.Parameters.AMOUNT_NQT_PARAMETER;
+import static brs.http.common.Parameters.ASSET_PARAMETER;
+import static brs.http.common.Parameters.COMMENT_PARAMETER;
+import static brs.http.common.Parameters.CREATION_BYTES_PARAMETER;
+import static brs.http.common.Parameters.DEADLINE_ACTION_PARAMETER;
+import static brs.http.common.Parameters.DEADLINE_PARAMETER;
+import static brs.http.common.Parameters.DECIMALS_PARAMETER;
+import static brs.http.common.Parameters.DECISION_PARAMETER;
+import static brs.http.common.Parameters.DELIVERY_DEADLINE_TIMESTAMP_PARAMETER;
+import static brs.http.common.Parameters.DELTA_QUANTITY_PARAMETER;
+import static brs.http.common.Parameters.DESCRIPTION_PARAMETER;
+import static brs.http.common.Parameters.DISCOUNT_NQT_PARAMETER;
+import static brs.http.common.Parameters.ESCROW_ID_PARAMETER;
+import static brs.http.common.Parameters.FREQUENCY_PARAMETER;
+import static brs.http.common.Parameters.GOODS_DATA_PARAMETER;
+import static brs.http.common.Parameters.GOODS_IS_TEXT_PARAMETER;
+import static brs.http.common.Parameters.GOODS_NONCE_PARAMETER;
+import static brs.http.common.Parameters.GOODS_PARAMETER;
+import static brs.http.common.Parameters.NAME_PARAMETER;
+import static brs.http.common.Parameters.ORDER_PARAMETER;
+import static brs.http.common.Parameters.PERIOD_PARAMETER;
+import static brs.http.common.Parameters.PRICE_NQT_PARAMETER;
+import static brs.http.common.Parameters.PURCHASE_PARAMETER;
+import static brs.http.common.Parameters.QUANTITY_NQT_PARAMETER;
+import static brs.http.common.Parameters.QUANTITY_PARAMETER;
+import static brs.http.common.Parameters.REFUND_NQT_PARAMETER;
+import static brs.http.common.Parameters.REQUIRED_SIGNERS_PARAMETER;
+import static brs.http.common.Parameters.SIGNERS_PARAMETER;
+import static brs.http.common.Parameters.SUBSCRIPTION_ID_PARAMETER;
+import static brs.http.common.Parameters.URI_PARAMETER;
+import static brs.http.common.ResultFields.ALIAS_RESPONSE;
+import static brs.http.common.ResultFields.AMOUNT_NQT_RESPONSE;
+import static brs.http.common.ResultFields.ASSET_RESPONSE;
+import static brs.http.common.ResultFields.COMMENT_RESPONSE;
+import static brs.http.common.ResultFields.CREATION_BYTES_RESPONSE;
+import static brs.http.common.ResultFields.DEADLINE_ACTION_RESPONSE;
+import static brs.http.common.ResultFields.DEADLINE_RESPONSE;
+import static brs.http.common.ResultFields.DECIMALS_RESPONSE;
+import static brs.http.common.ResultFields.DECISION_RESPONSE;
+import static brs.http.common.ResultFields.DELIVERY_DEADLINE_TIMESTAMP_RESPONSE;
+import static brs.http.common.ResultFields.DELTA_QUANTITY_RESPONSE;
+import static brs.http.common.ResultFields.DESCRIPTION_RESPONSE;
+import static brs.http.common.ResultFields.DISCOUNT_NQT_RESPONSE;
+import static brs.http.common.ResultFields.ESCROW_ID_RESPONSE;
+import static brs.http.common.ResultFields.FREQUENCY_RESPONSE;
+import static brs.http.common.ResultFields.GOODS_DATA_RESPONSE;
+import static brs.http.common.ResultFields.GOODS_IS_TEXT_RESPONSE;
+import static brs.http.common.ResultFields.GOODS_NONCE_RESPONSE;
+import static brs.http.common.ResultFields.GOODS_RESPONSE;
+import static brs.http.common.ResultFields.NAME_RESPONSE;
+import static brs.http.common.ResultFields.ORDER_RESPONSE;
+import static brs.http.common.ResultFields.PERIOD_RESPONSE;
+import static brs.http.common.ResultFields.PRICE_NQT_RESPONSE;
+import static brs.http.common.ResultFields.PURCHASE_RESPONSE;
+import static brs.http.common.ResultFields.QUANTITY_NQT_RESPONSE;
+import static brs.http.common.ResultFields.QUANTITY_RESPONSE;
+import static brs.http.common.ResultFields.REFUND_NQT_RESPONSE;
+import static brs.http.common.ResultFields.REQUIRED_SIGNERS_RESPONSE;
+import static brs.http.common.ResultFields.SIGNERS_RESPONSE;
+import static brs.http.common.ResultFields.SUBSCRIPTION_ID_RESPONSE;
+import static brs.http.common.ResultFields.TAGS_RESPONSE;
+import static brs.http.common.ResultFields.URI_RESPONSE;
+
 import brs.crypto.EncryptedData;
 import brs.util.Convert;
 import org.json.simple.JSONArray;
@@ -128,8 +192,8 @@ public interface Attachment extends Appendix {
 
     MessagingAliasAssignment(JSONObject attachmentData) {
       super(attachmentData);
-      aliasName = (Convert.nullToEmpty((String) attachmentData.get("alias"))).trim();
-      aliasURI = (Convert.nullToEmpty((String) attachmentData.get("uri"))).trim();
+      aliasName = (Convert.nullToEmpty((String) attachmentData.get(ALIAS_PARAMETER))).trim();
+      aliasURI = (Convert.nullToEmpty((String) attachmentData.get(URI_PARAMETER))).trim();
     }
 
     public MessagingAliasAssignment(String aliasName, String aliasURI, int blockchainHeight) {
@@ -160,8 +224,8 @@ public interface Attachment extends Appendix {
 
     @Override
     void putMyJSON(JSONObject attachment) {
-      attachment.put("alias", aliasName);
-      attachment.put("uri", aliasURI);
+      attachment.put(ALIAS_RESPONSE, aliasName);
+      attachment.put(URI_RESPONSE, aliasURI);
     }
 
     @Override
@@ -191,8 +255,8 @@ public interface Attachment extends Appendix {
 
     MessagingAliasSell(JSONObject attachmentData) {
       super(attachmentData);
-      this.aliasName = Convert.nullToEmpty((String) attachmentData.get("alias"));
-      this.priceNQT = Convert.parseLong(attachmentData.get("priceNQT"));
+      this.aliasName = Convert.nullToEmpty((String) attachmentData.get(ALIAS_PARAMETER));
+      this.priceNQT = Convert.parseLong(attachmentData.get(PRICE_NQT_PARAMETER));
     }
 
     public MessagingAliasSell(String aliasName, long priceNQT, int blockchainHeight) {
@@ -226,8 +290,8 @@ public interface Attachment extends Appendix {
 
     @Override
     void putMyJSON(JSONObject attachment) {
-      attachment.put("alias", aliasName);
-      attachment.put("priceNQT", priceNQT);
+      attachment.put(ALIAS_RESPONSE, aliasName);
+      attachment.put(PRICE_NQT_RESPONSE, priceNQT);
     }
 
     public String getAliasName(){
@@ -250,7 +314,7 @@ public interface Attachment extends Appendix {
 
     MessagingAliasBuy(JSONObject attachmentData) {
       super(attachmentData);
-      this.aliasName = Convert.nullToEmpty((String) attachmentData.get("alias"));
+      this.aliasName = Convert.nullToEmpty((String) attachmentData.get(ALIAS_PARAMETER));
     }
 
     public MessagingAliasBuy(String aliasName, int blockchainHeight) {
@@ -282,7 +346,7 @@ public interface Attachment extends Appendix {
 
     @Override
     void putMyJSON(JSONObject attachment) {
-      attachment.put("alias", aliasName);
+      attachment.put(ALIAS_RESPONSE, aliasName);
     }
 
     public String getAliasName(){
@@ -303,8 +367,8 @@ public interface Attachment extends Appendix {
 
     MessagingAccountInfo(JSONObject attachmentData) {
       super(attachmentData);
-      this.name = Convert.nullToEmpty((String) attachmentData.get("name"));
-      this.description = Convert.nullToEmpty((String) attachmentData.get("description"));
+      this.name = Convert.nullToEmpty((String) attachmentData.get(NAME_PARAMETER));
+      this.description = Convert.nullToEmpty((String) attachmentData.get(DESCRIPTION_PARAMETER));
     }
 
     public MessagingAccountInfo(String name, String description, int blockchainHeight) {
@@ -335,8 +399,8 @@ public interface Attachment extends Appendix {
 
     @Override
     void putMyJSON(JSONObject attachment) {
-      attachment.put("name", name);
-      attachment.put("description", description);
+      attachment.put(NAME_RESPONSE, name);
+      attachment.put(DESCRIPTION_RESPONSE, description);
     }
 
     @Override
@@ -371,10 +435,10 @@ public interface Attachment extends Appendix {
 
     ColoredCoinsAssetIssuance(JSONObject attachmentData) {
       super(attachmentData);
-      this.name = (String) attachmentData.get("name");
-      this.description = Convert.nullToEmpty((String) attachmentData.get("description"));
-      this.quantityQNT = Convert.parseLong(attachmentData.get("quantityQNT"));
-      this.decimals = ((Long) attachmentData.get("decimals")).byteValue();
+      this.name = (String) attachmentData.get(NAME_PARAMETER);
+      this.description = Convert.nullToEmpty((String) attachmentData.get(DESCRIPTION_PARAMETER));
+      this.quantityQNT = Convert.parseLong(attachmentData.get(QUANTITY_NQT_PARAMETER));
+      this.decimals = ((Long) attachmentData.get(DECIMALS_PARAMETER)).byteValue();
     }
 
     public ColoredCoinsAssetIssuance(String name, String description, long quantityQNT, byte decimals, int blockchainHeight) {
@@ -409,10 +473,10 @@ public interface Attachment extends Appendix {
 
     @Override
     void putMyJSON(JSONObject attachment) {
-      attachment.put("name", name);
-      attachment.put("description", description);
-      attachment.put("quantityQNT", quantityQNT);
-      attachment.put("decimals", decimals);
+      attachment.put(NAME_RESPONSE, name);
+      attachment.put(DESCRIPTION_RESPONSE, description);
+      attachment.put(QUANTITY_NQT_RESPONSE, quantityQNT);
+      attachment.put(DECIMALS_RESPONSE, decimals);
     }
 
     @Override
@@ -452,9 +516,9 @@ public interface Attachment extends Appendix {
 
     ColoredCoinsAssetTransfer(JSONObject attachmentData) {
       super(attachmentData);
-      this.assetId = Convert.parseUnsignedLong((String) attachmentData.get("asset"));
-      this.quantityQNT = Convert.parseLong(attachmentData.get("quantityQNT"));
-      this.comment = getVersion() == 0 ? Convert.nullToEmpty((String) attachmentData.get("comment")) : null;
+      this.assetId = Convert.parseUnsignedLong((String) attachmentData.get(ASSET_PARAMETER));
+      this.quantityQNT = Convert.parseLong(attachmentData.get(QUANTITY_NQT_PARAMETER));
+      this.comment = getVersion() == 0 ? Convert.nullToEmpty((String) attachmentData.get(COMMENT_PARAMETER)) : null;
     }
 
     public ColoredCoinsAssetTransfer(long assetId, long quantityQNT, int blockchainHeight) {
@@ -487,10 +551,10 @@ public interface Attachment extends Appendix {
 
     @Override
     void putMyJSON(JSONObject attachment) {
-      attachment.put("asset", Convert.toUnsignedLong(assetId));
-      attachment.put("quantityQNT", quantityQNT);
+      attachment.put(ASSET_RESPONSE, Convert.toUnsignedLong(assetId));
+      attachment.put(QUANTITY_NQT_RESPONSE, quantityQNT);
       if (getVersion() == 0) {
-        attachment.put("comment", comment);
+        attachment.put(COMMENT_RESPONSE, comment);
       }
     }
 
@@ -528,9 +592,9 @@ public interface Attachment extends Appendix {
 
     private ColoredCoinsOrderPlacement(JSONObject attachmentData) {
       super(attachmentData);
-      this.assetId = Convert.parseUnsignedLong((String) attachmentData.get("asset"));
-      this.quantityQNT = Convert.parseLong(attachmentData.get("quantityQNT"));
-      this.priceNQT = Convert.parseLong(attachmentData.get("priceNQT"));
+      this.assetId = Convert.parseUnsignedLong((String) attachmentData.get(ASSET_PARAMETER));
+      this.quantityQNT = Convert.parseLong(attachmentData.get(QUANTITY_NQT_PARAMETER));
+      this.priceNQT = Convert.parseLong(attachmentData.get(PRICE_NQT_PARAMETER));
     }
 
     private ColoredCoinsOrderPlacement(long assetId, long quantityQNT, long priceNQT, int blockchainHeight) {
@@ -554,9 +618,9 @@ public interface Attachment extends Appendix {
 
     @Override
     void putMyJSON(JSONObject attachment) {
-      attachment.put("asset", Convert.toUnsignedLong(assetId));
-      attachment.put("quantityQNT", quantityQNT);
-      attachment.put("priceNQT", priceNQT);
+      attachment.put(ASSET_RESPONSE, Convert.toUnsignedLong(assetId));
+      attachment.put(QUANTITY_NQT_RESPONSE, quantityQNT);
+      attachment.put(PRICE_NQT_RESPONSE, priceNQT);
     }
 
     public long getAssetId() {
@@ -635,7 +699,7 @@ public interface Attachment extends Appendix {
 
     private ColoredCoinsOrderCancellation(JSONObject attachmentData) {
       super(attachmentData);
-      this.orderId = Convert.parseUnsignedLong((String) attachmentData.get("order"));
+      this.orderId = Convert.parseUnsignedLong((String) attachmentData.get(ORDER_PARAMETER));
     }
 
     private ColoredCoinsOrderCancellation(long orderId, int blockchainHeight) {
@@ -655,7 +719,7 @@ public interface Attachment extends Appendix {
 
     @Override
     void putMyJSON(JSONObject attachment) {
-      attachment.put("order", Convert.toUnsignedLong(orderId));
+      attachment.put(ORDER_RESPONSE, Convert.toUnsignedLong(orderId));
     }
 
     public long getOrderId() {
@@ -734,11 +798,11 @@ public interface Attachment extends Appendix {
 
     DigitalGoodsListing(JSONObject attachmentData) {
       super(attachmentData);
-      this.name = (String) attachmentData.get("name");
-      this.description = (String) attachmentData.get("description");
-      this.tags = (String) attachmentData.get("tags");
-      this.quantity = ((Long) attachmentData.get("quantity")).intValue();
-      this.priceNQT = Convert.parseLong(attachmentData.get("priceNQT"));
+      this.name = (String) attachmentData.get(NAME_RESPONSE);
+      this.description = (String) attachmentData.get(DESCRIPTION_RESPONSE);
+      this.tags = (String) attachmentData.get(TAGS_RESPONSE);
+      this.quantity = ((Long) attachmentData.get(QUANTITY_RESPONSE)).intValue();
+      this.priceNQT = Convert.parseLong(attachmentData.get(PRICE_NQT_PARAMETER));
     }
 
     public DigitalGoodsListing(String name, String description, String tags, int quantity, long priceNQT, int blockchainHeight) {
@@ -778,11 +842,11 @@ public interface Attachment extends Appendix {
 
     @Override
     void putMyJSON(JSONObject attachment) {
-      attachment.put("name", name);
-      attachment.put("description", description);
-      attachment.put("tags", tags);
-      attachment.put("quantity", quantity);
-      attachment.put("priceNQT", priceNQT);
+      attachment.put(NAME_RESPONSE, name);
+      attachment.put(DESCRIPTION_RESPONSE, description);
+      attachment.put(TAGS_RESPONSE, tags);
+      attachment.put(QUANTITY_RESPONSE, quantity);
+      attachment.put(PRICE_NQT_RESPONSE, priceNQT);
     }
 
     @Override
@@ -813,7 +877,7 @@ public interface Attachment extends Appendix {
 
     DigitalGoodsDelisting(JSONObject attachmentData) {
       super(attachmentData);
-      this.goodsId = Convert.parseUnsignedLong((String)attachmentData.get("goods"));
+      this.goodsId = Convert.parseUnsignedLong((String)attachmentData.get(GOODS_PARAMETER));
     }
 
     public DigitalGoodsDelisting(long goodsId, int blockchainHeight) {
@@ -838,7 +902,7 @@ public interface Attachment extends Appendix {
 
     @Override
     void putMyJSON(JSONObject attachment) {
-      attachment.put("goods", Convert.toUnsignedLong(goodsId));
+      attachment.put(GOODS_RESPONSE, Convert.toUnsignedLong(goodsId));
     }
 
     @Override
@@ -863,8 +927,8 @@ public interface Attachment extends Appendix {
 
     DigitalGoodsPriceChange(JSONObject attachmentData) {
       super(attachmentData);
-      this.goodsId = Convert.parseUnsignedLong((String)attachmentData.get("goods"));
-      this.priceNQT = Convert.parseLong(attachmentData.get("priceNQT"));
+      this.goodsId = Convert.parseUnsignedLong((String)attachmentData.get(GOODS_PARAMETER));
+      this.priceNQT = Convert.parseLong(attachmentData.get(PRICE_NQT_PARAMETER));
     }
 
     public DigitalGoodsPriceChange(long goodsId, long priceNQT, int blockchainHeight) {
@@ -891,8 +955,8 @@ public interface Attachment extends Appendix {
 
     @Override
     void putMyJSON(JSONObject attachment) {
-      attachment.put("goods", Convert.toUnsignedLong(goodsId));
-      attachment.put("priceNQT", priceNQT);
+      attachment.put(GOODS_RESPONSE, Convert.toUnsignedLong(goodsId));
+      attachment.put(PRICE_NQT_RESPONSE, priceNQT);
     }
 
     @Override
@@ -919,8 +983,8 @@ public interface Attachment extends Appendix {
 
     DigitalGoodsQuantityChange(JSONObject attachmentData) {
       super(attachmentData);
-      this.goodsId = Convert.parseUnsignedLong((String)attachmentData.get("goods"));
-      this.deltaQuantity = ((Long)attachmentData.get("deltaQuantity")).intValue();
+      this.goodsId = Convert.parseUnsignedLong((String)attachmentData.get(GOODS_PARAMETER));
+      this.deltaQuantity = ((Long)attachmentData.get(DELTA_QUANTITY_PARAMETER)).intValue();
     }
 
     public DigitalGoodsQuantityChange(long goodsId, int deltaQuantity, int blockchainHeight) {
@@ -947,8 +1011,8 @@ public interface Attachment extends Appendix {
 
     @Override
     void putMyJSON(JSONObject attachment) {
-      attachment.put("goods", Convert.toUnsignedLong(goodsId));
-      attachment.put("deltaQuantity", deltaQuantity);
+      attachment.put(GOODS_RESPONSE, Convert.toUnsignedLong(goodsId));
+      attachment.put(DELTA_QUANTITY_RESPONSE, deltaQuantity);
     }
 
     @Override
@@ -979,10 +1043,10 @@ public interface Attachment extends Appendix {
 
     DigitalGoodsPurchase(JSONObject attachmentData) {
       super(attachmentData);
-      this.goodsId = Convert.parseUnsignedLong((String)attachmentData.get("goods"));
-      this.quantity = ((Long)attachmentData.get("quantity")).intValue();
-      this.priceNQT = Convert.parseLong(attachmentData.get("priceNQT"));
-      this.deliveryDeadlineTimestamp = ((Long)attachmentData.get("deliveryDeadlineTimestamp")).intValue();
+      this.goodsId = Convert.parseUnsignedLong((String)attachmentData.get(GOODS_PARAMETER));
+      this.quantity = ((Long)attachmentData.get(QUANTITY_PARAMETER)).intValue();
+      this.priceNQT = Convert.parseLong(attachmentData.get(PRICE_NQT_PARAMETER));
+      this.deliveryDeadlineTimestamp = ((Long)attachmentData.get(DELIVERY_DEADLINE_TIMESTAMP_PARAMETER)).intValue();
     }
 
     public DigitalGoodsPurchase(long goodsId, int quantity, long priceNQT, int deliveryDeadlineTimestamp, int blockchainHeight) {
@@ -1013,10 +1077,10 @@ public interface Attachment extends Appendix {
 
     @Override
     void putMyJSON(JSONObject attachment) {
-      attachment.put("goods", Convert.toUnsignedLong(goodsId));
-      attachment.put("quantity", quantity);
-      attachment.put("priceNQT", priceNQT);
-      attachment.put("deliveryDeadlineTimestamp", deliveryDeadlineTimestamp);
+      attachment.put(GOODS_RESPONSE, Convert.toUnsignedLong(goodsId));
+      attachment.put(QUANTITY_RESPONSE, quantity);
+      attachment.put(PRICE_NQT_RESPONSE, priceNQT);
+      attachment.put(DELIVERY_DEADLINE_TIMESTAMP_RESPONSE, deliveryDeadlineTimestamp);
     }
 
     @Override
@@ -1055,11 +1119,11 @@ public interface Attachment extends Appendix {
 
     DigitalGoodsDelivery(JSONObject attachmentData) {
       super(attachmentData);
-      this.purchaseId = Convert.parseUnsignedLong((String)attachmentData.get("purchase"));
-      this.goods = new EncryptedData(Convert.parseHexString((String)attachmentData.get("goodsData")),
-                                     Convert.parseHexString((String)attachmentData.get("goodsNonce")));
-      this.discountNQT = Convert.parseLong(attachmentData.get("discountNQT"));
-      this.goodsIsText = Boolean.TRUE.equals(attachmentData.get("goodsIsText"));
+      this.purchaseId = Convert.parseUnsignedLong((String)attachmentData.get(PURCHASE_PARAMETER));
+      this.goods = new EncryptedData(Convert.parseHexString((String)attachmentData.get(GOODS_DATA_PARAMETER)),
+                                     Convert.parseHexString((String)attachmentData.get(GOODS_NONCE_PARAMETER)));
+      this.discountNQT = Convert.parseLong(attachmentData.get(DISCOUNT_NQT_PARAMETER));
+      this.goodsIsText = Boolean.TRUE.equals(attachmentData.get(GOODS_IS_TEXT_PARAMETER));
     }
 
     public DigitalGoodsDelivery(long purchaseId, EncryptedData goods, boolean goodsIsText, long discountNQT, int blockchainHeight) {
@@ -1091,11 +1155,11 @@ public interface Attachment extends Appendix {
 
     @Override
     void putMyJSON(JSONObject attachment) {
-      attachment.put("purchase", Convert.toUnsignedLong(purchaseId));
-      attachment.put("goodsData", Convert.toHexString(goods.getData()));
-      attachment.put("goodsNonce", Convert.toHexString(goods.getNonce()));
-      attachment.put("discountNQT", discountNQT);
-      attachment.put("goodsIsText", goodsIsText);
+      attachment.put(PURCHASE_RESPONSE, Convert.toUnsignedLong(purchaseId));
+      attachment.put(GOODS_DATA_RESPONSE, Convert.toHexString(goods.getData()));
+      attachment.put(GOODS_NONCE_RESPONSE, Convert.toHexString(goods.getNonce()));
+      attachment.put(DISCOUNT_NQT_RESPONSE, discountNQT);
+      attachment.put(GOODS_IS_TEXT_RESPONSE, goodsIsText);
     }
 
     @Override
@@ -1126,7 +1190,7 @@ public interface Attachment extends Appendix {
 
     DigitalGoodsFeedback(JSONObject attachmentData) {
       super(attachmentData);
-      this.purchaseId = Convert.parseUnsignedLong((String)attachmentData.get("purchase"));
+      this.purchaseId = Convert.parseUnsignedLong((String)attachmentData.get(PURCHASE_PARAMETER));
     }
 
     public DigitalGoodsFeedback(long purchaseId, int blockchainHeight) {
@@ -1151,7 +1215,7 @@ public interface Attachment extends Appendix {
 
     @Override
     void putMyJSON(JSONObject attachment) {
-      attachment.put("purchase", Convert.toUnsignedLong(purchaseId));
+      attachment.put(PURCHASE_RESPONSE, Convert.toUnsignedLong(purchaseId));
     }
 
     @Override
@@ -1176,8 +1240,8 @@ public interface Attachment extends Appendix {
 
     DigitalGoodsRefund(JSONObject attachmentData) {
       super(attachmentData);
-      this.purchaseId = Convert.parseUnsignedLong((String)attachmentData.get("purchase"));
-      this.refundNQT = Convert.parseLong(attachmentData.get("refundNQT"));
+      this.purchaseId = Convert.parseUnsignedLong((String)attachmentData.get(PURCHASE_PARAMETER));
+      this.refundNQT = Convert.parseLong(attachmentData.get(REFUND_NQT_PARAMETER));
     }
 
     public DigitalGoodsRefund(long purchaseId, long refundNQT, int blockchainHeight) {
@@ -1204,8 +1268,8 @@ public interface Attachment extends Appendix {
 
     @Override
     void putMyJSON(JSONObject attachment) {
-      attachment.put("purchase", Convert.toUnsignedLong(purchaseId));
-      attachment.put("refundNQT", refundNQT);
+      attachment.put(PURCHASE_RESPONSE, Convert.toUnsignedLong(purchaseId));
+      attachment.put(REFUND_NQT_RESPONSE, refundNQT);
     }
 
     @Override
@@ -1230,7 +1294,7 @@ public interface Attachment extends Appendix {
 
     AccountControlEffectiveBalanceLeasing(JSONObject attachmentData) {
       super(attachmentData);
-      this.period = ((Long) attachmentData.get("period")).shortValue();
+      this.period = ((Long) attachmentData.get(PERIOD_PARAMETER)).shortValue();
     }
 
     public AccountControlEffectiveBalanceLeasing(short period, int blockchainHeight) {
@@ -1255,7 +1319,7 @@ public interface Attachment extends Appendix {
 
     @Override
     void putMyJSON(JSONObject attachment) {
-      attachment.put("period", period);
+      attachment.put(PERIOD_RESPONSE, period);
     }
 
     @Override
@@ -1333,19 +1397,19 @@ public interface Attachment extends Appendix {
 
     AdvancedPaymentEscrowCreation(JSONObject attachmentData) throws BurstException.NotValidException {
       super(attachmentData);
-      this.amountNQT = Convert.parseUnsignedLong((String)attachmentData.get("amountNQT"));
-      this.deadline = ((Long)attachmentData.get("deadline")).intValue();
-      this.deadlineAction = Escrow.stringToDecision((String)attachmentData.get("deadlineAction"));
-      this.requiredSigners = ((Long)attachmentData.get("requiredSigners")).byteValue();
-      int totalSigners = ((JSONArray)attachmentData.get("signers")).size();
+      this.amountNQT = Convert.parseUnsignedLong((String)attachmentData.get(AMOUNT_NQT_PARAMETER));
+      this.deadline = ((Long)attachmentData.get(DEADLINE_PARAMETER)).intValue();
+      this.deadlineAction = Escrow.stringToDecision((String)attachmentData.get(DEADLINE_ACTION_PARAMETER));
+      this.requiredSigners = ((Long)attachmentData.get(REQUIRED_SIGNERS_PARAMETER)).byteValue();
+      int totalSigners = ((JSONArray)attachmentData.get(SIGNERS_PARAMETER)).size();
       if(totalSigners > 10 || totalSigners <= 0) {
         throw new BurstException.NotValidException("Invalid number of signers listed on create escrow transaction");
       }
-      JSONArray signersJson = (JSONArray)attachmentData.get("signers");
+      JSONArray signersJson = (JSONArray)attachmentData.get(SIGNERS_PARAMETER);
       for(int i = 0; i < signersJson.size(); i++) {
         this.signers.add(Convert.parseUnsignedLong((String)signersJson.get(i)));
       }
-      if(this.signers.size() != ((JSONArray)attachmentData.get("signers")).size()) {
+      if(this.signers.size() != ((JSONArray)attachmentData.get(SIGNERS_PARAMETER)).size()) {
         throw new BurstException.NotValidException("Duplicate signer on escrow creation");
       }
     }
@@ -1391,15 +1455,15 @@ public interface Attachment extends Appendix {
 
     @Override
     void putMyJSON(JSONObject attachment) {
-      attachment.put("amountNQT", Convert.toUnsignedLong(this.amountNQT));
-      attachment.put("deadline", this.deadline);
-      attachment.put("deadlineAction", Escrow.decisionToString(this.deadlineAction));
-      attachment.put("requiredSigners", (int)this.requiredSigners);
+      attachment.put(AMOUNT_NQT_RESPONSE, Convert.toUnsignedLong(this.amountNQT));
+      attachment.put(DEADLINE_RESPONSE, this.deadline);
+      attachment.put(DEADLINE_ACTION_RESPONSE, Escrow.decisionToString(this.deadlineAction));
+      attachment.put(REQUIRED_SIGNERS_RESPONSE, (int)this.requiredSigners);
       JSONArray ids = new JSONArray();
       for(Long signer : this.signers) {
         ids.add(Convert.toUnsignedLong(signer));
       }
-      attachment.put("signers", ids);
+      attachment.put(SIGNERS_RESPONSE, ids);
     }
 
     @Override
@@ -1433,8 +1497,8 @@ public interface Attachment extends Appendix {
 
     AdvancedPaymentEscrowSign(JSONObject attachmentData) {
       super(attachmentData);
-      this.escrowId = Convert.parseUnsignedLong((String)attachmentData.get("escrowId"));
-      this.decision = Escrow.stringToDecision((String)attachmentData.get("decision"));
+      this.escrowId = Convert.parseUnsignedLong((String)attachmentData.get(ESCROW_ID_PARAMETER));
+      this.decision = Escrow.stringToDecision((String)attachmentData.get(DECISION_PARAMETER));
     }
 
     public AdvancedPaymentEscrowSign(Long escrowId, Escrow.DecisionType decision, int blockchainHeight) {
@@ -1461,8 +1525,8 @@ public interface Attachment extends Appendix {
 
     @Override
     void putMyJSON(JSONObject attachment) {
-      attachment.put("escrowId", Convert.toUnsignedLong(this.escrowId));
-      attachment.put("decision", Escrow.decisionToString(this.decision));
+      attachment.put(ESCROW_ID_RESPONSE, Convert.toUnsignedLong(this.escrowId));
+      attachment.put(DECISION_RESPONSE, Escrow.decisionToString(this.decision));
     }
 
     @Override
@@ -1488,8 +1552,8 @@ public interface Attachment extends Appendix {
 
     AdvancedPaymentEscrowResult(JSONObject attachmentData) {
       super(attachmentData);
-      this.escrowId = Convert.parseUnsignedLong((String) attachmentData.get("escrowId"));
-      this.decision = Escrow.stringToDecision((String)attachmentData.get("decision"));
+      this.escrowId = Convert.parseUnsignedLong((String) attachmentData.get(ESCROW_ID_PARAMETER));
+      this.decision = Escrow.stringToDecision((String)attachmentData.get(DECISION_PARAMETER));
     }
 
     public AdvancedPaymentEscrowResult(Long escrowId, Escrow.DecisionType decision, int blockchainHeight) {
@@ -1516,8 +1580,8 @@ public interface Attachment extends Appendix {
 
     @Override
     void putMyJSON(JSONObject attachment) {
-      attachment.put("escrowId", Convert.toUnsignedLong(this.escrowId));
-      attachment.put("decision", Escrow.decisionToString(this.decision));
+      attachment.put(ESCROW_ID_RESPONSE, Convert.toUnsignedLong(this.escrowId));
+      attachment.put(DECISION_RESPONSE, Escrow.decisionToString(this.decision));
     }
 
     @Override
@@ -1537,7 +1601,7 @@ public interface Attachment extends Appendix {
 
     AdvancedPaymentSubscriptionSubscribe(JSONObject attachmentData) {
       super(attachmentData);
-      this.frequency = ((Long)attachmentData.get("frequency")).intValue();
+      this.frequency = ((Long)attachmentData.get(FREQUENCY_PARAMETER)).intValue();
     }
 
     public AdvancedPaymentSubscriptionSubscribe(int frequency, int blockchainHeight) {
@@ -1562,7 +1626,7 @@ public interface Attachment extends Appendix {
 
     @Override
     void putMyJSON(JSONObject attachment) {
-      attachment.put("frequency", this.frequency);
+      attachment.put(FREQUENCY_RESPONSE, this.frequency);
     }
 
     @Override
@@ -1584,7 +1648,7 @@ public interface Attachment extends Appendix {
 
     AdvancedPaymentSubscriptionCancel(JSONObject attachmentData) {
       super(attachmentData);
-      this.subscriptionId = Convert.parseUnsignedLong((String)attachmentData.get("subscriptionId"));
+      this.subscriptionId = Convert.parseUnsignedLong((String)attachmentData.get(SUBSCRIPTION_ID_PARAMETER));
     }
 
     public AdvancedPaymentSubscriptionCancel(Long subscriptionId, int blockchainHeight) {
@@ -1609,7 +1673,7 @@ public interface Attachment extends Appendix {
 
     @Override
     void putMyJSON(JSONObject attachment) {
-      attachment.put("subscriptionId", Convert.toUnsignedLong(this.subscriptionId));
+      attachment.put(SUBSCRIPTION_ID_RESPONSE, Convert.toUnsignedLong(this.subscriptionId));
     }
 
     @Override
@@ -1631,7 +1695,7 @@ public interface Attachment extends Appendix {
 
     AdvancedPaymentSubscriptionPayment(JSONObject attachmentData) {
       super(attachmentData);
-      this.subscriptionId = Convert.parseUnsignedLong((String) attachmentData.get("subscriptionId"));
+      this.subscriptionId = Convert.parseUnsignedLong((String) attachmentData.get(SUBSCRIPTION_ID_PARAMETER));
     }
 
     public AdvancedPaymentSubscriptionPayment(Long subscriptionId, int blockchainHeight) {
@@ -1656,7 +1720,7 @@ public interface Attachment extends Appendix {
 
     @Override
     void putMyJSON(JSONObject attachment) {
-      attachment.put("subscriptionId", Convert.toUnsignedLong(this.subscriptionId));
+      attachment.put(SUBSCRIPTION_ID_RESPONSE, Convert.toUnsignedLong(this.subscriptionId));
     }
 
     @Override
@@ -1688,10 +1752,10 @@ public interface Attachment extends Appendix {
     AutomatedTransactionsCreation(JSONObject attachmentData) {
       super(attachmentData);
 
-      this.name = ( String ) attachmentData.get( "name" );
-      this.description = ( String ) attachmentData.get( "description" );
+      this.name = ( String ) attachmentData.get(NAME_PARAMETER);
+      this.description = ( String ) attachmentData.get(DESCRIPTION_PARAMETER);
 
-      this.creationBytes = Convert.parseHexString( (String) attachmentData.get( "creationBytes" ) );
+      this.creationBytes = Convert.parseHexString( (String) attachmentData.get(CREATION_BYTES_PARAMETER));
 
     }
 
@@ -1730,9 +1794,9 @@ public interface Attachment extends Appendix {
 
     @Override
     void putMyJSON(JSONObject attachment) {
-      attachment.put("name", name);
-      attachment.put("description", description);
-      attachment.put("creationBytes", Convert.toHexString( creationBytes ) );
+      attachment.put(NAME_RESPONSE, name);
+      attachment.put(DESCRIPTION_RESPONSE, description);
+      attachment.put(CREATION_BYTES_RESPONSE, Convert.toHexString( creationBytes ) );
     }
 
     public String getName() { return name; }
