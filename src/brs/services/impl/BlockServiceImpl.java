@@ -143,7 +143,7 @@ public class BlockServiceImpl implements BlockService {
     generatorAccount.apply(block.getGeneratorPublicKey(), block.getHeight());
     if (block.getHeight() < Constants.BURST_REWARD_RECIPIENT_ASSIGNMENT_START_BLOCK) {
       generatorAccount.addToBalanceAndUnconfirmedBalanceNQT(block.getTotalFeeNQT() + getBlockReward(block));
-      generatorAccount.addToForgedBalanceNQT(block.getTotalFeeNQT() + getBlockReward(block));
+      accountService.addToForgedBalanceNQT(generatorAccount, block.getTotalFeeNQT() + getBlockReward(block));
     } else {
       Account rewardAccount;
       Account.RewardRecipientAssignment rewardAssignment =
@@ -156,7 +156,7 @@ public class BlockServiceImpl implements BlockService {
         rewardAccount = accountService.getAccount(rewardAssignment.getPrevRecipientId());
       }
       rewardAccount.addToBalanceAndUnconfirmedBalanceNQT(block.getTotalFeeNQT() + getBlockReward(block));
-      rewardAccount.addToForgedBalanceNQT(block.getTotalFeeNQT() + getBlockReward(block));
+      accountService.addToForgedBalanceNQT(rewardAccount, block.getTotalFeeNQT() + getBlockReward(block));
     }
 
     for(Transaction transaction : block.getTransactions()) {

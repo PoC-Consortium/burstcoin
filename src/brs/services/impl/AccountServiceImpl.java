@@ -120,4 +120,20 @@ public class AccountServiceImpl implements AccountService {
     return accountTable.getCount();
   }
 
+  @Override
+  public void addToForgedBalanceNQT(Account account, long amountNQT) {
+    if (amountNQT == 0) {
+      return;
+    }
+    account.setForgedBalanceNQT(Convert.safeAdd(account.getForgedBalanceNQT(), amountNQT));
+    accountTable.insert(account);
+  }
+
+  @Override
+  public void setAccountInfo(Account account, String name, String description) {
+    account.setName(Convert.emptyToNull(name.trim()));
+    account.setDescription(Convert.emptyToNull(description.trim()));
+    accountTable.insert(account);
+  }
+
 }

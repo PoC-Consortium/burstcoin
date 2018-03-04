@@ -15,18 +15,43 @@ public class Account {
 
   private static final Logger logger = Logger.getLogger(Account.class.getSimpleName());
 
+  public final long id;
+  public final BurstKey nxtKey;
+  protected final int creationHeight;
+  public byte[] publicKey;
+  public int keyHeight;
+  protected long balanceNQT;
+  protected long unconfirmedBalanceNQT;
+  protected long forgedBalanceNQT;
+
+  protected String name;
+  protected String description;
+
+  public void setForgedBalanceNQT(long forgedBalanceNQT) {
+    this.forgedBalanceNQT = forgedBalanceNQT;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
   public enum Event {
     BALANCE, UNCONFIRMED_BALANCE, ASSET_BALANCE, UNCONFIRMED_ASSET_BALANCE,
     LEASE_SCHEDULED, LEASE_STARTED, LEASE_ENDED
+
   }
 
   public static class AccountAsset {
-
     public final long accountId;
     public final long assetId;
     public final BurstKey nxtKey;
     private long quantityQNT;
     private long unconfirmedQuantityQNT;
+
 
     protected AccountAsset(long accountId, long assetId, long quantityQNT, long unconfirmedQuantityQNT, BurstKey burstKey) {
       this.accountId = accountId;
@@ -61,12 +86,16 @@ public class Account {
     }
 
     private void save() {
-      checkBalance(this.accountId, this.quantityQNT, this.unconfirmedQuantityQNT);
+      checkBalance();
       if (this.quantityQNT > 0 || this.unconfirmedQuantityQNT > 0) {
         accountAssetTable().insert(this);
       } else {
         accountAssetTable().delete(this);
       }
+    }
+
+    public void checkBalance() {
+      Account.checkBalance(this.accountId, this.quantityQNT, this.unconfirmedQuantityQNT);
     }
 
     @Override
@@ -84,12 +113,12 @@ public class Account {
   }
 
   public static class RewardRecipientAssignment {
-
     public final Long accountId;
     private Long prevRecipientId;
     private Long recipientId;
     private int fromHeight;
     public final BurstKey nxtKey;
+
 
 
     protected RewardRecipientAssignment(Long accountId, Long prevRecipientId, Long recipientId, int fromHeight, BurstKey burstKey) {
@@ -116,12 +145,12 @@ public class Account {
     public int getFromHeight() {
       return fromHeight;
     }
-
     public void setRecipient(long newRecipientId, int fromHeight) {
       prevRecipientId = recipientId;
       recipientId = newRecipientId;
       this.fromHeight = fromHeight;
     }
+
   }
 
   static class DoubleSpendingException extends RuntimeException {
@@ -147,10 +176,10 @@ public class Account {
   private static final VersionedEntityTable<RewardRecipientAssignment> rewardRecipientAssignmentTable() {
     return Burst.getStores().getAccountStore().getRewardRecipientAssignmentTable();
   }
-
   private static final Listeners<Account, Event> listeners = new Listeners<>();
 
   private static final Listeners<AccountAsset, Event> assetListeners = new Listeners<>();
+
 
   public static boolean addListener(Listener<Account> listener, Event eventType) {
     return listeners.addListener(listener, eventType);
@@ -177,18 +206,6 @@ public class Account {
     }
     return account;
   }
-
-  public final long id;
-  public final BurstKey nxtKey;
-  protected final int creationHeight;
-  public byte[] publicKey;
-  public int keyHeight;
-  protected long balanceNQT;
-  protected long unconfirmedBalanceNQT;
-  protected long forgedBalanceNQT;
-
-  protected String name;
-  protected String description;
 
 
   public Account(long id) {
@@ -219,12 +236,6 @@ public class Account {
 
   public String getDescription() {
     return description;
-  }
-
-  void setAccountInfo(String name, String description) {
-    this.name = Convert.emptyToNull(name.trim());
-    this.description = Convert.emptyToNull(description.trim());
-    accountTable().insert(this);
   }
 
   public byte[] getPublicKey() {
@@ -426,15 +437,6 @@ public class Account {
     listeners.notify(this, Event.UNCONFIRMED_BALANCE);
   }
 
-  //TODO can be moved to account service
-  public void addToForgedBalanceNQT(long amountNQT) {
-    if (amountNQT == 0) {
-      return;
-    }
-    this.forgedBalanceNQT = Convert.safeAdd(this.forgedBalanceNQT, amountNQT);
-    accountTable().insert(this);
-  }
-
   private static void checkBalance(long accountId, long confirmed, long unconfirmed) {
     if (confirmed < 0) {
       throw new DoubleSpendingException("Negative balance or quantity for account " + Convert.toUnsignedLong(accountId));
@@ -445,6 +447,10 @@ public class Account {
     if (unconfirmed > confirmed) {
       throw new DoubleSpendingException("Unconfirmed exceeds confirmed balance or quantity for account " + Convert.toUnsignedLong(accountId));
     }
+  }
+
+  public void checkBalance() {
+    checkBalance(this.id, this.balanceNQT, this.unconfirmedBalanceNQT);
   }
 
 }

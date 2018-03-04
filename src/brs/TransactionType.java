@@ -647,7 +647,7 @@ public abstract class TransactionType {
         @Override
         void applyAttachment(Transaction transaction, Account senderAccount, Account recipientAccount) {
           Attachment.MessagingAccountInfo attachment = (Attachment.MessagingAccountInfo) transaction.getAttachment();
-          senderAccount.setAccountInfo(attachment.getName(), attachment.getDescription());
+          accountService.setAccountInfo(senderAccount, attachment.getName(), attachment.getDescription());
         }
 
         @Override

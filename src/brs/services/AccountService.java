@@ -33,4 +33,8 @@ public interface AccountService {
   void flushAccountTable();
 
   int getCount();
+
+  void addToForgedBalanceNQT(Account account, long amountNQT);
+
+  void setAccountInfo(Account account, String name, String description);
 }
