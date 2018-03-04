@@ -329,7 +329,7 @@ public abstract class TransactionType {
     }
 
     @Override
-    final public boolean hasRecipient() {
+    public final boolean hasRecipient() {
       return true;
     }
 
@@ -831,7 +831,7 @@ public abstract class TransactionType {
       }
 
       @Override
-      final public boolean hasRecipient() {
+      public final boolean hasRecipient() {
         return false;
       }
 
@@ -1781,7 +1781,7 @@ public abstract class TransactionType {
         }
 
         @Override
-        final public boolean hasRecipient() {
+        public final boolean hasRecipient() {
           return true;
         }
       };
@@ -1857,7 +1857,7 @@ public abstract class TransactionType {
         }
 
         @Override
-        final public boolean hasRecipient() {
+        public final boolean hasRecipient() {
           return false;
         }
       };
@@ -1903,12 +1903,12 @@ public abstract class TransactionType {
         }
 
         @Override
-        final public boolean hasRecipient() {
+        public final boolean hasRecipient() {
           return true;
         }
 
         @Override
-        final public boolean isSigned() {
+        public final boolean isSigned() {
           return false;
         }
       };
@@ -1970,7 +1970,7 @@ public abstract class TransactionType {
         }
 
         @Override
-        final public boolean hasRecipient() {
+        public final boolean hasRecipient() {
           return true;
         }
       };
@@ -2039,7 +2039,7 @@ public abstract class TransactionType {
         }
 
         @Override
-        final public boolean hasRecipient() {
+        public final boolean hasRecipient() {
           return false;
         }
       };
@@ -2085,12 +2085,12 @@ public abstract class TransactionType {
         }
 
         @Override
-        final public boolean hasRecipient() {
+        public final boolean hasRecipient() {
           return true;
         }
 
         @Override
-        final public boolean isSigned() {
+        public final boolean isSigned() {
           return false;
         }
       };
@@ -2244,7 +2244,7 @@ public abstract class TransactionType {
         }
 
         @Override
-        final public boolean isSigned() {
+        public final boolean isSigned() {
           return false;
         }
       };
