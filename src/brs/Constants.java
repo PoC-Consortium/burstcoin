@@ -82,7 +82,7 @@ public final class Constants {
 
   static final long UNCONFIRMED_POOL_DEPOSIT_NQT = (isTestnet ? 50 : 100) * ONE_BURST;
 
-  public final static long EPOCH_BEGINNING;
+  public static final long EPOCH_BEGINNING;
 
   static {
     Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));

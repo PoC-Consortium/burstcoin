@@ -70,7 +70,7 @@ public final class BlockchainProcessorImpl implements BlockchainProcessor {
   private final StatisticsManagerImpl statisticsManager;
   private Generator generator;
 
-  public final static int MAX_TIMESTAMP_DIFFERENCE = 15;
+  public static final int MAX_TIMESTAMP_DIFFERENCE = 15;
   private boolean oclVerify;
   private int oclUnverifiedQueue;
 
