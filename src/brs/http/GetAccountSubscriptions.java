@@ -12,6 +12,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.JSONStreamAware;
 
 import static brs.http.common.Parameters.ACCOUNT_PARAMETER;
+import static brs.http.common.Parameters.SUBSCRIPTIONS_RESPONSE;
 
 public final class GetAccountSubscriptions extends APIServlet.APIRequestHandler {
 
@@ -39,7 +40,7 @@ public final class GetAccountSubscriptions extends APIServlet.APIRequestHandler 
       subscriptions.add(JSONData.subscription(accountSubscriptions.next()));
     }
 
-    response.put("subscriptions", subscriptions);
+    response.put(SUBSCRIPTIONS_RESPONSE, subscriptions);
     return response;
   }
 }
