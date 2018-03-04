@@ -231,6 +231,19 @@ public class AccountServiceImpl implements AccountService {
     listeners.notify(account, Event.UNCONFIRMED_BALANCE);
   }
 
+  @Override
+  public void addToBalanceAndUnconfirmedBalanceNQT(Account account, long amountNQT) {
+    if (amountNQT == 0) {
+      return;
+    }
+    account.setBalanceNQT(Convert.safeAdd(account.getBalanceNQT(), amountNQT));
+    account.setUnconfirmedBalanceNQT(Convert.safeAdd(account.getUnconfirmedBalanceNQT(), amountNQT));
+    account.checkBalance();
+    accountTable.insert(account);
+    listeners.notify(account, Event.BALANCE);
+    listeners.notify(account, Event.UNCONFIRMED_BALANCE);
+  }
+
   private void saveAccountAsset(AccountAsset accountAsset) {
     accountAsset.checkBalance();
     if (accountAsset.getQuantityQNT() > 0 || accountAsset.getUnconfirmedQuantityQNT() > 0) {

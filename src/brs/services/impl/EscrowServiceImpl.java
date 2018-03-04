@@ -229,17 +229,17 @@ public class EscrowServiceImpl implements EscrowService {
   public synchronized void doPayout(DecisionType result, Block block, int blockchainHeight, Escrow escrow) {
     switch(result) {
       case RELEASE:
-        accountService.getAccount(escrow.getRecipientId()).addToBalanceAndUnconfirmedBalanceNQT(escrow.getAmountNQT());
+        accountService.addToBalanceAndUnconfirmedBalanceNQT(accountService.getAccount(escrow.getRecipientId()), escrow.getAmountNQT());
         saveResultTransaction(block, escrow.getId(), escrow.getRecipientId(), escrow.getAmountNQT(), DecisionType.RELEASE, blockchainHeight);
         break;
       case REFUND:
-        accountService.getAccount(escrow.getSenderId()).addToBalanceAndUnconfirmedBalanceNQT(escrow.getAmountNQT());
+        accountService.addToBalanceAndUnconfirmedBalanceNQT(accountService.getAccount(escrow.getSenderId()), escrow.getAmountNQT());
         saveResultTransaction(block, escrow.getId(), escrow.getSenderId(), escrow.getAmountNQT(), DecisionType.REFUND, blockchainHeight);
         break;
       case SPLIT:
         Long halfAmountNQT = escrow.getAmountNQT() / 2;
-        accountService.getAccount(escrow.getRecipientId()).addToBalanceAndUnconfirmedBalanceNQT(halfAmountNQT);
-        accountService.getAccount(escrow.getSenderId()).addToBalanceAndUnconfirmedBalanceNQT(escrow.getAmountNQT() - halfAmountNQT);
+        accountService.addToBalanceAndUnconfirmedBalanceNQT(accountService.getAccount(escrow.getRecipientId()), halfAmountNQT);
+        accountService.addToBalanceAndUnconfirmedBalanceNQT(accountService.getAccount(escrow.getSenderId()), escrow.getAmountNQT() - halfAmountNQT);
         saveResultTransaction(block, escrow.getId(), escrow.getRecipientId(), halfAmountNQT, DecisionType.SPLIT, blockchainHeight);
         saveResultTransaction(block, escrow.getId(), escrow.getSenderId(), escrow.getAmountNQT() - halfAmountNQT, DecisionType.SPLIT, blockchainHeight);
         break;

@@ -343,18 +343,6 @@ public class Account {
     }
   }
 
-  public void addToBalanceAndUnconfirmedBalanceNQT(long amountNQT) {
-    if (amountNQT == 0) {
-      return;
-    }
-    this.balanceNQT = Convert.safeAdd(this.balanceNQT, amountNQT);
-    this.unconfirmedBalanceNQT = Convert.safeAdd(this.unconfirmedBalanceNQT, amountNQT);
-    checkBalance(this.id, this.balanceNQT, this.unconfirmedBalanceNQT);
-    accountTable().insert(this);
-    listeners.notify(this, Event.BALANCE);
-    listeners.notify(this, Event.UNCONFIRMED_BALANCE);
-  }
-
   private static void checkBalance(long accountId, long confirmed, long unconfirmed) {
     if (confirmed < 0) {
       throw new DoubleSpendingException("Negative balance or quantity for account " + Convert.toUnsignedLong(accountId));

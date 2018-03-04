@@ -190,7 +190,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     long totalAmountNQT = Convert.safeAdd(subscription.getAmountNQT(), getFee());
 
     accountService.addToBalanceNQT(sender, -totalAmountNQT);
-    recipient.addToBalanceAndUnconfirmedBalanceNQT(subscription.getAmountNQT());
+    accountService.addToBalanceAndUnconfirmedBalanceNQT(recipient, subscription.getAmountNQT());
 
     Attachment.AbstractAttachment attachment = new Attachment.AdvancedPaymentSubscriptionPayment(subscription.getId(), blockchainHeight);
     Transaction.Builder builder = new Transaction.Builder((byte) 1,

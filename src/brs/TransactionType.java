@@ -256,7 +256,7 @@ public abstract class TransactionType {
       accountService.addToUnconfirmedBalanceNQT(senderAccount, Constants.UNCONFIRMED_POOL_DEPOSIT_NQT);
     }
     if (recipientAccount != null) {
-      recipientAccount.addToBalanceAndUnconfirmedBalanceNQT(transaction.getAmountNQT());
+      accountService.addToBalanceAndUnconfirmedBalanceNQT(recipientAccount, transaction.getAmountNQT());
     }
     logger.trace("applying transaction - id:" + transaction.getId() + ", type: " + transaction.getType());
     applyAttachment(transaction, senderAccount, recipientAccount);
@@ -1714,7 +1714,7 @@ public abstract class TransactionType {
           Long totalAmountNQT = Convert.safeAdd(attachment.getAmountNQT(), attachment.getTotalSigners() * Constants.ONE_BURST);
           accountService.addToBalanceNQT(senderAccount, -totalAmountNQT);
           Collection<Long> signers = attachment.getSigners();
-          signers.forEach(signer -> accountService.getOrAddAccount(signer).addToBalanceAndUnconfirmedBalanceNQT(Constants.ONE_BURST));
+          signers.forEach(signer -> accountService.addToBalanceAndUnconfirmedBalanceNQT(accountService.getOrAddAccount(signer), Constants.ONE_BURST));
           escrowService.addEscrowTransaction(senderAccount,
                                       recipientAccount,
                                       transaction.getId(),

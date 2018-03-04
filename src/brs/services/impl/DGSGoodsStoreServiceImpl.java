@@ -207,7 +207,7 @@ public class DGSGoodsStoreServiceImpl implements DGSGoodsStoreService {
     Account seller = accountService.getAccount(sellerId);
     accountService.addToBalanceNQT(seller, -refundNQT);
     Account buyer = accountService.getAccount(purchase.getBuyerId());
-    buyer.addToBalanceAndUnconfirmedBalanceNQT(refundNQT);
+    accountService.addToBalanceAndUnconfirmedBalanceNQT(buyer, refundNQT);
     if (encryptedMessage != null) {
       purchase.setRefundNote(encryptedMessage.getEncryptedData());
       purchaseTable.insert(purchase);
@@ -246,7 +246,7 @@ public class DGSGoodsStoreServiceImpl implements DGSGoodsStoreService {
     accountService.addToBalanceNQT(buyer, Convert.safeSubtract(attachment.getDiscountNQT(), totalWithoutDiscount));
     accountService.addToUnconfirmedBalanceNQT(buyer, attachment.getDiscountNQT());
     Account seller = accountService.getAccount(transaction.getSenderId());
-    seller.addToBalanceAndUnconfirmedBalanceNQT(Convert.safeSubtract(totalWithoutDiscount, attachment.getDiscountNQT()));
+    accountService.addToBalanceAndUnconfirmedBalanceNQT(seller, Convert.safeSubtract(totalWithoutDiscount, attachment.getDiscountNQT()));
     purchase.setEncryptedGoods(attachment.getGoods(), attachment.goodsIsText());
     purchaseTable.insert(purchase);
     purchase.setDiscountNQT(attachment.getDiscountNQT());

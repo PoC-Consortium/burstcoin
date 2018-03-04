@@ -47,4 +47,6 @@ public interface AccountService {
   void addToBalanceNQT(Account account, long amountNQT);
 
   void addToUnconfirmedBalanceNQT(Account account, long amountNQT);
+
+  void addToBalanceAndUnconfirmedBalanceNQT(Account account, long amountNQT);
 }
