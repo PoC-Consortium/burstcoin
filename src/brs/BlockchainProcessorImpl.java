@@ -794,8 +794,8 @@ public final class BlockchainProcessorImpl implements BlockchainProcessor {
       bf.order(ByteOrder.LITTLE_ENDIAN);
       byte[] byteATs = bf.array();
       Block genesisBlock = new Block(-1, 0, 0, 0, 0, transactions.size() * 128,
-          digest.digest(), Genesis.CREATOR_PUBLIC_KEY, new byte[32],
-          Genesis.GENESIS_BLOCK_SIGNATURE, null, transactions, 0, byteATs);
+          digest.digest(), Genesis.getCreatorPublicKey(), new byte[32],
+          Genesis.getGenesisBlockSignature(), null, transactions, 0, byteATs);
       blockService.setPrevious(genesisBlock, null);
       addBlock(genesisBlock);
     } catch (BurstException.ValidationException e) {

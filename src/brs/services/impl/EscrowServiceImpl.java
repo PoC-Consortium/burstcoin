@@ -256,7 +256,7 @@ public class EscrowServiceImpl implements EscrowService {
   @Override
   public void saveResultTransaction(Block block, Long escrowId, Long recipientId, Long amountNQT, DecisionType decision, int blockchainHeight) {
     Attachment.AbstractAttachment attachment = new Attachment.AdvancedPaymentEscrowResult(escrowId, decision, blockchainHeight);
-    Transaction.Builder builder = new Transaction.Builder((byte)1, Genesis.CREATOR_PUBLIC_KEY,
+    Transaction.Builder builder = new Transaction.Builder((byte)1, Genesis.getCreatorPublicKey(),
         amountNQT, 0L, block.getTimestamp(), (short)1440, attachment);
     builder.senderId(0L)
         .recipientId(recipientId)
