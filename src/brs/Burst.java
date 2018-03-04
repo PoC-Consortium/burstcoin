@@ -246,7 +246,7 @@ public final class Burst {
           tradeService, escrowService, digitalGoodsStoreService, assetAccountService,
           subscriptionService, atService, timeService, economicClustering, propertyService, threadPool, transactionService, blockService, generator, apiTransactionManager);
 
-      DebugTrace.init(propertyService, blockchainProcessor, tradeService, orderService, digitalGoodsStoreService);
+      DebugTrace.init(propertyService, blockchainProcessor, accountService, tradeService, orderService, digitalGoodsStoreService);
 
       int timeMultiplier = (Constants.isTestnet && Constants.isOffline) ? Math.max(propertyService.getInt(Props.DEV_TIMEWARP), 1) : 1;
 

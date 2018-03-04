@@ -2,6 +2,7 @@ package brs.services.impl;
 
 import brs.Account;
 import brs.Account.AccountAsset;
+import brs.Account.Event;
 import brs.Account.RewardRecipientAssignment;
 import brs.AssetTransfer;
 import brs.crypto.Crypto;
@@ -12,6 +13,8 @@ import brs.db.store.AccountStore;
 import brs.db.store.AssetTransferStore;
 import brs.services.AccountService;
 import brs.util.Convert;
+import brs.util.Listener;
+import brs.util.Listeners;
 import java.util.Arrays;
 
 public class AccountServiceImpl implements AccountService {
@@ -22,11 +25,28 @@ public class AccountServiceImpl implements AccountService {
 
   private final AssetTransferStore assetTransferStore;
 
+  private final Listeners<Account, Event> listeners = new Listeners<>();
+  private final Listeners<AccountAsset, Event> assetListeners = new Listeners<>();
+
   public AccountServiceImpl(AccountStore accountStore, AssetTransferStore assetTransferStore) {
     this.accountStore = accountStore;
     this.accountTable = accountStore.getAccountTable();
     this.accountBurstKeyFactory = accountStore.getAccountKeyFactory();
     this.assetTransferStore = assetTransferStore;
+  }
+
+  @Override
+  public boolean addListener(Listener<Account> listener, Event eventType) {
+    //Temporary..
+    Account.addListener(listener, eventType);
+    return listeners.addListener(listener, eventType);
+  }
+
+  @Override
+  public boolean addAssetListener(Listener<AccountAsset> listener, Event eventType) {
+    //Temporary..
+    Account.addAssetListener(listener, eventType);
+    return assetListeners.addListener(listener, eventType);
   }
 
   @Override

@@ -273,6 +273,14 @@ public final class Peers {
         threadPool.scheduleThread("GetMorePeers", Peers.getMorePeersThread, 5);
       }
     }
+
+    accountService.addListener(account -> {
+      for (PeerImpl peer : Peers.peers.values()) {
+        if (peer.getHallmark() != null && peer.getHallmark().getAccountId() == account.getId()) {
+          Peers.listeners.notify(peer, Event.WEIGHT);
+        }
+      }
+    }, Account.Event.BALANCE);
   }
 
   private static class Init {
@@ -574,16 +582,6 @@ public final class Peers {
       }
 
     };
-
-  static {
-    Account.addListener(account -> {
-      for (PeerImpl peer : Peers.peers.values()) {
-        if (peer.getHallmark() != null && peer.getHallmark().getAccountId() == account.getId()) {
-          Peers.listeners.notify(peer, Event.WEIGHT);
-        }
-      }
-    }, Account.Event.BALANCE);
-  }
 
   public static void shutdown(ThreadPool threadPool) {
     if (Init.peerServer != null) {

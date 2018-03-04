@@ -156,16 +156,8 @@ public class Account {
     return listeners.addListener(listener, eventType);
   }
 
-  public static boolean removeListener(Listener<Account> listener, Event eventType) {
-    return listeners.removeListener(listener, eventType);
-  }
-
   public static boolean addAssetListener(Listener<AccountAsset> listener, Event eventType) {
     return assetListeners.addListener(listener, eventType);
-  }
-
-  public static boolean removeAssetListener(Listener<AccountAsset> listener, Event eventType) {
-    return assetListeners.removeListener(listener, eventType);
   }
 
   public static Account getAccount(long id) {
