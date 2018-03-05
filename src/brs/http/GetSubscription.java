@@ -1,6 +1,5 @@
 package brs.http;
 
-import brs.BurstException;
 import brs.Subscription;
 import brs.services.SubscriptionService;
 import brs.util.Convert;

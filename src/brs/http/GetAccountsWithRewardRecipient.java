@@ -1,5 +1,6 @@
 package brs.http;
 
+import static brs.http.common.Parameters.ACCOUNTS_RESPONSE;
 import static brs.http.common.Parameters.ACCOUNT_PARAMETER;
 
 import brs.Account;
@@ -36,13 +37,13 @@ public final class GetAccountsWithRewardRecipient extends APIServlet.APIRequestH
     BurstIterator<Account.RewardRecipientAssignment> assignments = accountService.getAccountsWithRewardRecipient(targetAccount.getId());
     while(assignments.hasNext()) {
       Account.RewardRecipientAssignment assignment = assignments.next();
-      accounts.add(Convert.toUnsignedLong(assignment.accountId));
+      accounts.add(Convert.toUnsignedLong(assignment.getAccountId()));
     }
     if(accountService.getRewardRecipientAssignment(targetAccount) == null) {
       accounts.add(Convert.toUnsignedLong(targetAccount.getId()));
     }
 		
-    response.put("accounts", accounts);
+    response.put(ACCOUNTS_RESPONSE, accounts);
 		
     return response;
   }
