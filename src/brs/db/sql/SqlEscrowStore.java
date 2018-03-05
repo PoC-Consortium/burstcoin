@@ -11,9 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.concurrent.ConcurrentSkipListSet;
 import org.jooq.DSLContext;
-import org.jooq.Condition;
 import org.jooq.Field;
 
 import static brs.schema.Tables.ESCROW;

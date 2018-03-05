@@ -3,15 +3,10 @@ package brs.db.sql;
 import java.util.Arrays;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import java.util.ArrayList;
-import java.sql.SQLException;
 import org.jooq.DSLContext;
 import org.jooq.Record;
 import org.jooq.impl.TableImpl;
 import org.jooq.Field;
-import org.jooq.Condition;
-import org.jooq.UpdateQuery;
-import org.jooq.InsertQuery;
 import org.jooq.SelectQuery;
 
 public final class DbUtils {

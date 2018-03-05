@@ -8,7 +8,6 @@ import static brs.http.common.ResultFields.ERROR_RESPONSE;
 import static brs.http.common.ResultFields.FULL_HASH_RESPONSE;
 import static brs.http.common.ResultFields.TRANSACTION_RESPONSE;
 
-import brs.Burst;
 import brs.BurstException;
 import brs.Transaction;
 import brs.TransactionProcessor;

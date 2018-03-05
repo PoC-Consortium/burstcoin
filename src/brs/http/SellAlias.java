@@ -1,9 +1,7 @@
 package brs.http;
 
 import brs.*;
-import brs.services.AccountService;
 import brs.services.ParameterService;
-import brs.services.TransactionService;
 import brs.util.Convert;
 import org.json.simple.JSONStreamAware;
 
@@ -14,7 +12,6 @@ import static brs.http.common.Parameters.ALIAS_NAME_PARAMETER;
 import static brs.http.common.Parameters.ALIAS_PARAMETER;
 import static brs.http.common.Parameters.PRICE_NQT_PARAMETER;
 import static brs.http.common.Parameters.RECIPIENT_PARAMETER;
-
 
 public final class SellAlias extends CreateTransaction {
 

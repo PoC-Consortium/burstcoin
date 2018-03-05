@@ -6,15 +6,11 @@ import static brs.http.common.ResultFields.ERROR_DESCRIPTION_RESPONSE;
 
 import brs.Account;
 import brs.Attachment;
-import brs.Block;
 import brs.Blockchain;
 import brs.BurstException;
 import brs.Subscription;
-import brs.TransactionProcessor;
-import brs.services.AccountService;
 import brs.services.ParameterService;
 import brs.services.SubscriptionService;
-import brs.services.TransactionService;
 import brs.util.Convert;
 import javax.servlet.http.HttpServletRequest;
 import org.json.simple.JSONObject;

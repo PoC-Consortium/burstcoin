@@ -8,6 +8,7 @@ import static brs.http.common.Parameters.LAST_INDEX_PARAMETER;
 import static brs.http.common.ResultFields.TRADES_RESPONSE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -152,6 +153,11 @@ public class GetTradesTest extends AbstractUnitTest {
 
     final JSONObject tradeResult = (JSONObject) trades.get(0);
     assertNotNull(tradeResult);
+  }
+
+  @Test
+  public void startDbTransaction() {
+    assertTrue(t.startDbTransaction());
   }
 
 }

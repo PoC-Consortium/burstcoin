@@ -4,12 +4,8 @@ import static brs.http.common.Parameters.RECIPIENT_PARAMETER;
 
 import brs.Account;
 import brs.Attachment;
-import brs.Blockchain;
 import brs.BurstException;
-import brs.TransactionProcessor;
-import brs.services.AccountService;
 import brs.services.ParameterService;
-import brs.services.TransactionService;
 import org.json.simple.JSONStreamAware;
 
 import javax.servlet.http.HttpServletRequest;

@@ -5,14 +5,6 @@ import brs.db.BlockDb;
 import brs.db.PeerDb;
 import brs.db.store.Dbs;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
-
-import brs.db.sql.SqlBlockDb;
-import brs.db.sql.SqlTransactionDb;
-import brs.db.sql.SqlPeerDb;
-
 public class SqlDbs implements Dbs {
 
   private final BlockDb blockDb;

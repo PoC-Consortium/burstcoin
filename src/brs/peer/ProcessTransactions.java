@@ -2,7 +2,6 @@ package brs.peer;
 
 import brs.BurstException;
 import brs.TransactionProcessor;
-import brs.TransactionProcessorImpl;
 import brs.util.JSON;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONStreamAware;

@@ -1,7 +1,6 @@
 package brs.http;
 
 import brs.Escrow;
-import brs.BurstException;
 import brs.services.EscrowService;
 import brs.util.Convert;
 import org.json.simple.JSONObject;
