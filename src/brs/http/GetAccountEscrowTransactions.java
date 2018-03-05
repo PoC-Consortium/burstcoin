@@ -1,6 +1,7 @@
 package brs.http;
 
 import static brs.http.common.Parameters.ACCOUNT_PARAMETER;
+import static brs.http.common.Parameters.ESCROWS_RESPONSE;
 
 import brs.Account;
 import brs.BurstException;
@@ -39,7 +40,7 @@ public final class GetAccountEscrowTransactions extends APIServlet.APIRequestHan
       escrows.add(JSONData.escrowTransaction(escrow));
     }
 
-    response.put("escrows", escrows);
+    response.put(ESCROWS_RESPONSE, escrows);
     return response;
   }
 }

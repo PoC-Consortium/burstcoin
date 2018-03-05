@@ -1,6 +1,5 @@
 package brs.statistics;
 
-import brs.db.cache.StatisticsCache;
 import brs.services.TimeService;
 import java.util.HashMap;
 import java.util.Map;

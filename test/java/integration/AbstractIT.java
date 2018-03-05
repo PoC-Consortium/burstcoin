@@ -4,6 +4,7 @@ import static org.powermock.api.mockito.PowerMockito.mockStatic;
 
 import brs.Burst;
 import brs.common.Props;
+import brs.common.TestInfrastructure;
 import brs.peer.Peers;
 import java.util.Properties;
 import org.junit.Before;
@@ -27,7 +28,7 @@ public abstract class AbstractIT {
     final Properties props = new Properties();
 
     props.setProperty(Props.DEV_OFFLINE, "true");
-    props.setProperty(Props.DB_URL, "jdbc:h2:mem:test;");
+    props.setProperty(Props.DB_URL, TestInfrastructure.IN_MEMORY_DB_URL);
     props.setProperty(Props.BRS_MAX_ROLLBACK, "1440");
     props.setProperty(Props.DB_CONNECTIONS, "1");
 

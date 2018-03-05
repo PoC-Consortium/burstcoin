@@ -1,6 +1,9 @@
 package brs.http;
 
 import static brs.http.common.Parameters.TIMESTAMP_PARAMETER;
+import static brs.http.common.ResultFields.EC_BLOCK_HEIGHT_RESPONSE;
+import static brs.http.common.ResultFields.EC_BLOCK_ID_RESPONSE;
+import static brs.http.common.ResultFields.TIMESTAMP_RESPONSE;
 
 import brs.Block;
 import brs.Blockchain;
@@ -36,9 +39,9 @@ public final class GetECBlock extends APIServlet.APIRequestHandler {
     }
     Block ecBlock = economicClustering.getECBlock(timestamp);
     JSONObject response = new JSONObject();
-    response.put("ecBlockId", ecBlock.getStringId());
-    response.put("ecBlockHeight", ecBlock.getHeight());
-    response.put("timestamp", timestamp);
+    response.put(EC_BLOCK_ID_RESPONSE, ecBlock.getStringId());
+    response.put(EC_BLOCK_HEIGHT_RESPONSE, ecBlock.getHeight());
+    response.put(TIMESTAMP_RESPONSE, timestamp);
     return response;
   }
 

@@ -117,6 +117,7 @@ public class Parameters {
   public static final String ESCROW_ID_PARAMETER = "escrowId";
   public static final String SUBSCRIPTION_ID_PARAMETER = "subscriptionId";
   public static final String SUBSCRIPTIONS_RESPONSE = "subscriptions";
+  public static final String ESCROWS_RESPONSE = "escrows";
 
   public static boolean isFalse(String text) {
     return "false".equalsIgnoreCase(text);
