@@ -35,8 +35,8 @@
     <kryo.version>4.0.1</kryo.version>
     <commons-lang.version>2.6</commons-lang.version>
     <junit.version>4.11</junit.version>
-    <mockito.version>1.10.19</mockito.version>
-    <powermock.version>1.6.4</powermock.version>
+    <mockito.version>2.15.0</mockito.version>
+    <powermock.version>2.0.0-beta.5</powermock.version>
     <hsqldb.version>2.4.0</hsqldb.version>
     <jacoco.version>0.7.9</jacoco.version>
     <jooq.version>3.10.4</jooq.version>
@@ -180,7 +180,7 @@
 
     <dependency>
       <groupId>org.mockito</groupId>
-      <artifactId>mockito-all</artifactId>
+      <artifactId>mockito-core</artifactId>
       <version>${mockito.version}</version>
       <scope>test</scope>
     </dependency>
@@ -194,7 +194,7 @@
 
     <dependency>
       <groupId>org.powermock</groupId>
-      <artifactId>powermock-api-mockito</artifactId>
+      <artifactId>powermock-api-mockito2</artifactId>
       <version>${powermock.version}</version>
       <scope>test</scope>
     </dependency>
