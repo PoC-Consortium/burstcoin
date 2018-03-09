@@ -25,9 +25,12 @@ public final class DebugTrace {
   static OrderService orderService;
   static DGSGoodsStoreService dgsGoodsStoreService;
 
-  static void init(PropertyService propertyService, BlockchainProcessor blockchainProcessor, AccountService accountService, TradeService tradeService, OrderService orderService, DGSGoodsStoreService dgsGoodsStoreService) {
-    QUOTE = propertyService.getString(Props.BRS_DEBUG_TRACE_QUOTE, "");
-    SEPARATOR = propertyService.getString(Props.BRS_DEBUG_TRACE_SEPARATOR, "\t");
+  static void init(PropertyService propertyService, BlockchainProcessor blockchainProcessor,
+                   AccountService accountService, TradeService tradeService,
+                   OrderService orderService, DGSGoodsStoreService dgsGoodsStoreService) {
+
+    QUOTE           = propertyService.getString(Props.BRS_DEBUG_TRACE_QUOTE, "\"");
+    SEPARATOR       = propertyService.getString(Props.BRS_DEBUG_TRACE_SEPARATOR, "\t");
     LOG_UNCONFIRMED = propertyService.getBoolean(Props.BRS_DEBUG_LOG_CONFIRMED);
 
     DebugTrace.orderService = orderService;

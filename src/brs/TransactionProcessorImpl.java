@@ -69,11 +69,11 @@ public class TransactionProcessorImpl implements TransactionProcessor {
     this.accountService = accountService;
     this.transactionService = transactionService;
 
-    this.enableTransactionRebroadcasting = propertyService.getBoolean(Props.BRS_ENABLE_TRANSACTION_REBROADCASTING);
+    this.enableTransactionRebroadcasting = propertyService.getBoolean(Props.P2P_ENABLE_TX_REBROADCAST);
     this.testUnconfirmedTransactions = propertyService.getBoolean(Props.BRS_TEST_UNCONFIRMED_TRANSACTIONS);
 
-    this.rebroadcastAfter = propertyService.getInt(Props.BRS_REBROADCAST_AFTER, 4);
-    this.rebroadcastEvery = propertyService.getInt(Props.REBROADCAST_EVERY, 2);
+    this.rebroadcastAfter = propertyService.getInt(Props.P2P_REBROADCAST_AFTER, 4);
+    this.rebroadcastEvery = propertyService.getInt(Props.P2P_REBROADCAST_EVERY, 2);
 
     threadPool.scheduleThread("ProcessTransactions", processTransactionsThread, 5);
     threadPool.scheduleThread("RemoveUnconfirmedTransactions", removeUnconfirmedTransactionsThread, 60);

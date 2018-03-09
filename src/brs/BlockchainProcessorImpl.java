@@ -127,10 +127,10 @@ public final class BlockchainProcessorImpl implements BlockchainProcessor {
     oclVerify = propertyService.getBoolean(Props.GPU_ACCELERATION); // use GPU acceleration ?
     oclUnverifiedQueue = propertyService.getInt(Props.GPU_UNVERIFIED_QUEUE, 1000);
 
-    trimDerivedTables = propertyService.getBoolean(Props.BRS_TRIM_DERIVED_TABLES);
+    trimDerivedTables = propertyService.getBoolean(Props.DB_TRIM_DERIVED_TABLES);
 
-    forceScan = propertyService.getBoolean(Props.BRS_FORCE_SCAN);
-    validateAtScan = propertyService.getBoolean(Props.BRS_FORCE_VALIDATE);
+    forceScan = propertyService.getBoolean(Props.DEV_FORCE_SCAN);
+    validateAtScan = propertyService.getBoolean(Props.DEV_FORCE_VALIDATE);
 
     blockListeners.addListener(block -> {
       if (block.getHeight() % 5000 == 0) {

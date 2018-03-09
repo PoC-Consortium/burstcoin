@@ -7,36 +7,13 @@ import brs.EconomicClustering;
 import brs.Generator;
 import brs.TransactionProcessor;
 import brs.common.Props;
-import brs.services.ATService;
-import brs.services.AccountService;
-import brs.services.AliasService;
-import brs.services.AssetAccountService;
-import brs.services.AssetService;
-import brs.services.AssetTransferService;
-import brs.services.BlockService;
-import brs.services.DGSGoodsStoreService;
-import brs.services.EscrowService;
-import brs.services.OrderService;
-import brs.services.ParameterService;
-import brs.services.PropertyService;
-import brs.services.SubscriptionService;
-import brs.services.TimeService;
-import brs.services.TradeService;
-import brs.services.TransactionService;
+import brs.services.*;
 import brs.util.Subnet;
 import brs.util.ThreadPool;
 import org.eclipse.jetty.server.*;
-import org.eclipse.jetty.server.handler.ContextHandler;
-import org.eclipse.jetty.server.handler.DefaultHandler;
-import org.eclipse.jetty.server.handler.HandlerList;
-import org.eclipse.jetty.server.handler.ResourceHandler;
-import org.eclipse.jetty.servlet.DefaultServlet;
-import org.eclipse.jetty.servlet.FilterHolder;
-import org.eclipse.jetty.servlet.ServletContextHandler;
-import org.eclipse.jetty.servlet.ServletHolder;
-import org.eclipse.jetty.servlets.CrossOriginFilter;
-import org.eclipse.jetty.servlets.DoSFilter;
-import org.eclipse.jetty.servlets.GzipFilter;
+import org.eclipse.jetty.server.handler.*;
+import org.eclipse.jetty.servlet.*;
+import org.eclipse.jetty.servlets.*;
 import org.eclipse.jetty.util.ssl.SslContextFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,13 +32,18 @@ public final class API {
   private static final int TESTNET_API_PORT = 6876;
   private static Server apiServer;
 
-  public API(TransactionProcessor transactionProcessor, Blockchain blockchain, BlockchainProcessor blockchainProcessor, ParameterService parameterService,
-      AccountService accountService, AliasService aliasService, OrderService orderService, AssetService assetService, AssetTransferService assetTransferService,
-      TradeService tradeService, EscrowService escrowService, DGSGoodsStoreService digitalGoodsStoreService, AssetAccountService assetAccountService,
-      SubscriptionService subscriptionService, ATService atService, TimeService timeService, EconomicClustering economicClustering, PropertyService propertyService,
-      ThreadPool threadPool, TransactionService transactionService, BlockService blockService, Generator generator, APITransactionManager apiTransactionManager) {
+  public API(TransactionProcessor transactionProcessor,
+             Blockchain blockchain, BlockchainProcessor blockchainProcessor, ParameterService parameterService,
+             AccountService accountService, AliasService aliasService, OrderService orderService,
+             AssetService assetService, AssetTransferService assetTransferService,
+             TradeService tradeService, EscrowService escrowService, DGSGoodsStoreService digitalGoodsStoreService,
+             AssetAccountService assetAccountService, SubscriptionService subscriptionService, ATService atService,
+             TimeService timeService, EconomicClustering economicClustering, PropertyService propertyService,
+             ThreadPool threadPool, TransactionService transactionService, BlockService blockService,
+             Generator generator, APITransactionManager apiTransactionManager) {
+
     enableDebugAPI = propertyService.getBoolean(Props.API_DEBUG);
-    List<String> allowedBotHostsList = propertyService.getStringList(Props.BRS_ALLOWED_BOT_HOSTS);
+    List<String> allowedBotHostsList = propertyService.getStringList(Props.API_ALLOWED);
     if (!allowedBotHostsList.contains("*")) {
       // Temp hashset to store allowed subnets
       Set<Subnet> allowedSubnets = new HashSet<>();
@@ -69,19 +51,21 @@ public final class API {
       for (String allowedHost : allowedBotHostsList) {
         try {
           allowedSubnets.add(Subnet.createInstance(allowedHost));
-        } catch (UnknownHostException e) {
-          logger.error("Error adding allowed bot host '" + allowedHost + "'", e);
+        }
+        catch (UnknownHostException e) {
+          logger.error("Error adding allowed host/subnet '" + allowedHost + "'", e);
         }
       }
       allowedBotHosts = Collections.unmodifiableSet(allowedSubnets);
-    } else {
+    }
+    else {
       allowedBotHosts = null;
     }
 
     boolean enableAPIServer = propertyService.getBoolean(Props.API_SERVER);
     if (enableAPIServer) {
-      final int port = Constants.isTestnet ? TESTNET_API_PORT : propertyService.getInt(Props.API_SERVER_PORT);
-      final String host = propertyService.getString(Props.API_SERVER_HOST);
+      final String host = propertyService.getString(Props.API_LISTEN);
+      final int    port = Constants.isTestnet ? TESTNET_API_PORT : propertyService.getInt(Props.API_PORT);
       apiServer = new Server();
       ServerConnector connector;
 
@@ -95,20 +79,29 @@ public final class API {
         SslContextFactory sslContextFactory = new SslContextFactory();
         sslContextFactory.setKeyStorePath(propertyService.getString(Props.API_SSL_KEY_STORE_PATH));
         sslContextFactory.setKeyStorePassword(propertyService.getString(Props.API_SSL_KEY_STORE_PASSWORD));
-        sslContextFactory.setExcludeCipherSuites("SSL_RSA_WITH_DES_CBC_SHA", "SSL_DHE_RSA_WITH_DES_CBC_SHA",
-                                                 "SSL_DHE_DSS_WITH_DES_CBC_SHA", "SSL_RSA_EXPORT_WITH_RC4_40_MD5", "SSL_RSA_EXPORT_WITH_DES40_CBC_SHA",
-                                                 "SSL_DHE_RSA_EXPORT_WITH_DES40_CBC_SHA", "SSL_DHE_DSS_EXPORT_WITH_DES40_CBC_SHA");
+        sslContextFactory.setExcludeCipherSuites("SSL_RSA_WITH_DES_CBC_SHA",
+                                                 "SSL_DHE_RSA_WITH_DES_CBC_SHA",
+                                                 "SSL_DHE_DSS_WITH_DES_CBC_SHA",
+                                                 "SSL_RSA_EXPORT_WITH_RC4_40_MD5",
+                                                 "SSL_RSA_EXPORT_WITH_DES40_CBC_SHA",
+                                                 "SSL_DHE_RSA_EXPORT_WITH_DES40_CBC_SHA",
+                                                 "SSL_DHE_DSS_EXPORT_WITH_DES40_CBC_SHA");
         sslContextFactory.setExcludeProtocols("SSLv3");
         connector = new ServerConnector(apiServer, new SslConnectionFactory(sslContextFactory, "http/1.1"),
                                         new HttpConnectionFactory(https_config));
-      } else {
+      }
+      else {
         connector = new ServerConnector(apiServer);
       }
 
-      connector.setPort(port);
       connector.setHost(host);
+      connector.setPort(port);
       connector.setIdleTimeout(propertyService.getInt(Props.API_SERVER_IDLE_TIMEOUT));
+      // defaultProtocol
+      // stopTimeout
+      // acceptQueueSize
       connector.setReuseAddress(true);
+      // soLingerTime
       apiServer.addConnector(connector);
 
       HandlerList apiHandlers = new HandlerList();
@@ -138,9 +131,9 @@ public final class API {
       }
 
       ServletHolder peerServletHolder = new ServletHolder(new APIServlet(transactionProcessor, blockchain, blockchainProcessor, parameterService,
-          accountService, aliasService, orderService, assetService, assetTransferService,
-          tradeService, escrowService, digitalGoodsStoreService, assetAccountService,
-          subscriptionService, atService, timeService, economicClustering, transactionService, blockService, generator, propertyService, apiTransactionManager));
+                                                                         accountService, aliasService, orderService, assetService, assetTransferService,
+                                                                         tradeService, escrowService, digitalGoodsStoreService, assetAccountService,
+                                                                         subscriptionService, atService, timeService, economicClustering, transactionService, blockService, generator, propertyService, apiTransactionManager));
       apiHandler.addServlet(peerServletHolder, "/burst");
 
       if (propertyService.getBoolean("JETTY.API.GzipFilter")) {

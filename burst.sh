@@ -2,7 +2,7 @@
 
 export FIREBIRD=$(dirname $0)/lib/firebird/$(getconf LONG_BIT)
 
-MY_MAVEN_VERSION=3.5.0
+MY_MAVEN_VERSION=3.5.2
 
 MY_SELF=$0
 MY_CMD=$1
@@ -32,7 +32,7 @@ function upgrade_conf () {
     if [ -r $BRS_CFG_NAME ]
     then
         BRS=$(<$BRS_CFG_NAME)    # read in the config file content
-        # P2P-related params
+        ### P2P-related params
         BRS="${BRS//nxt\.shareMyAddress/P2P.shareMyAddress}"
         BRS="${BRS//nxt\.myAddress/P2P.myAddress}"
         BRS="${BRS//nxt\.peerServerHost/P2P.Listen}"
@@ -50,8 +50,14 @@ function upgrade_conf () {
         BRS="${BRS//nxt\.sendToPeersLimit/P2P.TxResendThreshold}"
         BRS="${BRS//nxt\.usePeersDb/P2P.usePeersDb}"
         BRS="${BRS//nxt\.savePeers/P2P.savePeers}"
+        BRS="${BRS//nxt\.getMorePeers/P2P.getMorePeers}"
+        BRS="${BRS//nxt\.enableTransactionRebroadcasting/P2P.enableTxRebroadcast}"
+        BRS="${BRS//burst\.rebroadcastAfter/P2P.rebroadcastTxAfter}"
+        BRS="${BRS//burst\.rebroadcastEvery/P2P.rebroadcastTxEvery}"
+        BRS="${BRS//nxt\.enablePeerServerGZIPFilter/JETTY.P2P.GZIPFilter}"
 
-        # P2P Hallmarks
+        
+        ### P2P Hallmarks
         BRS="${BRS//nxt\.enableHallmarkProtection/P2P.HallmarkProtection}"
         BRS="${BRS//nxt\.myHallmark/P2P.myHallmark}"
         BRS="${BRS//nxt\.pushThreshold/P2P.HallmarkPush}"
@@ -59,13 +65,13 @@ function upgrade_conf () {
         BRS="${BRS///}"
         BRS="${BRS///}"
 
-        # JETTY pass-through params
+        ### JETTY pass-through params
         BRS="${BRS//nxt\.enablePeerServerDoSFilter/JETTY.P2P.DoSFilter}"
         BRS="${BRS//nxt\.peerServerDoSFilter.maxRequestsPerSec/JETTY.P2P.DoSFilter.maxRequestsPerSec}"
         BRS="${BRS//nxt\.peerServerDoSFilter.delayMs/JETTY.P2P.DoSFilter.delayMs}"
         BRS="${BRS//nxt\.peerServerDoSFilter.maxRequestMs/JETTY.P2P.DoSFilter.maxRequestMs}"
 
-        # DEVELOPMENT-related params (TestNet, Offline, Debug, Timewarp etc.)
+        ### DEVELOPMENT-related params (TestNet, Offline, Debug, Timewarp etc.)
         BRS="${BRS//nxt\.isTestnet/DEV.TestNet}"
         BRS="${BRS//nxt\.testnetPeers/DEV.TestNet.Peers}"
         BRS="${BRS//nxt\.isOffline/DEV.Offline}"
@@ -76,20 +82,44 @@ function upgrade_conf () {
         BRS="${BRS//nxt\.testDUsername/DEV.DB.Username}"
         BRS="${BRS//nxt\.testDbUsername/DEV.DB.Username}"
         BRS="${BRS//nxt\.testDbPassword/DEV.DB.Password}"
+        BRS="${BRS//nxt\.dumpPeersVersion/DEV.dumpPeersVersion}"
+        BRS="${BRS//nxt\.forceValidate/DEV.forceValidate}"
+        BRS="${BRS//nxt\.forceScan/DEV.forceScan}"
+        # Development/Logging/Debugging
+        BRS="${BRS//nxt\.debugTraceLog/brs.debugTraceLog}"
+        BRS="${BRS//nxt\.communicationLoggingMask/brs.communicationLoggingMask}"
+        BRS="${BRS//nxt\.debugTraceAccounts/brs.debugTraceAccounts}"
+        BRS="${BRS//nxt\.debugTraceSeparator/brs.debugTraceSeparator}"
+        BRS="${BRS//nxt\.debugTraceQuote/brs.debugTraceQuote}"
+        BRS="${BRS//nxt\.debugLogUnconfirmed/brs.debugLogUnconfirmed}"
 
+        
         # API-related params
-        BRS="${BRS//nxt\.enableAPIServer/}"
-        BRS="${BRS///}"
-        BRS="${BRS///}"
+        BRS="${BRS//nxt\.enableAPIServer/API.Server}"
+        BRS="${BRS//nxt\.enableDebugAPI/API.Debug}"
+        BRS="${BRS//nxt\.keyStorePath/API.SSL_keyStorePath}"
+        BRS="${BRS//nxt\.keyStorePassword/API.SSL_keyStorePassword}"
+        BRS="${BRS//nxt\.allowedBotHosts/API.allowed}"
+        BRS="${BRS//nxt\.apiServerHost/API.Listen}"
+        BRS="${BRS//nxt\.apiServerPort/API.Port}"
+        BRS="${BRS//nxt\.apiServerIdleTimeout/API.ServerIdleTimeout}"
+        BRS="${BRS//nxt\.apiSSL/API.SSL}"
+        BRS="${BRS//nxt\.apiServerEnforcePOST/API.ServerEnforcePOST}"
+        BRS="${BRS//nxt\.apiServerCORS/API.CrossOriginFilter}"
+        BRS="${BRS//nxt\.apiResourceBase/API.UI_Dir}"
+        BRS="${BRS//nxt\.javadocResourceBase/API.Doc_Dir}"
+
         
         # DB-related params
         BRS="${BRS//nxt\.dbUrl/DB.Url}"
         BRS="${BRS//nxt\.dbUsername/DB.Username}"
         BRS="${BRS//nxt\.dbPassword/DB.Password}"
         BRS="${BRS//nxt\.dbMaximumPoolSize/DB.Connections}"
-        BRS="${BRS///}"
-        BRS="${BRS///}"
-        BRS="${BRS///}"
+        # inconsistency/alias
+        BRS="${BRS//nxt\.maxDbConnections/DB.Connections}"
+        BRS="${BRS//nxt\.trimDerivedTables/DB.trimDerivedTables}"
+        BRS="${BRS//nxt\.maxRollback/DB.maxRollback}"
+        BRS="${BRS//nxt\.dbDefaultLockTimeout/DB.LockTimeout}"
         BRS="${BRS///}"
 
         # GPU-related params
@@ -99,8 +129,10 @@ function upgrade_conf () {
         BRS="${BRS//burst\.oclDevice/GPU.DeviceIdx}"
         BRS="${BRS//burst\.oclMemPercent/GPU.MemPercent}"
         BRS="${BRS//burst\.oclHashesPerEnqueue/GPU.HashesPerBatch}"
+
+        # CPU-related params
+        BRS="${BRS//Nxt\.cpuCores/CPU.NumCores}"
         
-        BRS="${BRS///}"
         echo "$BRS" > conf/brs-default.properties.test
     else
         echo "$BRS_CFG_NAME not present or not readable."

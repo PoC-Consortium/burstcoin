@@ -29,12 +29,12 @@ public abstract class AbstractIT {
 
     props.setProperty(Props.DEV_OFFLINE, "true");
     props.setProperty(Props.DB_URL, TestInfrastructure.IN_MEMORY_DB_URL);
-    props.setProperty(Props.BRS_MAX_ROLLBACK, "1440");
+    props.setProperty(Props.DB_MAX_ROLLBACK, "1440");
     props.setProperty(Props.DB_CONNECTIONS, "1");
 
     props.setProperty(Props.API_SERVER, "on");
-    props.setProperty(Props.API_SERVER_HOST, "127.0.0.1");
-    props.setProperty(Props.API_SERVER_PORT, "8125");
+    props.setProperty(Props.API_LISTEN, "127.0.0.1");
+    props.setProperty(Props.API_PORT,   "8125");
 
     return props;
   }

@@ -27,7 +27,7 @@ public final class Constants {
   public static final long MAX_BALANCE_NQT = MAX_BALANCE_BURST * ONE_BURST;
   public static final long INITIAL_BASE_TARGET = 18325193796L;
   public static final long MAX_BASE_TARGET = 18325193796L;
-  public static final int MAX_ROLLBACK = Burst.getPropertyService().getInt(Props.BRS_MAX_ROLLBACK);
+  public static final int MAX_ROLLBACK = Burst.getPropertyService().getInt(Props.DB_MAX_ROLLBACK);
 
   public static final int MAX_ALIAS_URI_LENGTH = 1000;
   public static final int MAX_ALIAS_LENGTH = 100;
