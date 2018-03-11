@@ -6,15 +6,14 @@ var BRS = (function(BRS, $, undefined) {
     var _currentSeller;
 
     BRS.getMarketplaceItemHTML = function(good) {
-	return "<div style='float:right;color: #999999;background:white;padding:5px;border:1px solid #ccc;border-radius:3px'>" +
-	    "<strong>" + $.t("seller") + "</strong>: <span><a href='#' data-user='" + BRS.getAccountFormatted(good, "seller") + "' class='user_info'>" + BRS.getAccountTitle(good, "seller") + "</a></span><br>" +
-	    "<strong>" + $.t("product_id") + "</strong>: &nbsp;<a href='#'' data-toggle='modal' data-target='#dgs_product_modal' data-goods='" + String(good.goods).escapeHTML() + "'>" + String(good.goods).escapeHTML() + "</a>" +
-	    "</div>" +
-	    "<h3 class='title'><a href='#' data-goods='" + String(good.goods).escapeHTML() + "' data-toggle='modal' data-target='#dgs_purchase_modal'>" + String(good.name).escapeHTML() + "</a></h3>" +
-	    "<div class='price'><strong>" + BRS.formatAmount(good.priceNQT) + " BURST</strong></div>" +
-	    "<div class='showmore'><div class='moreblock description'>" + String(good.description).escapeHTML().nl2br() + "</div></div>" +
-	    "<span class='quantity'><strong>" + $.t("quantity") + "</strong>: " + BRS.format(good.quantity) + "</span> <span class='tags'><strong>" + $.t("tags") + "</strong>: " + String(good.tags).escapeHTML() + "</span><hr />";
-    }
+		return "<tr>" +
+				   "<td><a href='#' data-goods='" + String(good.goods).escapeHTML() + "' data-toggle='modal' data-target='#dgs_purchase_modal'>" + String(good.name).escapeHTML() +"</a></td>" +
+				   "<td>" + BRS.formatAmount(good.priceNQT) + "</td>" + 
+				   "<td>" + BRS.format(good.quantity) + "</td>" +
+				   "<td><a href='#' data-user='" + BRS.getAccountFormatted(good, "seller") + "' class='user_info'>" + BRS.getAccountTitle(good, "seller") + "</a></td>" + 
+				   "<td><a href='#'' data-toggle='modal' data-target='#dgs_product_modal' data-goods='" + String(good.goods).escapeHTML() + "'>" + String(good.goods).escapeHTML() + "</a></td>" +
+				"</tr>";
+		}
 
     BRS.getMarketplacePurchaseHTML = function(purchase, showBuyer) {
 	var status, statusHTML, modal;
@@ -80,57 +79,85 @@ var BRS = (function(BRS, $, undefined) {
 	    "</div><hr />";
     }
 
-    BRS.pages.dgs_search = function(callback) {
-	var content = "";
+    BRS.pages.dgs_search = function() {
 
-	var seller = $.trim($(".dgs_search input[name=q]").val());
-
-	if (seller) {
-	    if (seller != _currentSeller) {
-		$("#dgs_search_contents").empty();
-		_currentSeller = seller;
-	    }
-
-	    $("#dgs_search_results").show();
-	    $("#dgs_search_center").hide();
-	    $("#dgs_search_top").show();
-
-	    BRS.sendRequest("getDGSGoods+", {
-		"seller": seller,
-		"firstIndex": BRS.pageNumber * BRS.itemsPerPage - BRS.itemsPerPage,
-		"lastIndex": BRS.pageNumber * BRS.itemsPerPage
-	    }, function(response) {
-		$("#dgs_search_contents").empty();
-
-		if (response.goods && response.goods.length) {
-		    if (response.goods.length > BRS.itemsPerPage) {
-			BRS.hasMorePages = true;
-			response.goods.pop();
-		    }
-
-		    var content = "";
-
-		    for (var i = 0; i < response.goods.length; i++) {
-			content += BRS.getMarketplaceItemHTML(response.goods[i]);
-		    }
+		var content = "<table class=\"table table-striped\" id=\"dgs_table\"><thead><tr><th data-i18n=\"dgs_table_product\" align=\"center\">Product</th><th data-i18n=\"dgs_table_price\" width=\"140px\">Price</th><th data-i18n=\"dgs_table_quantity\" width=\"1px\">Quantity</th><th data-i18n=\"dgs_table_seller\" width=\"250px\">Seller</th><th data-i18n=\"dgs_table_product_id\" width=\"150px\">Product ID</th></tr></thead><tbody>";
+		var seller = $.trim($(".dgs_search input[name=q]").val());
+	
+		if (seller) {
+	
+			if (seller != _currentSeller) {
+				$("#dgs_search_contents").empty();
+				_currentSeller = seller;
+			}
+	
+			$("#dgs_search_results").show();
+			$("#dgs_search_center").hide();
+			$("#dgs_search_top").show();
+	
+			BRS.sendRequest("getDGSGoods+", {
+			"seller": seller,
+			"firstIndex": BRS.pageNumber * BRS.itemsPerPage - BRS.itemsPerPage,
+			"lastIndex": BRS.pageNumber * BRS.itemsPerPage
+			}, function(response) {
+			$("#dgs_search_contents").empty();
+	
+			if (response.goods && response.goods.length) {
+				if (response.goods.length > BRS.itemsPerPage) {
+				BRS.hasMorePages = true;
+				response.goods.pop();
+				}
+	
+				for (var i = 0; i < response.goods.length; i++) {
+				content += BRS.getMarketplaceItemHTML(response.goods[i]);
+				}
+				content += "</tbody></table>";
+			}
+	
+			BRS.dataLoaded(content);
+			BRS.showMore();
+	
+			if (callback) {
+				callback();
+			}
+			});
+			
 		}
-
-		BRS.dataLoaded(content);
-		BRS.showMore();
-
-		if (callback) {
-		    callback();
+		else {
+	
+				$("#dgs_search_contents").empty();
+				$("#dgs_search_results").show();
+				$("#dgs_search_center").hide();
+				$("#dgs_search_top").show();
+		
+				BRS.sendRequest("getDGSGoods+", {
+				"seller": 0,
+				"firstIndex": BRS.pageNumber * BRS.itemsPerPage - BRS.itemsPerPage,
+				"lastIndex": BRS.pageNumber * BRS.itemsPerPage
+				}, function(response) {
+				$("#dgs_search_contents").empty();
+		
+				if (response.goods && response.goods.length) {
+					if (response.goods.length > BRS.itemsPerPage) {
+					BRS.hasMorePages = true;
+					response.goods.pop();
+					}
+		
+					for (var i = 0; i < response.goods.length; i++) {
+					content += BRS.getMarketplaceItemHTML(response.goods[i]);
+					}
+					content += "</tbody></table>";
+				}
+		
+				BRS.dataLoaded(content);
+				BRS.showMore();
+		
+				if (callback) {
+					callback();
+				}
+			});
 		}
-	    });
 	}
-        else {
-	    $("#dgs_search_center").show();
-	    $("#dgs_search_top").hide();
-	    $("#dgs_search_results").hide();
-	    $("#dgs_search_contents").empty();
-	    BRS.pageLoaded();
-	}
-    }
 
     BRS.pages.purchased_dgs = function() {
 	var content = "";
