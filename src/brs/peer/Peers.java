@@ -341,11 +341,13 @@ public final class Peers {
             String externalIPAddress = gateway.getExternalIPAddress();
             logger.info("Attempting to map {0}:{1} -> {2}:{3} on Gateway {0} ({1})",
                     externalIPAddress, port, localAddress, port, gateway.getModelName(), gateway.getModelDescription());
-            
-            if (!gateway.getSpecificPortMappingEntry(port, "TCP", new PortMappingEntry())) {
-              logger.info("Port was already mapped. Aborting test.");    
+
+            PortMappingEntry portMapping = new PortMappingEntry();
+            if (gateway.getSpecificPortMappingEntry(port, "TCP", portMapping)) {
+              logger.info("Port was already mapped. Aborting test.");
             }
             else {
+              logger.info("Sending port mapping request");
               if (gateway.addPortMapping(port, port, localAddress.getHostAddress(), "TCP", "burstcoin")) {
                 logger.info("UPNP Mapping successful");
               }
