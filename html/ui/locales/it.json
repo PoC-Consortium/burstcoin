@@ -907,5 +907,11 @@
     "status_account_id": "Your account ID is: <strong>__account_id__<\/strong>",
     "error_send_message": "An unknown error occured! Message may or may not be sent.",
     "seller_account_id": "Seller's Account ID",
-    "status_new_account_old": "Welcome to your new BURST account. Your account ID is <strong>__account_id__<\/strong>. You should fund it with some coins."
+    "status_new_account_old": "Welcome to your new BURST account. Your account ID is <strong>__account_id__<\/strong>. You should fund it with some coins.",
+    "dgs_table_product": "Product",
+    "dgs_table_price": "Price",
+    "dgs_table_description": "Description",
+    "dgs_table_quantity": "Quantity",
+    "dgs_table_seller": "Seller",
+    "dgs_table_product_id": "Product ID"
 }

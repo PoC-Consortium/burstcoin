@@ -110,24 +110,13 @@ public final class API {
       String apiResourceBase = propertyService.getString(Props.API_UI_DIR);
       if (apiResourceBase != null) {
         ServletHolder defaultServletHolder = new ServletHolder(new DefaultServlet());
-        defaultServletHolder.setInitParameter("dirAllowed", "false");
-        defaultServletHolder.setInitParameter("resourceBase", apiResourceBase);
+        defaultServletHolder.setInitParameter("resourceBase",    apiResourceBase);
+        defaultServletHolder.setInitParameter("dirAllowed",      "false");
         defaultServletHolder.setInitParameter("welcomeServlets", "true");
         defaultServletHolder.setInitParameter("redirectWelcome", "true");
         defaultServletHolder.setInitParameter("gzip", "true");
         apiHandler.addServlet(defaultServletHolder, "/*");
         apiHandler.setWelcomeFiles(new String[]{"index.html"});
-      }
-
-      String javadocResourceBase = propertyService.getString(Props.API_DOC_DIR);
-      if (javadocResourceBase != null) {
-        ContextHandler contextHandler  = new ContextHandler("/doc");
-        ResourceHandler docFileHandler = new ResourceHandler();
-        docFileHandler.setDirectoriesListed(false);
-        docFileHandler.setWelcomeFiles(new String[]{"index.html"});
-        docFileHandler.setResourceBase(javadocResourceBase);
-        contextHandler.setHandler(docFileHandler);
-        apiHandlers.addHandler(contextHandler);
       }
 
       ServletHolder peerServletHolder = new ServletHolder(new APIServlet(transactionProcessor, blockchain, blockchainProcessor, parameterService,

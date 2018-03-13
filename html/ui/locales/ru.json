@@ -907,5 +907,11 @@
     "status_account_id": "Ваш ID аккаунта: <strong>__account_id__<\/strong>",
     "error_send_message": "Неизвестная ошибка! Сообщение возможно не было отправлено.",
     "seller_account_id": "ID аккаунта продавца",
-    "status_new_account_old": "Добро пожаловать в Ваш новый аккаунт BURST. Ваш аккаунтt ID <strong>__account_id__<\/strong>. Нсколько монет у Вас уже есть."
+    "status_new_account_old": "Добро пожаловать в Ваш новый аккаунт BURST. Ваш аккаунтt ID <strong>__account_id__<\/strong>. Нсколько монет у Вас уже есть.",
+    "dgs_table_product": "Product",
+    "dgs_table_price": "Price",
+    "dgs_table_description": "Description",
+    "dgs_table_quantity": "Quantity",
+    "dgs_table_seller": "Seller",
+    "dgs_table_product_id": "Product ID"
 }

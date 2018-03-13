@@ -185,12 +185,14 @@ var BRS = (function(BRS, $, undefined) {
 	var url = BRS.server + "/burst?requestType=" + requestType;
 
 	if (type == "GET") {
-	    if (typeof data == "string") {
-		data += "&random=" + Math.random();
-	    }
-            else {
-		data.random = Math.random();
-	    }
+            // rico666: gives us lots (thousands) of connection refused messages in the UI
+            // has been there for ages, no clear function visible
+	    //   if (typeof data == "string") {
+	    //	data += "&random=" + Math.random();
+	    //    }
+            //    else {
+	    data.random = Math.random();
+	    //    }
 	}
 
 	var secretPhrase = "";

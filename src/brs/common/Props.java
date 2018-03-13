@@ -100,7 +100,6 @@ public class Props {
   public static final String API_LISTEN  = "API.Listen";
   public static final String API_PORT    = "API.Port";
 
-  public static final String API_DOC_DIR = "API.Doc_Dir";
   public static final String API_UI_DIR  = "API.UI_Dir";
   public static final String API_CROSS_ORIGIN_FILTER = "API.CrossOriginFilter";
   public static final String API_SSL_KEY_STORE_PATH     = "API.SSL_keyStorePath";

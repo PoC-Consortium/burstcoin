@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 public class PropertyServiceImpl implements PropertyService {
 
   private final Logger logger = LoggerFactory.getLogger(Burst.class);
-  private static final String LOG_UNDEF_NAME_DEFAULT = "{} undefined. Default: {}";
+  private static final String LOG_UNDEF_NAME_DEFAULT = "{} undefined. Default: >{}<";
 
   private final Properties properties;
 

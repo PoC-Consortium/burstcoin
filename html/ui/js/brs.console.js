@@ -18,7 +18,10 @@ var BRS = (function(BRS, $, undefined) {
 	    return;
 	}
 
-	url = url.replace(/&random=[\.\d]+/, "", url);
+        // rico666: see also brs.server.js (line ~ 188 ff)
+        // there it is added, here supposedly removed - but somehow doesn't get removed
+        // weird shit...
+	// url = url.replace(/&random=[\.\d]+/, "", url);
 
 	BRS.addToConsoleBody(url + " (" + type + ") " + new Date().toString(), "url");
 

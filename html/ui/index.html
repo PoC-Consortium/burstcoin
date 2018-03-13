@@ -239,10 +239,11 @@
               <div id="login_error" style="max-width:400px;min-width:400px;display:none">
                 <div class="callout callout-danger"></div>
               </div>
+              <form>
               <div class="lockscreen-item">
                 <div class="lockscreen-credentials">
                   <div class="input-group">
-                    <input type="password" class="form-control" id="login_password" name="login_password" placeholder="Your Passphrase" data-i18n="[placeholder]your_passphrase" autofocus />
+                    <input type="password" class="form-control" id="login_password" name="login_password" placeholder="Your Passphrase" data-i18n="[placeholder]your_passphrase" autocomplete="" autofocus />
                     <div class="input-group-btn">
                       <button class="btn btn-flat" onclick="BRS.login($('#login_password').val())"><i class="fa fa-arrow-right text-muted"></i></button>
                     </div>
@@ -253,6 +254,7 @@
               <div id="remember_password_container">
                 <input type="checkbox" name="remember_password" id="remember_password" value="1" /> <label for="remember_password" data-i18n="remember_passphrase_during_session">Remember passphrase on local computer</label>
               </div>
+              </form>
               <div id="registration_link">
                 <a href="#" onclick="BRS.registerAccount();" data-i18n="no_account_q_create_account">Don't have an account? Click here to create one!</a>
               </div>
@@ -273,11 +275,11 @@
                   <div class="callout callout-danger" data-i18n="[html]passphrase_warning"><strong>Attention</strong>: The passphrase is everything that stands between your account and the rest of the world. Do not use any meaningful sentence, especially any that appears in song or literature.<br /><br />Don't ever disclose your passphrase. If you lose it you lose access to your account! Write it on Paper!!</div>
                   <div class="form-group">
                     <label for="registration_password" class="col-sm-3 control-label" data-i18n="passphrase">Passphrase</label>
-                    <div class="col-sm-9"><input type="password" name="registration_password" class="form-control" id="registration_password" placeholder="" /></div>
+                    <div class="col-sm-9"><input type="password" name="registration_password" class="form-control" id="registration_password" placeholder="" autocomplete="" /></div>
                   </div>
                   <div class="form-group">
                     <label for="registration_password_repeat" class="col-sm-3 control-label" data-i18n="repeat">Repeat</label>
-                    <div class="col-sm-9"><input type="password" name="registration_password_repeat" class="form-control" id="registration_password_repeat" placeholder="" /></div>
+                    <div class="col-sm-9"><input type="password" name="registration_password_repeat" class="form-control" id="registration_password_repeat" placeholder="" autocomplete="" /></div>
                   </div>
                   <div style="text-align:right"><input type="submit" class="btn btn-primary btn-sm" value="Register" data-i18n="[value]register" />&nbsp;&nbsp;<button class="btn btn-sm btn-default" id="registration_cancel" onclick="BRS.showLoginOrWelcomeScreen();return false;" data-i18n="cancel">Cancel</button>
                   </div>
@@ -828,7 +830,7 @@
                       <div class="row">
                         <div class="col-xs-10 col-sm-10 col-md-10">
                           <div class="form-group">
-                            <input type="password" class="form-control secret_phrase" id="inline_message_password" name="inline_message_password" placeholder="Passphrase" data-i18n="[placeholder]passphrase" style="display:inline;width:35%">
+                            <input type="password" class="form-control secret_phrase" id="inline_message_password" name="inline_message_password" placeholder="Passphrase" data-i18n="[placeholder]passphrase" style="display:inline;width:35%" autocomplete="">
                             <label for="inline_message_encrypt" style="font-weight:normal;color:#666"><input type="checkbox" name="encrypt_message" id="inline_message_encrypt" value="1" checked="checked" /> <span data-i18n="encrypt_message">Encrypt Message</span></label>
                           </div>
                         </div>
@@ -1320,6 +1322,7 @@
             <p data-i18n="todo">Todo!</p>
           </section>
         </div>
+
         <div id="dgs_search_page" class="paginated page">
           <section class="content-header">
             <h1 data-i18n="search_marketplace">Search Marketplace</h1>
@@ -1338,21 +1341,24 @@
           <section class="content">
             <div style="text-align:center" id="dgs_search_center">
               <div style="margin:0 auto;width:auto;margin-top:150px;display:inline-block;border-top:2px solid rgba(0, 0, 0, 0.1);padding:12px" class="box">
-                <div class="box-body">
-                  <p style="text-align:center;" data-i18n="dgs_search_description">Enter the seller's Account ID below to view their store.</p>
-                  <form action="#" method="get" class="dgs_search sidebar-form" style="width:300px;margin:0;margin:0 auto;" autocomplete="off">
-                    <div class="input-group">
-                      <input type="text" name="q" class="form-control" placeholder="Seller's Account ID" data-i18n="[placeholder]seller_account_id" style="height:auto;" id="dgs_search_account_center" />
-                      <span class="input-group-btn">
-                        <button type="submit" name="seach" class="btn btn-flat"><i class="fa fa-search"></i></button>
-                      </span>
-                    </div>
-                  </form>
-                </div>
               </div>
             </div>
             <div id="dgs_search_results" class="data-container data-loading" style="display:none">
               <div id="dgs_search_contents" class="dgs_page_contents">
+                  <table class="table table-striped" id="dgs_table">
+                      <thead>
+                        <tr>
+                          <th data-i18n="dgs_table_product" style="width:1%">Product</th>
+                          <th data-i18n="dgs_table_price">Price</th>
+                          <th data-i18n="dgs_table_description">Description</th>
+                          <th data-i18n="dgs_table_quantity">Quantity</th>
+                          <th data-i18n="dgs_table_seller">Seller</th>
+                          <th data-i18n="dgs_table_product_id">Product ID</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      </tbody>
+                    </table>
               </div>
               <div class="data-loading-container"><img src="img/loading_indicator.gif" alt="Loading..." width="32" height="32" /></div>
               <div class="data-empty-container">
@@ -1362,6 +1368,7 @@
             <div class="data-pagination"></div>
           </section>
         </div>
+
         <div id="purchased_dgs_page" class="paginated page">
           <section class="content-header">
             <h1 data-i18n="purchased_products">Purchased Products</h1>
@@ -1926,7 +1933,7 @@
                 </div>
                 <div class="form-group secret_phrase">
                   <label for="lease_balance_password" data-i18n="passphrase">PASSPHRASE</label>
-                  <input type="password" name="secretPhrase" id="lease_balance_password" class="form-control" placeholder="" tabindex="6">
+                  <input type="password" name="secretPhrase" id="lease_balance_password" class="form-control" placeholder="" tabindex="6" autocomplete="">
                 </div>
                 <div class="form-group advanced">
                   <label for="lease_balance_referenced_transaction" data-i18n="referenced_transaction_hash">REFERENCED TRANSACTION HASH</label>
@@ -1973,7 +1980,7 @@
                 <div class="callout callout-danger error_message" style="display:none"></div>
                 <div class="form-group secret_phrase">
                   <label for="stop_forging_password" data-i18n="passphrase">PASSPHRASE</label>
-                  <input type="password" name="secretPhrase" id="stop_forging_password" class="form-control" placeholder="" tabindex="1">
+                  <input type="password" name="secretPhrase" id="stop_forging_password" class="form-control" placeholder="" tabindex="1" autocomplete="">
                 </div>
                 <input type="hidden" name="request_type" value="stopForging" />
               </form>
@@ -2000,7 +2007,7 @@
                 <div class="callout callout-danger error_message" style="display:none"></div>
                 <div class="form-group secret_phrase">
                   <label for="start_forging_password" data-i18n="passphrase">PASSPHRASE</label>
-                  <input type="password" name="secretPhrase" id="start_forging_password" class="form-control" placeholder="" tabindex="1">
+                  <input type="password" name="secretPhrase" id="start_forging_password" class="form-control" placeholder="" tabindex="1" autocomplete="">
                 </div>
                 <input type="hidden" name="request_type" value="startForging" />
               </form>
@@ -2043,7 +2050,7 @@
                 </div>
                 <div class="form-group secret_phrase">
                   <label for="cancel_order_password" data-i18n="passphrase">PASSPHRASE</label>
-                  <input type="password" name="secretPhrase" id="cancel_order_password" class="form-control" placeholder="" tabindex="1">
+                  <input type="password" name="secretPhrase" id="cancel_order_password" class="form-control" placeholder="" tabindex="1" autocomplete="">
                 </div>
                 <div class="form-group advanced">
                   <label for="cancel_order_referenced_transaction" data-i18n="referenced_transaction_hash">REFERENCED TRANSACTION HASH</label>
@@ -2104,7 +2111,7 @@
                 </div>
                 <div class="form-group secret_phrase">
                   <label for="asset_order_password" data-i18n="passphrase">PASSPHRASE</label>
-                  <input type="password" name="secretPhrase" id="asset_order_password" class="form-control" placeholder="" tabindex="1">
+                  <input type="password" name="secretPhrase" id="asset_order_password" class="form-control" placeholder="" tabindex="1" autocomplete="">
                 </div>
                 <input type="hidden" name="asset_order_type"  id="asset_order_type" />
                 <input type="hidden" name="request_type" value="orderAsset" />
@@ -2183,7 +2190,7 @@
                 </div>
                 <div class="form-group secret_phrase">
                   <label for="transfer_asset_password" data-i18n="passphrase">PASSPHRASE</label>
-                  <input type="password" name="secretPhrase" id="transfer_asset_password" class="form-control" placeholder="" tabindex="7">
+                  <input type="password" name="secretPhrase" id="transfer_asset_password" class="form-control" placeholder="" tabindex="7" autocomplete="">
                 </div>
                 <div class="form-group advanced">
                   <label for="transfer_asset_referenced_transaction" data-i18n="referenced_transaction_hash">REFERENCED TRANSACTION HASH</label>
@@ -2393,7 +2400,7 @@
                 </div>
                 <div class="form-group secret_phrase">
                   <label for="issue_asset_password" data-i18n="passphrase">PASSPHRASE</label>
-                  <input type="password" name="secretPhrase" id="issue_asset_password" class="form-control" placeholder="" tabindex="8">
+                  <input type="password" name="secretPhrase" id="issue_asset_password" class="form-control" placeholder="" tabindex="8" autocomplete="">
                 </div>
                 <div class="form-group advanced">
                   <label for="issue_asset_referenced_transaction" data-i18n="referenced_transaction_hash">REFERENCED TRANSACTION HASH</label>
@@ -2481,7 +2488,7 @@
                 </div>
                 <div class="form-group secret_phrase">
                   <label for="dgs_listing_password" data-i18n="passphrase">PASSPHRASE</label>
-                  <input type="password" name="secretPhrase" id="dgs_listing_password" class="form-control" placeholder="" tabindex="8">
+                  <input type="password" name="secretPhrase" id="dgs_listing_password" class="form-control" placeholder="" tabindex="8" autocomplete="">
                 </div>
                 <div class="form-group advanced">
                   <label for="dgs_listing_referenced_transaction" data-i18n="referenced_transaction_hash">REFERENCED TRANSACTION HASH</label>
@@ -2545,7 +2552,7 @@
                 </div>
                 <div class="form-group secret_phrase">
                   <label for="dgs_delisting_password" data-i18n="passphrase">PASSPHRASE</label>
-                  <input type="password" name="secretPhrase" id="dgs_delisting_password" class="form-control" placeholder="" tabindex="1">
+                  <input type="password" name="secretPhrase" id="dgs_delisting_password" class="form-control" placeholder="" tabindex="1" autocomplete="">
                 </div>
                 <div class="form-group advanced">
                   <label for="dgs_delisting_referenced_transaction" data-i18n="referenced_transaction_hash">REFERENCED TRANSACTION HASH</label>
@@ -2625,7 +2632,7 @@
                 </div>
                 <div class="form-group secret_phrase">
                   <label for="dgs_price_change_password" data-i18n="passphrase">PASSPHRASE</label>
-                  <input type="password" name="secretPhrase" id="dgs_price_change_password" class="form-control" placeholder="" tabindex="4">
+                  <input type="password" name="secretPhrase" id="dgs_price_change_password" class="form-control" placeholder="" tabindex="4" autocomplete="">
                 </div>
                 <div class="form-group advanced">
                   <label for="dgs_price_change_referenced_transaction" data-i18n="referenced_transaction_hash">REFERENCED TRANSACTION HASH</label>
@@ -2702,7 +2709,7 @@
                 </div>
                 <div class="form-group secret_phrase">
                   <label for="dgs_quantity_change_password" data-i18n="passphrase">PASSPHRASE</label>
-                  <input type="password" name="secretPhrase" id="dgs_quantity_change_password" class="form-control" placeholder="" tabindex="4">
+                  <input type="password" name="secretPhrase" id="dgs_quantity_change_password" class="form-control" placeholder="" tabindex="4" autocomplete="">
                 </div>
                 <div class="form-group advanced">
                   <label for="dgs_quantity_change_referenced_transaction" data-i18n="referenced_transaction_hash">REFERENCED TRANSACTION HASH</label>
@@ -2817,7 +2824,7 @@
                 </div>
                 <div class="form-group secret_phrase">
                   <label for="dgs_purchase_password" data-i18n="passphrase">PASSPHRASE</label>
-                  <input type="password" name="secretPhrase" id="dgs_purchase_password" class="form-control" placeholder="" tabindex="7">
+                  <input type="password" name="secretPhrase" id="dgs_purchase_password" class="form-control" placeholder="" tabindex="7" autocomplete="">
                 </div>
                 <div class="form-group advanced">
                   <label for="dgs_purchase_referenced_transaction" data-i18n="referenced_transaction_hash">REFERENCED TRANSACTION HASH</label>
@@ -2896,7 +2903,7 @@
                 </div>
                 <div class="form-group secret_phrase">
                   <label for="dgs_delivery_password" data-i18n="passphrase">PASSPHRASE</label>
-                  <input type="password" name="secretPhrase" id="dgs_delivery_password" class="form-control" placeholder="" tabindex="6">
+                  <input type="password" name="secretPhrase" id="dgs_delivery_password" class="form-control" placeholder="" tabindex="6" autocomplete="">
                 </div>
                 <div class="form-group advanced">
                   <label for="dgs_delivery_referenced_transaction" data-i18n="referenced_transaction_hash">REFERENCED TRANSACTION HASH</label>
@@ -3044,7 +3051,7 @@
                 </div>
                 <div class="form-group secret_phrase">
                   <label for="dgs_refund_password" data-i18n="passphrase">PASSPHRASE</label>
-                  <input type="password" name="secretPhrase" id="dgs_refund_password" class="form-control" placeholder="" tabindex="6">
+                  <input type="password" name="secretPhrase" id="dgs_refund_password" class="form-control" placeholder="" tabindex="6" autocomplete="">
                 </div>
                 <div class="form-group advanced">
                   <label for="dgs_refund_referenced_transaction" data-i18n="referenced_transaction_hash">REFERENCED TRANSACTION HASH</label>
@@ -3119,7 +3126,7 @@
                 </div>
                 <div class="form-group secret_phrase">
                   <label for="dgs_feedback_password" data-i18n="passphrase">PASSPHRASE</label>
-                  <input type="password" name="secretPhrase" id="dgs_feedback_password" class="form-control" placeholder="" tabindex="8">
+                  <input type="password" name="secretPhrase" id="dgs_feedback_password" class="form-control" placeholder="" tabindex="8" autocomplete="">
                 </div>
                 <div class="form-group advanced">
                   <label for="dgs_feedback_referenced_transaction" data-i18n="referenced_transaction_hash">REFERENCED TRANSACTION HASH</label>
@@ -3205,7 +3212,7 @@
                 </div>
                 <div class="form-group secret_phrase">
                   <label for="nsv_div_send_password">SECRET PHRASE</label>
-                  <input type="password" name="secretPhrase" id="nsv_div_send_password" class="form-control" placeholder="" tabindex="7">
+                  <input type="password" name="secretPhrase" id="nsv_div_send_password" class="form-control" placeholder="" tabindex="7" autocomplete="">
                 </div>
 
 
@@ -3276,7 +3283,7 @@
                 </div>
                 <div class="form-group secret_phrase">
                   <label for="nsv_div_ad_password">SECRET PHRASE</label>
-                  <input type="password" name="secretPhrase" id="nsv_div_ad_password" class="form-control" placeholder="" tabindex="5">
+                  <input type="password" name="secretPhrase" id="nsv_div_ad_password" class="form-control" placeholder="" tabindex="5" autocomplete="">
                 </div>
 
 
@@ -3343,7 +3350,7 @@
                 </div>
                 <div class="form-group secret_phrase">
                   <label for="nsv_shareswap_password">SECRET PHRASE</label>
-                  <input type="password" name="secretPhrase" id="nsv_shareswap_password" class="form-control" placeholder="" tabindex="6">
+                  <input type="password" name="secretPhrase" id="nsv_shareswap_password" class="form-control" placeholder="" tabindex="6" autocomplete="">
                 </div>
 
                 <div class="col-xs-13 col-sm-13 col-md-13">
@@ -3411,7 +3418,7 @@
                                 </div>
                                 <div class="form-group secret_phrase">
                                     <label for="reward_assignment_password" data-i18n="passphrase">PASSPHRASE</label>
-                                    <input type="password" name="secretPhrase" id="reward_assignment_password" class="form-control" placeholder="" tabindex="8">
+                                    <input type="password" name="secretPhrase" id="reward_assignment_password" class="form-control" placeholder="" tabindex="8" autocomplete="">
                                 </div>
                                 <div class="form-group advanced" style="margin-bottom:5px">
                                     <input type="checkbox" name="doNotBroadcast" id="reward_assignment_do_not_broadcast" value="1" /> <label for="reward_assignment_do_not_broadcast" style="font-weight:normal;" tabindex="10" data-i18n="do_not_broadcast">Do Not Broadcast</label>
@@ -3492,7 +3499,7 @@
                 </div>
                 <div class="form-group secret_phrase">
                   <label for="send_money_password" data-i18n="passphrase">PASSPHRASE</label>
-                  <input type="password" name="secretPhrase" id="send_money_password" class="form-control" placeholder="" tabindex="8">
+                  <input type="password" name="secretPhrase" id="send_money_password" class="form-control" placeholder="" tabindex="8" autocomplete="">
                 </div>
                 <div class="form-group advanced">
                   <label for="send_money_referenced_transaction" data-i18n="referenced_transaction_hash">REFERENCED TRANSACTION HASH</label>
@@ -3575,7 +3582,7 @@
                 </div>
                 <div class="form-group secret_phrase">
                   <label for="send_message_password" data-i18n="passphrase">PASSPHRASE</label>
-                  <input type="password" name="secretPhrase" id="send_message_password" class="form-control" placeholder="" tabindex="6">
+                  <input type="password" name="secretPhrase" id="send_message_password" class="form-control" placeholder="" tabindex="6" autocomplete="">
                 </div>
                 <div class="form-group advanced">
                   <label for="send_message_referenced_transaction" data-i18n="referenced_transaction_hash">REFERENCED TRANSACTION HASH</label>
@@ -3644,7 +3651,7 @@
                 </div>
                 <div class="form-group secret_phrase">
                   <label for="account_info_password" data-i18n="passphrase">PASSPHRASE</label>
-                  <input type="password" name="secretPhrase" id="account_info_password" class="form-control" placeholder="" tabindex="5">
+                  <input type="password" name="secretPhrase" id="account_info_password" class="form-control" placeholder="" tabindex="5" autocomplete="">
                 </div>
                 <div class="form-group advanced">
                   <label for="account_info_referenced_transaction" data-i18n="referenced_transaction_hash">REFERENCED TRANSACTION HASH</label>
@@ -3721,7 +3728,7 @@
                 </div>
                 <div class="form-group secret_phrase">
                   <label for="register_alias_password" data-i18n="passphrase">PASSPHRASE</label>
-                  <input type="password" name="secretPhrase" id="register_alias_password" class="form-control" placeholder="" tabindex="5">
+                  <input type="password" name="secretPhrase" id="register_alias_password" class="form-control" placeholder="" tabindex="5" autocomplete="">
                 </div>
                 <div class="form-group advanced">
                   <label for="register_alias_referenced_transaction" data-i18n="referenced_transaction_hash">REFERENCED TRANSACTION HASH</label>
@@ -3803,7 +3810,7 @@
                 </div>
                 <div class="form-group secret_phrase">
                   <label for="buy_alias_password" data-i18n="passphrase">PASSPHRASE</label>
-                  <input type="password" name="secretPhrase" id="buy_alias_password" class="form-control" placeholder="" tabindex="4">
+                  <input type="password" name="secretPhrase" id="buy_alias_password" class="form-control" placeholder="" tabindex="4" autocomplete="">
                 </div>
                 <div class="form-group advanced">
                   <label for="buy_alias_referenced_transaction" data-i18n="referenced_transaction_hash">REFERENCED TRANSACTION HASH</label>
@@ -3893,7 +3900,7 @@
                 </div>
                 <div class="form-group secret_phrase">
                   <label for="transfer_alias_password" data-i18n="passphrase">PASSPHRASE</label>
-                  <input type="password" name="secretPhrase" id="transfer_alias_password" class="form-control" placeholder="" tabindex="6">
+                  <input type="password" name="secretPhrase" id="transfer_alias_password" class="form-control" placeholder="" tabindex="6" autocomplete="">
                 </div>
                 <div class="form-group advanced">
                   <label for="transfer_alias_referenced_transaction" data-i18n="referenced_transaction_hash">REFERENCED TRANSACTION HASH</label>
@@ -3996,7 +4003,7 @@
                 </div>
                 <div class="form-group secret_phrase">
                   <label for="escrow_create_password" data-i18n="passphrase">PASSPHRASE</label>
-                  <input type="password" name="secretPhrase" id="escrow_create_password" class="form-control" placeholder="" tabindex="6">
+                  <input type="password" name="secretPhrase" id="escrow_create_password" class="form-control" placeholder="" tabindex="6" autocomplete="">
                 </div>
                 <div class="callout account_info" style="display:none;margin-bottom: 0;"></div>
                 <input type="hidden" name="request_type" value="sendMoneyEscrow" />
@@ -4054,7 +4061,7 @@
                 </div>
                 <div class="form-group secret_phrase">
                   <label for="escrow_decision_password" data-i18n="passphrase">PASSPHRASE</label>
-                  <input type="password" name="secretPhrase" id="escrow_decision_password" class="form-control" placeholder="" tabindex="6">
+                  <input type="password" name="secretPhrase" id="escrow_decision_password" class="form-control" placeholder="" tabindex="6" autocomplete="">
                 </div>
                 <div class="callout account_info" style="display:none;margin-bottom: 0;"></div>
                 <input type="hidden" name="request_type" value="escrowSign" />
@@ -4125,7 +4132,7 @@
                 </div>
                 <div class="form-group secret_phrase">
                   <label for="subscription_create_password" data-i18n="passphrase">PASSPHRASE</label>
-                  <input type="password" name="secretPhrase" id="subscription_create_password" class="form-control" placeholder="" tabindex="6">
+                  <input type="password" name="secretPhrase" id="subscription_create_password" class="form-control" placeholder="" tabindex="6" autocomplete="">
                 </div>
                 <div class="callout account_info" style="display:none;margin-bottom: 0;"></div>
                 <input type="hidden" name="request_type" value="sendMoneySubscription" />
@@ -4189,7 +4196,7 @@
                 </div>
                 <div class="form-group secret_phrase">
                   <label for="subscription_cancel_password" data-i18n="passphrase">PASSPHRASE</label>
-                  <input type="password" name="secretPhrase" id="subscription_cancel_password" class="form-control" placeholder="" tabindex="6">
+                  <input type="password" name="secretPhrase" id="subscription_cancel_password" class="form-control" placeholder="" tabindex="6" autocomplete="">
                 </div>
                 <div class="callout account_info" style="display:none;margin-bottom: 0;"></div>
                 <input type="hidden" name="request_type" value="subscriptionCancel" />
@@ -4266,7 +4273,7 @@
                 </div>
                 <div class="form-group secret_phrase">
                   <label for="at_create_password" data-i18n="passphrase">PASSPHRASE</label>
-                  <input type="password" name="secretPhrase" id="at_create_password" class="form-control" placeholder="" tabindex="6">
+                  <input type="password" name="secretPhrase" id="at_create_password" class="form-control" placeholder="" tabindex="6" autocomplete="">
                 </div>
                 <div class="callout account_info" style="display:none;margin-bottom: 0;"></div>
                 <input type="hidden" name="request_type" value="createATProgram" />
@@ -4356,7 +4363,7 @@
                 </div>
                 <div class="form-group secret_phrase">
                   <label for="sell_alias_password" data-i18n="passphrase">PASSPHRASE</label>
-                  <input type="password" name="secretPhrase" id="sell_alias_password" class="form-control" placeholder="" tabindex="6">
+                  <input type="password" name="secretPhrase" id="sell_alias_password" class="form-control" placeholder="" tabindex="6" autocomplete="">
                 </div>
                 <div class="form-group advanced">
                   <label for="sell_alias_referenced_transaction" data-i18n="referenced_transaction_hash">REFERENCED TRANSACTION HASH</label>
@@ -4434,7 +4441,7 @@
                 </div>
                 <div class="form-group secret_phrase">
                   <label for="cancel_alias_sale_password" data-i18n="passphrase">PASSPHRASE</label>
-                  <input type="password" name="secretPhrase" id="cancel_alias_sale_password" class="form-control" placeholder="" tabindex="5">
+                  <input type="password" name="secretPhrase" id="cancel_alias_sale_password" class="form-control" placeholder="" tabindex="5" autocomplete="">
                 </div>
                 <div class="form-group advanced">
                   <label for="cancel_alias_sale_referenced_transaction" data-i18n="referenced_transaction_hash">REFERENCED TRANSACTION HASH</label>
@@ -4488,7 +4495,7 @@
                   <input type="hidden" name="request_type" value="generateToken" />
                   <div class="form-group secret_phrase">
                     <label for="generate_token_password" data-i18n="passphrase">PASSPHRASE</label>
-                    <input type="password" name="secretPhrase" id="generate_token_password" class="form-control" placeholder="" tabindex="5">
+                    <input type="password" name="secretPhrase" id="generate_token_password" class="form-control" placeholder="" tabindex="5" autocomplete="">
                   </div>
                 </form>
               </div>
@@ -5087,7 +5094,7 @@
                 <div class="callout callout-danger error_message" style="background:#fbe7e7" data-i18n="passphrase_required_for_decryption">Your passphrase is required to decrypt these messages.</div>
                 <div class="form-group secret_phrase">
                   <label for="messages_decrypt_password" data-i18n="passphrase">PASSPHRASE</label>
-                  <input type="password" name="secretPhrase" id="messages_decrypt_password" class="form-control" placeholder="" tabindex="8">
+                  <input type="password" name="secretPhrase" id="messages_decrypt_password" class="form-control" placeholder="" tabindex="8" autocomplete="">
                 </div>
                 <div class="form-group" style="margin-bottom:0">
                   <input type="checkbox" name="rememberPassword" id="messages_decrypt_remember_password" /> <label for="messages_decrypt_remember_password" style="font-weight:normal;" data-i18n="remember_decryption_passphrase">Remember passphrase for decryption</label>
@@ -5107,7 +5114,7 @@
           <div class="callout callout-danger error_message" style="background:#fbe7e7" data-i18n="passphrase_required_to_decrypt_data">Your passphrase is required to decrypt this data.</div>
           <div class="form-group secret_phrase">
             <label for="decrypt_note_form_password" data-i18n="phrase">PASSPHRASE</label>
-            <input type="password" name="secretPhrase" id="decrypt_note_form_password" class="form-control" placeholder="" tabindex="8">
+            <input type="password" name="secretPhrase" id="decrypt_note_form_password" class="form-control" placeholder="" tabindex="8" autocomplete="">
           </div>
           <div style="margin-bottom:10px"><input type="checkbox" name="rememberPassword" id="decrypt_note_remember_password" /> <label for="decrypt_note_remember_password" style="font-weight:normal;" data-i18n="remember_decryption_passphrase">Remember passphrase for decryption</label></div>
           <button type="button" class="btn btn-primary" data-ignore="true" data-i18n="decrypt">Decrypt</button>
@@ -5180,7 +5187,7 @@
                     <li class="nav-header">Your Wallet Passphrase</li>
                     <li><input class="input-xlarge" id=
                                "password" name="password" type="password"
-                               value=""></li>
+                               value="" autocomplete=""></li>
                     <li><input class="input-xlarge" id="at-id"
                                name="at-id" type="hidden" value=""></li>
                   </ul>
@@ -5253,7 +5260,7 @@
                     <li style="list-style: none"><br /></li>
                     <li><label for=
                                "funding-password">Your Wallet Passphrase</label>
-                      <input class="input-xlarge form-control" id="funding-password" name="funding-password" type="password" value="" />
+                      <input class="input-xlarge form-control" id="funding-password" name="funding-password" type="password" value=""  autocomplete=""/>
                     </li>
                   </ul>
                 </div>

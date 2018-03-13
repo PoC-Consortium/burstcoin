@@ -26,7 +26,7 @@ public class DBCacheManagerImpl {
     this.statisticsManager = statisticsManager;
     statisticsEnabled = true;
 
-    caches.put("account", CacheConfigurationBuilder.newCacheConfigurationBuilder(DbKey.class, Account.class, ResourcePoolsBuilder.heap(100)).build());
+    caches.put("account", CacheConfigurationBuilder.newCacheConfigurationBuilder(DbKey.class, Account.class, ResourcePoolsBuilder.heap(8192)).build());
 
     CacheManagerBuilder cacheBuilder = CacheManagerBuilder.newCacheManagerBuilder();
     for (Map.Entry<String, CacheConfiguration> cache : caches.entrySet()) {

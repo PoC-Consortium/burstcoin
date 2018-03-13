@@ -22,13 +22,13 @@
 
     <java.version>1.8</java.version>
     <jocl.version>2.0.0</jocl.version>
-    <bcprov-jdk15on.version>1.57</bcprov-jdk15on.version>
+    <bcprov-jdk15on.version>1.59</bcprov-jdk15on.version>
     <jetty.version>9.4.8.v20171121</jetty.version>
     <json-simple.version>1.1.1</json-simple.version>
-    <javax.servlet-api.version>3.1.0</javax.servlet-api.version>
+    <javax.servlet-api.version>4.0.0</javax.servlet-api.version>
     <slf4j.version>1.7.25</slf4j.version>
-    <mariadb.version>2.0.3</mariadb.version>
-    <hikaricp.version>2.7.2</hikaricp.version>
+    <mariadb.version>2.2.3</mariadb.version>
+    <hikaricp.version>2.7.8</hikaricp.version>
     <h2.version>1.4.196</h2.version>
     <jna.version>4.5.1</jna.version>
     <reflections.version>0.9.11</reflections.version>
@@ -39,10 +39,10 @@
     <powermock.version>2.0.0-beta.5</powermock.version>
     <hsqldb.version>2.4.0</hsqldb.version>
     <jacoco.version>0.7.9</jacoco.version>
-    <jooq.version>3.10.4</jooq.version>
+    <jooq.version>3.10.5</jooq.version>
     <jaxb.version>2.3.0</jaxb.version>
     <weupnp.version>0.1.4</weupnp.version>
-    <ehcache.version>3.4.0</ehcache.version>
+    <ehcache.version>3.5.0</ehcache.version>
 
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
@@ -72,7 +72,7 @@
     <dependency>
         <groupId>javax.annotation</groupId>
         <artifactId>javax.annotation-api</artifactId>
-        <version>1.3.1</version>
+        <version>1.3.2</version>
     </dependency>
 
     <dependency>
@@ -345,11 +345,6 @@
                   <fileset dir="${project.basedir}/html">
                   </fileset>
                 </copy>
-                <!-- copy lib dir -->
-                <copy todir="${project.basedir}/dist/tmp/lib">
-                  <fileset dir="${project.basedir}/lib">
-                  </fileset>
-                </copy>
                 <!-- copy properties from conf dir -->
                 <copy todir="${project.basedir}/dist/tmp/conf">
                   <fileset dir="${project.basedir}/conf">
@@ -362,8 +357,9 @@
                   <fileset dir="${project.basedir}">
                     <include name="Burst_Wallet.url"/>
                     <include name="genscoop.cl"/>
-                    <include name="MIT-license.txt"/>
-                    <include name="Readme.txt"/>
+                    <include name="LICENSE.txt"/>
+                    <include name="README.md"/>
+                    <include name="README_refactoring.md"/>
                     <include name="burst.cmd"/>
                     <include name="burst.sh"/>
                   </fileset>

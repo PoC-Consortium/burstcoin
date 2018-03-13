@@ -164,6 +164,10 @@ public final class BlockchainProcessorImpl implements BlockchainProcessor {
     // }, Event.RESCAN_END);
 
     threadPool.runBeforeStart(() -> {
+      stores.beginTransaction();
+      stores.getTransactionProcessorStore().getUnconfirmedTransactionTable().truncate();
+      stores.commitTransaction();
+      stores.endTransaction();
       addGenesisBlock();
       if (forceScan) {
         scan(0);

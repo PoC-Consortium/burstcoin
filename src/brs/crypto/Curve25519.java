@@ -38,9 +38,9 @@ final class Curve25519 {
   }
 
   /* Key-pair generation
-   *   P  [out] your public key
-   *   s  [out] your private key for signing
-   *   k  [out] your private key for key agreement
+   *   @param P  [out] your public key
+   *   @param s  [out] your private key for signing
+   *   @param k  [out] your private key for key agreement
    *   k  [in]  32 random bytes
    * s may be NULL if you don't care
    *
@@ -51,9 +51,9 @@ final class Curve25519 {
   }
 
   /* Key agreement
-   *   Z  [out] shared secret (needs hashing before use)
-   *   k  [in]  your private key for key agreement
-   *   P  [in]  peer's public key
+   *   @param Z  [out] shared secret (needs hashing before use)
+   *   @param k  [in]  your private key for key agreement
+   *   @param P  [in]  peer's public key
    */
   public static void curve(byte[] Z, byte[] k, byte[] P) {
     core(Z, null, k, P);
@@ -97,10 +97,10 @@ final class Curve25519 {
    */
 
   /* Signature generation primitive, calculates (x-h)s mod q
-   *   v  [out] signature value
-   *   h  [in]  signature hash (of message, signature pub key, and context data)
-   *   x  [in]  signature private key
-   *   s  [in]  private key for signing
+   *   @param v  [out] signature value
+   *   @param h  [in]  signature hash (of message, signature pub key, and context data)
+   *   @param x  [in]  signature private key
+   *   @param s  [in]  private key for signing
    * returns true on success, false on failure (use different x or h)
    */
   public static boolean sign(byte[] v, byte[] h, byte[] x, byte[] s) {
@@ -136,10 +136,10 @@ final class Curve25519 {
   }
 
   /* Signature verification primitive, calculates Y = vP + hG
-   *   Y  [out] signature public key
-   *   v  [in]  signature value
-   *   h  [in]  signature hash
-   *   P  [in]  public key
+   *   @param Y  [out] signature public key
+   *   @param v  [in]  signature value
+   *   @param h  [in]  signature hash
+   *   @param P  [in]  public key
    */
   public static void verify(byte[] Y, byte[] v, byte[] h, byte[] P) {
     /* Y = v abs(P) + h G  */
