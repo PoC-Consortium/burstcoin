@@ -254,9 +254,7 @@ public final class BlockchainProcessorImpl implements BlockchainProcessor {
     try {
       Long lastId = blockchain.getLastBlock().getId();
       while (true) {
-        while (true) {
-          if (downloadCache.getBlockCacheSize() > 0) {
-            
+        while (downloadCache.getBlockCacheSize() > 0) {
             Block currentBlock = downloadCache.getNextBlock(lastId); /* this should fetch first block in cache */
             if (currentBlock == null) {
               break;
@@ -275,15 +273,10 @@ public final class BlockchainProcessorImpl implements BlockchainProcessor {
               blacklistClean(currentBlock, e);
               break;
             }
-            //executor shutdown? 
-            if (Thread.currentThread().isInterrupted()) {
-              logger.debug("Blockimporter got interupted.");
-              return;
-            }
-          }
         }
+
         try {
-          Thread.sleep(10);
+          Thread.sleep(100);
         } catch (InterruptedException ex) {
           logger.debug("Blockimporter fires interupt.");
           Thread.currentThread().interrupt();
