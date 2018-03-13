@@ -79,9 +79,9 @@ var BRS = (function(BRS, $, undefined) {
             "</div><hr />";
     }
 
-    BRS.pages.dgs_search = function() {
+    BRS.pages.dgs_search = function(callback) {
 
-        var content = "<table class=\"table table-striped\" id=\"dgs_table\"><thead><tr><th data-i18n=\"dgs_table_product\" align=\"center\">Product</th><th data-i18n=\"dgs_table_price\" width=\"140px\">Price</th><th data-i18n=\"dgs_table_quantity\" width=\"1px\">Quantity</th><th data-i18n=\"dgs_table_seller\" width=\"250px\">Seller</th><th data-i18n=\"dgs_table_product_id\" width=\"150px\">Product ID</th></tr></thead><tbody>";
+        var content = "<table class=\"table table-striped\" id=\"dgs_table\"><thead><tr><th data-i18n=\"dgs_table_product\" align=\"center\">Product</th><th data-i18n=\"dgs_table_price\" width=\"140px\">Price</th><th data-i18n=\"dgs_table_quantity\" width=\"1px\">Quantity</th><th data-i18n=\"dgs_table_seller\" width=\"260px\">Seller</th><th data-i18n=\"dgs_table_product_id\" width=\"150px\">Product ID</th></tr></thead><tbody>";
         var seller = $.trim($(".dgs_search input[name=q]").val());
         
         if (seller) {
