@@ -39,9 +39,9 @@ Download and install MariaDB https://mariadb.com/downloads/mariadb-tx
 The MariaDb installation will ask to setup a password for the root user. 
 Add this password to the brs.properties file created above in the following section:
 ```
-brs.dbUrl=jdbc:mariadb://localhost:3306/burstwallet
-brs.dbUsername=root
-brs.dbPassword=YOUR_PASSWORD
+DB.Url=jdbc:mariadb://localhost:3306/burstwallet
+DB.Username=root
+DB.Password=YOUR_PASSWORD
 ```
 
 The MariaDB installation will also install HeidiSQL, a gui tool to administer MariaDb.
@@ -74,9 +74,9 @@ mysql -uroot burstwallet < init-mysql.sql
 Now you need to add the following stuff to your conf/brs.properties:
 
 ```
-brs.dbUrl=jdbc:mariadb://localhost:3306/burstwallet
-brs.dbUsername=brs_user
-brs.dbPassword=yourpassword
+DB.Url=jdbc:mariadb://localhost:3306/burstwallet
+DB.Username=brs_user
+DB.Password=yourpassword
 ```
 
 ## Striking Features
