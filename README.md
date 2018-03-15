@@ -74,9 +74,9 @@ mysql -uroot burstwallet < init-mysql.sql
 Now you need to add the following stuff to your conf/brs.properties:
 
 ```
-brs.dbUrl=jdbc:mariadb://localhost:3306/burstwallet
-brs.dbUsername=brs_user
-brs.dbPassword=yourpassword
+DB.Url=jdbc:mariadb://localhost:3306/burstwallet
+DB.Username=brs_user
+DB.Password=yourpassword
 ```
 
 ## Striking Features
