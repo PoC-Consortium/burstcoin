@@ -76,9 +76,9 @@ your local mariadb server. If you can't use the packages, you have to
 initialize your database with these statements:
 
 ```
-echo "CREATE DATABASE burstwallet; 
+echo "CREATE DATABASE brs_master; 
       CREATE USER 'brs_user'@'localhost' IDENTIFIED BY 'yourpassword';
-      GRANT ALL PRIVILEGES ON burstwallet.* TO 'brs_user'@'localhost';" | mysql -uroot
+      GRANT ALL PRIVILEGES ON brs_master.* TO 'brs_user'@'localhost';" | mysql -uroot
 mysql -uroot burstwallet < init-mysql.sql
 ```
 
