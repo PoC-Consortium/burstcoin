@@ -79,7 +79,7 @@ initialize your database with these statements:
 echo "CREATE DATABASE brs_master; 
       CREATE USER 'brs_user'@'localhost' IDENTIFIED BY 'yourpassword';
       GRANT ALL PRIVILEGES ON brs_master.* TO 'brs_user'@'localhost';" | mysql -uroot
-mysql -uroot burstwallet < init-mysql.sql
+mysql -uroot brs_master < init-mysql.sql
 ```
 
 ##### Configure your Wallet
