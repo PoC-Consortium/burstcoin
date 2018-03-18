@@ -52,7 +52,7 @@ Download and install MariaDB https://mariadb.com/downloads/mariadb-tx
 The MariaDb installation will ask to setup a password for the root user. 
 Add this password to the brs.properties file created above in the following section:
 ```
-DB.Url=jdbc:mariadb://localhost:3306/burstwallet
+DB.Url=jdbc:mariadb://localhost:3306/brs_master
 DB.Username=root
 DB.Password=YOUR_PASSWORD
 ```
@@ -76,9 +76,9 @@ your local mariadb server. If you can't use the packages, you have to
 initialize your database with these statements:
 
 ```
-echo "CREATE DATABASE burstwallet; 
+echo "CREATE DATABASE brs_master; 
       CREATE USER 'brs_user'@'localhost' IDENTIFIED BY 'yourpassword';
-      GRANT ALL PRIVILEGES ON burstwallet.* TO 'brs_user'@'localhost';" | mysql -uroot
+      GRANT ALL PRIVILEGES ON brs_master.* TO 'brs_user'@'localhost';" | mysql -uroot
 mysql -uroot burstwallet < init-mysql.sql
 ```
 
@@ -87,7 +87,7 @@ mysql -uroot burstwallet < init-mysql.sql
 Now you need to add the following stuff to your conf/brs.properties:
 
 ```
-DB.Url=jdbc:mariadb://localhost:3306/burstwallet
+DB.Url=jdbc:mariadb://localhost:3306/brs_master
 DB.Username=brs_user
 DB.Password=yourpassword
 ```
