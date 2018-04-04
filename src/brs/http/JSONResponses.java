@@ -56,7 +56,7 @@ public final class JSONResponses {
   public static final JSONStreamAware INCORRECT_ASSET_NAME = incorrect(NAME_PARAMETER, "(must contain only digits and latin letters)");
   public static final JSONStreamAware INCORRECT_ASSET_NAME_LENGTH = incorrect(NAME_PARAMETER, "(length must be in [" + Constants.MIN_ASSET_NAME_LENGTH + ".." + Constants.MAX_ASSET_NAME_LENGTH + "] range)");
   public static final JSONStreamAware MISSING_NAME = missing(NAME_PARAMETER);
-  public static final JSONStreamAware MISSING_QUANTITY = missing(QUANTITY_NQT_PARAMETER);
+  public static final JSONStreamAware MISSING_QUANTITY = missing(QUANTITY_QNT_PARAMETER);
   public static final JSONStreamAware INCORRECT_QUANTITY = incorrect(QUANTITY_PARAMETER);
   public static final JSONStreamAware INCORRECT_ASSET_QUANTITY = incorrect(QUANTITY_PARAMETER, "(must be in [1.." + Constants.MAX_ASSET_QUANTITY_QNT + "] range)");
   public static final JSONStreamAware INCORRECT_DECIMALS = incorrect(DECIMALS_PARAMETER);

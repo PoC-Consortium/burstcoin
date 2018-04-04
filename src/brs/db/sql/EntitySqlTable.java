@@ -199,6 +199,7 @@ public abstract class EntitySqlTable<T> extends DerivedSqlTable implements Entit
     SelectQuery query = ctx.selectQuery();
     query.addFrom(tableClass);
     query.addConditions(condition);
+    query.addOrderBy(sort);
     if ( multiversion ) {
       query.addConditions(tableClass.field("latest", Boolean.class).isTrue());
     }

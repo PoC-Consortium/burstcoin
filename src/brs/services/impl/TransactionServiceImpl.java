@@ -3,6 +3,7 @@ package brs.services.impl;
 import brs.Account;
 import brs.Appendix;
 import brs.Blockchain;
+import brs.Burst;
 import brs.BurstException;
 import brs.Constants;
 import brs.Transaction;
@@ -22,6 +23,7 @@ public class TransactionServiceImpl implements TransactionService {
 
   @Override
   public boolean verifyPublicKey(Transaction transaction) {
+    synchronized (Burst.getTransactionProcessor().getUnconfirmedTransactionsSyncObj()) {
     Account account = accountService.getAccount(transaction.getSenderId());
     if (account == null) {
       return false;
@@ -30,10 +32,12 @@ public class TransactionServiceImpl implements TransactionService {
       return false;
     }
     return account.setOrVerify(transaction.getSenderPublicKey(), transaction.getHeight());
+    }
   }
 
   @Override
   public void validate(Transaction transaction) throws BurstException.ValidationException {
+	  synchronized (Burst.getTransactionProcessor().getUnconfirmedTransactionsSyncObj()) {
     for (Appendix.AbstractAppendix appendage : transaction.getAppendages()) {
       appendage.validate(transaction);
     }
@@ -50,28 +54,35 @@ public class TransactionServiceImpl implements TransactionService {
         }
       }
     }
+	  }
   }
 
   @Override
   public boolean applyUnconfirmed(Transaction transaction) {
+	  synchronized (Burst.getTransactionProcessor().getUnconfirmedTransactionsSyncObj()) {
     Account senderAccount = accountService.getAccount(transaction.getSenderId());
     return senderAccount != null && transaction.getType().applyUnconfirmed(transaction, senderAccount);
+	  }
   }
 
   @Override
   public void apply(Transaction transaction) {
+	  synchronized (Burst.getTransactionProcessor().getUnconfirmedTransactionsSyncObj()) {
     Account senderAccount = accountService.getAccount(transaction.getSenderId());
     senderAccount.apply(transaction.getSenderPublicKey(), transaction.getHeight());
     Account recipientAccount = accountService.getOrAddAccount(transaction.getRecipientId());
     for (Appendix.AbstractAppendix appendage : transaction.getAppendages()) {
       appendage.apply(transaction, senderAccount, recipientAccount);
     }
+	  }
   }
 
   @Override
   public void undoUnconfirmed(Transaction transaction) {
+	  synchronized (Burst.getTransactionProcessor().getUnconfirmedTransactionsSyncObj()) {
     final Account senderAccount = accountService.getAccount(transaction.getSenderId());
     transaction.getType().undoUnconfirmed(transaction, senderAccount);
+	  }
   }
 
 }

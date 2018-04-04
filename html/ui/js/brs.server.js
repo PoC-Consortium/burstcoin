@@ -185,12 +185,14 @@ var BRS = (function(BRS, $, undefined) {
 	var url = BRS.server + "/burst?requestType=" + requestType;
 
 	if (type == "GET") {
-	    if (typeof data == "string") {
-		data += "&random=" + Math.random();
-	    }
-            else {
-		data.random = Math.random();
-	    }
+            // rico666: gives us lots (thousands) of connection refused messages in the UI
+            // has been there for ages, no clear function visible
+	    //   if (typeof data == "string") {
+	    //	data += "&random=" + Math.random();
+	    //    }
+            //    else {
+	    data.random = Math.random();
+	    //    }
 	}
 
 	var secretPhrase = "";
@@ -268,14 +270,24 @@ var BRS = (function(BRS, $, undefined) {
 	if (requestType == "broadcastTransaction") {
 	    type = "POST";
 	}
-
+    async = (async === undefined ? true : async);
+    if(async == false){
+      url += "&" + $.param(data);
+      var client = new XMLHttpRequest();
+      client.open("GET", url, false); 
+      client.setRequestHeader("Content-Type", "text/plain;charset=UTF-8");
+      client.data = data;
+      client.send();
+      var response = JSON.parse(client.responseText);
+      callback(response,data);
+    }else{
 	ajaxCall({
 	    url: url,
 	    crossDomain: true,
 	    dataType: "json",
 	    type: type,
 	    timeout: 30000,
-	    async: (async === undefined ? true : async),
+	    async: true,
 	    currentPage: currentPage,
 	    currentSubPage: currentSubPage,
 	    shouldRetry: (type == "GET" ? 2 : undefined),
@@ -425,7 +437,7 @@ var BRS = (function(BRS, $, undefined) {
 	    }
 	});
     }
-
+    }
     BRS.verifyAndSignTransactionBytes = function(transactionBytes, signature, requestType, data) {
 	var transaction = {};
 

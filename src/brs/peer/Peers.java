@@ -8,12 +8,12 @@ import brs.services.TimeService;
 import brs.util.*;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
+import org.eclipse.jetty.server.handler.gzip.GzipHandler;
 import org.eclipse.jetty.servlet.FilterHolder;
 import org.eclipse.jetty.servlet.FilterMapping;
 import org.eclipse.jetty.servlet.ServletHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.servlets.DoSFilter;
-import org.eclipse.jetty.servlets.GzipFilter;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONStreamAware;
@@ -113,6 +113,7 @@ public final class Peers {
       myAddress = externalIPAddress;
     }
     else {
+      myAddress = propertyService.getString("P2P.myAddress");
     }
 
     if (myAddress != null && myAddress.endsWith(":" + TESTNET_PEER_PORT) && !Constants.isTestnet) {
@@ -200,7 +201,8 @@ public final class Peers {
     List<String> knownBlacklistedPeersList = propertyService.getStringList(Props.P2P_BLACKLISTED_PEERS);
     if (knownBlacklistedPeersList.isEmpty()) {
       knownBlacklistedPeers = Collections.emptySet();
-    } else {
+    }
+    else {
       knownBlacklistedPeers = Collections.unmodifiableSet(new HashSet<>(knownBlacklistedPeersList));
     }
 
@@ -292,6 +294,41 @@ public final class Peers {
     static void init(TimeService timeService, AccountService accountService, Blockchain blockchain, TransactionProcessor transactionProcessor,
         BlockchainProcessor blockchainProcessor, PropertyService propertyService, ThreadPool threadPool) {
       if (Peers.shareMyAddress) {
+        Runnable GwDiscover = () -> {
+          GatewayDiscover gatewayDiscover = new GatewayDiscover();
+          gatewayDiscover.setTimeout(2000);
+          try {
+            gatewayDiscover.discover();
+          }
+          catch (IOException|SAXException|ParserConfigurationException e) {
+          }
+          logger.trace("Looking for Gateway Devices");
+          gateway = gatewayDiscover.getValidGateway();
+
+          if (gateway != null) {
+            gateway.setHttpReadTimeout(2000);
+            try {
+              InetAddress localAddress = gateway.getLocalAddress();
+              String externalIPAddress = gateway.getExternalIPAddress();
+              logger.info("Attempting to map {0}:{1} -> {2}:{3} on Gateway {0} ({1})",
+                  externalIPAddress, port, localAddress, port, gateway.getModelName(), gateway.getModelDescription());
+              PortMappingEntry portMapping = new PortMappingEntry();
+              if (gateway.getSpecificPortMappingEntry(port, "TCP", portMapping)) {
+                logger.info("Port was already mapped. Aborting test.");
+              }
+              else {
+                if (gateway.addPortMapping(port, port, localAddress.getHostAddress(), "TCP", "burstcoin")) {
+                  logger.info("UPNP Mapping successful");
+                }
+              }
+            }
+            catch (IOException|SAXException e) {
+              logger.error("Can't start UPNP", e);
+            }
+          }
+        };
+        new Thread(GwDiscover).start();
+
         peerServer = new Server();
         ServerConnector connector = new ServerConnector(peerServer);
         port = Constants.isTestnet ? TESTNET_PEER_PORT : Peers.myPeerServerPort;
@@ -310,14 +347,6 @@ public final class Peers {
         ServletHandler peerHandler = new ServletHandler();
         peerHandler.addServletWithMapping(peerServletHolder, "/*");
 
-        if (isGzipEnabled) {
-          FilterHolder gzipFilterHolder = peerHandler.addFilterWithMapping(GzipFilter.class, "/*", FilterMapping.DEFAULT);
-          gzipFilterHolder.setInitParameter("methods",     propertyService.getString(Props.JETTY_P2P_GZIP_FILTER_METHODS));
-          gzipFilterHolder.setInitParameter("bufferSize",  propertyService.getString(Props.JETTY_P2P_GZIP_FILTER_BUFFER_SIZE));
-          gzipFilterHolder.setInitParameter("minGzipSize", propertyService.getString(Props.JETTY_P2P_GZIP_FILTER_MIN_GZIP_SIZE));
-          gzipFilterHolder.setAsyncSupported(true);
-        }
-
         if (propertyService.getBoolean("JETTY.P2P.DoSFilter")) {
           FilterHolder dosFilterHolder = peerHandler.addFilterWithMapping(DoSFilter.class, "/*", FilterMapping.DEFAULT);
           dosFilterHolder.setInitParameter("maxRequestsPerSec", propertyService.getString(Props.JETTY_P2P_DOS_FILTER_MAX_REQUESTS_PER_SEC));
@@ -335,41 +364,18 @@ public final class Peers {
           dosFilterHolder.setAsyncSupported(true);
         }
 
-        Runnable GwDiscover = () -> {
-          GatewayDiscover gatewayDiscover = new GatewayDiscover();
-          gatewayDiscover.setTimeout(2000);
-          try {
-            gatewayDiscover.discover();
-          }
-          catch (IOException|SAXException|ParserConfigurationException e) {
-          }
-          logger.trace("Looking for Gateway Devices");
-          gateway = gatewayDiscover.getValidGateway();
-
-          if (gateway != null) {
-            gateway.setHttpReadTimeout(2000);
-            try {
-              InetAddress localAddress = gateway.getLocalAddress();
-              String externalIPAddress = gateway.getExternalIPAddress();
-              logger.info("Attempting to map {0}:{1} -> {2}:{3} on Gateway {0} ({1})",
-                          externalIPAddress, port, localAddress, port, gateway.getModelName(), gateway.getModelDescription());
-              PortMappingEntry portMapping = new PortMappingEntry();
-              if (gateway.getSpecificPortMappingEntry(port, "TCP", portMapping)) {
-                logger.info("Port was already mapped. Aborting test.");
-              }
-              else {
-                if (gateway.addPortMapping(port, port, localAddress.getHostAddress(), "TCP", "burstcoin")) {
-                  logger.info("UPNP Mapping successful");
-                }
-              }
-            }
-            catch (IOException|SAXException e) {
-              logger.error("Can't start UPNP", e);
-            }
-          }
-        };
-        new Thread(GwDiscover).start();
-
+        if (isGzipEnabled) {
+          GzipHandler gzipHandler = new GzipHandler();
+          gzipHandler.setIncludedMethods(propertyService.getString(Props.JETTY_P2P_GZIP_FILTER_METHODS));
+          gzipHandler.setInflateBufferSize(propertyService.getInt(Props.JETTY_P2P_GZIP_FILTER_BUFFER_SIZE));
+          gzipHandler.setMinGzipSize(propertyService.getInt(Props.JETTY_P2P_GZIP_FILTER_MIN_GZIP_SIZE));
+          gzipHandler.setIncludedMimeTypes("text/plain");
+          gzipHandler.setHandler(peerHandler);
+          peerServer.setHandler(gzipHandler);
+        }
+        else {
+          peerServer.setHandler(peerHandler);
+        }
         peerServer.setStopAtShutdown(true);
         threadPool.runBeforeStart(new Runnable() {
             @Override
@@ -436,7 +442,9 @@ public final class Peers {
              * Peers should never be removed if total peers are below our target to prevent total erase of peers
              * if we loose Internet connection
              */
-            if (peer.getState() != Peer.State.CONNECTED && !peer.isBlacklisted() && peers.size() > maxNumberOfConnectedPublicPeers) {
+                  
+            if (peer.getVersion().startsWith(Burst.LEGACY_VER) ||
+                (peer.getState() != Peer.State.CONNECTED && !peer.isBlacklisted() && peers.size() > maxNumberOfConnectedPublicPeers)) {
               removePeer(peer);
             }
             else {
@@ -454,7 +462,8 @@ public final class Peers {
         for (PeerImpl peer : peers.values()) {
           if (peer.getState() == Peer.State.CONNECTED && now - peer.getLastUpdated() > 3600) {
             peer.connect(timeService.getEpochTime());
-            if(peer.getState() != Peer.State.CONNECTED && !peer.isBlacklisted() && peers.size() > maxNumberOfConnectedPublicPeers) {
+            if(peer.getVersion().startsWith(Burst.LEGACY_VER) ||
+               (peer.getState() != Peer.State.CONNECTED && !peer.isBlacklisted() && peers.size() > maxNumberOfConnectedPublicPeers)) {
               removePeer(peer);
             }
           }
@@ -473,7 +482,7 @@ public final class Peers {
       Set<String> oldPeers = new HashSet<>(Burst.getDbs().getPeerDb().loadPeers());
       Set<String> currentPeers = new HashSet<>();
       for (Peer peer : Peers.peers.values()) {
-        if (peer.getAnnouncedAddress() != null && ! peer.isBlacklisted() && ! peer.isWellKnown()) {
+        if (peer.getAnnouncedAddress() != null && ! peer.isBlacklisted() && ! peer.isWellKnown() && ! peer.getVersion().startsWith(Burst.LEGACY_VER)) {
           currentPeers.add(peer.getAnnouncedAddress());
         }
       }
@@ -555,7 +564,9 @@ public final class Peers {
               if (! myPeer.isBlacklisted() && myPeer.getAnnouncedAddress() != null
                   && myPeer.getState() == Peer.State.CONNECTED && myPeer.shareAddress()
                   && ! addedAddresses.contains(myPeer.getAnnouncedAddress())
-                  && ! myPeer.getAnnouncedAddress().equals(peer.getAnnouncedAddress())) {
+                  && ! myPeer.getAnnouncedAddress().equals(peer.getAnnouncedAddress())
+                  && ! myPeer.getVersion().startsWith(Burst.LEGACY_VER)
+                  ) {
                 myPeers.add(myPeer.getAnnouncedAddress());
               }
             }
@@ -768,7 +779,10 @@ public final class Peers {
           continue;
         }
 
-        if (!peer.isBlacklisted() && peer.getState() == Peer.State.CONNECTED && peer.getAnnouncedAddress() != null) {
+        if (!peer.getVersion().startsWith(Burst.LEGACY_VER)
+            && !peer.isBlacklisted()
+            && peer.getState() == Peer.State.CONNECTED
+            && peer.getAnnouncedAddress() != null) {
           Future<JSONObject> futureResponse = sendToPeersService.submit(() -> peer.send(jsonRequest));
           expectedResponses.add(futureResponse);
         }
@@ -910,9 +924,6 @@ public final class Peers {
   private static int getNumberOfConnectedPublicPeers() {
     int numberOfConnectedPeers = 0;
     for (Peer peer : peers.values()) {
-      // If hallmark enabled below  if line will return 0.
-      // if (peer.getState() == Peer.State.CONNECTED) && peer.getAnnouncedAddress() != null
-      //     && (! Peers.enableHallmarkProtection || peer.getWeight() > 0)) {
       if (peer.getState() == Peer.State.CONNECTED) {
         numberOfConnectedPeers++;
       }

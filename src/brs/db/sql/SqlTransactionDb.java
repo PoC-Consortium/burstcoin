@@ -175,7 +175,7 @@ public class SqlTransactionDb implements TransactionDb {
   public List<Transaction> findBlockTransactions(long blockId) {
     try (DSLContext ctx = Db.getDSLContext();
          Cursor<TransactionRecord> transactionRecords = ctx.selectFrom(TRANSACTION).
-                 where(TRANSACTION.BLOCK_ID.eq(blockId)).fetchLazy()) {
+                 where(TRANSACTION.BLOCK_ID.eq(blockId).and(TRANSACTION.SIGNATURE.isNotNull())).fetchLazy()) {
       List<Transaction> list = new ArrayList<>();
       for (TransactionRecord transactionRecord : transactionRecords) {
         list.add(loadTransaction(transactionRecord));

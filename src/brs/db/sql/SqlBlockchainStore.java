@@ -4,9 +4,11 @@ import brs.*;
 import brs.db.BlockDb;
 import brs.db.BurstIterator;
 import brs.db.store.BlockchainStore;
+import brs.schema.tables.records.BlockRecord;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import org.jooq.Cursor;
 import org.jooq.DSLContext;
 import org.jooq.Condition;
 import org.jooq.SelectConditionStep;
@@ -83,11 +85,15 @@ public class SqlBlockchainStore implements BlockchainStore {
     if (limit > 1440) {
       throw new IllegalArgumentException("Can't get more than 1440 blocks at a time");
     }
-    try ( DSLContext ctx = Db.getDSLContext() ) {
-      return
-        ctx.selectFrom(BLOCK).where(
-          BLOCK.HEIGHT.gt( ctx.select(BLOCK.HEIGHT).from(BLOCK).where(BLOCK.ID.eq(blockId) ) )
-        ).orderBy(BLOCK.HEIGHT.asc()).limit(limit).fetchInto(Block.class);
+
+      try ( DSLContext ctx = Db.getDSLContext() ) {
+        List<Block> blocksAfter = new ArrayList<Block>();
+        try (Cursor<BlockRecord> cursor = ctx.selectFrom(BLOCK).where(BLOCK.HEIGHT.gt( ctx.select(BLOCK.HEIGHT).from(BLOCK).where(BLOCK.ID.eq(blockId)))).orderBy(BLOCK.HEIGHT.asc()).limit(limit).fetchLazy()) {
+          while (cursor.hasNext()) {
+            blocksAfter.add(blockDb.loadBlock(cursor.fetchNext()));
+          }
+        }
+        return blocksAfter;
     }
     catch ( Exception e ) {
       throw new RuntimeException(e.toString(), e);

@@ -24,8 +24,8 @@ import static brs.http.common.Parameters.ORDER_PARAMETER;
 import static brs.http.common.Parameters.PERIOD_PARAMETER;
 import static brs.http.common.Parameters.PRICE_NQT_PARAMETER;
 import static brs.http.common.Parameters.PURCHASE_PARAMETER;
-import static brs.http.common.Parameters.QUANTITY_NQT_PARAMETER;
 import static brs.http.common.Parameters.QUANTITY_PARAMETER;
+import static brs.http.common.Parameters.QUANTITY_QNT_PARAMETER;
 import static brs.http.common.Parameters.REFUND_NQT_PARAMETER;
 import static brs.http.common.Parameters.REQUIRED_SIGNERS_PARAMETER;
 import static brs.http.common.Parameters.SIGNERS_PARAMETER;
@@ -55,7 +55,7 @@ import static brs.http.common.ResultFields.ORDER_RESPONSE;
 import static brs.http.common.ResultFields.PERIOD_RESPONSE;
 import static brs.http.common.ResultFields.PRICE_NQT_RESPONSE;
 import static brs.http.common.ResultFields.PURCHASE_RESPONSE;
-import static brs.http.common.ResultFields.QUANTITY_NQT_RESPONSE;
+import static brs.http.common.ResultFields.QUANTITY_QNT_RESPONSE;
 import static brs.http.common.ResultFields.QUANTITY_RESPONSE;
 import static brs.http.common.ResultFields.REFUND_NQT_RESPONSE;
 import static brs.http.common.ResultFields.REQUIRED_SIGNERS_RESPONSE;
@@ -437,7 +437,7 @@ public interface Attachment extends Appendix {
       super(attachmentData);
       this.name = (String) attachmentData.get(NAME_PARAMETER);
       this.description = Convert.nullToEmpty((String) attachmentData.get(DESCRIPTION_PARAMETER));
-      this.quantityQNT = Convert.parseLong(attachmentData.get(QUANTITY_NQT_PARAMETER));
+      this.quantityQNT = Convert.parseLong(attachmentData.get(QUANTITY_QNT_PARAMETER));
       this.decimals = ((Long) attachmentData.get(DECIMALS_PARAMETER)).byteValue();
     }
 
@@ -475,7 +475,7 @@ public interface Attachment extends Appendix {
     void putMyJSON(JSONObject attachment) {
       attachment.put(NAME_RESPONSE, name);
       attachment.put(DESCRIPTION_RESPONSE, description);
-      attachment.put(QUANTITY_NQT_RESPONSE, quantityQNT);
+      attachment.put(QUANTITY_QNT_RESPONSE, quantityQNT);
       attachment.put(DECIMALS_RESPONSE, decimals);
     }
 
@@ -517,7 +517,7 @@ public interface Attachment extends Appendix {
     ColoredCoinsAssetTransfer(JSONObject attachmentData) {
       super(attachmentData);
       this.assetId = Convert.parseUnsignedLong((String) attachmentData.get(ASSET_PARAMETER));
-      this.quantityQNT = Convert.parseLong(attachmentData.get(QUANTITY_NQT_PARAMETER));
+      this.quantityQNT = Convert.parseLong(attachmentData.get(QUANTITY_QNT_PARAMETER));
       this.comment = getVersion() == 0 ? Convert.nullToEmpty((String) attachmentData.get(COMMENT_PARAMETER)) : null;
     }
 
@@ -552,7 +552,7 @@ public interface Attachment extends Appendix {
     @Override
     void putMyJSON(JSONObject attachment) {
       attachment.put(ASSET_RESPONSE, Convert.toUnsignedLong(assetId));
-      attachment.put(QUANTITY_NQT_RESPONSE, quantityQNT);
+      attachment.put(QUANTITY_QNT_RESPONSE, quantityQNT);
       if (getVersion() == 0) {
         attachment.put(COMMENT_RESPONSE, comment);
       }
@@ -593,7 +593,7 @@ public interface Attachment extends Appendix {
     private ColoredCoinsOrderPlacement(JSONObject attachmentData) {
       super(attachmentData);
       this.assetId = Convert.parseUnsignedLong((String) attachmentData.get(ASSET_PARAMETER));
-      this.quantityQNT = Convert.parseLong(attachmentData.get(QUANTITY_NQT_PARAMETER));
+      this.quantityQNT = Convert.parseLong(attachmentData.get(QUANTITY_QNT_PARAMETER));
       this.priceNQT = Convert.parseLong(attachmentData.get(PRICE_NQT_PARAMETER));
     }
 
@@ -619,7 +619,7 @@ public interface Attachment extends Appendix {
     @Override
     void putMyJSON(JSONObject attachment) {
       attachment.put(ASSET_RESPONSE, Convert.toUnsignedLong(assetId));
-      attachment.put(QUANTITY_NQT_RESPONSE, quantityQNT);
+      attachment.put(QUANTITY_QNT_RESPONSE, quantityQNT);
       attachment.put(PRICE_NQT_RESPONSE, priceNQT);
     }
 

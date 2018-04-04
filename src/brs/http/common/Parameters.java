@@ -7,7 +7,7 @@ public class Parameters {
   public static final String ALIAS_NAME_PARAMETER = "aliasName";
   public static final String FEE_QT_PARAMETER = "feeNQT";
   public static final String PRICE_NQT_PARAMETER = "priceNQT";
-  public static final String QUANTITY_NQT_PARAMETER = "quantityQNT";
+  public static final String QUANTITY_QNT_PARAMETER = "quantityQNT";
   public static final String ASSET_PARAMETER = "asset";
   public static final String ASSETS_PARAMETER = "assets";
   public static final String GOODS_PARAMETER = "goods";

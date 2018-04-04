@@ -24,4 +24,6 @@ public interface TransactionProcessorStore {
   BurstIterator<Transaction> getExpiredTransactions();
 
   int deleteTransaction (Transaction transaction);
+
+  boolean hasTransaction(long transactionId);
 }

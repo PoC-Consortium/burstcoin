@@ -2,12 +2,12 @@ package brs.http;
 
 import static brs.http.common.ResultFields.ASSET_BALANCES_RESPONSE;
 import static brs.http.common.ResultFields.ASSET_RESPONSE;
-import static brs.http.common.ResultFields.BALANCE_NQT_RESPONSE;
+import static brs.http.common.ResultFields.BALANCE_QNT_RESPONSE;
 import static brs.http.common.ResultFields.DESCRIPTION_RESPONSE;
 import static brs.http.common.ResultFields.NAME_RESPONSE;
 import static brs.http.common.ResultFields.PUBLIC_KEY_RESPONSE;
 import static brs.http.common.ResultFields.UNCONFIRMED_ASSET_BALANCES_RESPONSE;
-import static brs.http.common.ResultFields.UNCONFIRMED_BALANCE_NQT_RESPONSE;
+import static brs.http.common.ResultFields.UNCONFIRMED_BALANCE_QNT_RESPONSE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Matchers.eq;
@@ -81,13 +81,13 @@ public class GetAccountTest extends AbstractUnitTest {
     assertEquals(1, confirmedBalanceResponses.size());
     final JSONObject balanceResponse = (JSONObject) confirmedBalanceResponses.get(0);
     assertEquals("" + mockAssetId, balanceResponse.get(ASSET_RESPONSE));
-    assertEquals("" + balanceNQT, balanceResponse.get(BALANCE_NQT_RESPONSE));
+    assertEquals("" + balanceNQT, balanceResponse.get(BALANCE_QNT_RESPONSE));
 
     final JSONArray unconfirmedBalanceResponses = (JSONArray) response.get(UNCONFIRMED_ASSET_BALANCES_RESPONSE);
     assertNotNull(unconfirmedBalanceResponses);
     assertEquals(1, unconfirmedBalanceResponses.size());
     final JSONObject unconfirmedBalanceResponse = (JSONObject) unconfirmedBalanceResponses.get(0);
     assertEquals("" + mockAssetId, unconfirmedBalanceResponse.get(ASSET_RESPONSE));
-    assertEquals("" + mockUnconfirmedQuantityNQT, unconfirmedBalanceResponse.get(UNCONFIRMED_BALANCE_NQT_RESPONSE));
+    assertEquals("" + mockUnconfirmedQuantityNQT, unconfirmedBalanceResponse.get(UNCONFIRMED_BALANCE_QNT_RESPONSE));
   }
 }

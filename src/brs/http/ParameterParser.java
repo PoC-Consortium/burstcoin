@@ -28,8 +28,8 @@ import static brs.http.common.Parameters.HEX_STRING_PARAMETER;
 import static brs.http.common.Parameters.LAST_INDEX_PARAMETER;
 import static brs.http.common.Parameters.ORDER_PARAMETER;
 import static brs.http.common.Parameters.PRICE_NQT_PARAMETER;
-import static brs.http.common.Parameters.QUANTITY_NQT_PARAMETER;
 import static brs.http.common.Parameters.QUANTITY_PARAMETER;
+import static brs.http.common.Parameters.QUANTITY_QNT_PARAMETER;
 import static brs.http.common.Parameters.RECIPIENT_PARAMETER;
 import static brs.http.common.Parameters.SECRET_PHRASE_PARAMETER;
 import static brs.http.common.Parameters.SELLER_PARAMETER;
@@ -80,7 +80,7 @@ final class ParameterParser {
   }
 
   static long getQuantityQNT(HttpServletRequest req) throws ParameterException {
-    String quantityValueQNT = Convert.emptyToNull(req.getParameter(QUANTITY_NQT_PARAMETER));
+    String quantityValueQNT = Convert.emptyToNull(req.getParameter(QUANTITY_QNT_PARAMETER));
     if (quantityValueQNT == null) {
       throw new ParameterException(MISSING_QUANTITY);
     }

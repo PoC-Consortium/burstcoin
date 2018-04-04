@@ -53,8 +53,26 @@ var BRS = (function(BRS, $, undefined) {
 				    upToDate++;
 				}
 
-				rows += "<tr><td>" + (peer.state == 1 ? "<i class='fa fa-check-circle' style='color:#5cb85c' title='Connected'></i>" : "<i class='fa fa-times-circle' style='color:#f0ad4e' title='Disconnected'></i>") + "&nbsp;&nbsp;" + (peer.announcedAddress ? String(peer.announcedAddress).escapeHTML() : "No name") + "</td><td" + (peer.weight > 0 ? " style='font-weight:bold'" : "") + ">" + BRS.formatWeight(peer.weight) + "</td><td>" + BRS.formatVolume(peer.downloadedVolume) + "</td><td>" + BRS.formatVolume(peer.uploadedVolume) + "</td><td><span class='label label-" +
-				    (BRS.versionCompare(peer.version, versionToCompare) >= 0 ? "success" : "danger") + "'>" + (peer.application && peer.version ? String(peer.application).escapeHTML() + " " + String(peer.version).escapeHTML() : "?") + "</label></td><td>" + (peer.platform ? String(peer.platform).escapeHTML() : "?") + "</td></tr>";
+				rows += "<tr><td>"
+                                    + (peer.state == 1 ? "<i class='fa fa-check-circle' style='color:#5cb85c' title='Connected'></i>" : "<i class='fa fa-times-circle' style='color:#f0ad4e' title='Disconnected'></i>")
+                                    + "&nbsp;&nbsp;"
+                                    + (peer.announcedAddress ? String(peer.announcedAddress).escapeHTML() : "No name")
+                                    + "</td><td"
+                                    + (peer.weight > 0 ? " style='font-weight:bold'" : "")
+                                    + ">" + BRS.formatWeight(peer.weight)
+                                    + "</td><td>"
+                                    + BRS.formatVolume(peer.downloadedVolume)
+                                    + "</td><td>"
+                                    + BRS.formatVolume(peer.uploadedVolume)
+                                    + "</td><td><span class='label label-"
+                                    + (BRS.versionCompare(peer.version, versionToCompare) >= 0 ? "success" : "danger")
+                                    + "'>"
+                                    + (peer.application && peer.version ? String(peer.application).escapeHTML() + " " + String(peer.version).escapeHTML() : "?")
+                                    + "</label></td><td>"
+                                    + (peer.platform ? String(peer.platform).escapeHTML() : "?")
+                                    + "</td></tr>";
+                                       
+				    
 			    }
 
 			    $("#peers_uploaded_volume").html(BRS.formatVolume(uploaded)).removeClass("loading_dots");

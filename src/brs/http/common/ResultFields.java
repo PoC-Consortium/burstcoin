@@ -6,7 +6,9 @@ public class ResultFields {
   public static final String ERROR_DESCRIPTION_RESPONSE = "errorDescription";
   public static final String DECRYPTED_MESSAGE_RESPONSE = "decryptedMessage";
   public static final String BALANCE_NQT_RESPONSE = "balanceNQT";
+  public static final String BALANCE_QNT_RESPONSE = "balanceQNT";
   public static final String UNCONFIRMED_BALANCE_NQT_RESPONSE = "unconfirmedBalanceNQT";
+  public static final String UNCONFIRMED_BALANCE_QNT_RESPONSE = "unconfirmedBalanceQNT";
   public static final String EFFECTIVE_BALANCE_NQT_RESPONSE = "effectiveBalanceBURST";
   public static final String FORGED_BALANCE_NQT_RESPONSE = "forgedBalanceNQT";
   public static final String GUARANTEED_BALANCE_NQT_RESPONSE = "guaranteedBalanceNQT";
@@ -61,8 +63,8 @@ public class ResultFields {
   public static final String TYPE_RESPONSE = "type";
   public static final String SUBTYPE_RESPONSE = "subtype";
   public static final String ORDER_RESPONSE = "order";
-  public static final String QUANTITY_NQT_RESPONSE = "quantityNQT";
-  public static final String UNCONFIRMED_QUANTITY_NQT_RESPONSE = "unconfirmedQuantityNQT";
+  public static final String QUANTITY_QNT_RESPONSE = "quantityQNT";
+  public static final String UNCONFIRMED_QUANTITY_QNT_RESPONSE = "unconfirmedQuantityQNT";
   public static final String PRICE_NQT_RESPONSE = "priceNQT";
   public static final String DECIMALS_RESPONSE = "decimals";
   public static final String NUMBER_OF_TRADES_RESPONSE = "numberOfTrades";
@@ -87,7 +89,7 @@ public class ResultFields {
   public static final String DISCOUNT_NQT_RESPONSE = "discountNQT";
   public static final String REFUND_NQT_RESPONSE = "refundNQT";
   public static final String PURCHASES_RESPONSE = "purchases";
-  public static final String ALIAS_NAME_RESPONSE = "aliasNameResponse";
+  public static final String ALIAS_NAME_RESPONSE = "aliasName";
   public static final String ALIAS_URI_RESPONSE = "aliasURI";
   public static final String ALIAS_RESPONSE = "alias";
   public static final String ID_RESPONSE = "id";

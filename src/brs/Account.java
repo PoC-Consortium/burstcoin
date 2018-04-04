@@ -288,13 +288,24 @@ public class Account {
 
   private static void checkBalance(long accountId, long confirmed, long unconfirmed) {
     if (confirmed < 0) {
-      throw new DoubleSpendingException("Negative balance or quantity for account " + Convert.toUnsignedLong(accountId));
+      throw new DoubleSpendingException("Negative balance or quantity ("
+                                        + confirmed
+                                        + ") for account "
+                                        + Convert.toUnsignedLong(accountId));
     }
     if (unconfirmed < 0) {
-      throw new DoubleSpendingException("Negative unconfirmed balance or quantity for account " + Convert.toUnsignedLong(accountId));
+      throw new DoubleSpendingException("Negative unconfirmed balance or quantity ("
+                                        + unconfirmed
+                                        + ") for account "
+                                        + Convert.toUnsignedLong(accountId));
     }
     if (unconfirmed > confirmed) {
-      throw new DoubleSpendingException("Unconfirmed exceeds confirmed balance or quantity for account " + Convert.toUnsignedLong(accountId));
+      throw new DoubleSpendingException("Unconfirmed ("
+                                        + unconfirmed
+                                        + ") exceeds confirmed ("
+                                        + confirmed
+                                        + ") balance or quantity for account "
+                                        + Convert.toUnsignedLong(accountId));
     }
   }
 

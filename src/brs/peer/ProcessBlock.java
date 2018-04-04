@@ -7,24 +7,24 @@ import brs.util.JSON;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONStreamAware;
 
-final class ProcessBlock extends PeerServlet.PeerRequestHandler {
+public final class ProcessBlock extends PeerServlet.PeerRequestHandler {
 
   private final Blockchain blockchain;
   private final BlockchainProcessor blockchainProcessor;
 
-  ProcessBlock(Blockchain blockchain, BlockchainProcessor blockchainProcessor) {
+  public ProcessBlock(Blockchain blockchain, BlockchainProcessor blockchainProcessor) {
     this.blockchain = blockchain;
     this.blockchainProcessor = blockchainProcessor;
   }
 
-  private static final JSONStreamAware ACCEPTED;
+  public static final JSONStreamAware ACCEPTED;
   static {
     JSONObject response = new JSONObject();
     response.put("accepted", true);
     ACCEPTED = JSON.prepare(response);
   }
 
-  private static final JSONStreamAware NOT_ACCEPTED;
+  public static final JSONStreamAware NOT_ACCEPTED;
   static {
     JSONObject response = new JSONObject();
     response.put("accepted", false);
@@ -32,7 +32,7 @@ final class ProcessBlock extends PeerServlet.PeerRequestHandler {
   }
 
   @Override
-  JSONStreamAware processRequest(JSONObject request, Peer peer) {
+  public JSONStreamAware processRequest(JSONObject request, Peer peer) {
 
     try {
 

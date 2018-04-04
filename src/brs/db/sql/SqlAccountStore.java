@@ -13,6 +13,7 @@ import brs.util.Convert;
 import java.util.stream.Collectors;
 import org.jooq.BatchBindStep;
 import org.jooq.Cursor;
+import org.jooq.Query;
 import org.slf4j.LoggerFactory;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -114,21 +115,33 @@ public class SqlAccountStore implements AccountStore {
 
       @Override
       protected void bulkInsert(DSLContext ctx, ArrayList<Account> accounts) {
-        BatchBindStep insertBatch = ctx.batch(ctx.insertInto(ACCOUNT, ACCOUNT.ID, ACCOUNT.HEIGHT, ACCOUNT.CREATION_HEIGHT,
-            ACCOUNT.PUBLIC_KEY, ACCOUNT.KEY_HEIGHT, ACCOUNT.BALANCE, ACCOUNT.UNCONFIRMED_BALANCE,
-            ACCOUNT.FORGED_BALANCE, ACCOUNT.NAME, ACCOUNT.DESCRIPTION, ACCOUNT.LATEST)
-            .values((Long) null, null, null, null, null, null, null, null, null, null, null));
-        for ( Account account: accounts ) {
-          DbKey dbKey = (DbKey)accountDbKeyFactory.newKey(account.getId());
-          if ( ! getCache().containsKey(dbKey) ) {
-            getCache().put(dbKey, account);
+        if ( ctx.fetchExists(ctx.selectOne().from(ACCOUNT).where(ACCOUNT.HEIGHT.eq(Burst.getBlockchain().getHeight())).limit(1)) ) {
+          ArrayList<Query> accountQueries = new ArrayList<Query>();
+          for ( Account account: accounts ) {
+            accountQueries.add(
+              ctx.mergeInto(ACCOUNT, ACCOUNT.ID, ACCOUNT.HEIGHT, ACCOUNT.CREATION_HEIGHT, ACCOUNT.PUBLIC_KEY, ACCOUNT.KEY_HEIGHT, ACCOUNT.BALANCE,
+                  ACCOUNT.UNCONFIRMED_BALANCE, ACCOUNT.FORGED_BALANCE, ACCOUNT.NAME, ACCOUNT.DESCRIPTION, ACCOUNT.LATEST)
+                  .key(ACCOUNT.ID, ACCOUNT.HEIGHT).values(account.getId(), Burst.getBlockchain().getHeight(), account.getCreationHeight(), account.getPublicKey(), account.getKeyHeight(),
+                  account.getBalanceNQT(), account.getUnconfirmedBalanceNQT(), account.getForgedBalanceNQT(), account.getName(), account.getDescription(), true)
+            );
           }
-          insertBatch.bind(account.getId(), Burst.getBlockchain().getHeight(),
-              account.getCreationHeight(), account.getPublicKey(), account.getKeyHeight(),
-              account.getBalanceNQT(), account.getUnconfirmedBalanceNQT(),
-              account.getForgedBalanceNQT(), account.getName(), account.getDescription(), true);
+          ctx.batch(accountQueries).execute();
         }
-        insertBatch.execute();
+        else {
+          BatchBindStep insertBatch = ctx.batch(
+              ctx.insertInto(ACCOUNT, ACCOUNT.ID, ACCOUNT.HEIGHT, ACCOUNT.CREATION_HEIGHT, ACCOUNT.PUBLIC_KEY, ACCOUNT.KEY_HEIGHT, ACCOUNT.BALANCE,
+                  ACCOUNT.UNCONFIRMED_BALANCE, ACCOUNT.FORGED_BALANCE, ACCOUNT.NAME, ACCOUNT.DESCRIPTION, ACCOUNT.LATEST)
+                  .values((Long) null, null, null, null, null, null, null, null, null, null, null));
+          for (Account account : accounts) {
+            DbKey dbKey = (DbKey) accountDbKeyFactory.newKey(account.getId());
+            if (!getCache().containsKey(dbKey)) {
+              getCache().put(dbKey, account);
+            }
+            insertBatch.bind(account.getId(), Burst.getBlockchain().getHeight(), account.getCreationHeight(), account.getPublicKey(), account.getKeyHeight(),
+                account.getBalanceNQT(), account.getUnconfirmedBalanceNQT(), account.getForgedBalanceNQT(), account.getName(), account.getDescription(), true);
+          }
+          insertBatch.execute();
+        }
       }
 
       @Override

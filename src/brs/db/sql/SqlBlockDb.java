@@ -185,11 +185,6 @@ public class SqlBlockDb implements BlockDb {
     Integer blockHeight = (Integer) ctx.fetchValue(blockHeightQuery.fetchResultSet());
 
     if (blockHeight != null) {
-      UpdateQuery unlinkFromPreviousQuery = ctx.updateQuery(BLOCK);
-      unlinkFromPreviousQuery.addConditions(BLOCK.field("height", Integer.class).ge(blockHeight));
-      unlinkFromPreviousQuery.addValue(BLOCK.PREVIOUS_BLOCK_ID, (Long) null);
-      unlinkFromPreviousQuery.execute();
-
       DeleteQuery deleteQuery = ctx.deleteQuery(BLOCK);
       deleteQuery.addConditions(BLOCK.field("height", Integer.class).ge(blockHeight));
       deleteQuery.execute();

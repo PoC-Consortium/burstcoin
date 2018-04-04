@@ -12,7 +12,7 @@ import static brs.http.JSONResponses.MISSING_NAME;
 import static brs.http.common.Parameters.DECIMALS_PARAMETER;
 import static brs.http.common.Parameters.DESCRIPTION_PARAMETER;
 import static brs.http.common.Parameters.NAME_PARAMETER;
-import static brs.http.common.Parameters.QUANTITY_NQT_PARAMETER;
+import static brs.http.common.Parameters.QUANTITY_QNT_PARAMETER;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
@@ -49,13 +49,13 @@ public class IssueAssetTest extends AbstractTransactionTest {
     final String nameParameter = stringWithLength(MIN_ASSET_NAME_LENGTH + 1);
     final String descriptionParameter = stringWithLength(MAX_ASSET_DESCRIPTION_LENGTH - 1);
     final int decimalsParameter = 4;
-    final int quantityNQTParameter = 5;
+    final int quantityQNTParameter = 5;
 
     final HttpServletRequest req = QuickMocker.httpServletRequest(
         new MockParam(NAME_PARAMETER, nameParameter),
         new MockParam(DESCRIPTION_PARAMETER, descriptionParameter),
         new MockParam(DECIMALS_PARAMETER, decimalsParameter),
-        new MockParam(QUANTITY_NQT_PARAMETER, quantityNQTParameter)
+        new MockParam(QUANTITY_QNT_PARAMETER, quantityQNTParameter)
     );
 
     final Attachment.ColoredCoinsAssetIssuance attachment = (Attachment.ColoredCoinsAssetIssuance) attachmentCreatedTransaction(() -> t.processRequest(req), apiTransactionManagerMock);

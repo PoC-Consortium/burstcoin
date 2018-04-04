@@ -7,7 +7,7 @@ import static brs.http.common.ResultFields.HEIGHT_RESPONSE;
 import static brs.http.common.ResultFields.OPEN_ORDERS_RESPONSE;
 import static brs.http.common.ResultFields.ORDER_RESPONSE;
 import static brs.http.common.ResultFields.PRICE_NQT_RESPONSE;
-import static brs.http.common.ResultFields.QUANTITY_NQT_RESPONSE;
+import static brs.http.common.ResultFields.QUANTITY_QNT_RESPONSE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Matchers.eq;
@@ -69,7 +69,7 @@ public class GetAllOpenBidOrdersTest extends AbstractUnitTest {
     final JSONObject openOrderResult = (JSONObject) openOrdersResult.get(0);
     assertEquals("" + mockBidOrder.getId(), openOrderResult.get(ORDER_RESPONSE));
     assertEquals("" + mockBidOrder.getAssetId(), openOrderResult.get(ASSET_RESPONSE));
-    assertEquals("" + mockBidOrder.getQuantityQNT(), openOrderResult.get(QUANTITY_NQT_RESPONSE));
+    assertEquals("" + mockBidOrder.getQuantityQNT(), openOrderResult.get(QUANTITY_QNT_RESPONSE));
     assertEquals("" + mockBidOrder.getPriceNQT(), openOrderResult.get(PRICE_NQT_RESPONSE));
     assertEquals(mockBidOrder.getHeight(), openOrderResult.get(HEIGHT_RESPONSE));
   }

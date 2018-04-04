@@ -3,14 +3,12 @@ package brs.http;
 import static brs.http.common.Parameters.ASSET_PARAMETER;
 import static brs.http.common.Parameters.FIRST_INDEX_PARAMETER;
 import static brs.http.common.Parameters.LAST_INDEX_PARAMETER;
-import static brs.http.common.ResultFields.ACCOUNT_RESPONSE;
 import static brs.http.common.ResultFields.ASK_ORDERS_RESPONSE;
-import static brs.http.common.ResultFields.ASK_ORDER_IDS_RESPONSE;
 import static brs.http.common.ResultFields.ASSET_RESPONSE;
 import static brs.http.common.ResultFields.HEIGHT_RESPONSE;
 import static brs.http.common.ResultFields.ORDER_RESPONSE;
 import static brs.http.common.ResultFields.PRICE_NQT_RESPONSE;
-import static brs.http.common.ResultFields.QUANTITY_NQT_RESPONSE;
+import static brs.http.common.ResultFields.QUANTITY_QNT_RESPONSE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Matchers.eq;
@@ -26,7 +24,6 @@ import brs.common.QuickMocker.MockParam;
 import brs.db.BurstIterator;
 import brs.services.OrderService;
 import brs.services.ParameterService;
-import brs.util.Convert;
 import javax.servlet.http.HttpServletRequest;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -91,7 +88,7 @@ public class GetAskOrdersTest extends AbstractUnitTest {
 
     assertEquals("" + askOrder1.getId(), askOrder1Result.get(ORDER_RESPONSE));
     assertEquals("" + askOrder1.getAssetId(), askOrder1Result.get(ASSET_RESPONSE));
-    assertEquals("" + askOrder1.getQuantityQNT(), askOrder1Result.get(QUANTITY_NQT_RESPONSE));
+    assertEquals("" + askOrder1.getQuantityQNT(), askOrder1Result.get(QUANTITY_QNT_RESPONSE));
     assertEquals("" + askOrder1.getPriceNQT(), askOrder1Result.get(PRICE_NQT_RESPONSE));
     assertEquals(askOrder1.getHeight(), askOrder1Result.get(HEIGHT_RESPONSE));
   }

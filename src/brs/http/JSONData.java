@@ -64,7 +64,7 @@ import static brs.http.common.ResultFields.PREVIOUS_BLOCK_RESPONSE;
 import static brs.http.common.ResultFields.PRICE_NQT_RESPONSE;
 import static brs.http.common.ResultFields.PUBLIC_FEEDBACKS_RESPONSE;
 import static brs.http.common.ResultFields.PURCHASE_RESPONSE;
-import static brs.http.common.ResultFields.QUANTITY_NQT_RESPONSE;
+import static brs.http.common.ResultFields.QUANTITY_QNT_RESPONSE;
 import static brs.http.common.ResultFields.QUANTITY_RESPONSE;
 import static brs.http.common.ResultFields.RECIPIENT_RESPONSE;
 import static brs.http.common.ResultFields.RECIPIENT_RS_RESPONSE;
@@ -91,7 +91,7 @@ import static brs.http.common.ResultFields.TRANSACTIONS_RESPONSE;
 import static brs.http.common.ResultFields.TRANSACTION_RESPONSE;
 import static brs.http.common.ResultFields.TYPE_RESPONSE;
 import static brs.http.common.ResultFields.UNCONFIRMED_BALANCE_NQT_RESPONSE;
-import static brs.http.common.ResultFields.UNCONFIRMED_QUANTITY_NQT_RESPONSE;
+import static brs.http.common.ResultFields.UNCONFIRMED_QUANTITY_QNT_RESPONSE;
 import static brs.http.common.ResultFields.VERSION_RESPONSE;
 
 import brs.*;
@@ -154,7 +154,7 @@ public final class JSONData {
     json.put(NAME_RESPONSE, asset.getName());
     json.put(DESCRIPTION_RESPONSE, asset.getDescription());
     json.put(DECIMALS_RESPONSE, asset.getDecimals());
-    json.put(QUANTITY_NQT_RESPONSE, String.valueOf(asset.getQuantityQNT()));
+    json.put(QUANTITY_QNT_RESPONSE, String.valueOf(asset.getQuantityQNT()));
     json.put(ASSET_RESPONSE, Convert.toUnsignedLong(asset.getId()));
     json.put(NUMBER_OF_TRADES_RESPONSE, tradeCount);
     json.put(NUMBER_OF_TRANSFERS_RESPONSE, transferCount);
@@ -166,8 +166,8 @@ public final class JSONData {
     JSONObject json = new JSONObject();
     putAccount(json, ACCOUNT_RESPONSE, accountAsset.getAccountId());
     json.put(ASSET_RESPONSE, Convert.toUnsignedLong(accountAsset.getAssetId()));
-    json.put(QUANTITY_NQT_RESPONSE, String.valueOf(accountAsset.getQuantityQNT()));
-    json.put(UNCONFIRMED_QUANTITY_NQT_RESPONSE, String.valueOf(accountAsset.getUnconfirmedQuantityQNT()));
+    json.put(QUANTITY_QNT_RESPONSE, String.valueOf(accountAsset.getQuantityQNT()));
+    json.put(UNCONFIRMED_QUANTITY_QNT_RESPONSE, String.valueOf(accountAsset.getUnconfirmedQuantityQNT()));
     return json;
   }
 
@@ -188,7 +188,7 @@ public final class JSONData {
     json.put(ORDER_RESPONSE, Convert.toUnsignedLong(order.getId()));
     json.put(ASSET_RESPONSE, Convert.toUnsignedLong(order.getAssetId()));
     putAccount(json, ACCOUNT_RESPONSE, order.getAccountId());
-    json.put(QUANTITY_NQT_RESPONSE, String.valueOf(order.getQuantityQNT()));
+    json.put(QUANTITY_QNT_RESPONSE, String.valueOf(order.getQuantityQNT()));
     json.put(PRICE_NQT_RESPONSE, String.valueOf(order.getPriceNQT()));
     json.put(HEIGHT_RESPONSE, order.getHeight());
     return json;
@@ -382,7 +382,7 @@ public final class JSONData {
   static JSONObject trade(Trade trade, Asset asset) {
     JSONObject json = new JSONObject();
     json.put(TIMESTAMP_RESPONSE, trade.getTimestamp());
-    json.put(QUANTITY_NQT_RESPONSE, String.valueOf(trade.getQuantityQNT()));
+    json.put(QUANTITY_QNT_RESPONSE, String.valueOf(trade.getQuantityQNT()));
     json.put(PRICE_NQT_RESPONSE, String.valueOf(trade.getPriceNQT()));
     json.put(ASSET_RESPONSE, Convert.toUnsignedLong(trade.getAssetId()));
     json.put(ASK_ORDER_RESPONSE, Convert.toUnsignedLong(trade.getAskOrderId()));
@@ -407,7 +407,7 @@ public final class JSONData {
     json.put(ASSET_RESPONSE, Convert.toUnsignedLong(assetTransfer.getAssetId()));
     putAccount(json, SENDER_RESPONSE, assetTransfer.getSenderId());
     putAccount(json, RECIPIENT_RESPONSE, assetTransfer.getRecipientId());
-    json.put(QUANTITY_NQT_RESPONSE, String.valueOf(assetTransfer.getQuantityQNT()));
+    json.put(QUANTITY_QNT_RESPONSE, String.valueOf(assetTransfer.getQuantityQNT()));
     json.put(HEIGHT_RESPONSE, assetTransfer.getHeight());
     json.put(TIMESTAMP_RESPONSE, assetTransfer.getTimestamp());
     if (asset != null) {
@@ -473,9 +473,9 @@ public final class JSONData {
 
   // ugly, hopefully temporary
   private static void modifyAttachmentJSON(JSONObject json) {
-    Long quantityQNT = (Long) json.remove(QUANTITY_NQT_RESPONSE);
+    Long quantityQNT = (Long) json.remove(QUANTITY_QNT_RESPONSE);
     if (quantityQNT != null) {
-      json.put(QUANTITY_NQT_RESPONSE, String.valueOf(quantityQNT));
+      json.put(QUANTITY_QNT_RESPONSE, String.valueOf(quantityQNT));
     }
     Long priceNQT = (Long) json.remove(PRICE_NQT_RESPONSE);
     if (priceNQT != null) {

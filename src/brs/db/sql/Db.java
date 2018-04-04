@@ -112,7 +112,7 @@ public final class Db {
   private Db() {
   } // never
 
-  public static Dbs getDbsByDatabaseType(){
+  public static Dbs getDbsByDatabaseType() {
     switch (dialect) {
       case MYSQL:
       case MARIADB:
@@ -155,6 +155,9 @@ public final class Db {
       finally {
         logger.info("Database shutdown completed.");
       }
+    }
+    if ( ! cp.isClosed() ) {
+      cp.close();
     }
   }
 

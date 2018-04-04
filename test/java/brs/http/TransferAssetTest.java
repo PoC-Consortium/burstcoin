@@ -3,7 +3,7 @@ package brs.http;
 import static brs.TransactionType.ColoredCoins.ASSET_TRANSFER;
 import static brs.http.JSONResponses.NOT_ENOUGH_ASSETS;
 import static brs.http.common.Parameters.ASSET_PARAMETER;
-import static brs.http.common.Parameters.QUANTITY_NQT_PARAMETER;
+import static brs.http.common.Parameters.QUANTITY_QNT_PARAMETER;
 import static brs.http.common.Parameters.RECIPIENT_PARAMETER;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -51,12 +51,12 @@ public class TransferAssetTest extends AbstractTransactionTest {
   public void processRequest() throws BurstException {
     final long recipientParameter = 34L;
     final long assetIdParameter = 456L;
-    final long quantityNQTParameter = 56L;
+    final long quantityQNTParameter = 56L;
 
     final HttpServletRequest req = QuickMocker.httpServletRequest(
         new MockParam(RECIPIENT_PARAMETER, recipientParameter),
         new MockParam(ASSET_PARAMETER, assetIdParameter),
-        new MockParam(QUANTITY_NQT_PARAMETER, quantityNQTParameter)
+        new MockParam(QUANTITY_QNT_PARAMETER, quantityQNTParameter)
     );
 
     Asset mockAsset = mock(Asset.class);
@@ -74,7 +74,7 @@ public class TransferAssetTest extends AbstractTransactionTest {
 
     assertEquals(ASSET_TRANSFER, attachment.getTransactionType());
     assertEquals(assetIdParameter, attachment.getAssetId());
-    assertEquals(quantityNQTParameter, attachment.getQuantityQNT());
+    assertEquals(quantityQNTParameter, attachment.getQuantityQNT());
   }
 
   @Test
@@ -82,7 +82,7 @@ public class TransferAssetTest extends AbstractTransactionTest {
     final HttpServletRequest req = QuickMocker.httpServletRequest(
         new MockParam(RECIPIENT_PARAMETER, "123"),
         new MockParam(ASSET_PARAMETER, "456"),
-        new MockParam(QUANTITY_NQT_PARAMETER, "5")
+        new MockParam(QUANTITY_QNT_PARAMETER, "5")
     );
 
     Asset mockAsset = mock(Asset.class);

@@ -408,7 +408,7 @@ var BRS = (function(BRS, $, undefined) {
     BRS.exportContacts = function() {
 	if (BRS.contacts && (Object.keys(BRS.contacts).length > 0)) {
 	    var contacts_download = document.createElement('a');
-	    contacts_download.href = 'data:attachment/json,' + JSON.stringify( BRS.contacts );
+	    contacts_download.href = 'data:attachment/json,' + encodeURIComponent(JSON.stringify( BRS.contacts ));
 	    contacts_download.target = '_blank';
 	    contacts_download.download = 'contacts.json';
 	    document.body.appendChild(contacts_download);

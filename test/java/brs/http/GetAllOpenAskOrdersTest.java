@@ -63,7 +63,7 @@ public class GetAllOpenAskOrdersTest extends AbstractUnitTest {
     final JSONObject openOrderResult = (JSONObject) openOrdersResult.get(0);
     assertEquals("" + mockAskOrder.getId(), openOrderResult.get(ORDER_RESPONSE));
     assertEquals("" + mockAskOrder.getAssetId(), openOrderResult.get(ASSET_RESPONSE));
-    assertEquals("" + mockAskOrder.getQuantityQNT(), openOrderResult.get(QUANTITY_NQT_RESPONSE));
+    assertEquals("" + mockAskOrder.getQuantityQNT(), openOrderResult.get(QUANTITY_QNT_RESPONSE));
     assertEquals("" + mockAskOrder.getPriceNQT(), openOrderResult.get(PRICE_NQT_RESPONSE));
     assertEquals(mockAskOrder.getHeight(), openOrderResult.get(HEIGHT_RESPONSE));
   }

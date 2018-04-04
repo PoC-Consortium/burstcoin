@@ -291,14 +291,20 @@ public class Block {
 
       SortedMap<Long, Transaction> blockTransactions = new TreeMap<>();
       JSONArray transactionsData = (JSONArray) blockData.get("transactions");
+    
       for (Object transactionData : transactionsData) {
         Transaction transaction =
-            Transaction.parseTransaction((JSONObject) transactionData);
-        if (blockTransactions.put(transaction.getId(), transaction) != null) {
-          throw new BurstException.NotValidException(
-              "Block contains duplicate transactions: " + transaction.getStringId());
+                    Transaction.parseTransaction((JSONObject) transactionData);
+          if (transaction.getSignature() != null) {
+            if (blockTransactions.put(transaction.getId(), transaction) != null) {
+              throw new BurstException.NotValidException(
+                  "Block contains duplicate transactions: " + transaction.getStringId());
+            }
+          }
         }
-      }
+      
+      
+    
       byte[] blockATs = Convert.parseHexString((String) blockData.get("blockATs"));
       return new Block(version, timestamp, previousBlock, totalAmountNQT, totalFeeNQT,
           payloadLength, payloadHash, generatorPublicKey, generationSignature, blockSignature,

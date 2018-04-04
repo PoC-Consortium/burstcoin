@@ -10,8 +10,7 @@ import static brs.http.common.ResultFields.NAME_RESPONSE;
 import static brs.http.common.ResultFields.NUMBER_OF_ACCOUNTS_RESPONSE;
 import static brs.http.common.ResultFields.NUMBER_OF_TRADES_RESPONSE;
 import static brs.http.common.ResultFields.NUMBER_OF_TRANSFERS_RESPONSE;
-import static brs.http.common.ResultFields.QUANTITY_NQT_RESPONSE;
-import static brs.http.common.ResultFields.QUANTITY_RESPONSE;
+import static brs.http.common.ResultFields.QUANTITY_QNT_RESPONSE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Matchers.eq;
@@ -92,7 +91,7 @@ public class GetAllAssetsTest extends AbstractUnitTest {
     assertEquals(mockAsset.getName(), assetResult.get(NAME_RESPONSE));
     assertEquals(mockAsset.getDescription(), assetResult.get(DESCRIPTION_RESPONSE));
     assertEquals(mockAsset.getDecimals(), assetResult.get(DECIMALS_RESPONSE));
-    assertEquals("" + mockAsset.getQuantityQNT(), assetResult.get(QUANTITY_NQT_RESPONSE));
+    assertEquals("" + mockAsset.getQuantityQNT(), assetResult.get(QUANTITY_QNT_RESPONSE));
     assertEquals("" + mockAsset.getId(), assetResult.get(ASSET_RESPONSE));
     assertEquals(1, assetResult.get(NUMBER_OF_ACCOUNTS_RESPONSE));
     assertEquals(2, assetResult.get(NUMBER_OF_TRANSFERS_RESPONSE));

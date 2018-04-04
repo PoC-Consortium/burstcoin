@@ -6,6 +6,8 @@ MY_SELF=$0
 MY_CMD=$1
 MY_ARG=$2
 
+MY_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+
 function usage() {
     cat << EOF
 usage: $0 [command] [arguments]
@@ -14,22 +16,21 @@ usage: $0 [command] [arguments]
   help                          shows the help you just read
   compile                       compile jar and create docs using maven
   upgrade                       upgrade the config files to BRS format
+  import [mariadb|h2]           drop current db, download and import a mariadb dump or a full h2 db
 EOF
 }
 
-function maybe_load_dump_usage () {
-    if [ -z "$MY_ARG" ]; then
-        usage
-        exit 1
-    fi
-}
-
 function upgrade_conf () {
-    BRS_CFG_NAME="conf/nxt-default.properties"
+    NXT_CFG_NAME="conf/$1"
 
-    if [ -r $BRS_CFG_NAME ]
+    if [ -r $NXT_CFG_NAME ]
     then
-        BRS=$(<$BRS_CFG_NAME)    # read in the config file content
+        BRS_CFG_NAME="${NXT_CFG_NAME//nxt/brs}"
+        BRS_CFG_NAME="${BRS_CFG_NAME}.converted"
+
+        echo "converting $NXT_CFG_NAME -> $BRS_CFG_NAME"
+
+        BRS=$(<$NXT_CFG_NAME)    # read in the config file content
         ### P2P-related params
         BRS="${BRS//nxt\.shareMyAddress/P2P.shareMyAddress}"
         BRS="${BRS//nxt\.myAddress/P2P.myAddress}"
@@ -60,8 +61,6 @@ function upgrade_conf () {
         BRS="${BRS//nxt\.myHallmark/P2P.myHallmark}"
         BRS="${BRS//nxt\.pushThreshold/P2P.HallmarkPush}"
         BRS="${BRS//nxt\.pullThreshold/P2P.HallmarkPull}"
-        BRS="${BRS///}"
-        BRS="${BRS///}"
 
         ### JETTY pass-through params
         BRS="${BRS//nxt\.enablePeerServerDoSFilter/JETTY.P2P.DoSFilter}"
@@ -105,7 +104,6 @@ function upgrade_conf () {
         BRS="${BRS//nxt\.apiServerEnforcePOST/API.ServerEnforcePOST}"
         BRS="${BRS//nxt\.apiServerCORS/API.CrossOriginFilter}"
         BRS="${BRS//nxt\.apiResourceBase/API.UI_Dir}"
-        BRS="${BRS//nxt\.javadocResourceBase/API.Doc_Dir}"
 
         
         # DB-related params
@@ -118,7 +116,6 @@ function upgrade_conf () {
         BRS="${BRS//nxt\.trimDerivedTables/DB.trimDerivedTables}"
         BRS="${BRS//nxt\.maxRollback/DB.maxRollback}"
         BRS="${BRS//nxt\.dbDefaultLockTimeout/DB.LockTimeout}"
-        BRS="${BRS///}"
 
         # GPU-related params
         BRS="${BRS//burst\.oclVerify/GPU.Acceleration}"
@@ -131,9 +128,9 @@ function upgrade_conf () {
         # CPU-related params
         BRS="${BRS//Nxt\.cpuCores/CPU.NumCores}"
         
-        echo "$BRS" > conf/brs-default.properties.test
+        echo "$BRS" > $BRS_CFG_NAME
     else
-        echo "$BRS_CFG_NAME not present or not readable."
+        echo "$NXT_CFG_NAME not present or not readable."
         exit 1
     fi
 }
@@ -179,7 +176,55 @@ if [[ $# -gt 0 ]] ; then
             fi
             ;;
         "upgrade")
-            upgrade_conf
+            upgrade_conf nxt-default.properties
+            upgrade_conf nxt.properties
+            ;;
+        "import")
+            if ! hash wget 2>/dev/null; then
+                echo "please install wget"
+                exit 99
+            fi
+            if ! hash unzip 2>/dev/null; then
+                echo "please install unzip"
+                exit 99
+            fi
+            read -p "Do you want to remove the current databases, download and import new one? " -n 1 -r
+            echo
+            if [[ $REPLY =~ ^[Yy]$ ]]; then
+                if [[ $2 == "mariadb" ]]; then
+                    echo
+                    echo "Please enter your connection details"
+                    read -rp  "Host     (localhost) : " P_HOST
+                    read -rp  "Username (brs_user)  : " P_USER
+                    read -rsp "Password empty       : " P_PASS
+                    [ -z $P_HOST ] && P_HOST="localhost"
+                    [ -z $P_USER ] && P_USER="brs_user"
+                    [ -z $P_PASS ] || P_PASS="-p$P_PASS"
+                    echo
+                    if mysql -u$P_USER $P_PASS -h$P_HOST < "$MY_DIR/init-mysql.sql"; then
+                        if wget https://download.cryptoguru.org/burst/wallet/brs.mariadb.zip ; then
+                            if unzip brs.mariadb.zip ; then
+                                if mysql -u$P_USER $P_PASS -h$P_HOST brs_master < brs.mariadb.sql ; then
+                                    echo "import sucessfull"
+                                    exit
+                                fi
+                            fi
+                        fi
+                    fi
+                elif [[ $2 == "h2" ]]; then
+                    mkdir -p "$MY_DIR/burst_db"
+                    rm -f burst_db/burst.trace.db
+                    if wget https://download.cryptoguru.org/burst/wallet/brs.h2.zip ; then
+                        if unzip brs.h2.zip ; then
+                            if mv burst.mv.db "$MY_DIR/burst_db"; then
+                                echo "import sucessfull"
+                                exit
+                            fi
+                        fi
+                    fi
+                fi
+            fi
+            echo "import did not succeed"
             ;;
         "h2shell")
             java -cp burst.jar org.h2.tools.Shell
@@ -189,5 +234,5 @@ if [[ $# -gt 0 ]] ; then
             ;;
     esac
 else
-    java -cp burst.jar:conf brs.Burst
+    java $BRS_DEVSTART -cp burst.jar:conf brs.Burst
 fi

@@ -34,6 +34,12 @@ public class SqlTransactionProcessorStore implements TransactionProcessorStore {
 
   private final EntitySqlTable<Transaction> unconfirmedTransactionTable;
 
+  @Override
+  public boolean hasTransaction(long transactionId) {
+    DSLContext ctx = Db.getDSLContext();
+    return ctx.fetchExists(ctx.selectFrom(UNCONFIRMED_TRANSACTION).where(UNCONFIRMED_TRANSACTION.ID.eq(transactionId)));
+  }
+
   public SqlTransactionProcessorStore(DerivedTableManager derivedTableManager, TimeService timeService) {
     this.timeService = timeService;
 

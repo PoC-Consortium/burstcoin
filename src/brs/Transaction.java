@@ -14,7 +14,7 @@ import java.nio.ByteOrder;
 import java.security.MessageDigest;
 import java.util.*;
 
-public class Transaction {
+public class Transaction implements Comparable<Transaction> {
 
   private static final Logger logger = LoggerFactory.getLogger(Transaction.class);
 

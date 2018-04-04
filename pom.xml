@@ -6,7 +6,7 @@
 
   <groupId>burstcoin</groupId>
   <artifactId>burstcoin</artifactId>
-  <version>1.9.1</version>
+  <version>2.1.0</version>
   <name>Burstcoin Reference Software</name>
   <url>https://github.com/PoC-Consortium/burstcoin</url>
 
@@ -43,6 +43,7 @@
     <jaxb.version>2.3.0</jaxb.version>
     <weupnp.version>0.1.4</weupnp.version>
     <ehcache.version>3.5.0</ehcache.version>
+    <apachehttpclient.version>4.5.2</apachehttpclient.version>
 
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
@@ -257,6 +258,12 @@
       <groupId>org.ehcache</groupId>
       <artifactId>ehcache</artifactId>
       <version>${ehcache.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpclient</artifactId>
+      <version>${apachehttpclient.version}</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 

@@ -63,7 +63,7 @@ public class APITestServlet extends HttpServlet {
       + "                var resultStr = JSON.stringify(JSON.parse(result), null, 4);\n"
       + "                form.getElementsByClassName(\"result\")[0].textContent = resultStr;\n"
       + "            })\n"
-      + "            .error(function() {\n"
+      + "            .fail(function() {\n"
       + "                alert('API not available, check if Burst Server is running!');\n"
       + "            });\n"
       + "            if ($(form).has('.uri-link').length > 0) {\n"

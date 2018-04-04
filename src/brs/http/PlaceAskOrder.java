@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import static brs.http.JSONResponses.NOT_ENOUGH_ASSETS;
 import static brs.http.common.Parameters.ASSET_PARAMETER;
 import static brs.http.common.Parameters.PRICE_NQT_PARAMETER;
-import static brs.http.common.Parameters.QUANTITY_NQT_PARAMETER;
+import static brs.http.common.Parameters.QUANTITY_QNT_PARAMETER;
 
 public final class PlaceAskOrder extends CreateTransaction {
 
@@ -23,7 +23,7 @@ public final class PlaceAskOrder extends CreateTransaction {
   private final AccountService accountService;
 
   PlaceAskOrder(ParameterService parameterService, Blockchain blockchain, APITransactionManager apiTransactionManager, AccountService accountService) {
-    super(new APITag[] {APITag.AE, APITag.CREATE_TRANSACTION}, apiTransactionManager, ASSET_PARAMETER, QUANTITY_NQT_PARAMETER, PRICE_NQT_PARAMETER);
+    super(new APITag[] {APITag.AE, APITag.CREATE_TRANSACTION}, apiTransactionManager, ASSET_PARAMETER, QUANTITY_QNT_PARAMETER, PRICE_NQT_PARAMETER);
     this.parameterService = parameterService;
     this.blockchain = blockchain;
     this.accountService = accountService;
