@@ -68,6 +68,7 @@ public final class Peers {
   private static String myPlatform;
   private static String myAddress;
   private static int myPeerServerPort;
+  private static boolean useUpnp;
   private static boolean shareMyAddress;
   private static int maxNumberOfConnectedPublicPeers;
   private static boolean enableHallmarkProtection;
@@ -123,6 +124,7 @@ public final class Peers {
     if (myPeerServerPort == TESTNET_PEER_PORT && !Constants.isTestnet) {
       throw new RuntimeException("Port " + TESTNET_PEER_PORT + " should only be used for testnet!!!");
     }
+    useUpnp = propertyService.getBoolean(Props.P2P_UPNP);
     shareMyAddress = propertyService.getBoolean(Props.P2P_SHARE_MY_ADDRESS) && ! Constants.isOffline;
     final String myHallmark = propertyService.getString(Props.P2P_MY_HALLMARK);
     if (myHallmark != null && ! myHallmark.isEmpty()) {
@@ -304,8 +306,7 @@ public final class Peers {
           }
           logger.trace("Looking for Gateway Devices");
           gateway = gatewayDiscover.getValidGateway();
-
-          if (gateway != null) {
+          if (gateway != null && useUpnp) {
             gateway.setHttpReadTimeout(2000);
             try {
               InetAddress localAddress = gateway.getLocalAddress();

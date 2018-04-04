@@ -66,6 +66,7 @@ public class Props {
   public static final String P2P_MY_ADDRESS  = "P2P.myAddress";
   public static final String P2P_LISTEN      = "P2P.Listen";
   public static final String P2P_PORT        = "P2P.Port";
+  public static final String P2P_UPNP        = "P2P.UPnP";
   public static final String P2P_SHARE_MY_ADDRESS = "P2P.shareMyAddress";
   public static final String P2P_MY_HALLMARK = "P2P.myHallmark";
   public static final String P2P_ENABLE_TX_REBROADCAST = "P2P.enableTxRebroadcast";
