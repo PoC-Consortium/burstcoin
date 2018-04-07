@@ -1,0 +1,95 @@
+      <div class="modal fade" id="send_money_modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-700">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title" data-i18n="send_burst">Send BURST</h4>
+            </div>
+            <div class="modal-body">
+              <form role="form" autocomplete="off">
+                <div class="callout callout-danger error_message" style="display:none"></div>
+                <div class="form-group">
+                  <label for="send_money_recipient" data-i18n="recipient">RECIPIENT</label>
+                  <div class="input-group">
+                    <input type="text" class="form-control" name="recipient" id="send_money_recipient" placeholder="Recipient Account" data-i18n="[placeholder]recipient_account" autofocus tabindex="1" />
+                    <span class="input-group-btn btn-group recipient_selector">
+                      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span></button>      
+                      <ul class="dropdown-menu scrollable-menu" role="menu" style="right:0;left:auto;"></ul>
+                    </span>
+                  </div>
+                </div>
+                <div class="form-group recipient_public_key">
+                  <label for="send_money_recipient_public_key" data-i18n="recipient_public_key">Recipient Public Key</label>
+                  <input type="text" class="form-control" name="recipientPublicKey" id="send_money_recipient_public_key" placeholder="Public Key" data-i18n="[placeholder]public_key" tabindex="2" spellcheck="false" />
+                </div>
+                <div class="row">
+                  <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+                      <label for="send_money_amount" data-i18n="amount">AMOUNT</label>
+                      <div class="input-group">
+                        <input type="text" name="amountNXT" id="send_money_amount" step="any" min="0" class="form-control" placeholder="Amount" data-i18n="[placeholder]amount" tabindex="3">
+                        <span class="input-group-addon">BURST</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-6 col-sm-6 col-md-6 advanced_extend" data-normal="6" data-advanced="3">
+                    <div class="form-group">
+                      <label for="send_money_fee" data-i18n="fee">FEE</label>
+                      <div class="input-group">
+                        <input type="number" name="feeNXT" id="send_money_fee" class="form-control" step="any" min="1" placeholder="Fee" data-i18n="[placeholder]fee" data-default="1" value="1" tabindex="4">
+                        <span class="input-group-addon">BURST</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-3 col-sm-3 col-md-3 advanced">
+                    <div class="form-group">
+                      <label for="send_money_deadline" data-i18n="deadline_hours">DEADLINE (HOURS)</label>
+                      <input type="number" name="deadline" id="send_money_deadline" class="form-control" placeholder="Deadline" data-i18n="deadline" min="1" data-default="24" value="24" tabindex="5">
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <input type="checkbox" name="add_message" id="send_money_add_message_1" class="add_message"  tabindex="6" /> <label for="send_money_add_message_1" style="font-weight:normal;margin-bottom:0;"> <span data-i18n="add_message_q">Add a Message?</span></label>
+                </div>
+                <div class="form-group optional_message">
+                  <label for="send_money_message" data-i18n="message">MESSAGE</label>
+                  <textarea class="form-control" id="send_money_message" name="message" rows="4" tabindex="7"></textarea>
+                  <div style="margin-top:3px">
+                    <label for="send_money_encrypt_message" style="font-weight:normal;color:#666"><input type="checkbox" name="encrypt_message" id="send_money_encrypt_message" value="1" data-default="checked" checked="checked" /> <span data-i18n="encrypt_message">Encrypt Message</span></label>
+                  </div>
+                </div>
+                <div class="form-group secret_phrase">
+                  <label for="send_money_password" data-i18n="passphrase">PASSPHRASE</label>
+                  <input type="password" name="secretPhrase" id="send_money_password" class="form-control" placeholder="" tabindex="8" autocomplete="">
+                </div>
+                <div class="form-group advanced">
+                  <label for="send_money_referenced_transaction" data-i18n="referenced_transaction_hash">REFERENCED TRANSACTION HASH</label>
+                  <input type="text" class="form-control" name="referencedTransactionFullHash" id="send_money_referenced_transaction" placeholder="Referenced Transaction Full Hash" data-i18n="[placeholder]referenced_transaction_full_hash" tabindex="9" spellcheck="false" />
+                </div>
+                <div class="form-group advanced" style="margin-bottom:5px">
+                  <input type="checkbox" name="doNotBroadcast" id="send_money_do_not_broadcast" value="1" /> <label for="send_money_do_not_broadcast" style="font-weight:normal;" tabindex="10" data-i18n="do_not_broadcast">Do Not Broadcast</label>
+                </div>
+                <div class="form-group advanced">
+                  <input type="checkbox" name="add_note_to_self" id="send_money_add_note_to_self" class="add_note_to_self" tabindex="11" /> <label for="send_money_add_note_to_self" style="font-weight:normal;margin-bottom:0;"> <span data-i18n="add_note_to_self">Add Note to Self?</span></label>
+                </div>
+                <div class="form-group advanced optional_note">
+                  <label for="send_money_note_to_self" data-i18n="note_to_self">Note to Self</label>
+                  <textarea class="form-control" id="send_money_note_to_self" name="note_to_self" rows="4" tabindex="12"></textarea>
+                  <div style="margin-top:3px;">
+                    <label style="font-weight:normal;color:#666" data-i18n="note_is_encrypted">This note is encrypted.</label>
+                  </div>
+                </div>
+                <div class="callout account_info" style="display:none;margin-bottom: 0;"></div>
+                <input type="hidden" name="request_type" value="sendMoney" data-default="sendMoney" />
+                <input type="hidden" name="converted_account_id" value="" />
+                <input type="hidden" name="merchant_info" value="" data-default="" />
+              </form>
+            </div>
+            <div class="modal-footer" style="margin-top:0;">
+              <div class="advanced_info"><strong data-i18n="fee">Fee</strong>: <span class="advanced_fee">1 BURST</span> - <a href="#" data-i18n="advanced">advanced</a></div>
+              <button type="button" class="btn btn-default" data-dismiss="modal" data-i18n="cancel">Cancel</button>
+              <button type="button" class="btn btn-primary" data-loading-text="Submitting..." data-i18n="send_burst;[data-loading-text]submitting">Send BURST</button>
+            </div>
+          </div>
+        </div>
+      </div>
