@@ -30,6 +30,12 @@ var BRS = (function(BRS, $, undefined) {
     	jQuery.ajaxSetup({ async: true });
     }
 
+    BRS.loadInfoHTML = function(path, options) {
+    	jQuery.ajaxSetup({ async: false });
+    	$.get(path, '', function (data) { $("body").append(data); });
+    	jQuery.ajaxSetup({ async: true });
+    }
+
     BRS.loadModalHTML = function(path, options) {
     	jQuery.ajaxSetup({ async: false });
     	$.get(path, '', function (data) { $("body").append(data); });

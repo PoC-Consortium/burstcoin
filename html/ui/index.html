@@ -5,8 +5,7 @@
     <title data-i18n="app.title">BURST Wallet</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <!--atcrowdfund-->
-    <!--end-->
+
     <script src="js/3rdparty/jquery.min.js"     integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT" type="text/javascript"></script>
     <script src="js/3rdparty/bootstrap.min.js"  integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" type="text/javascript"></script>
     <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -215,7 +214,6 @@
     </style>
   </head>
   <body class="lockscreen fixed">
-    
     <div id="page" class="wrapper row-offcanvas row-offcanvas-left">
       <aside class="left-side sidebar-offcanvas">
         <section class="sidebar">
@@ -1698,14 +1696,6 @@
           <li><a tabindex="-1" href="#" data-option="send_burst" data-i18n="send_burst">Send BURST</a></li>
         </ul>
       </div>
-      <div id="downloading_blockchain">
-        <span data-i18n="downloading_blockchain">Downloading blockchain</span><span class="loading_dots"><span>.</span><span>.</span><span>.</span></span>
-        <div class="progress progress-striped sm active" style="margin-bottom:5px;margin-top:5px;">
-          <div class="progress-bar progress-bar-success" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
-            <span class="sr-only">0% Complete</span>
-          </div>
-        </div>
-      </div>
       <div id="show_console">
         <a href="#" onclick="BRS.showConsole();return false;" style="color:black;"><i class="fa fa-terminal" style="font-weight:bold"></i></a>
       </div>
@@ -1717,119 +1707,7 @@
           </script>
           <![endif]-->        
       <!--atcrowdfund-->
-
-      <div class="modal" id="buyTicket">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button class="close" data-dismiss="modal" type=
-                      "button"><span>&#215;</span><span class=
-                                                        "sr-only">Close</span></button>
-              <h4 class="modal-title">Fund Project</h4>
-            </div>
-            <form class="buy-ticket-form">
-              <fieldset>
-                <div class="modal-body">
-                  <ul class="nav nav-list">
-                    <li class="nav-header">Total Amount</li>
-                    <li><input class="input-xlarge" id=
-                               "total-amount" name="total-amount" type=
-                               "text" value=""><span style=
-                                                     "color:lightgray;"> BURST</span></li>
-                    <li class="nav-header">Your Wallet Passphrase</li>
-                    <li><input class="input-xlarge" id=
-                               "password" name="password" type="password"
-                               value="" autocomplete=""></li>
-                    <li><input class="input-xlarge" id="at-id"
-                               name="at-id" type="hidden" value=""></li>
-                  </ul>
-                </div>
-              </fieldset>
-            </form>
-            <div class="alert-area"></div>
-            <div class="modal-footer">
-              <button class="btn btn-default" data-dismiss="modal"
-                      type="button">Close</button> <button class=
-                                                           "btn btn-default" data-dismiss="modal" id="buy-ticket"
-                                                           type="button">Send</button>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
-
-    <div class="modal" id="deployCrowd">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button class="close" data-dismiss="modal" type=
-                    "button"><span>&#215;</span><span class=
-                                                      "sr-only">Close</span></button>
-            <h4 class="modal-title">New Project (Fee: 10 BURST)</h4>
-          </div>
-          <form class="funding-form">
-            <fieldset>
-              <div class="modal-body">
-                <div class="form-group">
-                  <ul class="nav nav-list">
-                    <li><label>Name (no spaces!)</label> <input class="input-xlarge form-control" id="funding-name" name="funding-name" type="text" value="" /><span style="color:lightgray;"></span></li>
-                    <li style="list-style: none"><br /></li>
-                    <li><label for="funding description">Description of the Project and info about yourself (max 990 chars):</label> 
-                      <textarea class="form-control" id="funding-description" maxlength="990" rows="5"></textarea>
-                    </li>
-                    <li style="list-style: none"><br /></li>
-                    <li>
-                      <label for="sel1">Duration (select one):</label> 
-                      <select class="form-control" id="sel1">
-                        <option value='d809000000000000'>1 week</option>
-                        <option value='b013000000000000'>
-                          2 weeks
-                        </option>
-                        <option value='881d000000000000'>
-                          3 weeks
-                        </option>
-                        <option value='6027000000000000'>
-                          4 weeks
-                        </option>
-                        <option value='3831000000000000'>
-                          5 weeks
-                        </option>
-                        <option value='103b000000000000'>
-                          6 weeks
-                        </option>
-                        <option value='e844000000000000'>
-                          7 weeks
-                        </option>
-                        <option value='c04e000000000000'>
-                          8 weeks
-                        </option>
-                      </select>
-                    </li>
-                    <li style="list-style: none"><br /></li>
-                    <li><label>Goal Amount</label>
-                      <input class="input-xlarge form-control" id="funding-amount" name="funding-amount" type="text" value="" /><span style="color:lightgray;"></span>
-                    </li>
-                    <li style="list-style: none"><br /></li>
-                    <li><label for=
-                               "funding-password">Your Wallet Passphrase</label>
-                      <input class="input-xlarge form-control" id="funding-password" name="funding-password" type="password" value=""  autocomplete=""/>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </fieldset>
-          </form>
-          <div class="alert-area"></div>
-          <div class="modal-footer">
-            <button class="btn btn-default" data-dismiss="modal"
-                    type="button">Close</button> <button class=
-                                                         "btn btn-default" data-dismiss="modal" id=
-                                                         "deploy-at-btn" type="button">Start Crowdfund</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <script src="js/3rdparty/i18next.min.js"    integrity="sha384-X4jdmLV1bQZERlyBmLg6XKIekmkGCaCl4GnEMPFPZ7v8wy8MRQX8XdDFSlnwDf1p" type="text/javascript"></script>
     <script type="text/javascript">
       $.i18n.init({
@@ -1870,6 +1748,8 @@
             BRS.loadLockscreenHTML("html/lockscreen.html");
             BRS.loadHeaderHTML("html/header.html");
 
+            BRS.loadInfoHTML("html/blockchain_download.html");
+
             BRS.loadModalHTML("html/modals/account.html");
             BRS.loadModalHTML("html/modals/alias.html");
             BRS.loadModalHTML("html/modals/asset.html");
@@ -1877,6 +1757,8 @@
             BRS.loadModalHTML("html/modals/block_info.html");
             BRS.loadModalHTML("html/modals/brs.html");
             BRS.loadModalHTML("html/modals/contact.html");
+            BRS.loadModalHTML("html/modals/crowd_fund_project.html");
+            BRS.loadModalHTML("html/modals/deployCrowd.html");
             BRS.loadModalHTML("html/modals/dgs.html");
             BRS.loadModalHTML("html/modals/dividends.html");
             BRS.loadModalHTML("html/modals/escrow.html");
@@ -1936,6 +1818,6 @@
   </body>
   <!--atcrowdfund script-->
   <script type="text/javascript">
-    
+ 
   </script>
 </html>
