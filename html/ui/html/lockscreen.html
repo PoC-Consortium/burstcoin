@@ -1,0 +1,125 @@
+    <div id="lockscreen">
+      <div id="old_browser_warning" style="display:none;margin-left:auto;margin-right:auto;margin-top:200px;background:white;color:black;padding:20px;width:300px;" data-i18n="old_browser_warning">You are using an old Internet Explorer. Please update your IE or open localhost:8125 with your favorite Browser!</div>
+      <!--
+          <div style="position:absolute;top:10px;left:10px;" id="server_select">
+            <div class="btn-group">
+              <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                <span class="text">Use localhost</span> <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="#">Use localhost</a></li>
+                <li><a href="#">Use TestNet</a></li>
+              </ul>
+            </div>
+          </div>
+          -->
+      <table id="center" style="display:none;width:100%;height:100%;">
+        <tr>
+          <td style="text-align:center;vertical-align:middle">
+            <center><img src="img/burst_logo.png" alt="Burst" width="242" height="64" style="margin-bottom:40px;margin-right:20px;opacity: 0.75;" /></center>
+            <div id="login_panel">
+              <div class="callout callout-danger" id="testnet_login" style="max-width:400px;min-width:400px;display:none;" data-i18n="[html]testnet_login_warning">Log in with your <strong>TestNet</strong> account - not your real one!</div>
+              <div id="login_error" style="max-width:400px;min-width:400px;display:none">
+                <div class="callout callout-danger"></div>
+              </div>
+              <form>
+              <div class="lockscreen-item">
+                <div class="lockscreen-credentials">
+                  <div class="input-group">
+                    <input type="password" class="form-control" id="login_password" name="login_password" placeholder="Your Passphrase" data-i18n="[placeholder]your_passphrase" autocomplete="" autofocus />
+                    <div class="input-group-btn">
+                      <button class="btn btn-flat" onclick="BRS.login($('#login_password').val()); return false;"><i class="fa fa-arrow-right text-muted"></i></button>
+                    </div>
+                    <input type="hidden" name="check_password_length" id="login_check_password_length" value="1" />
+                  </div>
+                </div>
+              </div>
+              <div id="remember_password_container">
+                <input type="checkbox" name="remember_password" id="remember_password" value="1" /> <label for="remember_password" data-i18n="remember_passphrase_during_session">Remember passphrase on local computer</label>
+              </div>
+              </form>
+              <div id="registration_link">
+                <a href="#" onclick="BRS.registerAccount();" data-i18n="no_account_q_create_account">Don't have an account? Click here to create one!</a>
+              </div>
+            </div>
+            <div class="panel panel-default" id="welcome_panel" style="display:none;max-width:500px;">
+              <div class="panel-heading"><span class="glyphicon glyphicon-lock"></span> <span data-i18n="welcome_to_burst">Welcome to Burst</span></div>
+              <div class="panel-body">
+                <button class="btn btn-primary" id="registration_cancel" onclick="BRS.showLoginScreen();return false;" data-i18n="returning_user_q">Returning User?</button>
+                &nbsp;&nbsp;
+                <button class="btn btn-success" id="registration_cancel" onclick="BRS.registerAccount();return false;" data-i18n="new_q_create_account">New? Create Your Account!</button>
+              </div>
+            </div>
+            <div class="panel panel-default" id="account_phrase_custom_panel" style="display:none;max-width:500px;">
+              <div class="panel-heading"><span class="glyphicon glyphicon-lock"></span> <span data-i18n="create_your_account">Create Your Account</span></div>
+              <div class="panel-body">
+                <form class="form-horizontal" role="form" method="post" autocomplete="off">
+                  <div class="callout callout-info" style="max-width:500px;" data-i18n="passphrase_length_warning">Your passphrase must be at least 35 characters long. Better over 40 characters!</div>
+                  <div class="callout callout-danger" data-i18n="[html]passphrase_warning"><strong>Attention</strong>: The passphrase is everything that stands between your account and the rest of the world. Do not use any meaningful sentence, especially any that appears in song or literature.<br /><br />Don't ever disclose your passphrase. If you lose it you lose access to your account! Write it on Paper!!</div>
+                  <div class="form-group">
+                    <label for="registration_password" class="col-sm-3 control-label" data-i18n="passphrase">Passphrase</label>
+                    <div class="col-sm-9"><input type="password" name="registration_password" class="form-control" id="registration_password" placeholder="" autocomplete="" /></div>
+                  </div>
+                  <div class="form-group">
+                    <label for="registration_password_repeat" class="col-sm-3 control-label" data-i18n="repeat">Repeat</label>
+                    <div class="col-sm-9"><input type="password" name="registration_password_repeat" class="form-control" id="registration_password_repeat" placeholder="" autocomplete="" /></div>
+                  </div>
+                  <div style="text-align:right"><input type="submit" class="btn btn-primary btn-sm" value="Register" data-i18n="[value]register" />&nbsp;&nbsp;<button class="btn btn-sm btn-default" id="registration_cancel" onclick="BRS.showLoginOrWelcomeScreen();return false;" data-i18n="cancel">Cancel</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="panel panel-default" id="account_phrase_generator_panel" style="display:none;max-width:500px">
+              <div class="panel-heading"><span class="glyphicon glyphicon-lock"></span> <span data-i18n="create_your_account">Create Your Account</span></div>
+              <div class="panel-body">
+                <div id="account_phrase_generator_loading">
+                  <p><span class="loading_text" data-i18n="loading_word_list">Loading Word List</span><span class="loading_dots"><span>.</span><span>.</span><span>.</span></span></p>
+                  <div style="text-align:center;margin-top:20px;margin-bottom:20px;"><img src="img/loading_indicator.gif" alt="Loading..." width="32" height="32" /></div>
+                </div>
+                <div id="account_phrase_generator_loaded">
+                  <div class="step_1 account_phrase_generator_steps">
+                    <div id="account_phrase_generator_seeder" class="seeder">
+                      <p data-i18n="seed_password_generator">Move your cursor around to seed the random number generator...</p>
+                      <div class="progress progress-striped">
+                        <div class="progress-bar progress-bar-info" id="account_phrase_generator_seed_progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+                          <span class="sr-only">0% Seeded</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div style="text-align:right">
+                      <button class="btn btn-sm btn-default" id="registration_cancel" onclick="BRS.showLoginOrWelcomeScreen();return false;" data-i18n="cancel">Cancel</button>
+                    </div>
+                  </div>
+                  <div class="step_2 account_phrase_generator_steps">
+                    <div id="account_phrase_generator_start">
+                      <p><span data-i18n="generating_passphrase_wait">Generating your passphrase. Please wait</span><span class="loading_dots"><span>.</span><span>.</span><span>.</span></span></p>
+                      <div style="text-align:center;margin-top:20px;margin-bottom:20px;"><img src="img/loading_indicator.gif" alt="Loading..." width="32" height="32" /></div>
+                    </div>
+                    <div id="account_phrase_generator_stop" style="display:none">
+                      <p data-i18n="automatically_generated_passphrase_is">Your automatically generated passphrase is:</p>
+                      <textarea style="width:100%;height:50px;margin-bottom:10px;padding:3px;" rows="2" readonly></textarea>
+                      <p data-i18n="memorize_passphrase_help">Please WRITE DOWN(on paper!) or memorize these 12 words (their order and capitalization matters - always lowercase). This passphrase is needed in order to access your Burst account. Write it down on Paper!</p>
+                      <div class="callout callout-danger" data-i18n="[html]assphrase_disclosure_warning"><strong>Attention</strong>: Don't ever disclose your passphrase. If you lose it you lose access to your account!</div>
+                      <div style="text-align:right">
+                        <input type="submit" class="btn btn-primary btn-sm" value="Next" data-i18n="[value]next" onclick="$('.step_2').hide();$('.step_3').show();return false;" />&nbsp;&nbsp;<button class="btn btn-sm btn-default" id="registration_cancel" onclick="BRS.showLoginOrWelcomeScreen();return false;" data-i18n="cancel">Cancel</button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="step_3 account_phrase_generator_steps">
+                    <p data-i18n="passphrase_write_below">Your passphrase is very important! In order to be sure that you have saved it, please write your passphrase below:</p>
+                    <div class="callout callout-danger" style="display:none" data-i18n="incorrectly_typed_passphrase">You have not typed the passphrase correctly, please try again!</div>
+                    <textarea style="width:100%;height:50px;margin-bottom:10px;" rows="2"></textarea>
+                    <div style="text-align:right">
+                      <input type="submit" class="btn btn-primary btn-sm" value="Next" data-i18n="[value]next" onclick="BRS.verifyGeneratedPassphrase();return false;" />&nbsp;&nbsp;<button class="btn btn-sm btn-default" id="registration_cancel" onclick="BRS.showLoginOrWelcomeScreen();return false;" data-i18n="cancel">Cancel</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="custom_passphrase_link" style="margin-top:30px;margin-bottom:20px;text-align:center;display:none;">
+              <a href="#" onclick="BRS.registerUserDefinedAccount();" data-i18n="choose_own_passphrase">Want to choose your own passphrase? Click here.</a>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
