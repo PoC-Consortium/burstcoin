@@ -264,7 +264,7 @@ public class Transaction implements Comparable<Transaction> {
     }
 
     for (Appendix.AbstractAppendix appendage : appendages) {
-      if (! appendage.verifyVersion(this.version)) {
+      if (! appendage.verifyVersion(this.version) && (!Constants.isTestnet || Burst.getBlockchain().getHeight() > 11795)) {
         throw new BurstException.NotValidException("Invalid attachment version " + appendage.getVersion()
                                                  + " for transaction version " + this.version);
       }

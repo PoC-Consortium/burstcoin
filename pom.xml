@@ -364,6 +364,7 @@
                   <fileset dir="${project.basedir}">
                     <include name="Burst_Wallet.url"/>
                     <include name="genscoop.cl"/>
+                    <include name="init-mysql.sql"/>
                     <include name="LICENSE.txt"/>
                     <include name="README.md"/>
                     <include name="README_refactoring.md"/>

@@ -1,0 +1,99 @@
+      <div class="modal fade" id="brs_modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-wide">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title" data-i18n="brs_info">BRS Info</h4>
+            </div>
+            <div class="modal-body">
+              <ul class="nav nav-pills nav-justified" style="margin-bottom:10px">
+                <li class="active" id="brs_modal_state_nav" data-tab="state"><a href="#" data-i18n="brs_state">BRS State</a></li>
+                <li data-tab="update"><a href="#" data-i18n="brs_update">BRS Update</a></li>
+              </ul>
+              <div id="brs_modal_update" class="brs_modal_content" style="display:none">
+              </div>
+              <div id="brs_modal_state" class="brs_modal_content" style="display:none">
+                <table class="table table-striped" id="brs_node_state_table" style="margin-bottom:0;">
+                  <tbody>
+                    <tr>
+                      <td style="font-weight: bold"><span data-i18n="version">Version</span>:</td>
+                      <td><span id="brs_node_state_version"></span></td>
+                      <td style="font-weight: bold"><span data-i18n="nr_blocks"># Blocks</span>:</td>
+                      <td><span id="brs_node_state_numberOfBlocks"></span></td>
+                    </tr>
+                    <tr>
+                      <td style="font-weight: bold"><span data-i18n="last_block">Last Block</span>:</td>
+                      <td><span id="brs_node_state_lastBlock"></span></td>
+                      <td style="font-weight: bold"><span data-i18n="nr_accounts"># Accounts</span>:</td>
+                      <td><span id="brs_node_state_numberOfAccounts"></span></td>
+                    </tr>
+                    <tr>
+                      <td style="font-weight: bold"><span data-i18n="last_feeder">Last Feeder</span>:</td>
+                      <td><span id="brs_node_state_lastBlockchainFeeder"></span></td>
+                      <td style="font-weight: bold"><span data-i18n="nr_unlocked_accounts"># Unlocked Accounts</span>:</td>
+                      <td><span id="brs_node_state_numberOfUnlockedAccounts"></span></td>
+                    </tr>
+                    <tr>
+                      <td style="font-weight: bold"><span data-i18n="last_feeder_height">Last Feeder Height</span>:</td>
+                      <td><span id="brs_node_state_lastBlockchainFeederHeight"></span></td>
+                      <td style="font-weight: bold"><span data-i18n="nr_peers"># Peers</span>:</td>
+                      <td><span id="brs_node_state_numberOfPeers"></span></td>
+                    </tr>
+                    <tr>
+                      <td style="font-weight: bold"><span data-i18n="total_memory">Total Memory</span>:</td>
+                      <td><span id="brs_node_state_totalMemory"></span></td>
+                      <td style="font-weight: bold"><span data-i18n="nr_transactions"># Transactions</span>:</td>
+                      <td><span id="brs_node_state_numberOfTransactions"></span></td>
+                    </tr>
+                    <tr>
+                      <td style="font-weight: bold"><span data-i18n="free_memory">Free Memory</span>:</td>
+                      <td><span id="brs_node_state_freeMemory"></span></td>
+                      <td style="font-weight: bold"><span data-i18n="nr_aliases"># Aliases</span>:</td>
+                      <td><span id="brs_node_state_numberOfAliases"></span></td>
+                    </tr>
+                    <tr>
+                      <td style="font-weight: bold"><span data-i18n="max_memory">Max Memory</span>:</td>
+                      <td><span id="brs_node_state_maxMemory"></span></td>
+                      <td style="font-weight: bold"><span data-i18n="nr_orders"># Orders</span>:</td>
+                      <td><span id="brs_node_state_numberOfOrders"></span></td>
+                    </tr>
+                    <tr>
+                      <td style="font-weight: bold"><span data-i18n="processors">Processors</span>:</td>
+                      <td><span id="brs_node_state_availableProcessors"></span></td>
+                      <td style="font-weight: bold"><span data-i18n="nr_assets"># Assets</span>:</td>
+                      <td><span id="brs_node_state_numberOfAssets"></span></td>
+                    </tr>
+                    <tr>
+                      <td style="font-weight: bold"><span data-i18n="difficulty">Difficulty</span>:</td>
+                      <td><span id="brs_node_state_cumulativeDifficulty"></span></td>
+                      <td style="font-weight: bold"><span data-i18n="nr_trades"># Trades</span>:</td>
+                      <td><span id="brs_node_state_numberOfTrades"></span></td>
+                    </tr>
+                    <tr>
+                      <td style="font-weight: bold"><span data-i18n="total_balance">Total Balance</span>:</td>
+                      <td><span id="brs_node_state_totalEffectiveBalanceNXT"></span></td>
+                      <td style="font-weight: bold"><span data-i18n="nr_polls"># Polls</span>:</td>
+                      <td><span id="brs_node_state_numberOfPolls"></span></td>
+                    </tr>
+                    <tr>
+                      <td style="font-weight: bold"><span data-i18n="time">Time</span>:</td>
+                      <td><span id="brs_node_state_time"></span></td>
+                      <td style="font-weight: bold"><span data-i18n="nr_votes"># Votes</span>:</td>
+                      <td><span id="brs_node_state_numberOfVotes"></span></td>
+                    </tr>
+                    <tr>
+                      <td style="font-weight: bold"><span data-i18n="is_scanning">Is Scanning</span>:</td>
+                      <td><span id="brs_node_state_isScanning"></span></td>
+                      <td style="font-weight: bold">&nbsp;</td>
+                      <td>&nbsp;</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="modal-footer" style="margin-top:0;">
+              <button type="button" class="btn btn-primary" data-dismiss="modal"><span data-i18n="close">Close</span></button>
+            </div>
+          </div>
+        </div>
+      </div>

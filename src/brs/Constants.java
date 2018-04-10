@@ -72,11 +72,11 @@ public final class Constants {
 
   public static final int MAX_AUTOMATED_TRANSACTION_NAME_LENGTH = 30;
   public static final int MAX_AUTOMATED_TRANSACTION_DESCRIPTION_LENGTH = 1000;
-  protected static final int AUTOMATED_TRANSACTION_BLOCK = 49200;
+  protected static final int AUTOMATED_TRANSACTION_BLOCK = isTestnet ? 15000 : 49200;
   public static final int AT_BLOCK_PAYLOAD = MAX_PAYLOAD_LENGTH / 2;
-  public static final int AT_FIX_BLOCK_2 = 67000;
-  public static final int AT_FIX_BLOCK_3 = 92000;
-  public static final int AT_FIX_BLOCK_4 = 255000;
+  public static final int AT_FIX_BLOCK_2 = isTestnet ? 15001 : 67000;
+  public static final int AT_FIX_BLOCK_3 = isTestnet ? 15002 : 92000;
+  public static final int AT_FIX_BLOCK_4 = isTestnet ? 15003 : 255000;
 
   public static final String MIN_VERSION = "1.3";
 

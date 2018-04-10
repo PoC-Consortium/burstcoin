@@ -1,0 +1,460 @@
+      <div class="modal fade" id="transfer_alias_modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title" data-i18n="transfer_alias">Transfer Alias</h4>
+            </div>
+            <div class="modal-body">
+              <form role="form" autocomplete="off">
+                <div class="callout callout-danger error_message" style="display:none"></div>
+                <div class="form-group">
+                  <label data-i18n="alias">ALIAS</label>
+                  <p class="alias_name_display"></p>
+                  <input type="hidden" name="aliasName" value="" />
+                  <input type="hidden" name="priceNQT" value="0" />
+                </div>
+                <div class="form-group">
+                  <label for="transfer_alias_recipient" data-i18n="recipient">RECIPIENT</label>
+                  <div class="input-group">
+                    <input type="text" class="form-control" name="recipient" id="transfer_alias_recipient" placeholder="Recipient Account" data-i18n="[placeholder]recipient_account" autofocus tabindex="1" />
+                    <span class="input-group-btn btn-group recipient_selector">
+                      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span></button>
+                      <ul class="dropdown-menu scrollable-menu" role="menu" style="right:0;left:auto;"></ul>
+                    </span>
+                  </div>
+                </div>
+                <div class="form-group recipient_public_key">
+                  <label for="transfer_alias_recipient_public_key" data-i18n="recipient_public_key">Recipient Public Key</label>
+                  <input type="text" class="form-control" name="recipientPublicKey" id="transfer_alias_recipient_public_key" placeholder="Public Key" data-i18n="[placeholder]public_key" tabindex="2" spellcheck="false" />
+                </div>
+                <div class="form-group">
+                  <input type="checkbox" name="add_message" id="transfer_alias_add_message" class="add_message" tabindex="6" /> <label for="transfer_alias_add_message" style="font-weight:normal;margin-bottom:0;"> <span data-i18n="add_message_q">Add a Message?</span></label>
+                </div>
+                <div class="form-group optional_message">
+                  <label for="transfer_alias_message" data-i18n="message">MESSAGE</label>
+                  <textarea class="form-control" id="transfer_alias_message" name="message" rows="4" tabindex="3"></textarea>
+                  <div style="margin-top:3px">
+                    <label for="transfer_alias_encrypt_message" style="font-weight:normal;color:#666"><input type="checkbox" name="encrypt_message" id="transfer_alias_encrypt_message" value="1" data-default="checked" checked="checked" /> <span data-i18n="encrypt_message">Encrypt Message</span></label>
+                  </div>
+                </div>
+                <div class="row advanced">
+                  <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+                      <label for="transfer_alias_fee" data-i18n="fee">FEE</label>
+                      <div class="input-group">
+                        <input type="number" name="feeNXT" id="transfer_alias_fee" class="form-control" step="any" min="1" placeholder="Fee" data-i18n="[placeholder]fee" data-default="1" value="1" tabindex="4">
+                        <span class="input-group-addon">BURST</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+                      <label for="transfer_alias_deadline" data-i18n="deadline_hours">DEADLINE (HOURS)</label>
+                      <input type="number" name="deadline" id="transfer_alias_deadline" class="form-control" placeholder="Deadline" data-i18n="[placeholder]deadline" min="1" data-default="24" value="24" tabindex="5">
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group secret_phrase">
+                  <label for="transfer_alias_password" data-i18n="passphrase">PASSPHRASE</label>
+                  <input type="password" name="secretPhrase" id="transfer_alias_password" class="form-control" placeholder="" tabindex="6" autocomplete="">
+                </div>
+                <div class="form-group advanced">
+                  <label for="transfer_alias_referenced_transaction" data-i18n="referenced_transaction_hash">REFERENCED TRANSACTION HASH</label>
+                  <input type="text" class="form-control" name="referencedTransactionFullHash" id="transfer_alias_referenced_transaction" placeholder="Referenced Transaction Full Hash" data-i18n="[placeholder]referenced_transaction_full_hash" tabindex="7" spellcheck="false" />
+                </div>
+                <div class="form-group advanced" style="margin-bottom:5px;">
+                  <input type="checkbox" name="doNotBroadcast" id="transfer_alias_do_not_broadcast" value="1" /> <label for="transfer_alias_do_not_broadcast" style="font-weight:normal;" tabindex="8" data-i18n="do_not_broadcast">Do Not Broadcast</label>
+                </div>
+                <div class="form-group advanced">
+                  <input type="checkbox" name="add_note_to_self" id="transfer_alias_add_note_to_self" class="add_note_to_self" tabindex="9" /> <label for="transfer_alias_add_note_to_self" style="font-weight:normal;margin-bottom:0;"> <span data-i18n="add_note_to_self">Add Note to Self?</span></label>
+                </div>
+                <div class="form-group advanced optional_note">
+                  <label for="transfer_alias_note_to_self" data-i18n="note_to_self">Note to Self</label>
+                  <textarea class="form-control" id="transfer_alias_note_to_self" name="note_to_self" rows="4" tabindex="10"></textarea>
+                  <div style="margin-top:3px;">
+                    <label style="font-weight:normal;color:#666" data-i18n="note_is_encrypted">This note is encrypted.</label>
+                  </div>
+                </div>
+                <div class="callout account_info" style="display:none;margin-bottom: 0;"></div>
+                <input type="hidden" name="request_type" value="sellAlias" />
+                <input type="hidden" name="modal" value="transfer_alias" />
+                <input type="hidden" name="converted_account_id" value="" />
+              </form>
+            </div>
+            <div class="modal-footer" style="margin-top:0;">
+              <div class="advanced_info"><strong data-i18n="fee">Fee</strong>: <span class="advanced_fee">1 BURST</span> - <a href="#" data-i18n="advanced">advanced</a></div>
+              <button type="button" class="btn btn-default" data-dismiss="modal" data-i18n="cancel">Cancel</button>
+              <button type="button" class="btn btn-primary" data-loading-text="Submitting..." data-i18n="transfer_alias;[data-loading-text]submitting">Transfer Alias</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="register_alias_modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title" data-i18n="register_alias">Register Alias</h4>
+            </div>
+            <div class="modal-body">
+              <form role="form" autocomplete="off">
+                <div class="callout callout-danger error_message" style="display:none"></div>
+                <div class="form-group">
+                  <label for="register_alias_type" data-i18n="type">TYPE</label>
+                  <select class="form-control" name="type" id="register_alias_type">
+                    <option value="uri" data-i18n="uri">URI</option>
+                    <option value="account" data-i18n="account">Account</option>
+                    <option value="general" data-i18n="other">Other</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="register_alias_alias" data-i18n="alias">ALIAS</label>
+                  <input type="text" class="form-control" name="aliasName" id="register_alias_alias" placeholder="Alias" data-i18n="[placeholder]alias" tabindex="1" />
+                  <p id="register_alias_alias_noneditable" style="display:none"></p>
+                </div>
+                <div class="form-group">
+                  <label for="register_alias_uri" id="register_alias_uri_label" data-i18n="uri">URI</label>
+                  <input type="text" class="form-control" name="aliasURI" id="register_alias_uri" placeholder="URI" data-i18n="[placeholder]uri" tabindex="2" />
+                  <p class="help-block" id="register_alias_help"></p>
+                </div>
+                <div class="row advanced">
+                  <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+                      <label for="register_alias_fee" data-i18n="fee">FEE</label>
+                      <div class="input-group">
+                        <input type="number" name="feeNXT" id="register_alias_fee" class="form-control" step="any" min="1" placeholder="Fee" data-i18n="[placeholder]fee" data-default="1" value="1" tabindex="3">
+                        <span class="input-group-addon">BURST</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+                      <label for="register_alias_deadline" data-i18n="deadline_hours">DEADLINE (HOURS)</label>
+                      <input type="number" name="deadline" id="register_alias_deadline" class="form-control" placeholder="Deadline" data-i18n="[placeholder]deadline" min="1" data-default="24" value="24" tabindex="4">
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group secret_phrase">
+                  <label for="register_alias_password" data-i18n="passphrase">PASSPHRASE</label>
+                  <input type="password" name="secretPhrase" id="register_alias_password" class="form-control" placeholder="" tabindex="5" autocomplete="">
+                </div>
+                <div class="form-group advanced">
+                  <label for="register_alias_referenced_transaction" data-i18n="referenced_transaction_hash">REFERENCED TRANSACTION HASH</label>
+                  <input type="text" class="form-control" name="referencedTransactionFullHash" id="register_alias_referenced_transaction" placeholder="Referenced Transaction Full Hash" data-i18n="[placeholder]referenced_transaction_full_hash" tabindex="6" spellcheck="false" />
+                </div>
+                <div class="form-group advanced" style="margin-bottom:0;">
+                  <input type="checkbox" name="doNotBroadcast" id="register_alias_do_not_broadcast" value="1" /> <label for="register_alias_do_not_broadcast" style="font-weight:normal;" tabindex="7" data-i18n="do_not_broadcast">Do Not Broadcast</label>
+                </div>
+                <div class="form-group advanced">
+                  <input type="checkbox" name="add_note_to_self" id="register_alias_add_note_to_self" class="add_note_to_self" tabindex="8" /> <label for="register_alias_add_note_to_self" style="font-weight:normal;margin-bottom:0;"> <span data-i18n="add_note_to_self">Add Note to Self?</span></label>
+                </div>
+                <div class="form-group advanced optional_note">
+                  <label for="register_alias_note_to_self" data-i18n="note_to_self">Note to Self</label>
+                  <textarea class="form-control" id="register_alias_note_to_self" name="note_to_self" rows="4" tabindex="9"></textarea>
+                  <div style="margin-top:3px;">
+                    <label style="font-weight:normal;color:#666" data-i18n="note_is_encrypted">This note is encrypted.</label>
+                  </div>
+                </div>
+                <input type="hidden" name="register_alias_alias_update" id="register_alias_alias_update" value="0" />
+                <input type="hidden" name="request_type" value="setAlias" />
+              </form>
+            </div>
+            <div class="modal-footer" style="margin-top:0;">
+              <div class="advanced_info"><strong data-i18n="fee">Fee</strong>: <span class="advanced_fee">1 BURST</span> - <a href="#" data-i18n="advanced">advanced</a></div>
+              <button type="button" class="btn btn-default" data-dismiss="modal" data-i18n="cancel">Cancel</button>
+              <button type="button" class="btn btn-primary" id="register_alias_button" data-loading-text="Submitting..." data-i18n="register;[data-loading-text]submitting">Register</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="buy_alias_modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title" data-i18n="buy_alias">Buy Alias</h4>
+            </div>
+            <div class="modal-body">
+              <form role="form" autocomplete="off">
+                <div class="callout callout-danger error_message" style="display:none"></div>
+                <div class="form-group">
+                  <label data-i18n="alias">ALIAS</label>
+                  <p class="alias_name_display"></p>
+                  <input type="hidden" name="aliasName" value="" />
+                </div>
+                <div class="form-group">
+                  <label data-i18n="price">PRICE</label>
+                  <div class="input-group">
+                    <input type="text" name="amountNXT" id="buy_alias_price" step="any" min="0" class="form-control" placeholder="Price" data-i18n="[placeholder]price" tabindex="1">
+                    <span class="input-group-addon">BURST</span>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <input type="checkbox" name="add_message" id="buy_alias_add_message" class="add_message" tabindex="6" /> <label for="buy_alias_add_message" style="font-weight:normal;margin-bottom:0;"> <span data-i18n="add_message_q">Add a Message?</span></label>
+                </div>
+                <div class="form-group optional_message">
+                  <label for="buy_alias_message" data-i18n="message">MESSAGE</label>
+                  <textarea class="form-control" id="buy_alias_message" name="message" rows="4" tabindex="7"></textarea>
+                  <div style="margin-top:3px">
+                    <label for="buy_alias_encrypt_message" style="font-weight:normal;color:#666"><input type="checkbox" name="encrypt_message" id="buy_alias_encrypt_message" value="1" data-default="checked" checked="checked" /> <span data-i18n="encrypt_message">Encrypt Message</span></label>
+                  </div>
+                </div>
+                <div class="row advanced">
+                  <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+                      <label for="buy_alias_fee" data-i18n="fee">FEE</label>
+                      <div class="input-group">
+                        <input type="number" name="feeNXT" id="buy_alias_fee" class="form-control" step="any" min="1" placeholder="Fee" data-i18n="[placeholder]fee" data-default="1" value="1" tabindex="2">
+                        <span class="input-group-addon">BURST</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+                      <label for="buy_alias_deadline" data-i18n="deadline_hours">DEADLINE (HOURS)</label>
+                      <input type="number" name="deadline" id="buy_alias_deadline" class="form-control" placeholder="Deadline" data-i18n="deadline" min="1" data-default="24" value="24" tabindex="3">
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group secret_phrase">
+                  <label for="buy_alias_password" data-i18n="passphrase">PASSPHRASE</label>
+                  <input type="password" name="secretPhrase" id="buy_alias_password" class="form-control" placeholder="" tabindex="4" autocomplete="">
+                </div>
+                <div class="form-group advanced">
+                  <label for="buy_alias_referenced_transaction" data-i18n="referenced_transaction_hash">REFERENCED TRANSACTION HASH</label>
+                  <input type="text" class="form-control" name="referencedTransactionFullHash" id="buy_alias_referenced_transaction" placeholder="Referenced Transaction Full Hash" data-i18n="referenced_transaction_full_hash" tabindex="6" spellcheck="false" />
+                </div>
+                <div class="form-group advanced" style="margin-bottom:0;">
+                  <input type="checkbox" name="doNotBroadcast" id="buy_alias_do_not_broadcast" value="1" /> <label for="buy_alias_do_not_broadcast" style="font-weight:normal;" tabindex="7" data-i18n="do_not_broadcast">Do Not Broadcast</label>
+                </div>
+                <div class="form-group advanced">
+                  <input type="checkbox" name="add_note_to_self" id="buy_alias_add_note_to_self" class="add_note_to_self" tabindex="8" /> <label for="buy_alias_add_note_to_self" style="font-weight:normal;margin-bottom:0;"> <span data-i18n="add_note_to_self">Add Note to Self?</span></label>
+                </div>
+                <div class="form-group advanced optional_note">
+                  <label for="buy_alias_note_to_self" data-i18n="note_to_self">Note to Self</label>
+                  <textarea class="form-control" id="buy_alias_note_to_self" name="note_to_self" rows="4" tabindex="9"></textarea>
+                  <div style="margin-top:3px;">
+                    <label style="font-weight:normal;color:#666" data-i18n="note_is_encrypted">This note is encrypted.</label>
+                  </div>
+                </div>
+                <input type="hidden" name="request_type" value="buyAlias" />
+                <input type="hidden" name="recipient" id="buy_alias_recipient" value="" />
+              </form>
+            </div>
+            <div class="modal-footer" style="margin-top:0;">
+              <div class="advanced_info"><strong data-i18n="fee">Fee</strong>: <span class="advanced_fee">1 BURST</span> - <a href="#" data-i18n="advanced">advanced</a></div>
+              <button type="button" class="btn btn-default" data-dismiss="modal" data-i18n="cancel">Cancel</button>
+              <button type="button" class="btn btn-primary" data-loading-text="Submitting..." data-i18n="buy_alias;[data-loading-text]submitting;">Buy Alias</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="sell_alias_modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-700">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title" data-i18n="sell_alias">Sell Alias</h4>
+            </div>
+            <div class="modal-body">
+              <ul class="nav nav-pills nav-justified" style="margin-bottom:10px">
+                <li class="active"><a href="#" id="sell_alias_to_specific_account" data-i18n="sell_to_specific_account">Sell to Specific Account</a></li>
+                <li><a href="#" id="sell_alias_to_anyone" data-i18n="sell_to_anyone">Sell to Anyone</a></li>
+              </ul>
+              <form role="form" autocomplete="off">
+                <div class="callout callout-danger error_message" style="display:none"></div>
+                <div class="form-group">
+                  <label data-i18n="alias">ALIAS</label>
+                  <p class="alias_name_display"></p>
+                  <input type="hidden" name="aliasName" value="" />
+                </div>
+                <div class="form-group" id="sell_alias_recipient_div">
+                  <label for="sell_alias_recipient" data-i18n="recipient">RECIPIENT</label>
+                  <div class="input-group">
+                    <input type="text" class="form-control" name="recipient" id="sell_alias_recipient" placeholder="Recipient Account" data-i18n="[placeholder]recipient_account" autofocus tabindex="1" />
+                    <span class="input-group-btn btn-group recipient_selector">
+                      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span></button>
+                      <ul class="dropdown-menu scrollable-menu" role="menu" style="right:0;left:auto;"></ul>
+                    </span>
+                  </div>
+                </div>
+                <div class="form-group recipient_public_key">
+                  <label for="sell_alias_recipient_public_key" data-i18n="recipient_public_key">Recipient Public Key</label>
+                  <input type="text" class="form-control" name="recipientPublicKey" id="sell_alias_recipient_public_key" placeholder="Public Key" data-i18n="[placeholder]public_key" tabindex="2" spellcheck="false" />
+                </div>
+                <div class="row">
+                  <div class="col-xs-12 col-sm-12 col-md-12 advanced_extend" data-normal="12" data-advanced="6">
+                    <div class="form-group">
+                      <label for="sell_alias_price" data-i18n="price">PRICE</label>
+                      <div class="input-group">
+                        <input type="text" name="priceNXT" id="sell_alias_price" step="any" min="0" class="form-control" placeholder="Price" tabindex="3">
+                        <span class="input-group-addon">BURST</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-3 col-sm-3 col-md-3 advanced">
+                    <div class="form-group">
+                      <label for="sell_alias_fee" data-i18n="fee">FEE</label>
+                      <div class="input-group">
+                        <input type="number" name="feeNXT" id="sell_alias_fee" class="form-control" step="any" min="1" placeholder="Fee" data-i18n="[placeholder]fee" data-default="1" value="1" tabindex="4">
+                        <span class="input-group-addon">BURST</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-3 col-sm-3 col-md-3 advanced">
+                    <div class="form-group">
+                      <label for="sell_alias_deadline" data-i18n="deadline_hours">DEADLINE (HOURS)</label>
+                      <input type="number" name="deadline" id="sell_alias_deadline" class="form-control" placeholder="Deadline" data-i18n="[placeholder]deadline" min="1" data-default="24" value="24" tabindex="5">
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group add_message_container">
+                  <input type="checkbox" name="add_message" id="sell_alias_add_message" class="add_message" tabindex="6" /> <label for="sell_alias_add_message" style="font-weight:normal;margin-bottom:0;"> <span data-i18n="add_message_q">Add a Message?</span></label>
+                </div>
+                <div class="form-group optional_message">
+                  <label for="sell_alias_message" data-i18n="message">MESSAGE</label>
+                  <textarea class="form-control" id="sell_alias_message" name="message" rows="4" tabindex="3"></textarea>
+                  <div style="margin-top:3px" id="sell_alias_to_specific_account_message_options">
+                    <label for="sell_alias_encrypt_message" style="font-weight:normal;color:#666"><input type="checkbox" name="encrypt_message" id="sell_alias_encrypt_message" value="1" data-default="checked" checked="checked" /> <span data-i18n="encrypt_message">Encrypt Message</span></label>
+                  </div>
+                  <div style="margin-top:3px;display:none" id="sell_alias_to_anyone_message_options">
+                    <label for="sell_alias_encrypt_message" style="font-weight:normal;color:#666" data-i18n="message_is_not_encrypted">This message is not encrypted.</label>
+                  </div>
+                </div>
+                <div class="form-group secret_phrase">
+                  <label for="sell_alias_password" data-i18n="passphrase">PASSPHRASE</label>
+                  <input type="password" name="secretPhrase" id="sell_alias_password" class="form-control" placeholder="" tabindex="6" autocomplete="">
+                </div>
+                <div class="form-group advanced">
+                  <label for="sell_alias_referenced_transaction" data-i18n="referenced_transaction_hash">REFERENCED TRANSACTION HASH</label>
+                  <input type="text" class="form-control" name="referencedTransactionFullHash" id="sell_alias_referenced_transaction" placeholder="Referenced Transaction Full Hash" data-i18n="[placeholder]referenced_transaction_full_hash" tabindex="7" spellcheck="false" />
+                </div>
+                <div class="form-group advanced" style="margin-bottom:5px;">
+                  <input type="checkbox" name="doNotBroadcast" id="sell_alias_do_not_broadcast" value="1" /> <label for="sell_alias_do_not_broadcast" style="font-weight:normal;" tabindex="7" data-i18n="do_not_broadcast">Do Not Broadcast</label>
+                </div>
+                <div class="form-group advanced">
+                  <input type="checkbox" name="add_note_to_self" id="sell_alias_add_note_to_self" class="add_note_to_self" tabindex="8" /> <label for="sell_alias_add_note_to_self" style="font-weight:normal;margin-bottom:0;"> <span data-i18n="add_note_to_self">Add Note to Self?</span></label>
+                </div>
+                <div class="form-group advanced optional_note">
+                  <label for="sell_alias_note_to_self" data-i18n="note_to_self">Note to Self</label>
+                  <textarea class="form-control" id="sell_alias_note_to_self" name="note_to_self" rows="4" tabindex="9"></textarea>
+                  <div style="margin-top:3px;">
+                    <label style="font-weight:normal;color:#666" data-i18n="note_is_encrypted">This note is encrypted.</label>
+                  </div>
+                </div>
+                <div class="callout account_info" style="display:none;margin-bottom: 0;"></div>
+                <input type="hidden" name="modal" value="sell_alias" />
+                <input type="hidden" name="request_type" value="sellAlias" />
+                <input type="hidden" name="converted_account_id" value="" />
+              </form>
+            </div>
+            <div class="modal-footer" style="margin-top:0;">
+              <div class="advanced_info"><strong data-i18n="fee">Fee</strong>: <span class="advanced_fee">1 BURST</span> - <a href="#" data-i18n="advanced">advanced</a></div>
+              <button type="button" class="btn btn-default" data-dismiss="modal" data-i18n="cancel">Cancel</button>
+              <button type="button" class="btn btn-primary" data-loading-text="Submitting..." data-i18n="sell_alias;[data-loading-text]submitting">Sell Alias</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="cancel_alias_sale_modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title" data-i18n="cancel_alias_sale">Cancel Alias Sale</h4>
+            </div>
+            <div class="modal-body">
+              <form role="form" autocomplete="off">
+                <div class="callout callout-danger error_message" style="display:none"></div>
+                <div class="form-group">
+                  <label data-i18n="alias">ALIAS</label>
+                  <p class="alias_name_display"></p>
+                  <input type="hidden" name="aliasName" value="" />
+                  <input type="hidden" name="modal" value="cancel_alias_sale" />
+                </div>
+                <div class="row advanced">
+                  <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+                      <label for="cancel_alias_sale_fee" data-i18n="fee">FEE</label>
+                      <div class="input-group">
+                        <input type="number" name="feeNXT" id="cancel_alias_sale_fee" class="form-control" step="any" min="1" placeholder="Fee" data-i18n="[placeholder]fee" data-default="1" value="1" tabindex="1">
+                        <span class="input-group-addon">BURST</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+                      <label for="cancel_alias_sale_deadline" data-i18n="deadline_hours">DEADLINE (HOURS)</label>
+                      <input type="number" name="deadline" id="cancel_alias_sale_deadline" class="form-control" placeholder="Deadline" data-i18n="[placeholder]deadline" min="1" data-default="24" value="24" tabindex="2">
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <input type="checkbox" name="add_message" id="cancel_alias_sale_add_message" class="add_message" tabindex="6" /> <label for="cancel_alias_sale_add_message" style="font-weight:normal;margin-bottom:0;"> <span data-i18n="add_message_q">Add a Message?</span></label>
+                </div>
+                <div class="form-group optional_message">
+                  <label for="cancel_alias_sale_message" data-i18n="message">MESSAGE</label>
+                  <textarea class="form-control" id="cancel_alias_sale_message" name="message" rows="4" tabindex="3"></textarea>
+                  <div style="margin-top:3px">
+                    <label for="cancel_alias_sale_encrypt_message" style="font-weight:normal;color:#666"><input type="checkbox" name="encrypt_message" id="cancel_alias_sale_encrypt_message" value="1" data-default="unchecked" /> <span data-i18n="encrypt_message">Encrypt Message</span></label>
+                  </div>
+                </div>
+                <div class="form-group secret_phrase">
+                  <label for="cancel_alias_sale_password" data-i18n="passphrase">PASSPHRASE</label>
+                  <input type="password" name="secretPhrase" id="cancel_alias_sale_password" class="form-control" placeholder="" tabindex="5" autocomplete="">
+                </div>
+                <div class="form-group advanced">
+                  <label for="cancel_alias_sale_referenced_transaction" data-i18n="referenced_transaction_hash">REFERENCED TRANSACTION HASH</label>
+                  <input type="text" class="form-control" name="referencedTransactionFullHash" id="cancel_alias_sale_referenced_transaction" placeholder="Referenced Transaction Full Hash" data-i18n="[placeholder]referenced_transaction_full_hash" tabindex="6" spellcheck="false" />
+                </div>
+                <div class="form-group advanced" style="margin-bottom:0;">
+                  <input type="checkbox" name="doNotBroadcast" id="cancel_alias_sale_do_not_broadcast" value="1" /> <label for="cancel_alias_sale_do_not_broadcast" style="font-weight:normal;" tabindex="7" data-i18n="do_not_broadcast">Do Not Broadcast</label>
+                </div>
+                <div class="form-group advanced">
+                  <input type="checkbox" name="add_note_to_self" id="cancel_alias_sale_add_note_to_self" class="add_note_to_self" tabindex="8" /> <label for="cancel_alias_sale_add_note_to_self" style="font-weight:normal;margin-bottom:0;"> <span data-i18n="add_note_to_self">Add Note to Self?</span></label>
+                </div>
+                <div class="form-group advanced optional_note">
+                  <label for="cancel_alias_sale_note_to_self" data-i18n="note_to_self">Note to Self</label>
+                  <textarea class="form-control" id="cancel_alias_sale_note_to_self" name="note_to_self" rows="4" tabindex="9"></textarea>
+                  <div style="margin-top:3px;">
+                    <label style="font-weight:normal;color:#666" data-i18n="note_is_encrypted">This note is encrypted.</label>
+                  </div>
+                </div>
+                <input type="hidden" name="request_type" value="sellAlias" />
+              </form>
+            </div>
+            <div class="modal-footer" style="margin-top:0;">
+              <div class="advanced_info"><strong data-i18n="fee">Fee</strong>: <span class="advanced_fee">1 BURST</span> - <a href="#" data-i18n="advanced">advanced</a></div>
+              <button type="button" class="btn btn-default" data-dismiss="modal" data-i18n="cancel">Cancel</button>
+              <button type="button" class="btn btn-primary" data-loading-text="Submitting..." data-i18n="cancel_sale;[data-loading-text]submitting">Cancel Sale</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="alias_info_modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <!-- todo -->
+              <h4 class="modal-title">Alias <strong><span id="alias_info_modal_alias"></span></strong></h4>
+            </div>
+            <div class="modal-body">
+              <table class="table table-striped" id="alias_info_table" style="margin-bottom: 0;">
+                <tbody>
+                </tbody>
+              </table>
+              <div class="callout callout-info" id="alias_sale_callout" style="display:none;margin-top:10px;margin-bottom:0;"></div>
+            </div>
+            <div class="modal-footer" style="margin-top:0;">
+              <button type="button" class="btn btn-primary" data-dismiss="modal" data-i18n="close">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>

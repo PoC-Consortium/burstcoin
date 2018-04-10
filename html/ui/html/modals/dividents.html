@@ -1,0 +1,215 @@
+      <div class="modal fade" id="nsv_div_send_modal" tabindex="-1" role="dialog" aria-hidden="true" onshow="NSV.div_send_init()" >
+        <div class="modal-dialog modal-dialog-wide">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title">Generate Dividends</h4>
+            </div>
+            <div class="modal-body">
+              <form role="form">
+                <div class="callout callout-danger error_message" style="display:none"></div>
+                <div class="row">
+                  <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+                      <label for="nsv_div_send_asset">ASSET ID</label>
+                      <input type="text" class="form-control" name="id" id="nsv_div_send_asset" placeholder="ID" autofocus tabindex="1" />
+                    </div>
+                  </div>
+                  <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+                      <label for="nsv_div_send_timestamp">DIVIDEND TIME</label> <i class="fa fa-question-circle show_popover" style="color:#4CAA6E" data-content="The time at which the holdings are checked to determine payouts. The placeholder text indicates format." data-container="body"></i>
+                      <input type="text" class="form-control" name="id" id="nsv_div_send_timestamp" placeholder="Format: June 17, 2013, 00:00:00 UTC" autofocus tabindex="2" disabled />
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+                      <label for="nsv_div_send_amount">AMOUNT</label> <i class="fa fa-question-circle show_popover" style="color:#4CAA6E" data-content="Total amount of dividends to be paid out." data-container="body"></i>
+                      <input type="text" name="amountNXT" id="nsv_div_send_amount" step="any" min="0" class="form-control" placeholder="Amount" tabindex="3" value="">
+                    </div>
+                  </div>
+                  <!--<div class="col-xs-3 col-sm-3 col-md-3 advanced">-->
+                  <div class="col-xs-4 col-sm-4 col-md-4">
+                    <div class="form-group">
+                      <label for="nsv_div_send_outasset">ASSET PAID OUT</label> <i class="fa fa-question-circle show_popover" style="color:#4CAA6E" data-content="Advanced: For distributing assets. Leave blank to distribute BURST." data-container="body"></i>
+                      <input type="text" name="DivOutasset" id="nsv_div_send_outasset" class="form-control" placeholder="Leave blank to pay out in BURST" data-default="" tabindex="4" disabled >
+                    </div>
+                  </div>
+                  <!--<div class="col-xs-6 col-sm-6 col-md-6 advanced_extend" data-normal="6" data-advanced="3">-->
+                  <div class="col-xs-2 col-sm-2 col-md-2">
+                    <div class="form-group">
+                      <label for="nsv_div_send_fee">FEE</label> <i class="fa fa-question-circle show_popover" style="color:#4CAA6E" data-content="Fee is one NXT per assetholder plus one additional NXT." data-container="body"></i>
+                      <input type="text" name="feeNXT" id="nsv_div_send_fee" disabled class="form-control" placeholder="Fee" data-default="" tabindex="5">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-13 col-sm-13 col-md-13">
+                  <div class="form-group">
+                    <label for="nsv_div_send_nodist_acc">ACCOUNTS NOT TO BE DISTRIBUTED TO</label> <i class="fa fa-question-circle show_popover" style="color:#4CAA6E" data-content="Advanced: Put a comma separated list of accounts not to distribute to (Leaving is as 'ISSUER' means only the issued account won't be distributed to)" data-container="body"></i>
+                    <input type="text" name="nodist_acc" id="nsv_div_send_nodist_acc" class="form-control" value="ISSUER" tabindex="6" disabled >
+                  </div>
+                </div>
+                <div class="form-group secret_phrase">
+                  <label for="nsv_div_send_password">SECRET PHRASE</label>
+                  <input type="password" name="secretPhrase" id="nsv_div_send_password" class="form-control" placeholder="" tabindex="7" autocomplete="">
+                </div>
+
+
+              </form>
+              <div class="callout account_info" style="display:none;margin-bottom: 0;"></div>
+              <div class="alert-danger alert alert-no-icon" id="nsv_div_send_error_message" style="display: none;padding: 5px; padding-left: 5px; margin-bottom: 15px;"></div>
+              <div class="alert-success alert alert-no-icon" id="nsv_div_send_succ_message" style="display: none;padding: 5px; padding-left: 5px; margin-bottom: 15px;"></div>
+              <div class="alert-warning alert alert-no-icon" id="nsv_div_send_warn_message" style="display: none;padding: 5px; padding-left: 5px; margin-bottom: 15px;"></div>
+            </div>
+            <div class="modal-footer" style="margin-top:0;">
+              <div class="input-group"><label for="nsv_div_send_adv_checkbox"><input type="checkbox" id="nsv_div_send_adv_checkbox" onclick="NSV.div_send_act_adv()"> Advanced </label></div>
+              <!--<div class="input-group"><label for="nsv_div_send_adv_checkbox">Advanced </label><input type="checkbox" id="nsv_div_send_adv_checkbox" name="Advanced"></div>-->
+              <!--<div class="advanced_info"><strong>Fee:</strong> <span class="advanced_fee">1 NXT</span> - <a href="#">advanced</a></div>-->
+
+              <button type="button" class="btn btn-default" data-dismiss="modal" id="nsv_div_send_cancel_dividends">Cancel</button>
+              <button type="button" class="btn btn-info" data-loading-text="Submitting..." id ="nsv_div_send_calc_but" onclick="NSV.div_send_calc_dividends()">Calculate Dividends</button>
+              <button type="button" class="btn btn-success" data-loading-text="Submitting..." id ="nsv_div_send_gen_but" onclick="NSV.div_send_gen_dividends()" disabled>Activate Dividends</button>
+
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                <textarea class="form-control" id="nsv_div_send_disp_results" name="message" rows="4" tabindex="7" readonly="readonly" >Dividend Payouts</textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="nsv_div_ad_modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-wide">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title">Automatic Distribution</h4>
+            </div>
+            <div class="modal-body">
+              <form role="form">
+                <div class="callout callout-danger error_message" style="display:none"></div>
+                <div class="row">
+                  <div class="col-xs-5 col-sm-5 col-md-5">
+                    <div class="form-group">
+                      <label for="nsv_div_ad_asset">ASSET ID</label> <i class="fa fa-question-circle show_popover" style="color:#4CAA6E" data-content="Asset to be distributed." data-container="body"></i>
+                      <input type="text" class="form-control" name="id" id="nsv_div_ad_asset" placeholder="ID" autofocus tabindex="1" />
+                    </div>
+                  </div>
+                  <div class="col-xs-5 col-sm-5 col-md-5">
+                    <div class="form-group">
+                      <label for="nsv_div_ad_amount">AMOUNT</label> <i class="fa fa-question-circle show_popover" style="color:#4CAA6E" data-content="Amount to give to each account," data-container="body"></i>
+                      <input type="text" name="amountNXT" id="nsv_div_ad_amount" step="any" min="0" class="form-control" placeholder="Amount" tabindex="2" value="">
+                      <!--<span class="input-group-addon">NXT</span>-->
+                    </div>
+                  </div>
+                  <div class="col-xs-2 col-sm-2 col-md-2">
+                    <div class="form-group">
+                      <label for="send_div_ad_fee">FEE</label> <i class="fa fa-question-circle show_popover" style="color:#4CAA6E" data-content="Fee is 1NXT per transaction." data-container="body"></i>
+                      <input type="number" name="feeNXT" id="send_div_ad_fee" disabled class="form-control" placeholder="Fee" data-default="" tabindex="3">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="modal-body">
+                    <div class="form-group">
+                      <label for="nsv_div_ad_accounts_list">LIST OF ACCOUNTS</label> <i class="fa fa-question-circle show_popover" style="color:#4CAA6E" data-content="Comma seperated list of accounts." data-container="body"></i>
+
+                      <textarea class="form-control" id="nsv_div_ad_accounts_list" name="message" rows="4" placeholder="NXT-Account1,NXT-Account2,NXT-Account3,etc." tabindex="4"></textarea>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group secret_phrase">
+                  <label for="nsv_div_ad_password">SECRET PHRASE</label>
+                  <input type="password" name="secretPhrase" id="nsv_div_ad_password" class="form-control" placeholder="" tabindex="5" autocomplete="">
+                </div>
+
+
+              </form>
+              <div class="callout account_info" style="display:none;margin-bottom: 0;"></div>
+              <div class="alert-danger alert alert-no-icon" id="nsv_div_ad_error_message" style="display: none;padding: 5px; padding-left: 5px; margin-bottom: 15px;"><b>Error!</b>: Incorrect asset ID.</div>
+              <div class="alert-success alert alert-no-icon" id="nsv_div_ad_succ_message" style="display: none;padding: 5px; padding-left: 5px; margin-bottom: 15px;"></div>
+              <div class="alert-warning alert alert-no-icon" id="nsv_div_ad_warn_message" style="display: none;padding: 5px; padding-left: 5px; margin-bottom: 15px;"></div>
+
+            </div>
+            <div class="modal-footer" style="margin-top:0;">
+
+              <button type="button" class="btn btn-default" data-dismiss="modal" id="nsv_div_ad_cancel">Cancel</button>
+              <button type="button" class="btn btn-info" data-loading-text="Submitting..." id ="nsv_div_ad_calc_but" onclick="NSV.div_ad_calc()">Calculate Distribution</button>
+              <button type="button" class="btn btn-success" data-loading-text="Submitting..." id ="nsv_div_ad_gen_but" onclick="NSV.div_ad_gen()" disabled>Activate Distribution</button>
+
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                <textarea class="form-control" id="nsv_div_ad_disp_results" name="message" rows="4" tabindex="6" readonly="readonly">Distribution Details</textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="nsv_shareswap_modal" tabindex="-1" role="dialog" aria-hidden="true" onshow="NSV.shareswap_init()"  >
+        <div class="modal-dialog modal-dialog-wide">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title">Share Swap</h4>
+            </div>
+            <div class="modal-body">
+              <form role="form">
+                <div class="callout callout-danger error_message" style="display:none"></div>
+                <div class="row">
+                  <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+                      <label for="nsv_shareswap_asset1">ORIGINAL ASSET</label> <i class="fa fa-question-circle show_popover" style="color:#4CAA6E" data-content="This is the asset that the shareholders are swapping out" data-container="body"></i>
+                      <input type="text" id="nsv_shareswap_asset1"  class="form-control" placeholder="" tabindex="1" value="">
+                    </div>
+                  </div>
+                  <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+                      <label for="nsv_shareswap_redeem_ac">REDEEM ACCOUNT</label> <i class="fa fa-question-circle show_popover" style="color:#4CAA6E" data-content="This is the account where assets are sent to" data-container="body"></i>
+                      <input type="text" id="nsv_shareswap_redeem_ac"  class="form-control" placeholder="" tabindex="2" value="">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+                      <label for="nsv_shareswap_asset2">REPLACEMENT ASSET</label> <i class="fa fa-question-circle show_popover" style="color:#4CAA6E" data-content="This is the asset that the shareholders are getting instead" data-container="body"></i>
+                      <input type="text" id="nsv_shareswap_asset2"  class="form-control" placeholder="" tabindex="3" value="">
+                    </div>
+                  </div>
+                  <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+                      <label for="nsv_shareswap_ratio">RATIO</label> <i class="fa fa-question-circle show_popover" style="color:#4CAA6E" data-content="This is the ratio for swap. 2=Send two replacement asset for every one original asset sent to redeem account" data-container="body"></i>
+                      <input type="text" id="nsv_shareswap_ratio"  class="form-control" placeholder="" tabindex="5" value="">
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group secret_phrase">
+                  <label for="nsv_shareswap_password">SECRET PHRASE</label>
+                  <input type="password" name="secretPhrase" id="nsv_shareswap_password" class="form-control" placeholder="" tabindex="6" autocomplete="">
+                </div>
+
+                <div class="col-xs-13 col-sm-13 col-md-13">
+                  <div class="form-group">
+                    <label for="nsv_shareswap_details">ADVANCED DETAILS ON SWAP</label> <i class="fa fa-question-circle show_popover" style="color:#4CAA6E" data-content="This shows which accounts voted for which account and how much weighting each account had" data-container="body"></i>
+                    <textarea class="form-control" id="nsv_shareswap_details" rows="8" tabindex="7" readonly ></textarea>
+                  </div>
+                </div>
+              </form>
+              <div class="callout account_info" style="display:none;margin-bottom: 0;"></div>
+              <div class="alert-danger alert alert-no-icon" id="nsv_shareswap_error_message" style="display: none;padding: 5px; padding-left: 5px; margin-bottom: 15px;"></div>
+              <div class="alert-success alert alert-no-icon" id="nsv_shareswap_succ_message" style="display: none;padding: 5px; padding-left: 5px; margin-bottom: 15px;"></div>
+            </div>
+            <div class="modal-footer" style="margin-top:0;">
+
+              <button type="button" class="btn btn-default" data-dismiss="modal" id="nsv_shareswap_cancel">Cancel</button>
+              <button type="button" class="btn btn-info" data-loading-text="Submitting..." id ="nsv_shareswap_calc_but" onclick="NSV.shareswap_calc()">Calculate</button>
+              <button type="button" class="btn btn-success" data-loading-text="Submitting..." id ="nsv_shareswap_but" onclick="NSV.shareswap_activate()" disabled >Swap</button>
+            </div>
+          </div>
+        </div>
+      </div>

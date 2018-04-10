@@ -143,7 +143,7 @@ public class Props {
   public static final String JETTY_P2P_DOS_FILTER_IP_WHITELIST = "JETTY.P2P.DoSFilter.ipWhitelist";
   public static final String JETTY_P2P_DOS_FILTER_MANAGED_ATTR = "JETTY.P2P.DoSFilter.managedAttr";
 
-  public static final String TEST_PEERS = "TEST.Peers";
+  public static final String TEST_PEERS = "DEV.TestNet.Peers";
 
   public static final String BRS_SEND_TO_PEERS_LIMIT = "brs.sendToPeersLimit";
 
