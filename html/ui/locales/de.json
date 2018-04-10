@@ -907,7 +907,7 @@
     "status_account_id": "Deine Account ID ist: <strong>__account_id__<\/strong>",
     "error_send_message": "Ein unbekannter Fehler ist aufgetreten! Die Nachricht wird möglicherweise nicht gesendet.",
     "seller_account_id": "Account ID des Verkäufers",
-    "status_new_account_old": "Willkommen bei Ihrem neuen BURST-Konto. Ihre Account-ID lautet <strong> __ account_id __ <\ / strong>. Sie sollten etwas Burst darauf überweisen.",
+    "status_new_account_old": "Willkommen bei Ihrem neuen BURST-Konto. Ihre Account-ID lautet <strong> __ account_id __ <\/ strong>. Sie sollten etwas Burst darauf überweisen.",
     "dgs_table_product": "Produkt",
     "dgs_table_price": "Preis",
     "dgs_table_description": "Beschreibung",
