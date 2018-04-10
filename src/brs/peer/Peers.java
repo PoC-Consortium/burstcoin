@@ -296,39 +296,42 @@ public final class Peers {
     static void init(TimeService timeService, AccountService accountService, Blockchain blockchain, TransactionProcessor transactionProcessor,
         BlockchainProcessor blockchainProcessor, PropertyService propertyService, ThreadPool threadPool) {
       if (Peers.shareMyAddress) {
-        Runnable GwDiscover = () -> {
-          GatewayDiscover gatewayDiscover = new GatewayDiscover();
-          gatewayDiscover.setTimeout(2000);
-          try {
-            gatewayDiscover.discover();
-          }
-          catch (IOException|SAXException|ParserConfigurationException e) {
-          }
-          logger.trace("Looking for Gateway Devices");
-          gateway = gatewayDiscover.getValidGateway();
-          if (gateway != null && useUpnp) {
-            gateway.setHttpReadTimeout(2000);
+        if (useUpnp) {
+          Runnable GwDiscover = () -> {
+            GatewayDiscover gatewayDiscover = new GatewayDiscover();
+            gatewayDiscover.setTimeout(2000);
             try {
-              InetAddress localAddress = gateway.getLocalAddress();
-              String externalIPAddress = gateway.getExternalIPAddress();
-              logger.info("Attempting to map {0}:{1} -> {2}:{3} on Gateway {0} ({1})",
-                  externalIPAddress, port, localAddress, port, gateway.getModelName(), gateway.getModelDescription());
-              PortMappingEntry portMapping = new PortMappingEntry();
-              if (gateway.getSpecificPortMappingEntry(port, "TCP", portMapping)) {
-                logger.info("Port was already mapped. Aborting test.");
-              }
-              else {
-                if (gateway.addPortMapping(port, port, localAddress.getHostAddress(), "TCP", "burstcoin")) {
-                  logger.info("UPNP Mapping successful");
+              gatewayDiscover.discover();
+            } catch (IOException | SAXException | ParserConfigurationException e) {
+            }
+            logger.trace("Looking for Gateway Devices");
+            gateway = gatewayDiscover.getValidGateway();
+            if (gateway != null) {
+              gateway.setHttpReadTimeout(2000);
+              try {
+                InetAddress localAddress = gateway.getLocalAddress();
+                String externalIPAddress = gateway.getExternalIPAddress();
+                logger.info("Attempting to map {0}:{1} -> {2}:{3} on Gateway {0} ({1})",
+                        externalIPAddress, port, localAddress, port, gateway.getModelName(), gateway.getModelDescription());
+                PortMappingEntry portMapping = new PortMappingEntry();
+                if (gateway.getSpecificPortMappingEntry(port, "TCP", portMapping)) {
+                  logger.info("Port was already mapped. Aborting test.");
+                } else {
+                  if (gateway.addPortMapping(port, port, localAddress.getHostAddress(), "TCP", "burstcoin")) {
+                    logger.info("UPNP Mapping successful");
+                  }
                 }
+              } catch (IOException | SAXException e) {
+                logger.error("Can't start UPNP", e);
               }
             }
-            catch (IOException|SAXException e) {
-              logger.error("Can't start UPNP", e);
-            }
+          };
+          if (gateway != null) {
+            new Thread(GwDiscover).start();
+          } else {
+            logger.warn("Tried to establish UPnP, but it was denied by the network.");
           }
-        };
-        new Thread(GwDiscover).start();
+        }
 
         peerServer = new Server();
         ServerConnector connector = new ServerConnector(peerServer);
