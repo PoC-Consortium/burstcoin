@@ -8,7 +8,7 @@ var BRS = (function(BRS, $, undefined) {
 	BRS.database.select("contacts", null, function(error, contacts) {
 	    if (contacts && contacts.length) {
 		$.each(contacts, function(index, contact) {
-		    BRS.contacts[contact.account] = contact;
+		    BRS.contacts[contact.accountRS] = contact;
 		});
 	    }
 	});
