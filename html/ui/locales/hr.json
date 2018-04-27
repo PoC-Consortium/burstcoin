@@ -912,5 +912,5 @@
     "you_received_assets_plural": "Primili ste <a href='#' data-goto-asset='__asset__'>__count__ __name__ asset-a<\/a>.",
     "you_received_message": "You received a <a href='#' data-goto-messages-account='__account__'>message</a> from __name__.",
     "you_sold_assets": "Prodali ste ili transferirali <a href='#' data-goto-asset='__asset__'>1 __name__ asset-a<\/a>.",
-    "you_sold_assets_plural": "Prodali ste ili transferirali <a href='#' data-goto-asset='__asset__'>__count__ __name__asset-a<\/a>.",
+    "you_sold_assets_plural": "Prodali ste ili transferirali <a href='#' data-goto-asset='__asset__'>__count__ __name__asset-a<\/a>."
 }
