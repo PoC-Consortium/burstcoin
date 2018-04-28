@@ -3,7 +3,7 @@
  * @depends {brs.modals.js}
  */
 var BRS = (function(BRS, $, undefined) {
-    $("#transactions_table, #dashboard_transactions_table").on("click", "a[data-transaction]", function(e) {
+    $("#transactions_table, #dashboard_transactions_table, #transfer_history_table").on("click", "a[data-transaction]", function(e) {
 	e.preventDefault();
 
 	var transactionId = $(this).data("transaction");

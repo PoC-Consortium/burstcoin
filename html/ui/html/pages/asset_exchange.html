@@ -361,3 +361,31 @@
     <p data-i18n="todo">Todo!</p>
   </section>
 </div>
+<div id="transfer_history_page" class="page">
+  <section class="content-header">
+    <h1 data-i18n="transfer_history">Transfer History</h1>
+  </section>
+  <section class="content">
+    <div class="data-container data-loading">
+      <table class="table table-striped" id="transfer_history_table">
+        <thead>
+          <tr>
+            <th data-i18n="transaction">Transaction</th>
+            <th data-i18n="asset">Asset</th>
+            <th data-i18n="date">Date</th>
+            <th data-i18n="quantity">Quantity</th>
+            <th data-i18n="recipient">Recipient</th>
+            <th data-i18n="sender">Sender</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+      <div class="data-loading-container"><img src="img/loading_indicator.gif" alt="Loading..." width="32" height="32" /></div>
+      <div class="data-empty-container">
+        <p data-i18n="no_asset_transfer_history">No asset transfer history available.</p>
+      </div>
+    </div>
+    <div class="data-pagination"></div>
+  </section>
+</div>

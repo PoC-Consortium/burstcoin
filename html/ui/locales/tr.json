@@ -577,6 +577,7 @@
    "no_asset_found" : "Varlık bulunamadı.",
    "no_asset_search_results" : "Arama sorgusuyla eşleşen hiçbir varlık  bulunamadı.",
    "no_asset_selected" : "Lütfen sol kenar çubuğuna bir ürün seçin.",
+   "no_asset_transfer_history": "No asset transfer history available.",
    "no_blocks_found" : "Blok bulunamadı.",
    "no_buy_orders_for_asset" : "No buy orders for this asset.",
    "no_completed_orders_found" : "No completed orders found.",
@@ -854,6 +855,7 @@
    "transfer" : "Aktar",
    "transfer_alias" : "Rumuz transfer et",
    "transfer_asset" : "Varlık tranfer et",
+   "transfer_history": "Transfer History",
    "transfer_in_progress" : "Transfer devam ediyor",
    "type" : "Type",
    "unconfirmed_balance" : "Unconfirmed Balance",
@@ -912,5 +914,5 @@
    "you_received_assets_plural" : "You received <a href='#' data-goto-asset='__asset__'>__count__ __name__ assets</a>.",
    "you_received_message" : "You received a <a href='#' data-goto-messages-account='__account__'>message</a> from __name__.",
    "you_sold_assets" : "You sold or transferred <a href='#' data-goto-asset='__asset__'>1 __name__ asset</a>.",
-   "you_sold_assets_plural" : "You sold or transferred <a href='#' data-goto-asset='__asset__'>__count__ __name__ assets</a>.",
+   "you_sold_assets_plural" : "You sold or transferred <a href='#' data-goto-asset='__asset__'>__count__ __name__ assets</a>."
 }
