@@ -17,63 +17,56 @@
           should you (= your miner) find a block.<br/>
           In case you are mining with a pool, you enter the pool's
           address. In case you are <b>solo mining</b> you enter your own
-          address.</p>
-
+          address.
+        </p>
         <div class="panel panel-default">
           <div class="panel-heading">Reward recipient:</div>
           <div class="panel-body"><input type="text" name="recipient"></div>
         </div>
-
         <p>You have to enter here the passphrase of your wallet (more
           precisely: the wallet you are mining with), because setting a
           reward recipient is effectively a transaction, so you have to
-          sign it.</p>
-
+          sign it.
+        </p>
         <div class="panel panel-default">
           <div class="panel-heading">Your secret passphrase:</div>
           <div class="panel-body"><input type="password" name="secretPhrase"></div>
         </div>
-
         <input type="hidden" name="requestType" value="setRewardRecipient">
         <input type="hidden" name="deadline" value="1440">
         <input type="hidden" name="feeNQT" value="100000000">
         <input type="submit" value="submit" /><br />
       </form>
     </div>
-
     <div>After hitting "Submit" this will happen:</div>
-
     <h2>If everything went well...</h2>
-
     <p>If everything goes well you will get some output in JSON format
-    in your browser. It will be a block of text that will have a bunch
-    of transaction details like this...</p>
-
+      in your browser. It will be a block of text that will have a bunch
+      of transaction details like this...
+    </p>
     <tt>
-      {"signatureHash":"77765d5f8929f67e752c7yaddayaddad9c1bc7190a0a79e6ae876717b770","unsignedTransactionBytes":
-      "14101eb97605a00552c52de00b69b239a13b7b11b6a92f5bead44cfe83fc415b41c8d07a2e07831d03be5aff840881c4000000000
-      yadda yadda yadda
-      {"senderPublicKey":"52c52de00b69b239a1etceteracfe83fc415b41c8d07a2e07831d","signature":
-      "4355bd909049928615fe6541594fd46blahblahblah37eaede052e0cd208330c93b41d29929a74658d5f89d337ab39c66de8e1874
-      fc02533157c3989","feeNQT":"100000000","type":20,"fullHash":"c23ddc18786bd89e2a
+    {"signatureHash":"77765d5f8929f67e752c7yaddayaddad9c1bc7190a0a79e6ae876717b770","unsignedTransactionBytes":
+    "14101eb97605a00552c52de00b69b239a13b7b11b6a92f5bead44cfe83fc415b41c8d07a2e07831d03be5aff840881c4000000000
+    yadda yadda yadda
+    {"senderPublicKey":"52c52de00b69b239a1etceteracfe83fc415b41c8d07a2e07831d","signature":
+    "4355bd909049928615fe6541594fd46blahblahblah37eaede052e0cd208330c93b41d29929a74658d5f89d337ab39c66de8e1874
+    fc02533157c3989","feeNQT":"100000000","type":20,"fullHash":"c23ddc18786bd89e2a
     </tt>
-
     <p>Yeah - it looks like an error, but it's not. :-) Now for the most important part:</p>
     <p><b>You will now have to wait 4 Blocks (16-20 minutes on average) until your change takes effect!</b></p>
-
     <p><b>Optional:</b> To confirm that the transaction went through,
-    you can go to your wallet and check your latest transactions. You
-    should see a "Reward Recipient Assignment" transaction with the
-    account of the Pool's Burst address.</p>
-
+      you can go to your wallet and check your latest transactions. You
+      should see a "Reward Recipient Assignment" transaction with the
+      account of the Pool's Burst address.
+    </p>
     <h2>If something went wrong</h2>
-
     <p>The JSON message will be much shorter and contain a terse error
-    message. In this case check if your passphrase is correct or if
-    you haven't made some error in the reward recipient address. Or
-    both.</p>
-
+      message. In this case check if your passphrase is correct or if
+      you haven't made some error in the reward recipient address. Or
+      both.
+    </p>
     <p>For another nice explanation what's happening here see
-    <a href="https://www.igorkromin.net/index.php/2017/06/29/how-to-set-the-reward-recipient-when-pool-mining-burstcoin/" target="_blank">this.</a</p>
+      <a href="https://www.igorkromin.net/index.php/2017/06/29/how-to-set-the-reward-recipient-when-pool-mining-burstcoin/" target="_blank">this.</a
+    </p>
   </body>
 </html>

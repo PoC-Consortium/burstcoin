@@ -1,59 +1,58 @@
-            <div class="modal fade" id="reward_assignment_modal" tabindex="-1" role="dialog" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-700">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title" data-i18n="reward_assignment">Set Reward Assignment</h4>
-                        </div>
-                        <div class="modal-body">                            
-                            <form role="form" autocomplete="off">
-                                <div class="callout callout-danger set_reward_warning" style="display:none" data-i18n="[html]reward_recipient_warning"><strong>Warning</strong>: Setting a so called "reward recipient" means that you define a beneficiary who will get the BURST reward in case should you (= your miner) find a block. In case you are mining with a pool, you enter the pool's address. In case you are solo mining you enter your own address.</div>
-
-                                <div class="callout callout-danger error_message" style="display:none"></div>
-                                <div class="form-group">
-                                    <label for="reward_assignment_recipient" data-i18n="recipient">RECIPIENT</label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" name="recipient" id="reward_recipient" placeholder="Recipient Account" data-i18n="[placeholder]recipient_account" autofocus tabindex="1" />
-                                        <span class="input-group-btn btn-group recipient_selector">
-                                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span></button>    
-                                            <ul class="dropdown-menu scrollable-menu" role="menu" style="right:0;left:auto;"></ul>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-xs-6 col-sm-6 col-md-6 advanced_extend" data-normal="6" data-advanced="3">
-                                        <div class="form-group">
-                                            <label for="reward_assignment_fee" data-i18n="fee">FEE</label>
-                                            <div class="input-group">
-                                                <input type="number" name="feeNXT" id="reward_assignment_fee" class="form-control" step="any" min="1" placeholder="Fee" data-i18n="[placeholder]fee" data-default="1" value="1" tabindex="4">
-                                                <span class="input-group-addon">BURST</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-3 col-sm-3 col-md-3 advanced">
-                                        <div class="form-group">
-                                            <label for="reward_assignment_deadline" data-i18n="deadline_hours">DEADLINE (HOURS)</label>
-                                            <input type="number" name="deadline" id="reward_assignment_deadline" class="form-control" placeholder="Deadline" data-i18n="deadline" min="1" data-default="24" value="24" tabindex="5">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group secret_phrase">
-                                    <label for="reward_assignment_password" data-i18n="passphrase">PASSPHRASE</label>
-                                    <input type="password" name="secretPhrase" id="reward_assignment_password" class="form-control" placeholder="" tabindex="8" autocomplete="">
-                                </div>
-                                <div class="form-group advanced" style="margin-bottom:5px">
-                                    <input type="checkbox" name="doNotBroadcast" id="reward_assignment_do_not_broadcast" value="1" /> <label for="reward_assignment_do_not_broadcast" style="font-weight:normal;" tabindex="10" data-i18n="do_not_broadcast">Do Not Broadcast</label>
-                                </div>
-                                <div class="callout account_info" style="display:none;margin-bottom: 0;"></div>
-                                <input type="hidden" name="request_type" value="setRewardRecipient" data-default="setRewardRecipient" />
-                                <input type="hidden" name="converted_account_id" value="" />                                
-                            </form>
-                        </div>
-                        <div class="modal-footer" style="margin-top:0;">
-                            <div class="advanced_info"><strong data-i18n="fee">Fee</strong>: <span class="advanced_fee">1 BURST</span> - <a href="#" data-i18n="advanced">advanced</a></div>
-                            <button type="button" class="btn btn-default" data-dismiss="modal" data-i18n="cancel">Cancel</button>
-                            <button type="button" class="btn btn-primary" data-loading-text="Submitting..." data-i18n="set_reward_assignment;[data-loading-text]submitting">Set Reward Recipient</button>
-                        </div>
-                    </div>
-                </div>
+<div class="modal fade" id="reward_assignment_modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-700">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" data-i18n="reward_assignment">Set Reward Assignment</h4>
+      </div>
+      <div class="modal-body">
+        <form role="form" autocomplete="off">
+          <div class="callout callout-danger set_reward_warning" style="display:none" data-i18n="[html]reward_recipient_warning"><strong>Warning</strong>: Setting a so called "reward recipient" means that you define a beneficiary who will get the BURST reward in case should you (= your miner) find a block. In case you are mining with a pool, you enter the pool's address. In case you are solo mining you enter your own address.</div>
+          <div class="callout callout-danger error_message" style="display:none"></div>
+          <div class="form-group">
+            <label for="reward_assignment_recipient" data-i18n="recipient">RECIPIENT</label>
+            <div class="input-group">
+              <input type="text" class="form-control" name="recipient" id="reward_recipient" placeholder="Recipient Account" data-i18n="[placeholder]recipient_account" autofocus tabindex="1" />
+              <span class="input-group-btn btn-group recipient_selector">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span></button>    
+                <ul class="dropdown-menu scrollable-menu" role="menu" style="right:0;left:auto;"></ul>
+              </span>
             </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-6 advanced_extend" data-normal="6" data-advanced="3">
+              <div class="form-group">
+                <label for="reward_assignment_fee" data-i18n="fee">FEE</label>
+                <div class="input-group">
+                  <input type="number" name="feeNXT" id="reward_assignment_fee" class="form-control" step="any" min="1" placeholder="Fee" data-i18n="[placeholder]fee" data-default="1" value="1" tabindex="4">
+                  <span class="input-group-addon">BURST</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-3 col-sm-3 col-md-3 advanced">
+              <div class="form-group">
+                <label for="reward_assignment_deadline" data-i18n="deadline_hours">DEADLINE (HOURS)</label>
+                <input type="number" name="deadline" id="reward_assignment_deadline" class="form-control" placeholder="Deadline" data-i18n="deadline" min="1" data-default="24" value="24" tabindex="5">
+              </div>
+            </div>
+          </div>
+          <div class="form-group secret_phrase">
+            <label for="reward_assignment_password" data-i18n="passphrase">PASSPHRASE</label>
+            <input type="password" name="secretPhrase" id="reward_assignment_password" class="form-control" placeholder="" tabindex="8" autocomplete="">
+          </div>
+          <div class="form-group advanced" style="margin-bottom:5px">
+            <input type="checkbox" name="doNotBroadcast" id="reward_assignment_do_not_broadcast" value="1" /> <label for="reward_assignment_do_not_broadcast" style="font-weight:normal;" tabindex="10" data-i18n="do_not_broadcast">Do Not Broadcast</label>
+          </div>
+          <div class="callout account_info" style="display:none;margin-bottom: 0;"></div>
+          <input type="hidden" name="request_type" value="setRewardRecipient" data-default="setRewardRecipient" />
+          <input type="hidden" name="converted_account_id" value="" />                                
+        </form>
+      </div>
+      <div class="modal-footer" style="margin-top:0;">
+        <div class="advanced_info"><strong data-i18n="fee">Fee</strong>: <span class="advanced_fee">1 BURST</span> - <a href="#" data-i18n="advanced">advanced</a></div>
+        <button type="button" class="btn btn-default" data-dismiss="modal" data-i18n="cancel">Cancel</button>
+        <button type="button" class="btn btn-primary" data-loading-text="Submitting..." data-i18n="set_reward_assignment;[data-loading-text]submitting">Set Reward Recipient</button>
+      </div>
+    </div>
+  </div>
+</div>

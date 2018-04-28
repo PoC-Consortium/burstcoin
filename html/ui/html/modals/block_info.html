@@ -1,46 +1,46 @@
-      <div class="modal fade" id="block_info_modal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-wide">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-              <!-- todo -->
-              <h4 class="modal-title">Block <strong><span id="block_info_modal_block"></span></strong> Info</h4>
+<div class="modal fade" id="block_info_modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-wide">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <!-- todo -->
+        <h4 class="modal-title">Block <strong><span id="block_info_modal_block"></span></strong> Info</h4>
+      </div>
+      <div class="modal-body">
+        <div class="tabbable">
+          <ul class="nav nav-pills nav-justified" style="margin-bottom:10px">
+            <li class="active"><a href="#block_info_transactions_tab" data-toggle="tab" id="block_info_transactions_tab_link" data-i18n="transactions">Transactions</a></li>
+            <li><a href="#block_info_details_tab" data-toggle="tab" data-i18n="block_details">Block Details</a></li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane active" id="block_info_transactions_tab" style="max-height:350px;overflow:auto;">
+              <table class="table table-striped" id="block_info_transactions_table" style="margin-bottom:0">
+                <thead>
+                  <tr>
+                    <th data-i18n="date">Date</th>
+                    <th data-i18n="amount">Amount</th>
+                    <th data-i18n="fee">Fee</th>
+                    <th data-i18n="to">To</th>
+                    <th data-i18n="from">From</th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+              <div id="block_info_transactions_none" style="display:none;" data-i18n="no_transactions_in_block">No transactions in this block.</div>
             </div>
-            <div class="modal-body">
-              <div class="tabbable">
-                <ul class="nav nav-pills nav-justified" style="margin-bottom:10px">
-                  <li class="active"><a href="#block_info_transactions_tab" data-toggle="tab" id="block_info_transactions_tab_link" data-i18n="transactions">Transactions</a></li>
-                  <li><a href="#block_info_details_tab" data-toggle="tab" data-i18n="block_details">Block Details</a></li>
-                </ul>
-                <div class="tab-content">
-                  <div class="tab-pane active" id="block_info_transactions_tab" style="max-height:350px;overflow:auto;">
-                    <table class="table table-striped" id="block_info_transactions_table" style="margin-bottom:0">
-                      <thead>
-                        <tr>
-                          <th data-i18n="date">Date</th>
-                          <th data-i18n="amount">Amount</th>
-                          <th data-i18n="fee">Fee</th>
-                          <th data-i18n="to">To</th>
-                          <th data-i18n="from">From</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                      </tbody>
-                    </table>
-                    <div id="block_info_transactions_none" style="display:none;" data-i18n="no_transactions_in_block">No transactions in this block.</div>
-                  </div>
-                  <div class="tab-pane" id="block_info_details_tab" style="max-height:350px;overflow:auto;">
-                    <table class="table table-striped" id="block_info_details_table" style="margin-bottom:0">
-                      <tbody>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="modal-footer" style="margin-top:0;">
-              <button type="button" class="btn btn-primary" data-dismiss="modal" data-i18n="close">Close</button>
+            <div class="tab-pane" id="block_info_details_tab" style="max-height:350px;overflow:auto;">
+              <table class="table table-striped" id="block_info_details_table" style="margin-bottom:0">
+                <tbody>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
       </div>
+      <div class="modal-footer" style="margin-top:0;">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" data-i18n="close">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

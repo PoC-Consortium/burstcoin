@@ -1,71 +1,71 @@
-    <div class="modal" id="deployCrowd">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button class="close" data-dismiss="modal" type=
-                    "button"><span>&#215;</span><span class=
-                                                      "sr-only">Close</span></button>
-            <h4 class="modal-title">New Project (Fee: 10 BURST)</h4>
+<div class="modal" id="deployCrowd">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" data-dismiss="modal" type=
+          "button"><span>&#215;</span><span class=
+          "sr-only">Close</span></button>
+        <h4 class="modal-title">New Project (Fee: 10 BURST)</h4>
+      </div>
+      <form class="funding-form">
+        <fieldset>
+          <div class="modal-body">
+            <div class="form-group">
+              <ul class="nav nav-list">
+                <li><label>Name (no spaces!)</label> <input class="input-xlarge form-control" id="funding-name" name="funding-name" type="text" value="" /><span style="color:lightgray;"></span></li>
+                <li style="list-style: none"><br /></li>
+                <li><label for="funding description">Description of the Project and info about yourself (max 990 chars):</label> 
+                  <textarea class="form-control" id="funding-description" maxlength="990" rows="5"></textarea>
+                </li>
+                <li style="list-style: none"><br /></li>
+                <li>
+                  <label for="sel1">Duration (select one):</label> 
+                  <select class="form-control" id="sel1">
+                    <option value='d809000000000000'>1 week</option>
+                    <option value='b013000000000000'>
+                      2 weeks
+                    </option>
+                    <option value='881d000000000000'>
+                      3 weeks
+                    </option>
+                    <option value='6027000000000000'>
+                      4 weeks
+                    </option>
+                    <option value='3831000000000000'>
+                      5 weeks
+                    </option>
+                    <option value='103b000000000000'>
+                      6 weeks
+                    </option>
+                    <option value='e844000000000000'>
+                      7 weeks
+                    </option>
+                    <option value='c04e000000000000'>
+                      8 weeks
+                    </option>
+                  </select>
+                </li>
+                <li style="list-style: none"><br /></li>
+                <li><label>Goal Amount</label>
+                  <input class="input-xlarge form-control" id="funding-amount" name="funding-amount" type="text" value="" /><span style="color:lightgray;"></span>
+                </li>
+                <li style="list-style: none"><br /></li>
+                <li><label for=
+                  "funding-password">Your Wallet Passphrase</label>
+                  <input class="input-xlarge form-control" id="funding-password" name="funding-password" type="password" value=""  autocomplete=""/>
+                </li>
+              </ul>
+            </div>
           </div>
-          <form class="funding-form">
-            <fieldset>
-              <div class="modal-body">
-                <div class="form-group">
-                  <ul class="nav nav-list">
-                    <li><label>Name (no spaces!)</label> <input class="input-xlarge form-control" id="funding-name" name="funding-name" type="text" value="" /><span style="color:lightgray;"></span></li>
-                    <li style="list-style: none"><br /></li>
-                    <li><label for="funding description">Description of the Project and info about yourself (max 990 chars):</label> 
-                      <textarea class="form-control" id="funding-description" maxlength="990" rows="5"></textarea>
-                    </li>
-                    <li style="list-style: none"><br /></li>
-                    <li>
-                      <label for="sel1">Duration (select one):</label> 
-                      <select class="form-control" id="sel1">
-                        <option value='d809000000000000'>1 week</option>
-                        <option value='b013000000000000'>
-                          2 weeks
-                        </option>
-                        <option value='881d000000000000'>
-                          3 weeks
-                        </option>
-                        <option value='6027000000000000'>
-                          4 weeks
-                        </option>
-                        <option value='3831000000000000'>
-                          5 weeks
-                        </option>
-                        <option value='103b000000000000'>
-                          6 weeks
-                        </option>
-                        <option value='e844000000000000'>
-                          7 weeks
-                        </option>
-                        <option value='c04e000000000000'>
-                          8 weeks
-                        </option>
-                      </select>
-                    </li>
-                    <li style="list-style: none"><br /></li>
-                    <li><label>Goal Amount</label>
-                      <input class="input-xlarge form-control" id="funding-amount" name="funding-amount" type="text" value="" /><span style="color:lightgray;"></span>
-                    </li>
-                    <li style="list-style: none"><br /></li>
-                    <li><label for=
-                               "funding-password">Your Wallet Passphrase</label>
-                      <input class="input-xlarge form-control" id="funding-password" name="funding-password" type="password" value=""  autocomplete=""/>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </fieldset>
-          </form>
-          <div class="alert-area"></div>
-          <div class="modal-footer">
-            <button class="btn btn-default" data-dismiss="modal"
-                    type="button">Close</button> <button class=
-                                                         "btn btn-default" data-dismiss="modal" id=
-                                                         "deploy-at-btn" type="button">Start Crowdfund</button>
-          </div>
-        </div>
+        </fieldset>
+      </form>
+      <div class="alert-area"></div>
+      <div class="modal-footer">
+        <button class="btn btn-default" data-dismiss="modal"
+          type="button">Close</button> <button class=
+          "btn btn-default" data-dismiss="modal" id=
+          "deploy-at-btn" type="button">Start Crowdfund</button>
       </div>
     </div>
+  </div>
+</div>

@@ -1,82 +1,82 @@
-      <div class="modal fade" id="send_message_modal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-              <h4 class="modal-title" data-i18n="send_message">Send Message</h4>
-            </div>
-            <div class="modal-body">
-              <form role="form" id="send_message_form" autocomplete="off">
-                <div class="callout callout-danger error_message" style="display:none"></div>
-                <div class="form-group">
-                  <label for="send_message_recipient" data-i18n="recipient">RECIPIENT</label>
-                  <div class="input-group">
-                    <input type="text" class="form-control" name="recipient" id="send_message_recipient" placeholder="Recipient Account" data-i18n="[placeholder]recipient_account" autofocus tabindex="1" />
-                    <span class="input-group-btn btn-group recipient_selector">
-                      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span></button>      
-                      <ul class="dropdown-menu scrollable-menu" role="menu" style="right:0;left:auto;"></ul>
-                    </span>
-                  </div>
-                </div>
-                <div class="form-group recipient_public_key">
-                  <label for="send_message_recipient_public_key" data-i18n="recipient_public_key">Recipient Public Key</label>
-                  <input type="text" class="form-control" name="recipientPublicKey" id="send_message_recipient_public_key" placeholder="Public Key" data-i18n="[placeholder]public_key" tabindex="2" spellcheck="false" />
-                </div>
-                <div class="form-group">
-                  <label for="send_message_message" data-i18n="message">MESSAGE</label>
-                  <textarea class="form-control" id="send_message_message" name="message" rows="4" tabindex="3"></textarea>
-                  <div style="margin-top:3px">
-                    <label for="send_message_encrypt" style="font-weight:normal;color:#666"><input type="checkbox" name="encrypt_message" id="send_message_encrypt" value="1" data-default="checked" checked="checked" /> <span data-i18n="encrypt_message">Encrypt Message</span></label>
-                  </div>
-                </div>
-                <div class="row advanced">
-                  <div class="col-xs-6 col-sm-6 col-md-6">
-                    <div class="form-group">
-                      <label for="send_message_fee" data-i18n="fee">FEE</label>
-                      <div class="input-group">
-                        <input type="number" name="feeNXT" id="send_message_fee" class="form-control" step="any" min="1" placeholder="Fee" data-i18n="[placeholder]fee" data-default="1" value="1" tabindex="4">
-                        <span class="input-group-addon">BURST</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-xs-6 col-sm-6 col-md-6">
-                    <div class="form-group">
-                      <label for="send_message_deadline" data-i18n="deadline_hours">DEADLINE (HOURS)</label>
-                      <input type="number" name="deadline" id="send_message_deadline" class="form-control" placeholder="Deadline" data-i18n="[placeholder]deadline" min="1" data-default="24" value="24" tabindex="5">
-                    </div>
-                  </div>
-                </div>
-                <div class="form-group secret_phrase">
-                  <label for="send_message_password" data-i18n="passphrase">PASSPHRASE</label>
-                  <input type="password" name="secretPhrase" id="send_message_password" class="form-control" placeholder="" tabindex="6" autocomplete="">
-                </div>
-                <div class="form-group advanced">
-                  <label for="send_message_referenced_transaction" data-i18n="referenced_transaction_hash">REFERENCED TRANSACTION HASH</label>
-                  <input type="text" class="form-control" name="referencedTransactionFullHash" id="send_message_referenced_transaction" placeholder="Referenced Transaction Full Hash" data-i18n="referenced_transaction_full_hash" tabindex="7" spellcheck="false" />
-                </div>
-                <div class="form-group advanced" style="margin-bottom:5px;">
-                  <input type="checkbox" name="doNotBroadcast" id="send_message_do_not_broadcast" value="1" /> <label for="send_message_do_not_broadcast" style="font-weight:normal;" tabindex="8" data-i18n="do_not_broadcast">Do Not Broadcast</label>
-                </div>
-                <div class="form-group advanced">
-                  <input type="checkbox" name="add_note_to_self" id="send_message_add_note_to_self" class="add_note_to_self" tabindex="9" /> <label for="send_message_add_note_to_self" style="font-weight:normal;margin-bottom:0;"> <span data-i18n="add_note_to_self">Add Note to Self?</span></label>
-                </div>
-                <div class="form-group advanced optional_note">
-                  <label for="send_message_note_to_self" data-i18n="note_to_self">Note to Self</label>
-                  <textarea class="form-control" id="send_message_note_to_self" name="note_to_self" rows="4" tabindex="10"></textarea>
-                  <div style="margin-top:3px;">
-                    <label style="font-weight:normal;color:#666" data-i18n="note_is_encrypted">This note is encrypted.</label>
-                  </div>
-                </div>
-                <div class="callout account_info" style="display:none;margin-bottom: 0;"></div>
-                <input type="hidden" name="request_type" value="sendMessage" data-default="sendMessage" />
-                <input type="hidden" name="converted_account_id" value="" />
-              </form>
-            </div>
-            <div class="modal-footer" style="margin-top:0;">
-              <div class="advanced_info"><strong data-i18n="fee">Fee</strong>: <span class="advanced_fee">1 BURST</span> - <a href="#" data-i18n="advanced">advanced</a></div>
-              <button type="button" class="btn btn-default" data-dismiss="modal" data-i18n="cancel">Cancel</button>
-              <button type="button" class="btn btn-primary" data-loading-text="Submitting..." data-i18n="send_message_button;[data-loading-text]submitting">Send Message</button>
+<div class="modal fade" id="send_message_modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" data-i18n="send_message">Send Message</h4>
+      </div>
+      <div class="modal-body">
+        <form role="form" id="send_message_form" autocomplete="off">
+          <div class="callout callout-danger error_message" style="display:none"></div>
+          <div class="form-group">
+            <label for="send_message_recipient" data-i18n="recipient">RECIPIENT</label>
+            <div class="input-group">
+              <input type="text" class="form-control" name="recipient" id="send_message_recipient" placeholder="Recipient Account" data-i18n="[placeholder]recipient_account" autofocus tabindex="1" />
+              <span class="input-group-btn btn-group recipient_selector">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span></button>      
+                <ul class="dropdown-menu scrollable-menu" role="menu" style="right:0;left:auto;"></ul>
+              </span>
             </div>
           </div>
-        </div>
+          <div class="form-group recipient_public_key">
+            <label for="send_message_recipient_public_key" data-i18n="recipient_public_key">Recipient Public Key</label>
+            <input type="text" class="form-control" name="recipientPublicKey" id="send_message_recipient_public_key" placeholder="Public Key" data-i18n="[placeholder]public_key" tabindex="2" spellcheck="false" />
+          </div>
+          <div class="form-group">
+            <label for="send_message_message" data-i18n="message">MESSAGE</label>
+            <textarea class="form-control" id="send_message_message" name="message" rows="4" tabindex="3"></textarea>
+            <div style="margin-top:3px">
+              <label for="send_message_encrypt" style="font-weight:normal;color:#666"><input type="checkbox" name="encrypt_message" id="send_message_encrypt" value="1" data-default="checked" checked="checked" /> <span data-i18n="encrypt_message">Encrypt Message</span></label>
+            </div>
+          </div>
+          <div class="row advanced">
+            <div class="col-xs-6 col-sm-6 col-md-6">
+              <div class="form-group">
+                <label for="send_message_fee" data-i18n="fee">FEE</label>
+                <div class="input-group">
+                  <input type="number" name="feeNXT" id="send_message_fee" class="form-control" step="any" min="1" placeholder="Fee" data-i18n="[placeholder]fee" data-default="1" value="1" tabindex="4">
+                  <span class="input-group-addon">BURST</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6">
+              <div class="form-group">
+                <label for="send_message_deadline" data-i18n="deadline_hours">DEADLINE (HOURS)</label>
+                <input type="number" name="deadline" id="send_message_deadline" class="form-control" placeholder="Deadline" data-i18n="[placeholder]deadline" min="1" data-default="24" value="24" tabindex="5">
+              </div>
+            </div>
+          </div>
+          <div class="form-group secret_phrase">
+            <label for="send_message_password" data-i18n="passphrase">PASSPHRASE</label>
+            <input type="password" name="secretPhrase" id="send_message_password" class="form-control" placeholder="" tabindex="6" autocomplete="">
+          </div>
+          <div class="form-group advanced">
+            <label for="send_message_referenced_transaction" data-i18n="referenced_transaction_hash">REFERENCED TRANSACTION HASH</label>
+            <input type="text" class="form-control" name="referencedTransactionFullHash" id="send_message_referenced_transaction" placeholder="Referenced Transaction Full Hash" data-i18n="referenced_transaction_full_hash" tabindex="7" spellcheck="false" />
+          </div>
+          <div class="form-group advanced" style="margin-bottom:5px;">
+            <input type="checkbox" name="doNotBroadcast" id="send_message_do_not_broadcast" value="1" /> <label for="send_message_do_not_broadcast" style="font-weight:normal;" tabindex="8" data-i18n="do_not_broadcast">Do Not Broadcast</label>
+          </div>
+          <div class="form-group advanced">
+            <input type="checkbox" name="add_note_to_self" id="send_message_add_note_to_self" class="add_note_to_self" tabindex="9" /> <label for="send_message_add_note_to_self" style="font-weight:normal;margin-bottom:0;"> <span data-i18n="add_note_to_self">Add Note to Self?</span></label>
+          </div>
+          <div class="form-group advanced optional_note">
+            <label for="send_message_note_to_self" data-i18n="note_to_self">Note to Self</label>
+            <textarea class="form-control" id="send_message_note_to_self" name="note_to_self" rows="4" tabindex="10"></textarea>
+            <div style="margin-top:3px;">
+              <label style="font-weight:normal;color:#666" data-i18n="note_is_encrypted">This note is encrypted.</label>
+            </div>
+          </div>
+          <div class="callout account_info" style="display:none;margin-bottom: 0;"></div>
+          <input type="hidden" name="request_type" value="sendMessage" data-default="sendMessage" />
+          <input type="hidden" name="converted_account_id" value="" />
+        </form>
       </div>
+      <div class="modal-footer" style="margin-top:0;">
+        <div class="advanced_info"><strong data-i18n="fee">Fee</strong>: <span class="advanced_fee">1 BURST</span> - <a href="#" data-i18n="advanced">advanced</a></div>
+        <button type="button" class="btn btn-default" data-dismiss="modal" data-i18n="cancel">Cancel</button>
+        <button type="button" class="btn btn-primary" data-loading-text="Submitting..." data-i18n="send_message_button;[data-loading-text]submitting">Send Message</button>
+      </div>
+    </div>
+  </div>
+</div>

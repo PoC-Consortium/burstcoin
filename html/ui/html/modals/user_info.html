@@ -1,100 +1,100 @@
-      <div class="modal fade" id="user_info_modal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-wider">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-              <!-- todo -->
-              <h4 class="modal-title">Account <strong><span id="user_info_modal_account"></span></strong> Info</h4>
-            </div>
-            <div class="modal-body">
-              <div class="callout callout-info">
-                <!-- todo -->
-                The account <span id="user_info_modal_account_name_container">named <span id="user_info_modal_account_name" style="font-weight:bold"></span></span> has a balance of <strong><span id="user_info_modal_account_balance"></span></strong>.
-              </div>
-              <ul class="nav nav-pills nav-justified" style="margin-bottom:10px">
-                <li class="active" id="user_info_transactions" data-tab="transactions"><a href="#" data-i18n="transactions">Transactions</a></li>
-                <li id="user_info_assets" data-tab="assets"><a href="#" data-i18n="assets">Assets</a></li>
-                <li id="user_info_marketplace" data-tab="marketplace"><a href="#" data-i18n="marketplace">Marketplace</a></li>
-                <li id="user_info_aliases" data-tab="aliases"><a href="#" data-i18n="aliases">Aliases</a></li>
-                <li id="user_info_description" data-tab="description"><a href="#" data-i18n="description">Description</a></li>
-                <li id="user_info_actions" data-tab="actions"><a href="#" data-i18n="actions">Actions</a></li>
-              </ul>
-              <div class="data-container data-loading user_info_modal_content" id="user_info_modal_transactions" style="display:none;max-height:350px;overflow:auto;">
-                <table class="table table-striped" id="user_info_modal_transactions_table">
-                  <thead>
-                    <tr>
-                      <th data-i18n="date">Date</th>
-                      <th data-i18n="type">Type</th>
-                      <th data-i18n="amount" colspan="2">Amount</th>
-                      <th data-i18n="fee">Fee</th>
-                      <th data-i18n="account">Account</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                  </tbody>
-                </table>
-                <div class="data-loading-container"><img src="img/loading_indicator.gif" alt="Loading..." width="32" height="32" /></div>
-                <div class="data-empty-container" style="padding-top:10px" data-i18n="user_no_transactions">This user has no transactions.</div>
-              </div>
-              <div class="data-container data-loading user_info_modal_content" id="user_info_modal_aliases" style="display:none;max-height:350px;overflow:auto;">
-                <table class="table table-striped" id="user_info_modal_aliases_table">
-                  <thead>
-                    <tr>
-                      <th data-i18n="alias">Alias</th>
-                      <th data-i18n="uri">URI</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                  </tbody>
-                </table>
-                <div class="data-loading-container"><img src="img/loading_indicator.gif" alt="Loading..." width="32" height="32" /></div>
-                <div class="data-empty-container" style="padding-top:10px" data-i18n="user_no_aliases">This user has no aliases.</div>
-              </div>
-              <div class="data-container data-loading user_info_modal_content" id="user_info_modal_assets" style="display:none;max-height:350px;overflow:auto;">
-                <table class="table table-striped" id="user_info_modal_assets_table">
-                  <thead>
-                    <tr>
-                      <th data-i18n="asset">Asset</th>
-                      <th data-i18n="quantity">Quantity</th>
-                      <th data-i18n="total_available">Total Available</th>
-                      <th data-i18n="percentage">Percentage</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                  </tbody>
-                </table>
-                <div class="data-loading-container"><img src="img/loading_indicator.gif" alt="Loading..." width="32" height="32" /></div>
-                <div class="data-empty-container" style="padding-top:10px" data-i18n="user_no_assets">This user has no assets.</div>
-              </div>
-              <div class="data-container data-loading user_info_modal_content" id="user_info_modal_marketplace" style="display:none;max-height:350px;overflow:auto;">
-                <table class="table table-striped" id="user_info_modal_marketplace_table">
-                  <thead>
-                    <tr>
-                      <th data-i18n="item">Item</th>
-                      <th data-i18n="price">Price</th>
-                      <th data-i18n="qty">QTY</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                  </tbody>
-                </table>
-                <div class="data-loading-container"><img src="img/loading_indicator.gif" alt="Loading..." width="32" height="32" /></div>
-                <div class="data-empty-container" style="padding-top:10px" data-i18n="user_no_marketplace_listings">This user has no marketplace listings.</div>
-              </div>
-              <div class="user_info_modal_content data-never-loading" id="user_info_modal_description" style="display:none;"></div>
-              <div class="user_info_modal_content data-never-loading" id="user_info_modal_actions" style="display:none;">
-                <div class="row">
-                  <div class="col-xs-6 col-md-6" style="margin-left:auto;margin-right:auto;float:none;">
-                    <button type="button" class="btn btn-default btn-lg btn-block" data-toggle="modal" data-target="#send_money_modal" data-account="" data-i18n="send_burst">Send BURST</button>
-                    <button type="button" class="btn btn-default btn-lg btn-block" data-toggle="modal" data-target="#send_message_modal" data-account="" data-i18n="send_a_message">Send a Message</button>
-                    <button type="button" id="user_info_modal_add_as_contact" class="btn btn-default btn-lg btn-block" data-toggle="modal" data-target="#add_contact_modal" data-account="" data-i18n="add_as_contact">Add as Contact</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="modal-footer" style="margin-top:0;">
-              <button type="button" class="btn btn-primary" data-dismiss="modal" data-i18n="close">Close</button>
+<div class="modal fade" id="user_info_modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-wider">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <!-- todo -->
+        <h4 class="modal-title">Account <strong><span id="user_info_modal_account"></span></strong> Info</h4>
+      </div>
+      <div class="modal-body">
+        <div class="callout callout-info">
+          <!-- todo -->
+          The account <span id="user_info_modal_account_name_container">named <span id="user_info_modal_account_name" style="font-weight:bold"></span></span> has a balance of <strong><span id="user_info_modal_account_balance"></span></strong>.
+        </div>
+        <ul class="nav nav-pills nav-justified" style="margin-bottom:10px">
+          <li class="active" id="user_info_transactions" data-tab="transactions"><a href="#" data-i18n="transactions">Transactions</a></li>
+          <li id="user_info_assets" data-tab="assets"><a href="#" data-i18n="assets">Assets</a></li>
+          <li id="user_info_marketplace" data-tab="marketplace"><a href="#" data-i18n="marketplace">Marketplace</a></li>
+          <li id="user_info_aliases" data-tab="aliases"><a href="#" data-i18n="aliases">Aliases</a></li>
+          <li id="user_info_description" data-tab="description"><a href="#" data-i18n="description">Description</a></li>
+          <li id="user_info_actions" data-tab="actions"><a href="#" data-i18n="actions">Actions</a></li>
+        </ul>
+        <div class="data-container data-loading user_info_modal_content" id="user_info_modal_transactions" style="display:none;max-height:350px;overflow:auto;">
+          <table class="table table-striped" id="user_info_modal_transactions_table">
+            <thead>
+              <tr>
+                <th data-i18n="date">Date</th>
+                <th data-i18n="type">Type</th>
+                <th data-i18n="amount" colspan="2">Amount</th>
+                <th data-i18n="fee">Fee</th>
+                <th data-i18n="account">Account</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+          <div class="data-loading-container"><img src="img/loading_indicator.gif" alt="Loading..." width="32" height="32" /></div>
+          <div class="data-empty-container" style="padding-top:10px" data-i18n="user_no_transactions">This user has no transactions.</div>
+        </div>
+        <div class="data-container data-loading user_info_modal_content" id="user_info_modal_aliases" style="display:none;max-height:350px;overflow:auto;">
+          <table class="table table-striped" id="user_info_modal_aliases_table">
+            <thead>
+              <tr>
+                <th data-i18n="alias">Alias</th>
+                <th data-i18n="uri">URI</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+          <div class="data-loading-container"><img src="img/loading_indicator.gif" alt="Loading..." width="32" height="32" /></div>
+          <div class="data-empty-container" style="padding-top:10px" data-i18n="user_no_aliases">This user has no aliases.</div>
+        </div>
+        <div class="data-container data-loading user_info_modal_content" id="user_info_modal_assets" style="display:none;max-height:350px;overflow:auto;">
+          <table class="table table-striped" id="user_info_modal_assets_table">
+            <thead>
+              <tr>
+                <th data-i18n="asset">Asset</th>
+                <th data-i18n="quantity">Quantity</th>
+                <th data-i18n="total_available">Total Available</th>
+                <th data-i18n="percentage">Percentage</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+          <div class="data-loading-container"><img src="img/loading_indicator.gif" alt="Loading..." width="32" height="32" /></div>
+          <div class="data-empty-container" style="padding-top:10px" data-i18n="user_no_assets">This user has no assets.</div>
+        </div>
+        <div class="data-container data-loading user_info_modal_content" id="user_info_modal_marketplace" style="display:none;max-height:350px;overflow:auto;">
+          <table class="table table-striped" id="user_info_modal_marketplace_table">
+            <thead>
+              <tr>
+                <th data-i18n="item">Item</th>
+                <th data-i18n="price">Price</th>
+                <th data-i18n="qty">QTY</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+          <div class="data-loading-container"><img src="img/loading_indicator.gif" alt="Loading..." width="32" height="32" /></div>
+          <div class="data-empty-container" style="padding-top:10px" data-i18n="user_no_marketplace_listings">This user has no marketplace listings.</div>
+        </div>
+        <div class="user_info_modal_content data-never-loading" id="user_info_modal_description" style="display:none;"></div>
+        <div class="user_info_modal_content data-never-loading" id="user_info_modal_actions" style="display:none;">
+          <div class="row">
+            <div class="col-xs-6 col-md-6" style="margin-left:auto;margin-right:auto;float:none;">
+              <button type="button" class="btn btn-default btn-lg btn-block" data-toggle="modal" data-target="#send_money_modal" data-account="" data-i18n="send_burst">Send BURST</button>
+              <button type="button" class="btn btn-default btn-lg btn-block" data-toggle="modal" data-target="#send_message_modal" data-account="" data-i18n="send_a_message">Send a Message</button>
+              <button type="button" id="user_info_modal_add_as_contact" class="btn btn-default btn-lg btn-block" data-toggle="modal" data-target="#add_contact_modal" data-account="" data-i18n="add_as_contact">Add as Contact</button>
             </div>
           </div>
         </div>
       </div>
+      <div class="modal-footer" style="margin-top:0;">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" data-i18n="close">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

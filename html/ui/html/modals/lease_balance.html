@@ -1,89 +1,89 @@
-      <div class="modal fade" id="lease_balance_modal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-              <h4 class="modal-title" data-i18n="lease_your_balance">Lease Your Balance</h4>
-            </div>
-            <div class="modal-body">
-              <form role="form" autocomplete="off">
-                <div class="callout callout-danger never_hide" id="lease_balance_message" data-i18n="[html]lease_balance_warning"><strong>Remember</strong>: Once submitted the lease cannot be cancelled.</div>
-                <div class="callout callout-danger error_message" style="display:none"></div>
-                <div class="form-group">
-                  <label for="lease_balance_recipient" data-i18n="recipient">RECIPIENT</label>
-                  <div class="input-group">
-                    <input type="text" class="form-control" name="recipient" id="lease_balance_recipient" placeholder="Recipient Account" data-i18n="[placeholder]recipient_account" autofocus tabindex="1" />
-                    <span class="input-group-btn btn-group recipient_selector">
-                      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span></button>      
-                      <ul class="dropdown-menu scrollable-menu" role="menu" style="right:0;left:auto;"></ul>
-                    </span>
-                  </div>
-                </div>
-                <div class="form-group recipient_public_key">
-                  <label for="lease_balance_recipient_public_key" data-i18n="recipient_public_key">Recipient Public Key</label>
-                  <input type="text" class="form-control" name="recipientPublicKey" id="lease_balance_recipient_public_key" placeholder="Public Key" data-i18n="[placeholder]public_key" tabindex="2" spellcheck="false" />
-                </div>
-                <div class="row">
-                  <div class="col-xs-12 col-sm-12 col-md-12 advanced_extend" data-normal="12" data-advanced="4">
-                    <label for="lease_balance_period"><span data-i18n="period">PERIOD</span> <i class="fa fa-question-circle show_popover" style="color:#4CAA6E" data-content="The number of blocks the lease will last. 9000 blocks is about 10 days." data-i18n="[data-content]lease_balance_help" data-container="body"></i></label>
-                    <input type="number" name="period" id="lease_balance_period" class="form-control" step="any" min="1440" max="32767" placeholder="Period" data-i18n="[placeholder]period" data-default="9000" value="9000" tabindex="3">
-                  </div>
-                  <div class="col-xs-4 col-sm-4 col-md-4 advanced">
-                    <label for="lease_balance_fee" data-i18n="fee">FEE</label>
-                    <div class="input-group">
-                      <input type="number" name="feeNXT" id="lease_balance_fee" class="form-control" step="any" min="1" placeholder="Fee" data-i18n="[placeholder]fee" data-default="1" value="1" tabindex="4">
-                      <span class="input-group-addon">BURST</span>
-                    </div>
-                  </div>
-                  <div class="col-xs-4 col-sm-4 col-md-4 advanced">
-                    <label for="lease_balance_deadline" data-i18n="deadline_hours">DEADLINE (HOURS)</label>
-                    <input type="number" name="deadline" id="lease_balance_deadline" class="form-control" placeholder="Deadline" data-i18n="[placeholder]deadline" min="1" data-default="24" value="1" tabindex="5">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <p class="help-block" id="lease_balance_help" data-i18n="[html]lease_balance_help_2">A lease of <strong>9000 blocks</strong> is about 10 days.</p>
-                </div>
-                <div class="form-group">
-                  <input type="checkbox" name="add_message" id="lease_balance_add_message" class="add_message"  tabindex="6" /> <label for="lease_balance_add_message" style="font-weight:normal;margin-bottom:0;"> <span data-i18n="add_message_q">Add a Message?</span></label>
-                </div>
-                <div class="form-group optional_message">
-                  <label for="lease_balance_message" data-i18n="message">MESSAGE</label>
-                  <textarea class="form-control" id="lease_balance_message" name="message" rows="4" tabindex="7"></textarea>
-                  <div style="margin-top:3px">
-                    <label for="lease_balance_encrypt_message" style="font-weight:normal;color:#666"><input type="checkbox" name="encrypt_message" id="lease_balance_encrypt_message" value="1" data-default="checked" checked="checked" /> <span data-i18n="encrypt_message">Encrypt Message</span></label>
-                  </div>
-                </div>
-                <div class="form-group secret_phrase">
-                  <label for="lease_balance_password" data-i18n="passphrase">PASSPHRASE</label>
-                  <input type="password" name="secretPhrase" id="lease_balance_password" class="form-control" placeholder="" tabindex="6" autocomplete="">
-                </div>
-                <div class="form-group advanced">
-                  <label for="lease_balance_referenced_transaction" data-i18n="referenced_transaction_hash">REFERENCED TRANSACTION HASH</label>
-                  <input type="text" class="form-control" name="referencedTransactionFullHash" id="lease_balance_referenced_transaction" placeholder="Referenced Transaction Full Hash" data-i18n="referenced_transaction_full_hash" tabindex="7" spellcheck="false" />
-                </div>
-                <div class="form-group advanced" style="margin-bottom:5px;">
-                  <input type="checkbox" name="doNotBroadcast" id="lease_balance_do_not_broadcast" value="1" /> <label for="lease_balance_do_not_broadcast" style="font-weight:normal;" tabindex="8" data-i18n="do_not_broadcast">Do Not Broadcast</label>
-                </div>
-                <div class="form-group advanced">
-                  <input type="checkbox" name="add_note_to_self" id="lease_balance_add_note_to_self" class="add_note_to_self" tabindex="9" /> <label for="lease_balance_add_note_to_self" style="font-weight:normal;margin-bottom:0;"> <span data-i18n="add_note_to_self">Add Note to Self?</span></label>
-                </div>
-                <div class="form-group advanced optional_note">
-                  <label for="lease_balance_note_to_self" data-i18n="note_to_self">Note to Self</label>
-                  <textarea class="form-control" id="lease_balance_note_to_self" name="note_to_self" rows="4" tabindex="10"></textarea>
-                  <div style="margin-top:3px;">
-                    <label style="font-weight:normal;color:#666" data-i18n="note_is_encrypted">This note is encrypted.</label>
-                  </div>
-                </div>
-                <div class="callout account_info" style="display:none;margin-bottom: 0;"></div>
-                <input type="hidden" name="request_type" value="leaseBalance" />
-                <input type="hidden" name="converted_account_id" value="" />
-              </form>
-            </div>
-            <div class="modal-footer" style="margin-top:0;">
-              <div class="advanced_info"><strong data-i18n="fee">Fee</strong>: <span class="advanced_fee">1 BURST</span> - <a href="#" data-i18n="advanced">advanced</a></div>
-              <button type="button" class="btn btn-default" data-dismiss="modal" data-i18n="cancel">Cancel</button>
-              <button type="button" class="btn btn-primary" data-loading-text="Submitting..." data-i18n="lease_balance;[data-loading-text]submitting">Lease Balance</button>
+<div class="modal fade" id="lease_balance_modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" data-i18n="lease_your_balance">Lease Your Balance</h4>
+      </div>
+      <div class="modal-body">
+        <form role="form" autocomplete="off">
+          <div class="callout callout-danger never_hide" id="lease_balance_message" data-i18n="[html]lease_balance_warning"><strong>Remember</strong>: Once submitted the lease cannot be cancelled.</div>
+          <div class="callout callout-danger error_message" style="display:none"></div>
+          <div class="form-group">
+            <label for="lease_balance_recipient" data-i18n="recipient">RECIPIENT</label>
+            <div class="input-group">
+              <input type="text" class="form-control" name="recipient" id="lease_balance_recipient" placeholder="Recipient Account" data-i18n="[placeholder]recipient_account" autofocus tabindex="1" />
+              <span class="input-group-btn btn-group recipient_selector">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span></button>      
+                <ul class="dropdown-menu scrollable-menu" role="menu" style="right:0;left:auto;"></ul>
+              </span>
             </div>
           </div>
-        </div>
+          <div class="form-group recipient_public_key">
+            <label for="lease_balance_recipient_public_key" data-i18n="recipient_public_key">Recipient Public Key</label>
+            <input type="text" class="form-control" name="recipientPublicKey" id="lease_balance_recipient_public_key" placeholder="Public Key" data-i18n="[placeholder]public_key" tabindex="2" spellcheck="false" />
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 advanced_extend" data-normal="12" data-advanced="4">
+              <label for="lease_balance_period"><span data-i18n="period">PERIOD</span> <i class="fa fa-question-circle show_popover" style="color:#4CAA6E" data-content="The number of blocks the lease will last. 9000 blocks is about 10 days." data-i18n="[data-content]lease_balance_help" data-container="body"></i></label>
+              <input type="number" name="period" id="lease_balance_period" class="form-control" step="any" min="1440" max="32767" placeholder="Period" data-i18n="[placeholder]period" data-default="9000" value="9000" tabindex="3">
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4 advanced">
+              <label for="lease_balance_fee" data-i18n="fee">FEE</label>
+              <div class="input-group">
+                <input type="number" name="feeNXT" id="lease_balance_fee" class="form-control" step="any" min="1" placeholder="Fee" data-i18n="[placeholder]fee" data-default="1" value="1" tabindex="4">
+                <span class="input-group-addon">BURST</span>
+              </div>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4 advanced">
+              <label for="lease_balance_deadline" data-i18n="deadline_hours">DEADLINE (HOURS)</label>
+              <input type="number" name="deadline" id="lease_balance_deadline" class="form-control" placeholder="Deadline" data-i18n="[placeholder]deadline" min="1" data-default="24" value="1" tabindex="5">
+            </div>
+          </div>
+          <div class="form-group">
+            <p class="help-block" id="lease_balance_help" data-i18n="[html]lease_balance_help_2">A lease of <strong>9000 blocks</strong> is about 10 days.</p>
+          </div>
+          <div class="form-group">
+            <input type="checkbox" name="add_message" id="lease_balance_add_message" class="add_message"  tabindex="6" /> <label for="lease_balance_add_message" style="font-weight:normal;margin-bottom:0;"> <span data-i18n="add_message_q">Add a Message?</span></label>
+          </div>
+          <div class="form-group optional_message">
+            <label for="lease_balance_message" data-i18n="message">MESSAGE</label>
+            <textarea class="form-control" id="lease_balance_message" name="message" rows="4" tabindex="7"></textarea>
+            <div style="margin-top:3px">
+              <label for="lease_balance_encrypt_message" style="font-weight:normal;color:#666"><input type="checkbox" name="encrypt_message" id="lease_balance_encrypt_message" value="1" data-default="checked" checked="checked" /> <span data-i18n="encrypt_message">Encrypt Message</span></label>
+            </div>
+          </div>
+          <div class="form-group secret_phrase">
+            <label for="lease_balance_password" data-i18n="passphrase">PASSPHRASE</label>
+            <input type="password" name="secretPhrase" id="lease_balance_password" class="form-control" placeholder="" tabindex="6" autocomplete="">
+          </div>
+          <div class="form-group advanced">
+            <label for="lease_balance_referenced_transaction" data-i18n="referenced_transaction_hash">REFERENCED TRANSACTION HASH</label>
+            <input type="text" class="form-control" name="referencedTransactionFullHash" id="lease_balance_referenced_transaction" placeholder="Referenced Transaction Full Hash" data-i18n="referenced_transaction_full_hash" tabindex="7" spellcheck="false" />
+          </div>
+          <div class="form-group advanced" style="margin-bottom:5px;">
+            <input type="checkbox" name="doNotBroadcast" id="lease_balance_do_not_broadcast" value="1" /> <label for="lease_balance_do_not_broadcast" style="font-weight:normal;" tabindex="8" data-i18n="do_not_broadcast">Do Not Broadcast</label>
+          </div>
+          <div class="form-group advanced">
+            <input type="checkbox" name="add_note_to_self" id="lease_balance_add_note_to_self" class="add_note_to_self" tabindex="9" /> <label for="lease_balance_add_note_to_self" style="font-weight:normal;margin-bottom:0;"> <span data-i18n="add_note_to_self">Add Note to Self?</span></label>
+          </div>
+          <div class="form-group advanced optional_note">
+            <label for="lease_balance_note_to_self" data-i18n="note_to_self">Note to Self</label>
+            <textarea class="form-control" id="lease_balance_note_to_self" name="note_to_self" rows="4" tabindex="10"></textarea>
+            <div style="margin-top:3px;">
+              <label style="font-weight:normal;color:#666" data-i18n="note_is_encrypted">This note is encrypted.</label>
+            </div>
+          </div>
+          <div class="callout account_info" style="display:none;margin-bottom: 0;"></div>
+          <input type="hidden" name="request_type" value="leaseBalance" />
+          <input type="hidden" name="converted_account_id" value="" />
+        </form>
       </div>
+      <div class="modal-footer" style="margin-top:0;">
+        <div class="advanced_info"><strong data-i18n="fee">Fee</strong>: <span class="advanced_fee">1 BURST</span> - <a href="#" data-i18n="advanced">advanced</a></div>
+        <button type="button" class="btn btn-default" data-dismiss="modal" data-i18n="cancel">Cancel</button>
+        <button type="button" class="btn btn-primary" data-loading-text="Submitting..." data-i18n="lease_balance;[data-loading-text]submitting">Lease Balance</button>
+      </div>
+    </div>
+  </div>
+</div>

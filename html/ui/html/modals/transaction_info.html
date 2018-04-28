@@ -1,50 +1,50 @@
-      <div class="modal fade" id="transaction_info_modal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-              <!-- todo -->
-              <h4 class="modal-title">Transaction <strong><span id="transaction_info_modal_transaction"></span></strong> Info</h4>
+<div class="modal fade" id="transaction_info_modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <!-- todo -->
+        <h4 class="modal-title">Transaction <strong><span id="transaction_info_modal_transaction"></span></strong> Info</h4>
+      </div>
+      <div class="modal-body">
+        <div class="tabbable">
+          <ul class="nav nav-pills nav-justified" style="margin-bottom:10px">
+            <li class="active"><a href="#transaction_info_tab" data-toggle="tab" id="transaction_info_tab_link" data-i18n="info">Info</a></li>
+            <li id="transaction_info_actions"><a href="#transaction_info_actions_tab" data-toggle="tab" data-i18n="actions">Actions</a></li>
+            <li><a href="#transaction_info_details_tab" data-toggle="tab" data-i18n="transaction_details">Transaction Details</a></li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane active" id="transaction_info_tab">
+              <div id="transaction_info_callout" class="callout callout-info" style="display:none;"></div>
+              <div id="transaction_info_output_top" style="display: none;"></div>
+              <table class="table table-striped" id="transaction_info_table" style="display:none;margin-bottom: 0;">
+                <tbody>
+                </tbody>
+              </table>
+              <div id="transaction_info_output_bottom" style="display: none;margin-top:10px;"></div>
+              <div id="transaction_info_bottom" style="display: none;"></div>
             </div>
-            <div class="modal-body">
-              <div class="tabbable">
-                <ul class="nav nav-pills nav-justified" style="margin-bottom:10px">
-                  <li class="active"><a href="#transaction_info_tab" data-toggle="tab" id="transaction_info_tab_link" data-i18n="info">Info</a></li>
-                  <li id="transaction_info_actions"><a href="#transaction_info_actions_tab" data-toggle="tab" data-i18n="actions">Actions</a></li>
-                  <li><a href="#transaction_info_details_tab" data-toggle="tab" data-i18n="transaction_details">Transaction Details</a></li>
-                </ul>
-                <div class="tab-content">
-                  <div class="tab-pane active" id="transaction_info_tab">
-                    <div id="transaction_info_callout" class="callout callout-info" style="display:none;"></div>
-                    <div id="transaction_info_output_top" style="display: none;"></div>
-                    <table class="table table-striped" id="transaction_info_table" style="display:none;margin-bottom: 0;">
-                      <tbody>
-                      </tbody>
-                    </table>
-                    <div id="transaction_info_output_bottom" style="display: none;margin-top:10px;"></div>
-                    <div id="transaction_info_bottom" style="display: none;"></div>
-                  </div>
-                  <div class="tab-pane" id="transaction_info_actions_tab">
-                    <div class="row">
-                      <div class="col-xs-8 col-md-8" style="margin-left:auto;margin-right:auto;float:none;">
-                        <button type="button" class="btn btn-default btn-lg btn-block" data-toggle="modal" data-target="#send_money_modal" data-account="" data-i18n="send_burst_to_sender">Send BURST to Sender</button>
-                        <button type="button" class="btn btn-default btn-lg btn-block" data-toggle="modal" data-target="#send_message_modal" data-account="" data-i18n="send_message_to_sender">Send Message to Sender</button>
-                        <button type="button" id="transaction_info_modal_add_as_contact" class="btn btn-default btn-lg btn-block" data-toggle="modal" data-target="#add_contact_modal" data-account="" data-i18n="add_sender_as_contact">Add Sender as Contact</button>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="tab-pane" id="transaction_info_details_tab" style="max-height:350px;overflow:auto;">
-                    <table class="table table-striped" id="transaction_info_details_table" style="margin-bottom:0;table-layout:fixed;">
-                      <tbody>
-                      </tbody>
-                    </table>
-                  </div>
+            <div class="tab-pane" id="transaction_info_actions_tab">
+              <div class="row">
+                <div class="col-xs-8 col-md-8" style="margin-left:auto;margin-right:auto;float:none;">
+                  <button type="button" class="btn btn-default btn-lg btn-block" data-toggle="modal" data-target="#send_money_modal" data-account="" data-i18n="send_burst_to_sender">Send BURST to Sender</button>
+                  <button type="button" class="btn btn-default btn-lg btn-block" data-toggle="modal" data-target="#send_message_modal" data-account="" data-i18n="send_message_to_sender">Send Message to Sender</button>
+                  <button type="button" id="transaction_info_modal_add_as_contact" class="btn btn-default btn-lg btn-block" data-toggle="modal" data-target="#add_contact_modal" data-account="" data-i18n="add_sender_as_contact">Add Sender as Contact</button>
                 </div>
               </div>
             </div>
-            <div class="modal-footer" style="margin-top:0;">
-              <button type="button" class="btn btn-primary" data-dismiss="modal" data-i18n="close">Close</button>
+            <div class="tab-pane" id="transaction_info_details_tab" style="max-height:350px;overflow:auto;">
+              <table class="table table-striped" id="transaction_info_details_table" style="margin-bottom:0;table-layout:fixed;">
+                <tbody>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
       </div>
+      <div class="modal-footer" style="margin-top:0;">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" data-i18n="close">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
