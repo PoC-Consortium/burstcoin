@@ -1,29 +1,38 @@
-#downloading_blockchain {
-	position:fixed;
-	bottom:10px;
-	right:10px;
-	color:white;
-	background:black;
-	padding:5px;
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	border-radius: 3px;
-	display:none;
+#brs_update_explanation_1, #brs_update_explanation_2, #brs_update_explanation_3, #brs_update_explanation_4 {
+
+    display:none;
 }
-#show_console {
-	position:fixed;
-	bottom:0px;
-	right:3px;
-  display:none;
+brs_update_hashes {
+    display:none;
+    margin-top:20px;
 }
-.context_menu {
-	display:none;
-	position:absolute;
-}
-.list-group-item.context {
-	background-color: #f5f5f5 !important;
+    
+#brs_update_hashes table {
+    border-collapse:collapse;
+    border:1px solid #bbb;
 }
 
-.list-group-item.context p.list-group-item-text, .list-group-item.context h4 {
-	color:black !important;
+#brs_update_hashes table td {
+    padding:2px;
+    margin-bottom:1px;
+}
+#brs_update_explanation span {
+	display:none;
+}
+#brs_update_drop_zone, #brs_update_result {
+    padding: 25px;
+    text-align: center;
+    font-weight:bold;
+    font-size:30px;
+    line-height:30px;
+    background:#DFF0D9;
+    color:#48874A;
+    border:1px solid #D6E8C7;
+    display:none;
+}
+#brs_update_hash_progress {
+    height:15px;
+    background:#48874A;  
+    display:none;
+    margin-top:20px;
 }
