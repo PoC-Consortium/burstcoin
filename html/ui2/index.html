@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html class="lockscreen">
+  <head>
+    <meta charset="UTF-8">
+    <title data-i18n="app.title">BURST Wallet</title>
+    <script src="js/3rdparty/jquery.min.js"     integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT" type="text/javascript"></script>
+    <script src="js/3rdparty/bootstrap.min.js"  integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" type="text/javascript"></script>
+    <link href="css/pages/lockscreen.css" rel="stylesheet" type="text/css" />
+    <link href="css/ui/sidebar.css" rel="stylesheet" type="text/css" />
+    <link href="css/ui/sidebarmini.css" rel="stylesheet" type="text/css" />
+    <link href="css/ui/sidebar_context.css" rel="stylesheet" type="text/css" />
+    <link href="css/ui/brs_update.css" rel="stylesheet" type="text/css" />
+    <link href="css/pages/crowdfund.css" rel="stylesheet" type="text/css" />
+    <link href="css/ui/data_container.css" rel="stylesheet" type="text/css" />
+    <link href="css/pages/dgs.css" rel="stylesheet" type="text/css" />
+    <link href="css/pages/asset_exchange.css" rel="stylesheet" type="text/css" />
+    <link href="css/AdminLTE.css" rel="stylesheet" type="text/css" />
+    <link href="css/skins/all-skins.css" rel="stylesheet" type="text/css" />
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css"  />
+    <link href="css/ionicons.min.css" rel="stylesheet" type="text/css" />
+  </head>
+<body class="skin-blue sidebar-mini">
+ <!-- lockscreen moved to html/page/lockscreen.html -->  
+  <body class="lockscreen fixed">
+ <!-- lockscreen moved to html/page/lockscreen.html -->  
+    <div id="page" class="wrapper row-offcanvas row-offcanvas-left">
+      <aside id="sidebar" class="main-sidebar sidebar-offcanvas">
+        <!-- Sidebar moved to html/sidebar.html -->
+      </aside>
+      <aside id="content" class="content-wrapper">
+        <!-- Pages moved to own files in html/pages/ -->
+      </aside>
+    </div>
+
+
+    <!-- Sidebar context infos moved to html/sidebar_context.html -->
+    <!-- Pages moved to own files in html/pages/ -->
+
+    <!-- Modals moved to own files in html/modals/ -->
+    <script src="js/3rdparty/i18next.min.js"    integrity="sha384-X4jdmLV1bQZERlyBmLg6XKIekmkGCaCl4GnEMPFPZ7v8wy8MRQX8XdDFSlnwDf1p" type="text/javascript"></script>
+    <script type="text/javascript">
+      $.i18n.init({
+      fallbackLng: "en",
+      fallbackOnEmpty: true,
+      lowerCaseLng: true,
+      detectLngFromLocalStorage: true,
+      resGetPath: "locales/__lng__.json",
+      debug: false
+      }, function() {
+      $("[data-i18n]").i18n();
+      });
+    </script>
+    <script src="js/3rdparty/ajaxmultiqueue.js" integrity="sha384-z4oBihrMyAEYUPZWuSscFRjhJsg8Xh5BjNf6W5eq34YtZ9yFeGLXABTJR7VabVTG" type="text/javascript"></script>
+    <script src="js/3rdparty/ajaxretry.js"      integrity="sha384-ia90j7KZ3lHwnJ/jSofQNFuwwtGrcTHwjd9+SY8Ls7EFiyx+vFfXvURO9fW0odQj" type="text/javascript"></script>
+    <script src="js/3rdparty/big.min.js"        integrity="sha384-BWcgDmoCXi+1663OmG90jk7M9rKeNHdZNVGSkq7LStLwsG62LF3MwBzzR4PhecM0" type="text/javascript"></script>
+    <script src="js/3rdparty/adminlte.min.js" type="text/javascript"></script>
+    <script src="js/3rdparty/clipboard.js" type="text/javascript"></script>
+    <script src="js/3rdparty/jquery.rss.min.js" type="text/javascript"></script>
+    <script src="js/3rdparty/webdb.js" type="text/javascript"></script>
+    <script src="js/3rdparty/notify.min.js"      integrity="sha384-Qnyy4lkYCL9J8NhIWAT7bMPccirUwfiBj7PLqr1ZBlSSJ0+A2XDB0UlqZcg+0VGS" type="text/javascript"></script>
+    <script src="js/3rdparty/jsbn.js" type="text/javascript"></script>
+    <script src="js/3rdparty/jsbn2.js" type="text/javascript"></script>
+    <script src="js/3rdparty/pako.min.js" integrity="sha384-/Dozgal5hQaXErIqQTlUHkj+FNDLXHv4HISt/dfkCS5UrANMOYie1urQogG0QhxC" type="text/javascript"></script>
+    <script src="js/3rdparty/maskedinput.js" type="text/javascript"></script>
+    <script src="js/3rdparty/qrcode.js" type="text/javascript"></script>
+    <script src="js/util/extensions.js" type="text/javascript"></script>
+    <script src="js/util/converters.js" type="text/javascript"></script>
+    <script src="js/util/nxtaddress.js" type="text/javascript"></script>
+    <script src="js/crypto/3rdparty/jssha256.js" type="text/javascript"></script>
+    <script src="js/crypto/curve25519.js" type="text/javascript"></script>
+    <script src="js/crypto/curve25519_.js" type="text/javascript"></script>
+    <script src="js/crypto/3rdparty/aes.js" type="text/javascript"></script>
+    <script src="js/crypto/3rdparty/sha256.js" type="text/javascript"></script>
+
+    <script src="js/brs.sitebuild.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+      BRS.loadLockscreenHTML("html/pages/lockscreen.html");
+      BRS.loadHeaderHTML("html/header.html");
+      BRS.loadSidebarHTML("html/sidebar.html");
+      BRS.loadSidebarContextHTML("html/sidebar_context.html");
+  
+      BRS.loadPageHTML("html/pages/dashboard.html");
+      BRS.loadPageHTML("html/pages/crowdfund.html");
+      BRS.loadPageHTML("html/pages/transactions.html");
+      BRS.loadPageHTML("html/pages/aliases.html");
+      BRS.loadPageHTML("html/pages/messages.html");
+      BRS.loadPageHTML("html/pages/contacts.html");
+      BRS.loadPageHTML("html/pages/asset_exchange.html");
+      BRS.loadPageHTML("html/pages/settings.html");
+      BRS.loadPageHTML("html/pages/peers.html");
+      BRS.loadPageHTML("html/pages/dgs.html");
+      BRS.loadPageHTML("html/pages/blocks.html");
+  
+      BRS.loadModalHTML("html/modals/account.html");
+      BRS.loadModalHTML("html/modals/alias.html");
+      BRS.loadModalHTML("html/modals/asset.html");
+      BRS.loadModalHTML("html/modals/at_create.html");
+      BRS.loadModalHTML("html/modals/block_info.html");
+      BRS.loadModalHTML("html/modals/brs.html");
+      BRS.loadModalHTML("html/modals/contact.html");
+      BRS.loadModalHTML("html/modals/crowd_fund_project.html");
+      BRS.loadModalHTML("html/modals/deployCrowd.html");
+      BRS.loadModalHTML("html/modals/dgs.html");
+      BRS.loadModalHTML("html/modals/dividends.html");
+      BRS.loadModalHTML("html/modals/escrow.html");
+      BRS.loadModalHTML("html/modals/forging.html");
+      BRS.loadModalHTML("html/modals/lease_balance.html");
+      BRS.loadModalHTML("html/modals/messages_decrypt.html");
+      BRS.loadModalHTML("html/modals/raw_transaction.html");
+      BRS.loadModalHTML("html/modals/reward_assignment.html");
+      BRS.loadModalHTML("html/modals/send_message.html");
+      BRS.loadModalHTML("html/modals/send_money.html");
+      BRS.loadModalHTML("html/modals/subscription.html");
+      BRS.loadModalHTML("html/modals/token.html");
+      BRS.loadModalHTML("html/modals/transaction_info.html");
+      BRS.loadModalHTML("html/modals/transaction_operations.html");
+      BRS.loadModalHTML("html/modals/user_info.html");
+    </script>
+
+
+    <script src="js/brs.js" type="text/javascript"></script>
+    <script src="js/brs.server.js" type="text/javascript"></script>
+    <script src="js/brs.forms.js" type="text/javascript"></script>
+    <script src="js/brs.login.js" type="text/javascript"></script>
+    <script src="js/brs.update.js" type="text/javascript"></script>
+    <script src="js/brs.recipient.js" type="text/javascript"></script>
+    <script src="js/brs.assetexchange.js" type="text/javascript"></script>
+    <script src="js/brs.dgs.js" type="text/javascript"></script>
+    <script src="js/brs.messages.js" type="text/javascript"></script>
+    <script src="js/brs.aliases.js" type="text/javascript"></script>
+    <script src="js/brs.blocks.js" type="text/javascript"></script>
+    <script src="js/brs.transactions.js" type="text/javascript"></script>
+    <script src="js/brs.peers.js" type="text/javascript"></script>
+    <script src="js/brs.contacts.js" type="text/javascript"></script>
+    <script src="js/brs.news.js" type="text/javascript"></script>
+    <script src="js/brs.settings.js" type="text/javascript"></script>
+    <script src="js/brs.sidebar.js" type="text/javascript"></script>
+    <script src="js/brs.encryption.js" type="text/javascript"></script>
+    <script src="js/brs.modals.js" type="text/javascript"></script>
+    <script src="js/brs.modals.account.js" type="text/javascript"></script>
+    <script src="js/brs.modals.accountdetails.js" type="text/javascript"></script>
+    <script src="js/brs.modals.block.js" type="text/javascript"></script>
+    <script src="js/brs.modals.forging.js" type="text/javascript"></script>
+    <script src="js/brs.modals.info.js" type="text/javascript"></script>
+    <script src="js/brs.modals.token.js" type="text/javascript"></script>
+    <script src="js/brs.modals.transaction.js" type="text/javascript"></script>
+    <script src="js/brs.modals.accountinfo.js" type="text/javascript"></script>
+    <script src="js/brs.modals.balanceleasing.js" type="text/javascript"></script>
+    <script src="js/brs.modals.advanced.js" type="text/javascript"></script>
+    <script src="js/brs.console.js" type="text/javascript"></script>
+    <script src="js/brs.util.js" type="text/javascript"></script>
+    <script src="js/brs.escrow.js" type="text/javascript"></script>
+    <script src="js/brs.modals.escrow.js" type="text/javascript"></script>
+    <script src="js/brs.subscription.js" type="text/javascript"></script>
+    <script src="js/brs.modals.subscription.js" type="text/javascript"></script>
+    <script src="js/brs.at.js" type="text/javascript"></script>
+    <script src="js/brs.crowdfunding.js" type="text/javascript"></script>
+    <script src="js/nsv.dividends.js" type="text/javascript"></script>
+  </body>
+</html>

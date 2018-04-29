@@ -1,0 +1,38 @@
+#brs_update_explanation_1, #brs_update_explanation_2, #brs_update_explanation_3, #brs_update_explanation_4 {
+
+    display:none;
+}
+brs_update_hashes {
+    display:none;
+    margin-top:20px;
+}
+    
+#brs_update_hashes table {
+    border-collapse:collapse;
+    border:1px solid #bbb;
+}
+
+#brs_update_hashes table td {
+    padding:2px;
+    margin-bottom:1px;
+}
+#brs_update_explanation span {
+	display:none;
+}
+#brs_update_drop_zone, #brs_update_result {
+    padding: 25px;
+    text-align: center;
+    font-weight:bold;
+    font-size:30px;
+    line-height:30px;
+    background:#DFF0D9;
+    color:#48874A;
+    border:1px solid #D6E8C7;
+    display:none;
+}
+#brs_update_hash_progress {
+    height:15px;
+    background:#48874A;  
+    display:none;
+    margin-top:20px;
+}

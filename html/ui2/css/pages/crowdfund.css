@@ -1,0 +1,44 @@
+.crowdbox {
+padding:10px 5%;
+background-color: #fff !important;
+border:1px solid lightgray;
+max-height:550px;
+min-height:550px;
+}
+
+.crowdtext {
+font-size:1.2em;
+max-height:240px;
+min-height:240px;
+overflow:auto;
+}
+
+.ends-in {
+height:40px;
+line-height:40px;
+}
+
+.open-buyTicket {
+font-size:1.2em;
+}
+#page-content-wrapper .crowd {
+margin-top:20px;
+}
+
+.progress {
+position:relative;
+height:50px;
+}
+
+.progress {
+margin-bottom:10px;
+}
+
+.progress-value {
+position:absolute;
+right:0;
+left:0;
+color:white;
+font-size:1em;
+line-height:15px;
+}

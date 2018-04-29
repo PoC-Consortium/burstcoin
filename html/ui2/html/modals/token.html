@@ -1,0 +1,51 @@
+<div class="modal fade modal-no-hide" id="token_modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" data-i18n="burst_token_generation_validation">Burst Token Generation / Validation</h4>
+      </div>
+      <div class="modal-body">
+        <ul class="nav nav-pills nav-justified" style="margin-bottom:10px">
+          <li class="active" id="generate_token_nav" data-tab="generate_token"><a href="#" data-i18n="generate_token">Generate Token</a></li>
+          <li data-tab="validate_token"><a href="#" data-i18n="validate_token">Validate Token</a></li>
+        </ul>
+        <div id="token_modal_generate_token" class="token_modal_content" style="display:none">
+          <form role="form" id="generate_token_form" autocomplete="off">
+            <div class="callout callout-danger remote_warning" style="display:none" data-i18n="[html]passphrase_remote_warning"><strong>Warning</strong>: Your pass phrase will be sent to the server!</div>
+            <div class="callout callout-danger error_message" style="display:none"></div>
+            <div class="callout callout-info" id="generate_token_output" style="display:none;"></div>
+            <div class="form-group">
+              <label for="generate_token_data" data-i18n="data">DATA</label>
+              <textarea class="form-control" name="website" id="generate_token_data" placeholder="Website or Text" data-i18n="[placeholder]website_or_text" tabindex="1" rows="3"></textarea>
+            </div>
+            <input type="hidden" name="request_type" value="generateToken" />
+            <div class="form-group secret_phrase">
+              <label for="generate_token_password" data-i18n="passphrase">PASSPHRASE</label>
+              <input type="password" name="secretPhrase" id="generate_token_password" class="form-control" placeholder="" tabindex="5" autocomplete="">
+            </div>
+          </form>
+        </div>
+        <div id="token_modal_validate_token" class="token_modal_content" style="display:none">
+          <form role="form" id="validate_token_form" autocomplete="off">
+            <div class="callout callout-danger error_message" style="display:none"></div>
+            <div class="callout callout-info" id="decode_token_output" style="display:none;"></div>
+            <div class="form-group">
+              <label for="decode_token_data" data-i18n="data">DATA</label>
+              <textarea type="text" class="form-control" name="website" id="decode_token_data" placeholder="Website or Text" data-i18n="[placeholder]website_or_text" tabindex="1" rows="3"></textarea>
+            </div>
+            <input type="hidden" name="request_type" value="decodeToken" />
+            <div class="form-group">
+              <label for="decode_token_token" data-i18n="token">TOKEN</label>
+              <input type="text" class="form-control" name="token" id="decode_token_token" placeholder="Token" data-i18n="[placeholder]token" tabindex="2" value="" />
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer" style="margin-top:0;">
+        <button type="button" class="btn btn-default" data-dismiss="modal" data-i18n="cancel">Cancel</button>
+        <button type="button" class="btn btn-primary" id="token_modal_button" data-i18n="generate">Generate</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,197 @@
+<div id="dgs_search_page" class="paginated page">
+  <section class="content-header">
+    <h1 data-i18n="search_marketplace">Search Marketplace</h1>
+    <div style="position:absolute;top:9px;right:9px;display:none;" id="dgs_search_top">
+      <form action="#" method="get" class="sidebar-form dgs_search" style="width:280px;margin:0;display:inline-block;vertical-align:middle;" autocomplete="off">
+        <div class="input-group">
+          <input type="text" name="q" class="form-control" placeholder="Search By Seller..." data-i18n="[placeholder]search_by_seller" id="dgs_search_account_top">
+          <span class="input-group-btn">
+          <button type="submit" name="seach" class="btn btn-flat"><i class="fa fa-search"></i></button>
+          </span>
+        </div>
+      </form>
+      <button id="dgs_clear_results" type="button" class="btn btn-default" data-i18n="clear_results">Clear Results</button>
+    </div>
+  </section>
+  <section class="content">
+    <div style="text-align:center" id="dgs_search_center">
+      <div style="margin:0 auto;width:auto;margin-top:150px;display:inline-block;border-top:2px solid rgba(0, 0, 0, 0.1);padding:12px" class="box">
+      </div>
+    </div>
+    <div id="dgs_search_results" class="data-container data-loading" style="display:none">
+      <div id="dgs_search_contents" class="dgs_page_contents">
+        <table class="table table-striped" id="dgs_table">
+          <thead>
+            <tr>
+              <th data-i18n="dgs_table_product" style="width:1%">Product</th>
+              <th data-i18n="dgs_table_price">Price</th>
+              <th data-i18n="dgs_table_description">Description</th>
+              <th data-i18n="dgs_table_quantity">Quantity</th>
+              <th data-i18n="dgs_table_seller">Seller</th>
+              <th data-i18n="dgs_table_product_id">Product ID</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+      <div class="data-loading-container"><img src="img/loading_indicator.gif" alt="Loading..." width="32" height="32" /></div>
+      <div class="data-empty-container">
+        <p data-i18n="no_products_found">No products found.</p>
+      </div>
+    </div>
+    <div class="data-pagination"></div>
+  </section>
+</div>
+<div id="purchased_dgs_page" class="paginated page">
+  <section class="content-header">
+    <h1 data-i18n="purchased_products">Purchased Products</h1>
+  </section>
+  <section class="content">
+    <div class="data-container data-loading">
+      <div id="purchased_dgs_contents" class="dgs_page_contents">
+      </div>
+      <div class="data-loading-container"><img src="img/loading_indicator.gif" alt="Loading..." width="32" height="32" /></div>
+      <div class="data-empty-container">
+        <p data-i18n="no_purchased_products_found">No purchased products found.</p>
+      </div>
+    </div>
+    <div class="data-pagination"></div>
+  </section>
+</div>
+<div id="my_dgs_listings_page" class="paginated page">
+<section class="content-header">
+  <h1 data-i18n="my_products_for_sale">My Products For Sale</h1>
+  <div style="position:absolute;top:9px;right:9px;">
+    <button id="add_dgs_listing_button" type="button" class="btn btn-default" data-toggle="modal" data-target="#dgs_listing_modal" data-i18n="list_product_for_sale">List Product For Sale</button>
+  </div>
+</section>
+<section class="content">
+  <div class="data-container data-loading">
+    <table class="table table-striped" id="my_dgs_listings_table">
+      <thead>
+        <tr>
+          <th data-i18n="name">Name</th>
+          <th data-i18n="quantity">Quantity</th>
+          <th data-i18n="price">Price</th>
+          <th data-i18n="actions" style="width:10%">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+    <div class="data-loading-container"><img src="img/loading_indicator.gif" alt="Loading..." width="32" height="32" /></div>
+    <div class="data-empty-container">
+      <p data-i18n="[html]no_products_listed_yet">You haven't listed any products for sale yet, <a href="#" data-toggle="modal" data-target="#dgs_listing_modal">add one.</a></p>
+    </div>
+  </div>
+  <div class="data-pagination">
+</section>
+</div>
+<div id="pending_orders_dgs_page" class="paginated page">
+  <section class="content-header">
+    <h1 data-i18n="my_pending_orders">My Pending Orders</h1>
+  </section>
+  <section class="content">
+    <div class="data-container data-loading">
+      <div id="pending_orders_dgs_contents" class="dgs_page_contents">
+      </div>
+      <div class="data-loading-container"><img src="img/loading_indicator.gif" alt="Loading..." width="32" height="32" /></div>
+      <div class="data-empty-container">
+        <p data-i18n="no_pending_orders_found">No pending orders found.</p>
+      </div>
+    </div>
+    <div class="data-pagination"></div>
+  </section>
+</div>
+<div id="completed_orders_dgs_page" class="paginated page">
+  <section class="content-header">
+    <h1 data-i18n="my_completed_orders">My Completed Orders</h1>
+  </section>
+  <section class="content">
+    <div class="data-container data-loading">
+      <div id="completed_orders_dgs_contents" class="dgs_page_contents">
+      </div>
+      <div class="data-loading-container"><img src="img/loading_indicator.gif" alt="Loading..." width="32" height="32" /></div>
+      <div class="data-empty-container">
+        <p data-i18n="no_completed_orders_found">No completed orders found.</p>
+      </div>
+    </div>
+    <div class="data-pagination"></div>
+  </section>
+</div>
+<!--start Dividends+ code-->
+<div id="nsv_dividends_page" class="page">
+  <section class="content-header">
+    <h1>Asset Administration for Asset Issuer</h1>
+  </section>
+  <section class="content">
+    <div class="row">
+      <div class="box-header">
+        <h3 class="box-title" >Asset Distribution Modules</h3>
+      </div>
+      <div class="col-lg-3 col-xs-6">
+        <div class="small-box bg-aqua">
+          <div class="inner">
+            <h3><span id="gen_dividends"><span>.</span><span>.</span><span>.</span></span></h3>
+            <p>Dividends <span class="label" id="account_leasing" style="display:none;background-color:#1990B1"></span></p>
+          </div>
+          <div class="icon"><i class="ion ion-shuffle"></i></div>
+          <a href="#" class="small-box-footer" data-toggle="modal" data-target="#nsv_div_send_modal">Click here to calculate dividends <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+      </div>
+      <div class="col-lg-3 col-xs-6">
+        <div class="small-box bg-green">
+          <div class="inner">
+            <h3><span id="automatic_ass_dis"><span>.</span><span>.</span><span>.</span></span></h3>
+            <p>Automatic Asset Distribution</p>
+          </div>
+          <div class="icon"><i class="ion ion-star"></i></div>
+          <a href="#" class="small-box-footer" data-toggle="modal" data-target="#nsv_div_ad_modal">Click here for automatic distribution <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+      </div>
+      <div class="col-lg-3 col-xs-6">
+        <div class="small-box bg-purple">
+          <div class="inner">
+            <h3><span id="automatic_ass_dis"><span>.</span><span>.</span><span>.</span></span></h3>
+            <p>Share Swap</p>
+          </div>
+          <div class="icon"><i class="ion ion-link"></i></div>
+          <a href="#" class="small-box-footer" data-toggle="modal" data-target="#nsv_shareswap_modal">Click here for automatic share swap <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<div class="modal fade" id="mgw_coin_asset_details_modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">mgw<span id="mgw_coin16"></span> Asset Details</h4>
+      </div>
+      <div class="modal-body">
+        <div>
+          <ul class="nav nav-pills nav-justified" style="margin-bottom:10px">
+            <li class="active"><a href="#">Info</a></li>
+          </ul>
+        </div>
+        <table class="table table-striped" style="margin-bottom:0;table-layout:fixed;">
+          <tbody>
+            <tr>
+              <td style="font-weight: bold">Balance:</td>
+              <td><span id="mgw_coin_balance"></span> mgw<span id="mgw_coin17"></span></td>
+            </tr>
+            <tr>
+              <td style="font-weight: bold">Available Balance:</td>
+              <td><span id="mgw_coin_unconfirmed_balance"></span> mgw<span id="mgw_coin18"></span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer" style="margin-top:0;">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
