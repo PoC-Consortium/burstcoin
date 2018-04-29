@@ -1,0 +1,66 @@
+  <header class="main-header">
+
+    <!-- Logo -->
+    <a class="logo">
+      <!-- mini logo for sidebar mini 50x50 pixels -->
+      <span class="logo-mini"><img src="img/burst_logo_collapsed.png" style="margin-right:15px;margin-bottom:3px;opacity:0.95" /></span>
+      <!-- logo for regular state and mobile devices -->
+      <span class="logo-lg"><img src="img/burst_logo_small.png" style="margin-right:15px;opacity:0.95" /></span>
+    </a>
+
+    <!-- Header Navbar -->
+    <nav class="navbar navbar-static-top" role="navigation">
+      <!-- Sidebar toggle button-->
+      <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+        <span class="sr-only">Toggle navigation</span>
+      </a>
+      <!-- Navbar Right Menu -->
+      <div class="navbar-custom-menu">
+      <ul class="nav navbar-nav">
+        <li class="dropdown" id="new-project" style="display: none;"><a href="#deployCrowd" data-toggle="modal" data-target="#deployCrowd" title="New Project"><i class="glyphicon glyphicon-plus"></i> New Project</a></li>
+        <li class="dropdown"><a href="#" data-toggle="modal" data-target="#send_money_modal" data-i18n="send_burst"> Send BURST</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+          <i class="fa fa-envelope"></i>
+          </a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#" data-toggle="modal" data-target="#send_message_modal" data-i18n="send_message"> Send Message</a></li>
+            <li><a href="#" class="goto-page" data-page="messages" data-i18n="message_inbox">Inbox</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+          <i class="fa fa-gears"></i>
+          </a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#" class="goto-page" data-page="settings" data-i18n="settings">Settings</a></li>
+            <li><a href="#" data-toggle="modal" data-target="#token_modal" data-i18n="generate_token">Generate Token</a></li>
+            <li><a href="#" data-toggle="modal" data-target="#transaction_operations_modal" data-i18n="transaction_operations">Transaction Operations</a></li>
+            <li><a href="#" data-toggle="modal" data-target="#reward_assignment_modal" data-i18n="reward_assignment">Reward Assignment</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+          <i class="fa fa-question-circle"></i>
+          </a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a role="menuitem" tabindex="-1" href="https://www.burst-coin.org/" target="_blank">Main Website</a></li>
+            <li><a role="menuitem" tabindex="-1" href="https://forums.getburst.net/" target="_blank" data-i18n="link.burst_forum">Burst Forums</a></li>
+            <li><a role="menuitem" tabindex="-1" href="https://explore.burst.cryptoguru.org/" target="_blank" data-i18n="link.burst_explorer">Block Explorer</a></li>
+            <li><a role="menuitem" tabindex="-1" href="https://burstwiki.org" target="_blank" data-i18n="link.burst_wiki">BURST Wiki</a></li>
+            <li><a role="menuitem" tabindex="-1" href="https://nxtwiki.org/wiki/Asset_Exchange" target="_blank" data-i18n="link.asset_exchange_tutorial">Asset Exchange Tutorial</a></li>
+          </ul>
+        </li>
+        <li class="dropdown" id="logout_button_container">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="logout_button">
+          <i class="fa fa-sign-out"></i>
+          </a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a role="menuitem" tabindex="-1" href="#" onclick="BRS.logout()" data-i18n="logout">Log Out</a></li>
+            <li><a role="menuitem" tabindex="-1" href="#" onclick="BRS.logout(true)" data-i18n="logout_stop_forging">Log Out &amp; Stop Forging</a></li>
+          </ul>
+        </li>
+      </ul>
+      </div>
+    </nav>
+  </header>

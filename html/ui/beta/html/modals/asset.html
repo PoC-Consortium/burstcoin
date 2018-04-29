@@ -1,0 +1,374 @@
+<div class="modal fade" id="cancel_order_modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" data-i18n="confirm_order_cancellation">Confirm Order Cancellation</h4>
+      </div>
+      <div class="modal-body">
+        <form role="form" autocomplete="off">
+          <div class="callout callout-danger error_message" style="display:none"></div>
+          <p data-i18n="confirm_order_cancellation_help">If you are sure you want to cancel your order, type your passphrase to confirm.</p>
+          <input type="hidden" name="order" id="cancel_order_order" value="" />
+          <div class="row advanced">
+            <div class="col-xs-6 col-sm-6 col-md-6">
+              <div class="form-group">
+                <label for="cancel_order_fee" data-i18n="fee">FEE</label>
+                <div class="input-group">
+                  <input type="number" name="feeNXT" id="cancel_order_fee" class="form-control" step="any" min="1" placeholder="Fee" data-i18n="[placeholder]fee" data-default="1" value="1" tabindex="2">
+                  <span class="input-group-addon">BURST</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6">
+              <div class="form-group">
+                <label for="cancel_order_deadline" data-i18n="deadline_hours">DEADLINE (HOURS)</label>
+                <input type="number" name="deadline" id="cancel_order_deadline" class="form-control" placeholder="Deadline" data-i18n="placeholder]deadline" min="1" data-default="24" value="24" tabindex="3">
+              </div>
+            </div>
+          </div>
+          <div class="form-group secret_phrase">
+            <label for="cancel_order_password" data-i18n="passphrase">PASSPHRASE</label>
+            <input type="password" name="secretPhrase" id="cancel_order_password" class="form-control" placeholder="" tabindex="1" autocomplete="">
+          </div>
+          <div class="form-group advanced">
+            <label for="cancel_order_referenced_transaction" data-i18n="referenced_transaction_hash">REFERENCED TRANSACTION HASH</label>
+            <input type="text" class="form-control" name="referencedTransactionFullHash" id="cancel_order_referenced_transaction" placeholder="Referenced Transaction Full Hash" data-i18n="referenced_transaction_full_hash" tabindex="6" spellcheck="false" />
+          </div>
+          <div class="form-group advanced" style="margin-bottom:0;">
+            <input type="checkbox" name="doNotBroadcast" id="cancel_order_do_not_broadcast" value="1" /> <label for="cancel_order_do_not_broadcast" style="font-weight:normal;" tabindex="7" data-i18n="do_not_broadcast">Do Not Broadcast</label>
+          </div>
+          <div class="form-group advanced">
+            <input type="checkbox" name="add_note_to_self" id="cancel_order_add_note_to_self" class="add_note_to_self" tabindex="8" /> <label for="cancel_order_add_note_to_self" style="font-weight:normal;margin-bottom:0;"> <span data-i18n="add_note_to_self">Add Note to Self?</span></label>
+          </div>
+          <div class="form-group advanced optional_note">
+            <label for="cancel_order_note_to_self" data-i18n="note_to_self">Note to Self</label>
+            <textarea class="form-control" id="cancel_order_note_to_self" name="note_to_self" rows="4" tabindex="9"></textarea>
+            <div style="margin-top:3px;">
+              <label style="font-weight:normal;color:#666" data-i18n="note_is_encrypted">This note is encrypted.</label>
+            </div>
+          </div>
+          <input type="hidden" name="cancel_order_type"  id="cancel_order_type" />
+          <input type="hidden" name="request_type" value="cancelOrder" />
+        </form>
+      </div>
+      <div class="modal-footer" style="margin-top:0;">
+        <div class="advanced_info"><strong data-i18n="fee">Fee</strong>: <span class="advanced_fee">1 BURST</span> - <a href="#" data-i18n="advanced">advanced</a></div>
+        <button type="button" class="btn btn-default" data-dismiss="modal" data-i18n="no_do_not_cancel">No, Do Not Cancel</button>
+        <button type="button" class="btn btn-primary" id="cancel_order_button" data-loading-text="Submitting..." data-i18n="cancel_my_order;[data-loading-text]submitting">Cancel My Order</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="asset_order_modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <!-- todo -->
+        <h4 class="modal-title" data-i18n="confirm__order">Confirm <span class="asset_order_modal_type"></span> Order</h4>
+      </div>
+      <div class="modal-body">
+        <form role="form" autocomplete="off">
+          <div class="callout callout-danger error_message" style="display:none"></div>
+          <div class="form-group">
+            <label data-i18n="order_description">ORDER DESCRIPTION</label>
+            <p id="asset_order_description"></p>
+            <input type="hidden" name="asset" id="asset_order_asset" value="" />
+            <input type="hidden" name="quantityQNT" id="asset_order_quantity" value="" />
+            <input type="hidden" name="priceNQT" id="asset_order_price" value="" />
+            <input type="hidden" name="feeNQT" id="asset_order_fee" value="" />
+            <input type="hidden" name="deadline" id="asset_order_deadline" data-default="24" value="24" />
+          </div>
+          <div class="form-group">
+            <label><span data-i18n="total">TOTAL</span> <i id="asset_order_total_tooltip" class="fa fa-question-circle" style="color:#4CAA6E" data-toggle="popover" data-placement="right" data-content=""></i></label>
+            <p id="asset_order_total"></p>
+          </div>
+          <div class="form-group">
+            <label data-i18n="fee">FEE</label>
+            <p id="asset_order_fee_paid"></p>
+          </div>
+          <div class="form-group secret_phrase">
+            <label for="asset_order_password" data-i18n="passphrase">PASSPHRASE</label>
+            <input type="password" name="secretPhrase" id="asset_order_password" class="form-control" placeholder="" tabindex="1" autocomplete="">
+          </div>
+          <input type="hidden" name="asset_order_type"  id="asset_order_type" />
+          <input type="hidden" name="request_type" value="orderAsset" />
+        </form>
+      </div>
+      <div class="modal-footer" style="margin-top:0;">
+        <button type="button" class="btn btn-default" data-dismiss="modal" data-i18n="cancel">Cancel</button>
+        <button type="button" class="btn btn-primary" data-loading-text="Submitting..." id="asset_order_modal_button" data-i18n="[data-loading-text]submitting"></button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="transfer_asset_modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" data-i18n="transfer_asset">Transfer Asset</h4>
+      </div>
+      <div class="modal-body">
+        <form role="form" autocomplete="off">
+          <div class="callout callout-danger error_message" style="display:none"></div>
+          <div class="form-group">
+            <label data-i18n="asset">ASSET</label>
+            <p><span id="transfer_asset_name"></span><span id="transfer_asset_available" style="font-style:italic"></span></p>
+            <input type="hidden" name="asset" id="transfer_asset_asset" value="" />
+            <input type="hidden" name="decimals" id="transfer_asset_decimals" value="" />
+          </div>
+          <div class="form-group">
+            <label for="transfer_asset_recipient" data-i18n="recipient">RECIPIENT</label>
+            <div class="input-group">
+              <input type="text" class="form-control" name="recipient" id="transfer_asset_recipient" placeholder="Recipient Account" data-i18n="[placeholder]recipient_account" autofocus tabindex="1" />
+              <span class="input-group-btn btn-group recipient_selector">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span></button>      
+                <ul class="dropdown-menu scrollable-menu" role="menu" style="right:0;left:auto;"></ul>
+              </span>
+            </div>
+          </div>
+          <div class="form-group recipient_public_key">
+            <label for="transfer_asset_recipient_public_key" data-i18n="recipient_public_key">Recipient Public Key</label>
+            <input type="text" class="form-control" name="recipientPublicKey" id="transfer_asset_recipient_public_key" placeholder="Public Key" data-i18n="[placeholder]public_key" tabindex="2" spellcheck="false" />
+          </div>
+          <div class="form-group">
+            <label for="transfer_asset_quantity" data-i18n="quantity">QUANTITY</label>
+            <div class="input-group">
+              <input type="number" name="quantity" id="transfer_asset_quantity" class="form-control" step="any" min="0" placeholder="Quantity" data-i18n="[placeholder]quantity" tabindex="3">
+              <span class="input-group-addon" id="transfer_asset_quantity_name"></span>
+            </div>
+          </div>
+          <div class="form-group">
+            <input type="checkbox" name="add_message" id="transfer_asset_add_message" class="add_message" tabindex="6" /> <label for="transfer_asset_add_message" style="font-weight:normal;margin-bottom:0;"> <span data-i18n="add_message_q">Add a Message?</span></label>
+          </div>
+          <div class="form-group optional_message">
+            <label for="transfer_asset_message" data-i18n="message">MESSAGE</label>
+            <textarea class="form-control" id="transfer_asset_message" name="message" rows="4" tabindex="7"></textarea>
+            <div style="margin-top:3px">
+              <label for="transfer_asset_encrypt_message" style="font-weight:normal;color:#666"><input type="checkbox" name="encrypt_message" id="transfer_asset_encrypt_message" value="1" data-default="checked" checked="checked" /> <span data-i18n="encrypt_message">Encrypt Message</span></label>
+            </div>
+          </div>
+          <div class="row advanced">
+            <div class="col-xs-6 col-sm-6 col-md-6">
+              <div class="form-group">
+                <label for="transfer_asset_fee" data-i18n="fee">FEE</label>
+                <div class="input-group">
+                  <input type="number" name="feeNXT" id="transfer_asset_fee" class="form-control" step="any" min="1" placeholder="Fee" data-i18n="[placeholder]fee" data-default="1" value="1" tabindex="5">
+                  <span class="input-group-addon">BURST</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6">
+              <div class="form-group">
+                <label for="transfer_asset_deadline" data-i18n="deadline_hours">DEADLINE (HOURS)</label>
+                <input type="number" name="deadline" id="transfer_asset_deadline" class="form-control" placeholder="Deadline" data-i18n="[placeholder]deadline" min="1" data-default="24" value="1" tabindex="6">
+              </div>
+            </div>
+          </div>
+          <div class="form-group secret_phrase">
+            <label for="transfer_asset_password" data-i18n="passphrase">PASSPHRASE</label>
+            <input type="password" name="secretPhrase" id="transfer_asset_password" class="form-control" placeholder="" tabindex="7" autocomplete="">
+          </div>
+          <div class="form-group advanced">
+            <label for="transfer_asset_referenced_transaction" data-i18n="referenced_transaction_hash">REFERENCED TRANSACTION HASH</label>
+            <input type="text" class="form-control" name="referencedTransactionFullHash" id="transfer_asset_referenced_transaction" placeholder="Referenced Transaction Full Hash" data-i18n="[placeholder]referenced_transaction_full_hash" tabindex="8" spellcheck="false" />
+          </div>
+          <div class="form-group advanced" style="margin-bottom:5px;">
+            <input type="checkbox" name="doNotBroadcast" id="transfer_asset_do_not_broadcast" value="1" /> <label for="transfer_asset_do_not_broadcast" style="font-weight:normal;" tabindex="9" data-i18n="do_not_broadcast">Do Not Broadcast</label>
+          </div>
+          <div class="form-group advanced">
+            <input type="checkbox" name="add_note_to_self" id="transfer_asset_add_note_to_self" class="add_note_to_self" tabindex="10" /> <label for="transfer_asset_add_note_to_self" style="font-weight:normal;margin-bottom:0;"> <span data-i18n="add_note_to_self">Add Note to Self?</span></label>
+          </div>
+          <div class="form-group advanced optional_note">
+            <label for="transfer_asset_note_to_self" data-i18n="note_to_self">Note to Self</label>
+            <textarea class="form-control" id="transfer_asset_note_to_self" name="note_to_self" rows="4" tabindex="11"></textarea>
+            <div style="margin-top:3px;">
+              <label style="font-weight:normal;color:#666" data-i18n="note_is_encrypted">This note is encrypted.</label>
+            </div>
+          </div>
+          <div class="callout account_info" style="display:none;margin-bottom: 0;"></div>
+          <input type="hidden" name="request_type" value="transferAsset" />
+          <input type="hidden" name="converted_account_id" value="" />
+          <input type="hidden" name="merchant_info" value="" data-default="" />
+        </form>
+      </div>
+      <div class="modal-footer" style="margin-top:0;">
+        <div class="advanced_info"><strong data-i18n="fee">Fee:</strong> <span class="advanced_fee">1 BURST</span> - <a href="#" data-i18n="advanced">advanced</a></div>
+        <button type="button" class="btn btn-default" data-dismiss="modal" data-i18n="cancel">Cancel</button>
+        <button type="button" class="btn btn-primary" data-loading-text="Submitting..." data-i18n="transfer_asset;[placeholder]submitting">Transfer Asset</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="add_asset_bookmark_modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" data-i18n="add_asset">Add Asset</h4>
+      </div>
+      <div class="modal-body">
+        <form role="form" autocomplete="off">
+          <div class="callout callout-danger error_message" style="display:none"></div>
+          <div class="form-group">
+            <label for="add_asset_bookmark_id" data-i18n="asset_or_account_id">ASSET OR ACCOUNT ID <i class="fa fa-question-circle show_popover" style="color:#4CAA6E" data-content="Find the ID on the issuer's website or announcement page." data-container="body" data-i18n="[data-content]find_asset_id_help"></i></label>
+            <input type="text" class="form-control" name="id" id="add_asset_bookmark_id" placeholder="ID" autofocus tabindex="1" />
+          </div>
+          <input type="hidden" name="request_type" value="addAssetBookmark" />
+        </form>
+      </div>
+      <div class="modal-footer" style="margin-top:0;">
+        <button type="button" class="btn btn-default" data-dismiss="modal" data-i18n="cancel">Cancel</button>
+        <button type="button" class="btn btn-primary" data-loading-text="Submitting..." data-i18n="add_asset;[data-loading-text]submitting">Add Asset</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="asset_exchange_change_group_name_modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" data-i18n="change_group_name">Change Group Name</h4>
+      </div>
+      <div class="modal-body">
+        <form role="form" autocomplete="off">
+          <div class="callout callout-danger error_message" style="display:none"></div>
+          <p data-i18n="change_group_name_help">Type a new group name.</p>
+          <div class="form-group">
+            <label data-i18n="old_group_name">OLD GROUP NAME</label>
+            <p id="asset_exchange_change_group_name_old_display"></p>
+            <input type="hidden" name="old_group_name" id="asset_exchange_change_group_name_old" value="" />
+          </div>
+          <div class="form-group">
+            <label for="asset_exchange_change_group_name_new" data-i18n="new_group_name">NEW GROUP_NAME</label>
+            <input type="text" class="form-control" name="new_group_name" id="asset_exchange_change_group_name_new" placeholder="New group name" data-i18n="[placeholder]new_group_name" />
+          </div>
+          <input type="hidden" name="request_type" value="assetExchangeChangeGroupName" />
+        </form>
+      </div>
+      <div class="modal-footer" style="margin-top:0;">
+        <button type="button" class="btn btn-default" data-dismiss="modal" data-i18n="cancel">Cancel</button>
+        <button type="button" class="btn btn-primary" id="asset_exchange_change_group_name_submit" data-loading-text="Submitting..." data-i18n="change_group_name;[data-loading-text]submitting">Change Group Name</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="asset_exchange_group_modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" data-i18n="group_asset">Group Asset</h4>
+      </div>
+      <div class="modal-body">
+        <form role="form" autocomplete="off">
+          <div class="callout callout-danger error_message" style="display:none"></div>
+          <p data-i18n="group_asset_help">Choose a group for this asset.</p>
+          <div class="form-group">
+            <label data-i18n="asset">ASSET</label>
+            <p id="asset_exchange_group_title"></p>
+            <input type="hidden" name="asset_exchange_group_asset" id="asset_exchange_group_asset" value="" />
+          </div>
+          <div class="form-group">
+            <label for="asset_exchange_group_group" data-i18n="group">GROUP</label>
+            <select name="asset_exchange_group_group" id="asset_exchange_group_group" class="form-control">
+            </select>
+          </div>
+          <div class="form-group" id="asset_exchange_group_new_group_div" style="display:none">
+            <input type="text" class="form-control" name="asset_exchange_group_new_group" id="asset_exchange_group_new_group" placeholder="New Group Title" data-i18n="new_group_title"/>
+          </div>
+          <input type="hidden" name="request_type" value="assetExchangeGroup" />
+        </form>
+      </div>
+      <div class="modal-footer" style="margin-top:0;">
+        <button type="button" class="btn btn-default" data-dismiss="modal" data-i18n="cancel">Cancel</button>
+        <button type="button" class="btn btn-primary" id="asset_exchange_group_submit" data-loading-text="Submitting..." data-i18n="add_to_group;[data-loading-text]submitting">Add to Group</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="issue_asset_modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" data-i18n="issue_asset">Issue Asset</h4>
+      </div>
+      <div class="modal-body">
+        <form role="form" autocomplete="off">
+          <div class="callout callout-danger never_hide" data-i18n="[html]issue_asset_warning"><strong>Warning</strong>: Once submitted, you will not be able to change this information again, ever. Make sure it is correct.</div>
+          <div class="callout callout-danger error_message" style="display:none"></div>
+          <div class="form-group">
+            <label for="issue_asset_name"><span data-i18n="asset_name">ASSET NAME</span> <i class="fa fa-question-circle show_popover" data-content="The asset name is non-unique. Should be between 3 and 10 characters long." data-i18n="[data-content]asset_name_help" data-container="body" style="color:#4CAA6E" ></i></label>
+            <input type="text" class="form-control" name="name" id="issue_asset_name" placeholder="Asset Name" data-i18n="[placeholder]asset_name" autofocus tabindex="1" />
+          </div>
+          <div class="form-group">
+            <label for="issue_asset_description" data-i18n="description">DESCRIPTION</label>
+            <textarea class="form-control" id="issue_asset_description" name="description" rows="3" tabindex="3"></textarea>
+          </div>
+          <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-6">
+              <div class="form-group">
+                <label for="issue_asset_quantity" data-i18n="quantity">QUANTITY</label>
+                <input type="number" name="quantity" id="issue_asset_quantity" class="form-control" min="1" placeholder="Quantity" data-i18n="quantity" tabindex="4">
+              </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6">
+              <div class="form-group">
+                <label for="issue_asset_decimals"><span data-i18n="decimals">DECIMALS</span> <i class="fa fa-question-circle show_popover" data-content="The maximum allowed number of digits after the asset quantity decimal point." data-i18n="[data-content]asset_decimals_help" data-container="body" style="color:#4CAA6E" ></i></label>
+                <input type="number" name="decimals" id="issue_asset_decimals" class="form-control" min="0" max="8" placeholder="Decimals" data-i18n="decimals" data-default="0" value="0" tabindex="5">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 advanced_extend" data-normal="12" data-advanced="6">
+              <div class="form-group">
+                <label for="issue_asset_fee"><span data-i18n="fee">FEE</span> <i class="fa fa-exclamation-circle show_popover" data-content="The minimum fee to issue an asset is 1,000 Burst." data-i18n="[data-content]asset_minimum_fee_help" data-container="body" style="color:red"></i></label>
+                <div class="input-group">                                                                 
+                  <input type="number" name="feeNXT" id="issue_asset_fee" class="form-control" placeholder="Fee" step="any" min="1000" data-default="1000" value="1000" tabindex="6">
+                  <span class="input-group-addon">BURST</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 advanced">
+              <div class="form-group">
+                <label for="issue_asset_deadline" data-i18n="deadline_hours">DEADLINE (HOURS)</label>
+                <input type="number" name="deadline" id="issue_asset_deadline" class="form-control" placeholder="Deadline" data-i18n="deadline" min="1" data-default="24" value="24" tabindex="7">
+              </div>
+            </div>
+          </div>
+          <div class="form-group secret_phrase">
+            <label for="issue_asset_password" data-i18n="passphrase">PASSPHRASE</label>
+            <input type="password" name="secretPhrase" id="issue_asset_password" class="form-control" placeholder="" tabindex="8" autocomplete="">
+          </div>
+          <div class="form-group advanced">
+            <label for="issue_asset_referenced_transaction" data-i18n="referenced_transaction_hash">REFERENCED TRANSACTION HASH</label>
+            <input type="text" class="form-control" name="referencedTransactionFullHash" id="issue_asset_referenced_transaction" placeholder="Referenced Transaction Full Hash" data-i18n="referenced_transaction_full_hash" tabindex="6" spellcheck="false" />
+          </div>
+          <div class="form-group advanced" style="margin-bottom:0;">
+            <input type="checkbox" name="doNotBroadcast" id="issue_asset_do_not_broadcast" value="1" /> <label for="issue_asset_do_not_broadcast" style="font-weight:normal;" tabindex="7" data-i18n="do_not_broadcast">Do Not Broadcast</label>
+          </div>
+          <div class="form-group advanced">
+            <input type="checkbox" name="add_note_to_self" id="issue_asset_add_note_to_self" class="add_note_to_self" tabindex="8" /> <label for="issue_asset_add_note_to_self" style="font-weight:normal;margin-bottom:0;"> <span data-i18n="add_note_to_self">Add Note to Self?</span></label>
+          </div>
+          <div class="form-group advanced optional_note">
+            <label for="issue_asset_note_to_self" data-i18n="note_to_self">Note to Self</label>
+            <textarea class="form-control" id="issue_asset_note_to_self" name="note_to_self" rows="4" tabindex="9"></textarea>
+            <div style="margin-top:3px;">
+              <label style="font-weight:normal;color:#666" data-i18n="note_is_encrypted">This note is encrypted.</label>
+            </div>
+          </div>
+          <input type="hidden" name="request_type" value="issueAsset" />
+        </form>
+      </div>
+      <div class="modal-footer" style="margin-top:0;">
+        <div class="advanced_info"><strong data-i18n="fee">Fee</strong>: <span class="advanced_fee">1'000 BURST</span> - <a href="#" data-i18n="advanced">advanced</a></div>
+        <button type="button" class="btn btn-default" data-dismiss="modal" data-i18n="cancel">Cancel</button>
+        <button type="button" class="btn btn-primary" data-loading-text="Submitting..." data-i18n="issue_asset;[data-loading-text]submitting">Issue Asset</button>
+      </div>
+    </div>
+  </div>
+</div>

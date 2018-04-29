@@ -1,0 +1,27 @@
+<div class="modal fade" id="messages_decrypt_modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" data-i18n="decrypt_messages">Decrypt Messages</h4>
+      </div>
+      <div class="modal-body">
+        <form role="form" autocomplete="off">
+          <div class="callout callout-danger error_message" style="background:#fbe7e7" data-i18n="passphrase_required_for_decryption">Your passphrase is required to decrypt these messages.</div>
+          <div class="form-group secret_phrase">
+            <label for="messages_decrypt_password" data-i18n="passphrase">PASSPHRASE</label>
+            <input type="password" name="secretPhrase" id="messages_decrypt_password" class="form-control" placeholder="" tabindex="8" autocomplete="">
+          </div>
+          <div class="form-group" style="margin-bottom:0">
+            <input type="checkbox" name="rememberPassword" id="messages_decrypt_remember_password" /> <label for="messages_decrypt_remember_password" style="font-weight:normal;" data-i18n="remember_decryption_passphrase">Remember passphrase for decryption</label>
+          </div>
+          <input type="hidden" name="request_type" value="decryptMessages" />
+        </form>
+      </div>
+      <div class="modal-footer" style="margin-top:0;">
+        <button type="button" class="btn btn-default" data-dismiss="modal" data-i18n="cancel">Cancel</button>
+        <button type="button" class="btn btn-primary" data-loading-text="Decrypting..." data-i18n="decrypt;[data-loading-text]decrypting">Decrypt</button>
+      </div>
+    </div>
+  </div>
+</div>

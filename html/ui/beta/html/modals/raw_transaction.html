@@ -1,0 +1,40 @@
+<div class="modal fade" id="raw_transaction_modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <form role="form" id="raw_transaction_form" autocomplete="off">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" data-i18n="raw_transaction_details">Raw Transaction Details</h4>
+        </div>
+        <div class="modal-body">
+          <div class="callout callout-danger error_message" style="display:none"></div>
+          <label data-i18n="unsigned_transaction_bytes">UNSIGNED TRANSACTION BYTES</label>
+          <div class="form-group">
+            <textarea class="form-control" id="raw_transaction_modal_unsigned_transaction_bytes" rows="4"></textarea>
+          </div>
+          <label data-i18n="signed_transaction_bytes">SIGNED TRANSACTION BYTES</label>
+          <div class="form-group">
+            <textarea class="form-control" name="transactionBytes" id="raw_transaction_modal_transaction_bytes" rows="4"></textarea>
+          </div>
+          <div id="raw_transaction_modal_full_hash_container">
+            <label data-i18n="full_transaction_hash">FULL TRANSACTION HASH</label>
+            <div class="form-group">
+              <textarea class="form-control" id="raw_transaction_modal_full_hash" rows="1"></textarea>
+            </div>
+          </div>
+          <div id="raw_transaction_modal_signature_hash_container">
+            <label data-i18n="signature_hash">SIGNATURE HASH</label>
+            <div class="form-group">
+              <textarea class="form-control" id="raw_transaction_modal_signature_hash" rows="1"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer" style="margin-top:0;">
+          <input type="hidden" name="request_type" value="broadcastTransaction"/>
+          <button type="button" class="btn btn-primary" id="raw_transaction_modal_broadcast_button" data-loading-text="Submitting...">Broadcast Transaction</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal" data-i18n="close">Close</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

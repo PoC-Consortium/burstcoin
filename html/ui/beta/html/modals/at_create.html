@@ -1,0 +1,76 @@
+<div class="modal fade" id="at_create_modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" data-i18n="at_create">Create AT</h4>
+      </div>
+      <div class="modal-body">
+        <form role="form" autocomplete="off">
+          <div class="callout callout-danger error_message" style="display:none"></div>
+          <div class="form-group">
+            <label data-i18n="Name">Name:</label>
+            <input type="text" name="name" class="form-control" id="at_create_name" />
+          </div>
+          <div class="form-group">
+            <label data-i18n="Description">Description:</label>
+            <input type="text" name="description" class="form-control" id="at_create_description" />
+          </div>
+          <div class="form-group">
+            <label data-i18n="Code">Code:</label>
+            <input type="text" name="code" class="form-control" id="at_create_code" />
+          </div>
+          <div class="form-group">
+            <label data-i18n="Data">Data:</label>
+            <input type="text" name="data" class="form-control" id="at_create_data" />
+          </div>
+          <div class="form-group">
+            <label data-i18n="Data Pages">Data Pages:</label>
+            <input type="text" name="dpages" class="form-control" id="at_create_dpages" />
+          </div>
+          <div class="form-group">
+            <label data-i18n="Call Stack Pages">Call Stack Pages:</label>
+            <input type="text" name="cspages" class="form-control" id="at_create_cspages" />
+          </div>
+          <div class="form-group">
+            <label data-i18n="User Stack Pages">User Stack Pages:</label>
+            <input type="text" name="uspages" class="form-control" id="at_create_uspages" />
+          </div>
+          <div class="form-group">
+            <label for="at_create_min_activation_amount" data-i18n="minactivationamount">Min Activation Amount:</label>
+            <div class="input-group">
+              <input type="number" name="minActivationAmountNXT" id="at_create_min_activation_amount" class="form-control" step="any" min="0" placeholder="Min Activation Amount" data-i18n="[placeholder]minactivationamount" data-default="1" value="1" tabindex="4">
+              <span class="input-group-addon">BURST</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="at_create_fee" data-i18n="fee">FEE</label>
+            <div class="input-group">
+              <input type="number" name="feeNXT" id="at_create_fee" class="form-control" step="any" min="1" placeholder="Fee" data-i18n="[placeholder]fee" data-default="1" value="1" tabindex="4">
+              <span class="input-group-addon">BURST</span>
+            </div>
+          </div>
+          <div class="row advanced">
+            <div class="col-xs-6 col-sm-6 col-md-6">
+              <label for="at_create_deadline" data-i18n="deadline_hours">DEADLINE (HOURS)</label>
+              <input type="number" name="deadline" id="at_create_deadline" class="form-control" placeholder="Deadline" data-i18n="[placeholder]deadline" min="1" data-default="24" value="24" tabindex="4">
+            </div>
+          </div>
+          <div class="form-group secret_phrase">
+            <label for="at_create_password" data-i18n="passphrase">PASSPHRASE</label>
+            <input type="password" name="secretPhrase" id="at_create_password" class="form-control" placeholder="" tabindex="6" autocomplete="">
+          </div>
+          <div class="callout account_info" style="display:none;margin-bottom: 0;"></div>
+          <input type="hidden" name="request_type" value="createATProgram" />
+          <input type="hidden" name="modal" value="at_create" />
+          <input type="hidden" name="converted_account_id" value="" />
+        </form>
+      </div>
+      <div class="modal-footer" style="margin-top:0;">
+        <div class="advanced_info"><strong data-i18n="fee">Fee</strong>: <span class="advanced_fee">1 BURST</span> - <a href="#" data-i18n="advanced">advanced</a></div>
+        <button type="button" class="btn btn-default" data-dismiss="modal" data-i18n="cancel">Cancel</button>
+        <button type="button" class="btn btn-primary" data-loading-text="Submitting..." data-i18n="at_create;[data-loading-text]submitting">Create AT</button>
+      </div>
+    </div>
+  </div>
+</div>

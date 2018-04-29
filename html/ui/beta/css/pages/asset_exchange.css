@@ -1,0 +1,75 @@
+.box.box-assets {
+	background-color: #FCFBEF !important;
+}
+.box-assets .box-header {
+	padding-bottom: 0 !important;
+}
+.box-assets .box-body {
+	padding-top: 0 !important;
+}
+#asset_exchange_bid_orders_table tr:hover td, #asset_exchange_ask_orders_table tr:hover td {
+	background-color: #FEFFBC !important;
+	cursor: pointer;
+	cursor: hand;
+}
+.table.table-assets td, .table.table-assets th {
+	border-top: none !important;
+	padding:5px;
+}
+.table-assets div.col-sm-8 {
+	width: 165px !important;
+	padding-left: 0 !important;
+	padding-right: 0 !important;
+}
+#buy_asset_box .box-header, #sell_asset_box .box-header, #buy_asset_box .box-title, #sell_asset_box .box-title {
+	cursor: pointer;
+}
+#asset_description {
+  word-wrap: break-word;
+}
+#asset_exchange_sidebar_search {
+  display:none;
+  margin-top:10px;
+  border-bottom:1px solid #ddd;
+}
+.owns_asset {
+  background-color:#FFFFD5;
+}
+
+.asset_owner td {
+  background-color:#FFFFD5 !important;
+}
+#asset_exchange_sidebar_content .list-group-item {
+  border-right:5px solid transparent !important;
+}
+
+#asset_exchange_sidebar_content .list-group-item.owns_asset.active, #asset_exchange_sidebar_content .list-group-item.owns_asset:hover {
+  border-right:5px solid #FFE545 !important;
+}
+
+#asset_exchange_sidebar_content .glyphicon {
+  position:absolute;
+  top:10px;
+  right:5px;
+  color:#000;
+}
+
+#asset_exchange_sidebar_content .group_icon {
+  position:absolute;
+  top:5px;
+  right:5px;
+  color:#000;
+}
+
+#asset_exchange_sidebar_content .list-group-item.active .glyphicon {
+  color:#fff;
+}
+#asset_exchange_page.no_assets .content-splitter-sidebar { 
+  display: none !important;
+}
+#asset_exchange_page.no_assets .content-splitter-right {
+  left: 0 !important;
+}
+#buy_automatic_price.nonzero, #sell_automatic_price.nonzero {
+	cursor:pointer
+}

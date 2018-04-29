@@ -1,0 +1,55 @@
+<div id="messages_page" class="page">
+  <section class="content-header">
+    <h1 data-i18n="messages">Messages</h1>
+    <!--
+      <div style="position:absolute;top:9px;right:9px;">
+        <div class="btn-group">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Select Recipient <span class="caret"></span></button>
+          <ul class="dropdown-menu scrollable-menu" role="menu" style="right:0;left:auto;" id="messages_sidebar_menu">
+            
+          </ul>
+        </div>
+      </div>
+      -->
+  </section>
+  <section class="content content-stretch" style="position:fixed;margin-top:3px;padding:0; width:100%; height:100%; height: calc(100% - 101px); overflow:hidden;">
+    <div class="content-spliter">
+      <div class="content-splitter-inner">
+        <div class="content-splitter-sidebar" id="message_sidebar" style="width:245px;overflow-x:hidden;">
+          <div class="content-splitter-sidebar-inner">
+            <div class="list-group unselectable sidebar_context" id="messages_sidebar">
+              <div style="text-align:center;padding-top:10px;"><span data-i18n="loading_please_wait">Loading, please wait</span><span class="loading_dots"><span>.</span><span>.</span><span>.</span></span></div>
+            </div>
+          </div>
+        </div>
+        <div class="content-splitter-right" id="message_content" style="left:245px">
+          <div class="content-splitter-right-inner">
+            <div id="no_message_selected" style="padding-top: 150px;text-align:center;" data-i18n="select_contact_in_sidebar">Please select a contact in the left sidebar.</div>
+            <div id="no_messages_available" style="padding-top: 150px;text-align:center;display:none;" data-i18n="[html]no_messages_available">No messages available, <a href="#" data-toggle="modal" data-target="#send_message_modal">send one</a>.</div>
+            <div id="message_details">
+            </div>
+            <form role="form" id="inline_message_form" method="post" style="display:none;position:fixed;bottom:0;right:20px;left:485px;" autocomplete="off">
+              <div class="form-group">
+                <textarea class="form-control" name="inline_message_text" id="inline_message_text" rows="3" placeholder="Message" data-i18n="[placeholder]message"></textarea>
+              </div>
+              <div class="row">
+                <div class="col-xs-10 col-sm-10 col-md-10">
+                  <div class="form-group">
+                    <input type="password" class="form-control secret_phrase" id="inline_message_password" name="inline_message_password" placeholder="Passphrase" data-i18n="[placeholder]passphrase" style="display:inline;width:35%" autocomplete="">
+                    <label for="inline_message_encrypt" style="font-weight:normal;color:#666"><input type="checkbox" name="encrypt_message" id="inline_message_encrypt" value="1" checked="checked" /> <span data-i18n="encrypt_message">Encrypt Message</span></label>
+                  </div>
+                </div>
+                <div class="col-xs-2-col-sm-2 col-md-2">
+                  <div class="form-group" style="text-align:right">
+                    <input type="hidden" name="inline_message_recipient" id="inline_message_recipient" value="" />
+                    <button type="submit" id="inline_message_submit" class="btn btn-default" data-loading-text="Submitting..." data-i18n="send;[data-loading-text]submitting;">Send</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
