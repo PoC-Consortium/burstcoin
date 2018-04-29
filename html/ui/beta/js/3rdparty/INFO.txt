@@ -1,0 +1,58 @@
+See https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity
+
+cat <file>.js | openssl dgst -sha384 -binary | openssl enc -base64 -A
+
+
+File               Date   SHA384
+------------------------------------------------------------------------------------------
+ajaxmultiqueue.js  180225 z4oBihrMyAEYUPZWuSscFRjhJsg8Xh5BjNf6W5eq34YtZ9yFeGLXABTJR7VabVTG
+ajaxretry.js       180203 ia90j7KZ3lHwnJ/jSofQNFuwwtGrcTHwjd9+SY8Ls7EFiyx+vFfXvURO9fW0odQj
+big.min.js         180225 BWcgDmoCXi+1663OmG90jk7M9rKeNHdZNVGSkq7LStLwsG62LF3MwBzzR4PhecM0
+bootstrap.min.js   180219 Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa
+clipboard.js       180203 E8q4FF0C3cBKqHxayVjOHWaPICaSEqWybiuRAkkxVrUO21syLamc+aHtgFVYTbe2
+notify.min.js      180219 Qnyy4lkYCL9J8NhIWAT7bMPccirUwfiBj7PLqr1ZBlSSJ0+A2XDB0UlqZcg+0VGS
+jquery.min.js      180204 tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT
+jquery.rss.min.js  180204 jMZFnqgk/XQDYHVdaLBtSIKIFLAXPzyeCratYIu70z8GHOuxPx3mQUWsNWC1o9uq
+jsbn2.js           180203 cdUKnzFHcY4XFVKjQDizxT8KsIxm4/QP09T/OPUzPwG3qjx/GjU+IEB5ZZK/tua6
+jsbn.js            180203 Ru0ghEmPwQkXCUzH0MnI4ENe1VOnfhKMYBlQlBxFTTZWoD2FXeZGgxMExPBuP0iL
+maskedinput.js     180203 Gd0civMHv8hDIyoYW93P+Qylpgf33p4EVrcCGLU6U7qIWEBpiSpZTyr97yvDXoKi
+pako.min.js        180227 /Dozgal5hQaXErIqQTlUHkj+FNDLXHv4HISt/dfkCS5UrANMOYie1urQogG0QhxC
+qrcode.js          180203 0B/45e2to395pfnCkbfqwKFFwAa7zXdvd42eAFJa3Vm8KZ/jmHdn93XdWi//7MDS
+webdb.js           180203 ls39os/gcYY5lIz4PNhfyBDtVesdw3WwwM02lTi8/ycTpginDkszyQFf9wVvTxcb
+
+
+File Genesis:
+
+big.min.js
+
+src:      https://raw.githubusercontent.com/MikeMcl/big.js/master/big.min.js
+version:  5.0.3
+date:     2018-02-03
+license:  MIT
+
+---
+
+jquery.min.js
+
+src:      https://github.com/jquery/jquery/archive/3.3.1.tar.gz
+version:  3.3.1
+date:     2018-02-04
+license:  Free, Copyright JS Foundation and other contributors, https://js.foundation/
+
+---
+
+jquery.rss.min.js
+
+src:      https://github.com/sdepold/jquery-rss/archive/v3.3.0.tar.gz
+version:  3.3.0
+date:     2018-02-04
+license:  MIT
+
+---
+
+notify.min.js
+
+src:      https://github.com/mouse0270/bootstrap-notify/releases/download/3.1.3/bootstrap-notify.min.js
+version:  3.1.3
+date:     2018-02-19
+license:  MIT

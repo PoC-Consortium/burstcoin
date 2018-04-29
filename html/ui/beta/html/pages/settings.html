@@ -1,0 +1,174 @@
+<div id="settings_page" class="page">
+  <section class="content-header">
+    <h1 data-i18n="settings">Settings</h1>
+  </section>
+  <section class="content" id="settings_box">
+    <!--              <style type="text/css">
+      /*form.settings_form > .form-group > .control-label { width: 120px; }*/
+      </style> -->
+    <div class="box box-primary">
+      <div class="box-header">
+        <h3 class="box-title" data-i18n="general">General</h3>
+      </div>
+      <form role="form" autocomplete="off">
+        <div class="box-body">
+          <div class="form-group">
+            <label for="settings_language" data-i18n="language">Language</label>  
+            <select name="language" id="settings_language" class="form-control" style="width:200px">
+              <option value="en">English (Default)</option><!-- english -->
+              <option value="bg">Български</option><!-- bulgarian -->
+              <option value="ca">Català</option><!-- catalan -->
+              <option value="cs">Čeština</option><!-- czech -->
+              <option value="de">Deutsch</option><!-- german -->
+              <option value="el">Ελληνικά</option><!-- greek -->
+              <option value="es-es">Español</option><!-- spanish -->
+              <option value="fi">Suomi</option><!-- finnish -->
+              <option value="fr">Français</option><!-- french -->
+              <option value="gl">Galego</option><!-- galician -->
+              <option value="hi">हिंदी</option><!-- hindi -->
+              <option value="hr">Hrvatski</option><!-- croatian -->
+              <option value="id">Bahasa Indonesia</option><!-- indonesian -->
+              <option value="it">Italiano</option><!-- italian -->
+              <option value="ja">日本語</option><!-- japanese -->
+              <option value="lt">Lietuviškai</option><!-- lithuanian -->
+              <option value="nl">Nederlands</option><!-- dutch -->
+              <option value="sh">Hrvatski</option><!-- croatian -->
+              <option value="sk">Slovensky</option><!-- slovakian -->
+              <option value="pt-pt">Português (Portugal)</option><!-- portugese -->
+              <option value="pt-br">Português (Brazil)</option><!-- portugese -->
+              <option value="sr">Српски</option><!-- serbian, cyrillic -->
+              <option value="sr-cs">Srpski</option><!-- serbian, latin -->
+              <option value="tr">Türk</option><!-- turkish -->
+              <option value="uk">Yкраiнска</option><!-- ukranian -->
+              <option value="ro">Român</option><!-- romanian -->
+              <option value="ru">Русский</option><!-- russian -->
+              <option value="zh-cn">中文 (simplified)</option><!-- chinese simplified -->
+              <option value="zh-tw">中文 (traditional)</option><!-- chinese traditional -->
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="settings_24_hour_format" data-i18n="use_24_hour_format">Use 24 Hour Format</label>
+            <select name="24_hour_format" id="settings_24_hour_format" class="form-control" style="width:200px">
+              <option value="1" data-i18n="yes">Yes</option>
+              <option value="0" data-i18n="no">No</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="settings_submit_on_enter" data-i18n="submit_forms_on_enter">Submit Forms on Enter</label>
+            <select name="submit_on_enter" id="settings_submit_on_enter" class="form-control" style="width:200px">
+              <option value="1" data-i18n="yes">Yes</option>
+              <option value="0" data-i18n="no">No</option>
+            </select>
+            <p class="help-block" data-i18n="submit_forms_on_enter_help">Be careful when choosing to submit forms via the enter key, submitting can't be undone.</p>
+          </div>
+          <div class="form-group">
+            <label for="settings_remember_passphrase" data-i18n="remember_passphrase_by_default">Remember Passphrase By Default</label>
+            <select name="remember_passphrase" id="settings_remember_passphrase" class="form-control" style="width:200px">
+              <option value="1" data-i18n="yes">Yes</option>
+              <option value="0" data-i18n="no">No</option>
+            </select>
+            <p class="help-block" data-i18n="remember_passphrase_by_default_help">On the login screen.</p>
+          </div>
+          <div class="form-group">
+            <label for="settings_news" data-i18n="enable_news_section">Enable News Section</label>
+            <select name="news" id="settings_news" class="form-control" style="width:200px">
+              <option value="-1" id="settings_news_initial" data-i18n="choose">Choose</option>
+              <option value="1" data-i18n="yes">Yes</option>
+              <option value="0" data-i18n="no">No</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="settings_animate_forging" data-i18n="animate_forging_indicator">Animate Forging Indicator</label>
+            <select name="animate_forging" id="settings_animate_forging" class="form-control" style="width:200px">
+              <option value="1" data-i18n="yes">Yes</option>
+              <option value="0" data-i18n="no">No</option>
+            </select>
+          </div>
+          <div class="form-group" id="settings_console_log_div">
+            <label for="settings_console_log" data-i18n="show_console_log_button">Show Console Log Button</label>
+            <select name="console_log" id="settings_console_log" class="form-control" style="width:200px">
+              <option value="1" data-i18n="yes">Yes</option>
+              <option value="0" data-i18n="no">No</option>
+            </select>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="box box-warning" id="settings_box">
+      <div class="box-header">
+        <h3 class="box-title" data-i18n="form_warnings">Form Warnings</h3>
+      </div>
+      <form role="form" autocomplete="off">
+        <div class="box-body" style="padding-top:0;">
+          <p class="help-block" data-i18n="form_warnings_help">Show a warning when an amount / fee entered is higher than specified below.</p>
+          <div class="form-group">
+            <label for="settings_amount_warning" data-i18n="max_amount_warning">Max Amount Warning</label>
+            <div class="input-group" style="width:200px">
+              <input type="text" name="amount_warning" id="settings_amount_warning" class="form-control" />
+              <span class="input-group-addon">BURST</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="settings_fee_warning" data-i18n="max_fee_warning">Max Fee Warning</label>
+            <div class="input-group" style="width:200px">
+              <input type="text" name="fee_warning" id="settings_fee_warning" class="form-control" />
+              <span class="input-group-addon">BURST</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="settings_asset_transfer_warning" data-i18n="max_asset_transfer_warning">Max Asset Transfer Warning</label>
+            <div class="input-group" style="width:200px">
+              <input type="text" name="asset_transfer_warning" id="settings_asset_transfer_warning" class="form-control" />
+              <span class="input-group-addon">QNT</span>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="box box-success" style="overflow:visible">
+      <div class="box-header">
+        <h3 class="box-title" data-i18n="theme_settings">Theme Settings</h3>
+      </div>
+      <form role="form" autocomplete="off">
+        <div class="box-body">
+          <div class="form-group">
+            <label class="control-label" data-i18n="header">Header</label>
+            <div class="input-group">
+              <div class="btn-group colors">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" style="width:200px;text-align:left;">
+                <span class="text" data-i18n="select_color_scheme">Select Color Scheme</span> <span class="caret"></span>
+                </button>
+                <ul id="header_color_scheme" class="dropdown-menu color_scheme_editor" role="menu" data-scheme="header" data-container="body"> 
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label" data-i18n="sidebar">Sidebar</label>
+            <div class="input-group">
+              <div class="btn-group colors">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" style="width:200px;text-align:left;">
+                <span class="text" data-i18n="select_color_scheme">Select Color Scheme</span> <span class="caret"></span>
+                </button>
+                <ul id="sidebar_color_scheme" class="dropdown-menu color_scheme_editor" role="menu" data-scheme="sidebar" data-container="body"> 
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label">Boxes</label>
+            <div class="input-group">
+              <div class="btn-group colors">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" style="width:200px;text-align:left;">
+                <span class="text" data-i18n="select_color_scheme">Select Color Scheme</span> <span class="caret"></span>
+                </button>
+                <ul id="boxes_color_scheme" class="dropdown-menu color_scheme_editor" role="menu" data-scheme="boxes" data-container="body"> 
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+</div>

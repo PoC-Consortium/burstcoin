@@ -1,0 +1,140 @@
+/*
+ * Page: Lock Screen
+ * -----------------
+ */
+/* ADD THIS CLASS TO THE <BODY> TAG */
+html.lockscreen, html.lockscreen body {
+  height:100%;
+  overflow-x:auto;
+}
+.lockscreen {
+  background-color: #9DC7A9;
+  background: url(../../img/blur-background.jpg) repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  min-height:  100% !important;
+}
+
+/* Remove the background from the body element */
+.lockscreen > body {
+  background: transparent;
+  min-height: 100% !important;
+  overflow: hidden !important;
+}
+/* We will put the dynamically generated digital clock here */
+.lockscreen .headline {
+  color: #fff;
+  text-shadow: 1px 3px 5px rgba(0, 0, 0, 0.5);
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased !important;
+  opacity: 0.8;
+  margin: 10px 0 30px 0;
+  font-size: 90px;
+}
+@media screen and (max-width: 480px) {
+  .lockscreen .headline {
+    font-size: 60px;
+    margin-bottom: 40px;
+  }
+}
+/* Will contain the image and the sign in form */
+.lockscreen-item {
+  padding: 0;
+  background: #3c4247;
+  position: relative;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  margin: 10px auto;
+  width: 300px;
+}
+.lockscreen-item:before,
+.lockscreen-item:after {
+  display: table;
+  content: " ";
+}
+.lockscreen-item:after {
+  clear: both;
+}
+/* User image */
+.lockscreen-item > .lockscreen-image {
+  position: absolute;
+  left: -10px;
+  top: -30px;
+  background: #fff;
+  padding: 10px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  z-index: 10;
+}
+.lockscreen-item > .lockscreen-image > img {
+  width: 70px;
+  height: 70px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+}
+/* Contains the password input and the login button */
+
+.lockscreen-item > .lockscreen-credentials input {
+  border: 0 !important;
+}
+.lockscreen-item > .lockscreen-credentials .btn {
+  background-color: #3c4247;
+  border: 0;
+}
+#registration_link {
+  color: #fff;
+  margin-top: 30px;
+  text-align: center;
+  text-transform: uppercase;
+}
+#registration_link a, #custom_passphrase_link a {
+  color: rgba(255,255,255,0.5);
+}
+#registration_link a:hover, #custom_passphrase_link a {
+  color: rgba(255,255,255,1.0);
+  text-decoration: none;
+}
+
+#login_panel #remember_password_container label{ color: rgba(150,150,150,0.5); }
+#login_panel #remember_password_container label:hover { color: rgba(150,150,150,1.0); }
+.lockscreen-credentials {
+  height:34px;
+}
+.lockscreen header, .lockscreen #page {
+	display: none !important;
+}
+.lockscreen #downloading_blockchain {
+	display:none !important;
+}
+#lockscreen {
+  height:100%;
+  overflow:auto;
+}
+#testnet_login {
+  display:inline-block;
+  text-align:left;
+  margin-bottom:0px;
+}
+
+#login_error  {
+  text-align:left;
+  margin-bottom:10px;
+  margin: 0 auto;
+}
+
+#login_error .callout {
+  margin-top:10px;
+  margin-bottom:0;
+}
+#remember_password_container {
+	color:#555555;
+	text-align:center;
+}
+#remember_password_container label {
+	font-weight:normal;
+}
