@@ -252,9 +252,6 @@ a:focus {
   padding: 15px 15px;
   font-family: fontAwesome;
 }
-.main-header .sidebar-toggle:before {
-  content: "\f0c9";
-}
 .main-header .sidebar-toggle:hover {
   color: #fff;
 }
@@ -1229,14 +1226,14 @@ a:focus {
   z-index: 5;
 }
 .small-box .icon {
-  -webkit-transition: all 0.3s linear;
-  -o-transition: all 0.3s linear;
-  transition: all 0.3s linear;
+  -webkit-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
   position: absolute;
-  top: -10px;
-  right: 10px;
+  top: 0px;
+  right: 20px;
   z-index: 0;
-  font-size: 90px;
+  font-size: 75px;
   color: rgba(0, 0, 0, 0.15);
 }
 .small-box:hover {
@@ -1244,7 +1241,10 @@ a:focus {
   color: #f9f9f9;
 }
 .small-box:hover .icon {
-  font-size: 95px;
+  top: -5px;
+  right: 15px;
+  z-index: 0;
+  font-size: 85px;
 }
 @media (max-width: 767px) {
   .small-box {

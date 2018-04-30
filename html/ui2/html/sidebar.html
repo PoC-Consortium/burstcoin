@@ -11,69 +11,69 @@
     <div class="input-group">
       <input type="text" name="q" class="form-control" placeholder="Search by ID..." data-i18n="[placeholder]search_by_id">
       <span class="input-group-btn">
-      <button type="submit" name="seach" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
+      <button type="submit" name="seach" id="search-btn" class="btn btn-flat"><i class="fas fa-search"></i></button>
       </span>
     </div>
   </form>
   <ul class="sidebar-menu">
-    <li class="active" id="dashboard_link"><a href="#" data-page="dashboard"><i class="fa fa-dashboard"></i> <span data-i18n="dashboard">Dashboard</span></a></li>
+    <li class="active" id="dashboard_link"><a href="#" data-page="dashboard"><i class="fas fa-tachometer-alt"></i> <span data-i18n="dashboard">Dashboard</span></a></li>
     <li class="treeview" id="sidebar_transactions">
-      <a href="#" data-page="transactions"><i class="fa fa-briefcase"></i> <span data-i18n="transactions">Transactions</span><i class="fa pull-right fa-angle-right" style="padding-top:3px"></i></a>
+      <a href="#" data-page="transactions"><i class="fas fa-briefcase"></i> <span data-i18n="transactions">Transactions</span><i class="fa pull-right fa-angle-right" style="padding-top:3px"></i></a>
       <ul class="treeview-menu" style="display: none;">
-        <li><a href="#" data-page="transactions"><i class="fa fa-angle-double-right"></i> <span data-i18n="transactions">Transactions</span></a></li>
-        <li><a href="#" data-page="escrow"><i class="fa fa-angle-double-right"></i> <span data-i18n="escrow">Escrow</span></a></li>
-        <li><a href="#" data-page="subscription"><i class="fa fa-angle-double-right"></i> <span data-i18n="subscriptions">Subscriptions</span></a></li>
-        <li><a href="#" data-page="at"><i class="fa fa-angle-double-right"></i> <span data-i18n="ats">ATs (Smart Contracts)</span></a></li>
+        <li><a href="#" data-page="transactions"><i class="fas fa-exchange-alt"></i> <span data-i18n="transactions">Transactions</span></a></li>
+        <li><a href="#" data-page="escrow"><i class="fas fa-check-circle"></i> <span data-i18n="escrow">Escrow</span></a></li>
+        <li><a href="#" data-page="subscription"><i class="far fa-handshake"></i> <span data-i18n="subscriptions">Subscriptions</span></a></li>
+        <li><a href="#" data-page="at"><i class="fas fa-laptop"></i> <span data-i18n="ats">ATs (Smart Contracts)</span></a></li>
       </ul>
     </li>
     <li class="treeview" id="sidebar_asset_exchange">
-      <a href="#" data-page="asset_exchange"><i class="fa fa-signal"></i><span data-i18n="asset_exchange">Asset Exchange</span><i class="fa pull-right fa-angle-right" style="padding-top:3px"></i></a>
+      <a href="#" data-page="asset_exchange"><i class="fas fa-chart-area"></i> <span data-i18n="asset_exchange">Asset Exchange</span><i class="fa pull-right fa-angle-right" style="padding-top:3px"></i></a>
       <ul class="treeview-menu" style="display: none;">
-        <li><a href="#" data-page="asset_exchange"><i class="fa fa-angle-double-right"></i> <span data-i18n="asset_exchange">Asset Exchange</span></a></li>
-        <li><a href="#" data-page="transfer_history"><i class="fa fa-angle-double-right"></i> <span data-i18n="transfer_history">Transfer History</span></a></li>
-        <li><a href="#" data-page="my_assets"><i class="fa fa-angle-double-right"></i> <span data-i18n="my_assets">My Assets</span></a></li>
-        <li><a href="#" data-page="open_orders"><i class="fa fa-angle-double-right"></i> <span data-i18n="open_orders">Open Orders</span></a></li>
-        <li><a href="#" data-toggle="modal" data-target="#issue_asset_modal"><i class="fa fa-angle-double-right"></i> <span data-i18n="issue_asset">Issue Asset</span></a></li>
-        <li><a href="#" data-page="nsv_dividends" id="nsv_div_start"><i class="fa fa-angle-double-right"></i> Payout Dividends</a></li>
+        <li><a href="#" data-page="asset_exchange"><i class="fas fa-chart-area"></i> <span data-i18n="asset_exchange">Asset Exchange</span></a></li>
+        <li><a href="#" data-page="transfer_history"><i class="fas fa-exchange-alt"></i> <span data-i18n="transfer_history">Transfer History</span></a></li>
+        <li><a href="#" data-page="my_assets"><i class="fas fa-chart-pie"></i> <span data-i18n="my_assets">My Assets</span></a></li>
+        <li><a href="#" data-page="open_orders"><i class="fas fa-pause"></i> <span data-i18n="open_orders">Open Orders</span></a></li>
+        <li><a href="#" data-toggle="modal" data-target="#issue_asset_modal"><i class="fas fa-chart-line"></i> <span data-i18n="issue_asset">Issue Asset</span></a></li>
+        <li><a href="#" data-page="nsv_dividends" id="nsv_div_start"><i class="fas fa-users"></i> Payout Dividends</a></li>
       </ul>
     </li>
     <li class="treeview" id="sidebar_crowdfunding">
-      <a href="#" data-page="crowdfunding"><i class="fa fa-money"></i> <span data-i18n="crowdfunding_page">Crowdfunding</span><i class="fa pull-right fa-angle-right" style="padding-top:3px"></i></a>
+      <a href="#" data-page="crowdfunding"><i class="fas fa-money-bill-alt"></i> <span data-i18n="crowdfunding_page">Crowdfunding</span><i class="fa pull-right fa-angle-right" style="padding-top:3px"></i></a>
       <ul class="treeview-menu" style="display: none;">
-        <li><a href="#" class="crowdfunding-link-active"><i class="glyphicon glyphicon-flash"></i> Active</a></li>
-        <li><a href="#" class="crowdfunding-link-funded"><i class='glyphicon glyphicon-ok-circle'></i> Funded</a></li>
-        <li><a href="#" class="crowdfunding-link-notfunded"><i class='glyphicon glyphicon-remove-circle'></i> Not funded</a></li>
-        <li><a href="#" class="crowdfunding-link-hidden"><i class="fa fa-angle-double-right"></i> Hidden CFs</a></li>
+        <li><a href="#" class="crowdfunding-link-active"><i class="fas fa-toggle-on"></i> Active</a></li>
+        <li><a href="#" class="crowdfunding-link-funded"><i class="fas fa-thumbs-up"></i> Funded</a></li>
+        <li><a href="#" class="crowdfunding-link-notfunded"><i class="fas fa-thumbs-down"></i> Not funded</a></li>
+        <li><a href="#" class="crowdfunding-link-hidden"><i class="fas fa-eye-slash"></i> Hidden CFs</a></li>
       </ul>
     </li>
     <li class="treeview" id="sidebar_dgs_buyer">
-      <a href="#" data-page="dgs_search"><i class="fa fa-shopping-cart"></i><span data-i18n="marketplace">Marketplace</span><i class="fa pull-right fa-angle-right" style="padding-top:3px"></i></a>
+      <a href="#" data-page="dgs_search"><i class="fas fa-warehouse"></i> <span data-i18n="marketplace">Marketplace</span><i class="fa pull-right fa-angle-right" style="padding-top:3px"></i></a>
       <ul class="treeview-menu" style="display: none;">
-        <li><a href="#" data-page="dgs_search"><i class="fa fa-angle-double-right"></i> <span data-i18n="search_marketplace">Search Marketplace</span></a></li>
-        <li><a href="#" data-page="purchased_dgs"><i class="fa fa-angle-double-right"></i> <span data-i18n="purchased_products">Purchased Products</span></a></li>
+        <li><a href="#" data-page="dgs_search"><i class="fas fa-search"></i> <span data-i18n="search_marketplace">Search Marketplace</span></a></li>
+        <li><a href="#" data-page="purchased_dgs"><i class="fas fa-inbox"></i> <span data-i18n="purchased_products">Purchased Products</span></a></li>
       </ul>
     </li>
     <li class="treeview" id="sidebar_dgs_seller">
-      <a href="#" data-page="my_dgs_listings"><i class="fa fa-shopping-cart"></i><span data-i18n="my_store">My Store</span><i class="fa pull-right fa-angle-right" style="padding-top:3px"></i></a>
+      <a href="#" data-page="my_dgs_listings"><i class="fas fa-box-open"></i> <span data-i18n="my_store">My Store</span><i class="fa pull-right fa-angle-right" style="padding-top:3px"></i></a>
       <ul class="treeview-menu" style="display: none;">
-        <li><a href="#" data-page="my_dgs_listings"><i class="fa fa-angle-double-right"></i> <span data-i18n="my_products_for_sale">My Products For Sale</span></a></li>
-        <li><a href="#" data-page="pending_orders_dgs"><i class="fa fa-angle-double-right"></i> <span data-i18n="my_pending_orders">My Pending Orders</span></a></li>
-        <li><a href="#" data-page="completed_orders_dgs"><i class="fa fa-angle-double-right"></i> <span data-i18n="my_completed_orders">My Completed Orders</span></a></li>
-        <li><a href="#" data-toggle="modal" data-target="#dgs_listing_modal"><i class="fa fa-angle-double-right"></i> <span data-i18n="list_product_for_sale">List Product For Sale</span></a></li>
+        <li><a href="#" data-page="my_dgs_listings"><i class="fas fa-boxes"></i> <span data-i18n="my_products_for_sale">My Products For Sale</span></a></li>
+        <li><a href="#" data-page="pending_orders_dgs"><i class="fas fa-pause"></i> <span data-i18n="my_pending_orders">My Pending Orders</span></a></li>
+        <li><a href="#" data-page="completed_orders_dgs"><i class="fas fa-check-circle"></i> <span data-i18n="my_completed_orders">My Completed Orders</span></a></li>
+        <li><a href="#" data-toggle="modal" data-target="#dgs_listing_modal"><i class="fas fa-cart-plus"></i> <span data-i18n="list_product_for_sale">List Product For Sale</span></a></li>
       </ul>
     </li>
     <!--start Dividends+ code
       <li class="treeview" id="sidebar_burst_services">
         <a href="#"><i class="fa fa-cog"></i><span>Burst Services</span><i class="fa pull-right fa-angle-right" style="padding-top:3px"></i></a>
         <ul class="treeview-menu" style="display: none;">
-          <li><a href="#" data-page="nsv_dividends" id="nsv_div_start"><i class="fa fa-angle-double-right"></i> Dividends+</a></li> 
+          <li><a href="#" data-page="nsv_dividends" id="nsv_div_start"><i class="fas fa-angle-double-right"></i> Dividends+</a></li> 
         </ul>
       </li>
       end Dividends+ code-->
-    <li><a href="#" data-page="contacts"><i class="fa fa-user"></i> <span data-i18n="contacts">Contacts</span></a></li>
-    <li><a href="#" data-page="messages"><i class="fa fa-envelope"></i> <span data-i18n="messages">Messages</span></a></li>
-    <li><a href="#" data-page="aliases"><i class="fa fa-bookmark"></i> <span data-i18n="aliases">Aliases</span></a></li>
-    <li><a href="#" data-page="blocks"><i class="fa fa-bars"></i> <span data-i18n="blocks">Blocks</span></a></li>
-    <li><a href="#" data-page="peers"><i class="fa fa-cloud"></i> <span data-i18n="peers">Peers</span></a></li>
+    <li><a href="#" data-page="contacts"><i class="fas fa-address-book"></i> <span data-i18n="contacts">Contacts</span></a></li>
+    <li><a href="#" data-page="messages"><i class="fas fa-envelope"></i> <span data-i18n="messages">Messages</span></a></li>
+    <li><a href="#" data-page="aliases"><i class="fas fa-address-card"></i> <span data-i18n="aliases">Aliases</span></a></li>
+    <li><a href="#" data-page="blocks"><i class="fas fa-list"></i> <span data-i18n="blocks">Blocks</span></a></li>
+    <li><a href="#" data-page="peers"><i class="fab fa-connectdevelop"></i> <span data-i18n="peers">Peers</span></a></li>
   </ul>
 </section>

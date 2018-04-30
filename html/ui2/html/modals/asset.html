@@ -81,7 +81,7 @@
             <input type="hidden" name="deadline" id="asset_order_deadline" data-default="24" value="24" />
           </div>
           <div class="form-group">
-            <label><span data-i18n="total">TOTAL</span> <i id="asset_order_total_tooltip" class="fa fa-question-circle" style="color:#4CAA6E" data-toggle="popover" data-placement="right" data-content=""></i></label>
+            <label><span data-i18n="total">TOTAL</span> <i id="asset_order_total_tooltip" class="fas fa-question-circle" style="color:#4CAA6E" data-toggle="popover" data-placement="right" data-content=""></i></label>
             <p id="asset_order_total"></p>
           </div>
           <div class="form-group">
@@ -213,7 +213,7 @@
         <form role="form" autocomplete="off">
           <div class="callout callout-danger error_message" style="display:none"></div>
           <div class="form-group">
-            <label for="add_asset_bookmark_id" data-i18n="asset_or_account_id">ASSET OR ACCOUNT ID <i class="fa fa-question-circle show_popover" style="color:#4CAA6E" data-content="Find the ID on the issuer's website or announcement page." data-container="body" data-i18n="[data-content]find_asset_id_help"></i></label>
+            <label for="add_asset_bookmark_id" data-i18n="asset_or_account_id">ASSET OR ACCOUNT ID <i class="fas fa-question-circle show_popover" style="color:#4CAA6E" data-content="Find the ID on the issuer's website or announcement page." data-container="body" data-i18n="[data-content]find_asset_id_help"></i></label>
             <input type="text" class="form-control" name="id" id="add_asset_bookmark_id" placeholder="ID" autofocus tabindex="1" />
           </div>
           <input type="hidden" name="request_type" value="addAssetBookmark" />
@@ -302,7 +302,7 @@
           <div class="callout callout-danger never_hide" data-i18n="[html]issue_asset_warning"><strong>Warning</strong>: Once submitted, you will not be able to change this information again, ever. Make sure it is correct.</div>
           <div class="callout callout-danger error_message" style="display:none"></div>
           <div class="form-group">
-            <label for="issue_asset_name"><span data-i18n="asset_name">ASSET NAME</span> <i class="fa fa-question-circle show_popover" data-content="The asset name is non-unique. Should be between 3 and 10 characters long." data-i18n="[data-content]asset_name_help" data-container="body" style="color:#4CAA6E" ></i></label>
+            <label for="issue_asset_name"><span data-i18n="asset_name">ASSET NAME</span> <i class="fas fa-question-circle show_popover" data-content="The asset name is non-unique. Should be between 3 and 10 characters long." data-i18n="[data-content]asset_name_help" data-container="body" style="color:#4CAA6E" ></i></label>
             <input type="text" class="form-control" name="name" id="issue_asset_name" placeholder="Asset Name" data-i18n="[placeholder]asset_name" autofocus tabindex="1" />
           </div>
           <div class="form-group">
@@ -318,7 +318,7 @@
             </div>
             <div class="col-xs-6 col-sm-6 col-md-6">
               <div class="form-group">
-                <label for="issue_asset_decimals"><span data-i18n="decimals">DECIMALS</span> <i class="fa fa-question-circle show_popover" data-content="The maximum allowed number of digits after the asset quantity decimal point." data-i18n="[data-content]asset_decimals_help" data-container="body" style="color:#4CAA6E" ></i></label>
+                <label for="issue_asset_decimals"><span data-i18n="decimals">DECIMALS</span> <i class="fas fa-question-circle show_popover" data-content="The maximum allowed number of digits after the asset quantity decimal point." data-i18n="[data-content]asset_decimals_help" data-container="body" style="color:#4CAA6E" ></i></label>
                 <input type="number" name="decimals" id="issue_asset_decimals" class="form-control" min="0" max="8" placeholder="Decimals" data-i18n="decimals" data-default="0" value="0" tabindex="5">
               </div>
             </div>
@@ -326,7 +326,7 @@
           <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 advanced_extend" data-normal="12" data-advanced="6">
               <div class="form-group">
-                <label for="issue_asset_fee"><span data-i18n="fee">FEE</span> <i class="fa fa-exclamation-circle show_popover" data-content="The minimum fee to issue an asset is 1,000 Burst." data-i18n="[data-content]asset_minimum_fee_help" data-container="body" style="color:red"></i></label>
+                <label for="issue_asset_fee"><span data-i18n="fee">FEE</span> <i class="fas fa-question-circle show_popover" data-content="The minimum fee to issue an asset is 1,000 Burst." data-i18n="[data-content]asset_minimum_fee_help" data-container="body" style="color:red"></i></label>
                 <div class="input-group">                                                                 
                   <input type="number" name="feeNXT" id="issue_asset_fee" class="form-control" placeholder="Fee" step="any" min="1000" data-default="1000" value="1000" tabindex="6">
                   <span class="input-group-addon">BURST</span>
