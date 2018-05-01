@@ -54,7 +54,7 @@ var BRS = (function(BRS, $, undefined) {
 				}
 
 				rows += "<tr><td>"
-                                    + (peer.state == 1 ? "<i class='fa fa-check-circle' style='color:#5cb85c' title='Connected'></i>" : "<i class='fa fa-times-circle' style='color:#f0ad4e' title='Disconnected'></i>")
+                                    + (peer.state == 1 ? "<i class='fas fa-check-circle' style='color:#5cb85c' title='Connected'></i>" : "<i class='fas fa-times-circle' style='color:#f0ad4e' title='Disconnected'></i>")
                                     + "&nbsp;&nbsp;"
                                     + (peer.announcedAddress ? String(peer.announcedAddress).escapeHTML() : "No name")
                                     + "</td><td"

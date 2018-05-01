@@ -117,7 +117,7 @@ var BRS = (function(BRS, $, undefined) {
                         else {
 			    message = String(transaction.attachment.message);
 			}
-			$output.html("<div style='color:#999999;padding-bottom:10px'><i class='fa fa-unlock'></i> " + $.t("public_message") + "</div><div style='padding-bottom:10px'>" + String(message).escapeHTML().nl2br() + "</div>");
+			$output.html("<div style='color:#999999;padding-bottom:10px'><i class='fas fa-unlock'></i> " + $.t("public_message") + "</div><div style='padding-bottom:10px'>" + String(message).escapeHTML().nl2br() + "</div>");
 		    }
 
 		    if (transaction.attachment.encryptedMessage || (transaction.attachment.encryptToSelfMessage && BRS.account == transaction.sender)) {
@@ -817,7 +817,7 @@ var BRS = (function(BRS, $, undefined) {
 			message = String(transaction.attachment.message);
 		    }
 
-		    $("#transaction_info_output_bottom").append("<div style='padding-left:5px;'><label><i class='fa fa-unlock'></i> " + $.t("public_message") + "</label><div>" + String(message).escapeHTML().nl2br() + "</div></div>");
+		    $("#transaction_info_output_bottom").append("<div style='padding-left:5px;'><label><i class='fas fa-unlock'></i> " + $.t("public_message") + "</label><div>" + String(message).escapeHTML().nl2br() + "</div></div>");
 		}
 
 		if (transaction.attachment.encryptedMessage || (transaction.attachment.encryptToSelfMessage && BRS.account == transaction.sender)) {
@@ -841,7 +841,7 @@ var BRS = (function(BRS, $, undefined) {
 			});
 		    }
                     else {
-			$("#transaction_info_output_bottom").append("<div style='padding-left:5px;'><label><i class='fa fa-lock'></i> " + $.t("encrypted_message") + "</label><div>" + $.t("encrypted_message_no_permission") + "</div></div>");
+			$("#transaction_info_output_bottom").append("<div style='padding-left:5px;'><label><i class='fas fa-lock'></i> " + $.t("encrypted_message") + "</label><div>" + $.t("encrypted_message_no_permission") + "</div></div>");
 		    }
 		}
 

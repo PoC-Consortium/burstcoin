@@ -181,7 +181,7 @@ var BRS = (function(BRS, $, undefined) {
                     $("." + creator +"[name='"+ name +"']").addClass('temp-class');
                     $("." + creator +"[name='"+ name +"']").attr('hidden-cf', 'yes');
                     $("." + creator +"[name='"+ name +"']").hide();
-                    $("." + creator +"[name='"+ name +"'] .close").html('<i style="color: green;" class="fa fa-plus-circle" aria-hidden="true"></i>');
+                    $("." + creator +"[name='"+ name +"'] .close").html('<i style="color: green;" class="fas fa-plus-circle" aria-hidden="true"></i>');
                     $("." + creator +"[name='"+ name +"'] .close").removeClass('hide-cf');
                     $("." + creator +"[name='"+ name +"'] .close").addClass('show-cf');
                     
@@ -315,7 +315,7 @@ var BRS = (function(BRS, $, undefined) {
         else {
 	    ends = Math.abs(ends)
 	}
-	var html = '<div class="col-lg-4 crowd '+ atData.creatorRS +'" name="'+ atData.name +'" creator="'+ atData.creatorRS +'">' + '<div class="crowdbox"> ' + '<a href="#" class="close hide-cf" data-dismiss="alert" aria-label="close"><i style="color: red;" class="fa fa-minus-circle" aria-hidden="true"></i></a><h2 class="head">' + atData.name + '</h2>' + '<hr>' + '<div class="crowdtext">' + descr + '</div>' + '<div class="state" style="display:none">' + fundedStr + '</div>' + '<hr>' + '<div class="progress">' + '<span class="progress-value" style="color:' + color + ';left:' + ratioText.toFixed(2) + '% "> <span class="' + icon + '"></span><span>  ' + ratioDesc + '</span></span>' + '<div class="progress-bar" style="width:' + ratio + '%"></div>' + '</div>' + '<div class="text-amount">' + '<div class="row">' + '<div class="col-lg-5">' + '   <span style=' + '   "font-size:1.2em;color:black">' + atBalance + '</span>' + '   <span style="font-size:0.9em;color:gray">pledged out of ' + tarAmount + '</span>' + '</div>' + '<div class="col-lg-4">' + '   <span><span style=' + '   "font-size:0.9em;color:gray">' + finished + ' </span><span style=' + '   "font-size:1.2em;color:black">' + ends + '</span> <span style=' + '   "font-size:0.9em;color:gray">' + blocks + '</span> </span>' + '</div>' + '<div class="col-lg-3">' + '   <span><span style=' + '   "font-size:1.2em;color:black">' + ratio.toFixed(2) + '%</span> <span style=' + '   "font-size:0.9em;color:gray">funded</span></span>' + '</div>' + '</div>' + '</div>' + '<hr>' + '<div class="row">' + '<div class="col-lg-12"><strong>Creator: </strong> <span style=' + '"font-size:1.0 em;color:gray">' + atData.creatorRS + '</span></div>' + '<div class="row" style="margin-top: 32px;"><div class="" style="margin: 0 30px;"><button type="button" class="btn btn-primary btn-block hide-all-cfs btn-sm test" style="font-size: 13px; margin-right: 10px; width: auto;" creator-val="'+ atData.creatorRS +'">Hide All CFs from this creator</button>'
+	var html = '<div class="col-lg-4 crowd '+ atData.creatorRS +'" name="'+ atData.name +'" creator="'+ atData.creatorRS +'">' + '<div class="crowdbox"> ' + '<a href="#" class="close hide-cf" data-dismiss="alert" aria-label="close"><i style="color: red;" class="fas fa-minus-circle" aria-hidden="true"></i></a><h2 class="head">' + atData.name + '</h2>' + '<hr>' + '<div class="crowdtext">' + descr + '</div>' + '<div class="state" style="display:none">' + fundedStr + '</div>' + '<hr>' + '<div class="progress">' + '<span class="progress-value" style="color:' + color + ';left:' + ratioText.toFixed(2) + '% "> <span class="' + icon + '"></span><span>  ' + ratioDesc + '</span></span>' + '<div class="progress-bar" style="width:' + ratio + '%"></div>' + '</div>' + '<div class="text-amount">' + '<div class="row">' + '<div class="col-lg-5">' + '   <span style=' + '   "font-size:1.2em;color:black">' + atBalance + '</span>' + '   <span style="font-size:0.9em;color:gray">pledged out of ' + tarAmount + '</span>' + '</div>' + '<div class="col-lg-4">' + '   <span><span style=' + '   "font-size:0.9em;color:gray">' + finished + ' </span><span style=' + '   "font-size:1.2em;color:black">' + ends + '</span> <span style=' + '   "font-size:0.9em;color:gray">' + blocks + '</span> </span>' + '</div>' + '<div class="col-lg-3">' + '   <span><span style=' + '   "font-size:1.2em;color:black">' + ratio.toFixed(2) + '%</span> <span style=' + '   "font-size:0.9em;color:gray">funded</span></span>' + '</div>' + '</div>' + '</div>' + '<hr>' + '<div class="row">' + '<div class="col-lg-12"><strong>Creator: </strong> <span style=' + '"font-size:1.0 em;color:gray">' + atData.creatorRS + '</span></div>' + '<div class="row" style="margin-top: 32px;"><div class="" style="margin: 0 30px;"><button type="button" class="btn btn-primary btn-block hide-all-cfs btn-sm test" style="font-size: 13px; margin-right: 10px; width: auto;" creator-val="'+ atData.creatorRS +'">Hide All CFs from this creator</button>'
 	
         $(document).ready(function(e) {
             $(".crowdfunding-link-notfunded").click(function(e) {		
@@ -443,7 +443,7 @@ var BRS = (function(BRS, $, undefined) {
             e.preventDefault();
             $(this).closest(".crowd").attr('hidden-cf', 'yes');
             $(this).closest(".crowd").hide();
-            $(this).html('<i style="color: green;" class="fa fa-plus-circle" aria-hidden="true"></i>');
+            $(this).html('<i style="color: green;" class="fas fa-plus-circle" aria-hidden="true"></i>');
             $(this).removeClass('hide-cf');
             $(this).addClass('show-cf');
             // set the value into the local storage.
@@ -457,7 +457,7 @@ var BRS = (function(BRS, $, undefined) {
             e.preventDefault();
             $(this).closest(".crowd").removeAttr('hidden-cf');
             $(this).closest(".crowd").hide();
-            $(this).html('<i style="color: red;" class="fa fa-minus-circle" aria-hidden="true"></i>');
+            $(this).html('<i style="color: red;" class="fas fa-minus-circle" aria-hidden="true"></i>');
             $(this).removeClass('show-cf');
             $(this).addClass('hide-cf');
             
@@ -484,7 +484,7 @@ var BRS = (function(BRS, $, undefined) {
             $("." + creator).hide();
             $("." + creator + " .close").addClass('show-cf');
             $("." + creator + " .close").removeClass('hide-cf');
-            $("." + creator + " .close").html('<i style="color: green;" class="fa fa-plus-circle" aria-hidden="true"></i>');
+            $("." + creator + " .close").html('<i style="color: green;" class="fas fa-plus-circle" aria-hidden="true"></i>');
             $("." + creator + " .close").removeClass('hide-cf');
             $("." + creator + " .close").addClass('show-cf');
             $("." + creator + " .hide-all-cfs").html("Show All CFs from this creator");
@@ -510,7 +510,7 @@ var BRS = (function(BRS, $, undefined) {
             $("." + creator).hide();
             $("." + creator + " .close").removeClass('show-cf');
             $("." + creator + " .close").addClass('hide-cf');
-            $("." + creator + " .close").html('<i style="color: red;" class="fa fa-minus-circle" aria-hidden="true"></i>');
+            $("." + creator + " .close").html('<i style="color: red;" class="fas fa-minus-circle" aria-hidden="true"></i>');
             $("." + creator + " .close").removeClass('hide-cf');
             $("." + creator + " .close").addClass('show-cf');
             $("." + creator + " .show-all-cfs").html("Hide All CFs from this creator");

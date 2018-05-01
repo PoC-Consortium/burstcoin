@@ -211,18 +211,18 @@ var BRS = (function(BRS, $, undefined) {
 		    decoded = String(decoded).escapeHTML().nl2br();
 
 		    if (extra == "to_decrypt") {
-			decoded = "<i class='fa fa-warning'></i> " + decoded;
+			decoded = "<i class='fas fa-exclamation-triangle'></i> " + decoded;
 		    }
                     else if (extra == "decrypted") {
 			if (type == "payment") {
 			    decoded = "<strong>+" + BRS.formatAmount(messages[i].amountNQT) + " BURST</strong><br />" + decoded;
 			}
 
-			decoded = "<i class='fa fa-lock'></i> " + decoded;
+			decoded = "<i class='fas fa-lock'></i> " + decoded;
 		    }
 		}
                 else {
-		    decoded = "<i class='fa fa-warning'></i> " + $.t("error_could_not_decrypt_message");
+		    decoded = "<i class='fas fa-exclamation-triangle'></i> " + $.t("error_could_not_decrypt_message");
 		    extra = "decryption_failed";
 		}
 
@@ -291,14 +291,14 @@ var BRS = (function(BRS, $, undefined) {
 	    }
 
 	    if (decoded === false) {
-		decoded = "<i class='fa fa-warning'></i> " + $.t("error_could_not_decrypt_message");
+		decoded = "<i class='fas fa-exclamation-triangle'></i> " + $.t("error_could_not_decrypt_message");
 		extra = "decryption_failed";
 	    }
             else if (!decoded) {
 		decoded = $.t("message_empty");
 	    }
 
-	    output += "<dd class='to tentative" + (extra ? " " + extra : "") + "'><p>" + (extra == "to_decrypt" ? "<i class='fa fa-warning'></i> " : (extra == "decrypted" ? "<i class='fa fa-lock'></i> " : "")) + String(decoded).escapeHTML().nl2br() + "</p></dd>";
+	    output += "<dd class='to tentative" + (extra ? " " + extra : "") + "'><p>" + (extra == "to_decrypt" ? "<i class='fas fa-exclamation-triangle'></i> " : (extra == "decrypted" ? "<i class='fas fa-lock'></i> " : "")) + String(decoded).escapeHTML().nl2br() + "</p></dd>";
 	}
 
 	output += "</dl>";
@@ -448,7 +448,7 @@ var BRS = (function(BRS, $, undefined) {
 
 		BRS.addUnconfirmedTransaction(response.transaction, function(alreadyProcessed) {
 		    if (!alreadyProcessed) {
-			$("#message_details dl.chat").append("<dd class='to tentative" + (data.encryptedMessageData ? " decrypted" : "") + "'><p>" + (data.encryptedMessageData ? "<i class='fa fa-lock'></i> " : "") + (!data["_extra"].message ? $.t("message_empty") : String(data["_extra"].message).escapeHTML()) + "</p></dd>");
+			$("#message_details dl.chat").append("<dd class='to tentative" + (data.encryptedMessageData ? " decrypted" : "") + "'><p>" + (data.encryptedMessageData ? "<i class='fas fa-lock'></i> " : "") + (!data["_extra"].message ? $.t("message_empty") : String(data["_extra"].message).escapeHTML()) + "</p></dd>");
 			$('#messages_page .content-splitter-right-inner').scrollTop($('#messages_page .content-splitter-right-inner')[0].scrollHeight);					
 		    }
 		});
@@ -504,7 +504,7 @@ var BRS = (function(BRS, $, undefined) {
 		var isEncrypted = (data.encryptedMessageData ? true : false);
 
 		if ($existing.hasClass("active")) {
-		    $("#message_details dl.chat").append("<dd class='to tentative" + (isEncrypted ? " decrypted" : "") + "'><p>" + (isEncrypted ? "<i class='fa fa-lock'></i> " : "") + (data.message ? data.message.escapeHTML() : $.t("message_empty")) + "</p></dd>");
+		    $("#message_details dl.chat").append("<dd class='to tentative" + (isEncrypted ? " decrypted" : "") + "'><p>" + (isEncrypted ? "<i class='fas fa-lock'></i> " : "") + (data.message ? data.message.escapeHTML() : $.t("message_empty")) + "</p></dd>");
 		}
 	    }
             else {
