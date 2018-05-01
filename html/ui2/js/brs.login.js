@@ -358,15 +358,6 @@ var BRS = (function(BRS, $, undefined) {
 	    localStorage.setItem("logged_in", true);
 	}
 
-	var userStyles = ["header", "sidebar", "boxes"];
-
-	for (var i = 0; i < userStyles.length; i++) {
-	    var color = BRS.settings[userStyles[i] + "_color"];
-	    if (color) {
-		BRS.updateStyle(userStyles[i], color);
-	    }
-	}
-
 	var contentHeaderHeight = $(".content-header").height();
 	var navBarHeight = $("nav.navbar").height();
 

@@ -421,7 +421,6 @@ a:focus {
 }
 .control-sidebar {
   position: absolute;
-  padding-top: 50px;
   z-index: 1010;
 }
 @media (max-width: 768px) {
@@ -490,7 +489,6 @@ a:focus {
 .control-sidebar-heading {
   font-weight: 400;
   font-size: 16px;
-  padding: 10px 0;
   margin-bottom: 10px;
 }
 .control-sidebar-subheading {
