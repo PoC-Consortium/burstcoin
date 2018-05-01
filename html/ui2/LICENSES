@@ -12,18 +12,25 @@ jquery.maskedinput https://github.com/digitalBush/jquery.maskedinput
 Notify             https://github.com/mouse0270/bootstrap-notify
 pako               https://github.com/nodeca/pako
 QRCode             https://github.com/jeromeetienne/jquery-qrcode/
+Ionicons           http://ionicons.com
+Webdb              https://github.com/haas85/webdb
+Clipboard.js       https://clipboardjs.com/
 
 APACHE2 License:
 
 Bootstrap          http://getbootstrap.com
 
+CC BY 4.0 License:
+All Font-Awesome Icons packaged as SVG and JS file types.
+
+SIL OFL 1.1 License:
+
+All Font-Awesome Icons packaged as web and desktop font files.
+
 Outdated/Unchecked - WIP:
 
-ionicons.css - MIT - http://ionicons.com
-webdb.js - MIT - http://github.com/haas85/webdb
 passphrasegenerator.js - custom - based on https://github.com/michenriksen/diceware (UNLICENSE) and https://github.com/ggozad/mnemonic.js (MIT)
 seedrandom.js - MIT - https://github.com/davidbau/seedrandom
-clipboard.js - MIT - https://clipboardjs.com/
 
 signing/crypto.js - MIT - https://github.com/Jaguar0625/JavaScriptNrs
 signing/curve25519.js - MIT - https://github.com/Jaguar0625/JavaScriptNrs

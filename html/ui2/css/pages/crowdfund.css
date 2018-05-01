@@ -2,14 +2,14 @@
 padding:10px 5%;
 background-color: #fff !important;
 border:1px solid lightgray;
-max-height:550px;
-min-height:550px;
+max-height:620px;
+min-height:620px;
 }
 
 .crowdtext {
-font-size:1.2em;
-max-height:240px;
-min-height:240px;
+font-size:1em;
+max-height:220px;
+min-height:220px;
 overflow:auto;
 }
 
@@ -22,7 +22,7 @@ line-height:40px;
 font-size:1.2em;
 }
 #page-content-wrapper .crowd {
-margin-top:20px;
+margin-top:15px;
 }
 
 .progress {
@@ -39,6 +39,6 @@ position:absolute;
 right:0;
 left:0;
 color:white;
-font-size:1em;
-line-height:15px;
+font-size:0.8em;
+line-height:20px;
 }
