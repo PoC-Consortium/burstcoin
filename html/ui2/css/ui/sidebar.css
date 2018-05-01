@@ -16,11 +16,6 @@
 }
 @media (max-width: 767px) {
   .main-sidebar {
-    padding-top: 100px;
-  }
-}
-@media (max-width: 767px) {
-  .main-sidebar {
     -webkit-transform: translate(-230px, 0);
     -ms-transform: translate(-230px, 0);
     -o-transform: translate(-230px, 0);

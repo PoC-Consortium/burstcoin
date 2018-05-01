@@ -75,7 +75,6 @@
       <div class="modal-body">
         <ul class="nav nav-pills nav-justified" style="margin-bottom:10px">
           <li class="active" id="account_details_balance_nav" data-tab="balance"><a href="#" data-i18n="account_details">Account Details</a></li>
-          <li data-tab="leasing"><a href="#" data-i18n="account_leasing">Account Leasing</a></li>
         </ul>
         <div id="account_details_modal_balance" class="account_details_modal_content" style="display:none">
           <div class="callout callout-danger" id="account_balance_warning" style="display:none"></div>
@@ -117,21 +116,6 @@
               </tr>
             </tbody>
           </table>
-        </div>
-        <div id="account_details_modal_leasing" class="account_details_modal_content" style="display:none">
-          <div id="account_leasing_status" class="brs_message" style="display:none"></div>
-          <div id="account_lessor_container" style="display:none;max-height:350px;overflow:auto;">
-            <table class="table table-striped" id="account_lessor_table" style="margin-bottom:0">
-              <thead>
-                <tr>
-                  <th data-i18n="lessor">Lessor</th>
-                </tr>
-              </thead>
-              <tbody>
-              </tbody>
-            </table>
-          </div>
-          <div style="padding-top:10px"><a href="#" data-toggle="modal" data-target="#lease_balance_modal" data-i18n="lease_balance_to_account">Lease your balance to another account.</a></div>
         </div>
       </div>
       <div class="modal-footer" style="margin-top:0;">

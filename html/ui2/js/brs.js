@@ -44,7 +44,6 @@ var BRS = (function(BRS, $, undefined) {
     BRS.isTestNet = false;
     BRS.isLocalHost = false;
     BRS.isForging = false;
-    BRS.isLeased = false;
 
     BRS.lastBlockHeight = 0;
     BRS.downloadingBlockchain = false;
@@ -695,25 +694,6 @@ var BRS = (function(BRS, $, undefined) {
 
 		$("#account_nr_assets").html(nr_assets);
 
-		if (BRS.lastBlockHeight) {
-		    var isLeased = BRS.lastBlockHeight >= BRS.accountInfo.currentLeasingHeightFrom;
-		    if (isLeased != BRS.IsLeased) {
-			var leasingChange = true;
-			BRS.isLeased = isLeased;
-		    }
-		}
-		else {
-		    var leasingChange = false;
-		}
-
-		if (leasingChange ||
-		    (response.currentLeasingHeightFrom != previousAccountInfo.currentLeasingHeightFrom) ||
-		    (response.lessors && !previousAccountInfo.lessors) ||
-		    (!response.lessors && previousAccountInfo.lessors) ||
-		    (response.lessors && previousAccountInfo.lessors && response.lessors.sort().toString() != previousAccountInfo.lessors.sort().toString())) {
-		    BRS.updateAccountLeasingStatus();
-		}
-
 		if (response.name) {
 		    $("#account_name").html(response.name.escapeHTML()).removeAttr("data-i18n");
 		}
@@ -729,84 +709,13 @@ var BRS = (function(BRS, $, undefined) {
 	});
     }
 
-    BRS.updateAccountLeasingStatus = function() {
-	var accountLeasingLabel = "";
-	var accountLeasingStatus = "";
-
-	if (BRS.lastBlockHeight >= BRS.accountInfo.currentLeasingHeightFrom) {
-	    accountLeasingLabel = $.t("leased_out");
-	    accountLeasingStatus = $.t("balance_is_leased_out", {
-		"start": String(BRS.accountInfo.currentLeasingHeightFrom).escapeHTML(),
-		"end": String(BRS.accountInfo.currentLeasingHeightTo).escapeHTML(),
-		"account": String(BRS.accountInfo.currentLessee).escapeHTML()
-	    });
-	    $("#lease_balance_message").html($.t("balance_leased_out_help"));
-	}
-	else if (BRS.lastBlockHeight < BRS.accountInfo.currentLeasingHeightTo) {
-	    accountLeasingLabel = $.t("leased_soon");
-	    accountLeasingStatus = $.t("balance_will_be_leased_out", {
-		"start": String(BRS.accountInfo.currentLeasingHeightFrom).escapeHTML(),
-		"end": String(BRS.accountInfo.currentLeasingHeightTo).escapeHTML(),
-		"account": String(BRS.accountInfo.currentLessee).escapeHTML()
-	    });
-	    $("#lease_balance_message").html($.t("balance_leased_out_help"));
-	}
-	else {
-	    accountLeasingStatus = $.t("balance_not_leased_out");
-	    $("#lease_balance_message").html($.t("balance_leasing_help"));
-	}
-
 	if (BRS.accountInfo.effectiveBalanceBURST == 0) {
 	    $("#forging_indicator").removeClass("forging");
 	    $("#forging_indicator span").html($.t("not_forging")).attr("data-i18n", "not_forging");
 	    $("#forging_indicator").show();
 	    BRS.isForging = false;
 	}
-
-	//no reed solomon available? do it myself? todo
-	if (BRS.accountInfo.lessors) {
-	    if (accountLeasingLabel) {
-		accountLeasingLabel += ", ";
-		accountLeasingStatus += "<br /><br />";
-	    }
-
-	    accountLeasingLabel += $.t("x_lessor", {
-		"count": BRS.accountInfo.lessors.length
-	    });
-	    accountLeasingStatus += $.t("x_lessor_lease", {
-		"count": BRS.accountInfo.lessors.length
-	    });
-
 	    var rows = "";
-
-	    for (var i = 0; i < BRS.accountInfo.lessors.length; i++) {
-		var lessor = BRS.convertNumericToRSAccountFormat(BRS.accountInfo.lessors[i]);
-
-		rows += "<tr><td><a href='#' data-user='" + String(lessor).escapeHTML() + "'>" + BRS.getAccountTitle(lessor) + "</a></td></tr>";
-	    }
-
-	    $("#account_lessor_table tbody").empty().append(rows);
-	    $("#account_lessor_container").show();
-	}
-	else {
-	    $("#account_lessor_table tbody").empty();
-	    $("#account_lessor_container").hide();
-	}
-
-	if (accountLeasingLabel) {
-	    $("#account_leasing").html(accountLeasingLabel).show();
-	}
-	else {
-	    $("#account_leasing").hide();
-	}
-
-	if (accountLeasingStatus) {
-	    $("#account_leasing_status").html(accountLeasingStatus).show();
-	}
-	else {
-	    $("#account_leasing_status").hide();
-	}
-    }
 
     BRS.checkAssetDifferences = function(current_balances, previous_balances) {
 	var current_balances_ = {};
