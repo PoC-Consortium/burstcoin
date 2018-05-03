@@ -15,11 +15,11 @@
     -->
   <table id="center" style="display:none;width:100%;height:100%;">
     <tr>
-      <td style="text-align:center;vertical-align:top;padding-top:20%;">
+      <td style="text-align:center;vertical-align:middle">
         <center><img src="img/burst_logo.png" alt="Burst" width="242" height="64" style="margin-bottom:40px;margin-right:20px;opacity: 0.75;" /></center>
         <div id="login_panel">
-          <div class="callout callout-danger" id="testnet_login" style="max-width:400px;min-width:400px;display:none;margin: auto;" data-i18n="[html]testnet_login_warning">Log in with your <strong>TestNet</strong> account - not your real one!</div>
-          <div id="login_error" style="max-width:400px;min-width:400px;display:none;margin: auto">
+          <div class="callout callout-danger" id="testnet_login" style="max-width:400px;min-width:400px;display:none;" data-i18n="[html]testnet_login_warning">Log in with your <strong>TestNet</strong> account - not your real one!</div>
+          <div id="login_error" style="max-width:400px;min-width:400px;display:none">
             <div class="callout callout-danger"></div>
           </div>
           <form>
@@ -28,7 +28,7 @@
                 <div class="input-group">
                   <input type="password" class="form-control" id="login_password" name="login_password" placeholder="Your Passphrase" data-i18n="[placeholder]your_passphrase" autocomplete="" autofocus />
                   <div class="input-group-btn">
-                    <button class="btn btn-flat" onclick="BRS.login($('#login_password').val()); return false;"><i class="fas fa-arrow-right text-muted"></i></button>
+                    <button class="btn btn-flat" onclick="BRS.login($('#login_password').val()); return false;"><i class="fa fa-arrow-right text-muted"></i></button>
                   </div>
                   <input type="hidden" name="check_password_length" id="login_check_password_length" value="1" />
                 </div>
@@ -42,7 +42,7 @@
             <a href="#" onclick="BRS.registerAccount();" data-i18n="no_account_q_create_account">Don't have an account? Click here to create one!</a>
           </div>
         </div>
-        <div class="panel panel-default" id="welcome_panel" style="display:none;width: 400px;margin: auto;">
+        <div class="panel panel-default" id="welcome_panel" style="display:none;max-width:500px;">
           <div class="panel-heading"><span class="glyphicon glyphicon-lock"></span> <span data-i18n="welcome_to_burst">Welcome to Burst</span></div>
           <div class="panel-body">
             <button class="btn btn-primary" id="registration_cancel" onclick="BRS.showLoginScreen();return false;" data-i18n="returning_user_q">Returning User?</button>
@@ -50,11 +50,11 @@
             <button class="btn btn-success" id="registration_cancel" onclick="BRS.registerAccount();return false;" data-i18n="new_q_create_account">New? Create Your Account!</button>
           </div>
         </div>
-        <div class="panel panel-default" id="account_phrase_custom_panel" style="display:none;width: 500px;margin: auto;">
+        <div class="panel panel-default" id="account_phrase_custom_panel" style="display:none;max-width:500px;">
           <div class="panel-heading"><span class="glyphicon glyphicon-lock"></span> <span data-i18n="create_your_account">Create Your Account</span></div>
           <div class="panel-body">
             <form class="form-horizontal" role="form" method="post" autocomplete="off">
-              <div class="callout callout-info" style="max-width:500px;margin: auto;" data-i18n="passphrase_length_warning">Your passphrase must be at least 35 characters long. Better over 40 characters!</div>
+              <div class="callout callout-info" style="max-width:500px;" data-i18n="passphrase_length_warning">Your passphrase must be at least 35 characters long. Better over 40 characters!</div>
               <div class="callout callout-danger" data-i18n="[html]passphrase_warning"><strong>Attention</strong>: The passphrase is everything that stands between your account and the rest of the world. Do not use any meaningful sentence, especially any that appears in song or literature.<br /><br />Don't ever disclose your passphrase. If you lose it you lose access to your account! Write it on Paper!!</div>
               <div class="form-group">
                 <label for="registration_password" class="col-sm-3 control-label" data-i18n="passphrase">Passphrase</label>
@@ -69,7 +69,7 @@
             </form>
           </div>
         </div>
-        <div class="panel panel-default" id="account_phrase_generator_panel" style="display:none;width: 500px;margin: auto;">
+        <div class="panel panel-default" id="account_phrase_generator_panel" style="display:none;max-width:500px">
           <div class="panel-heading"><span class="glyphicon glyphicon-lock"></span> <span data-i18n="create_your_account">Create Your Account</span></div>
           <div class="panel-body">
             <div id="account_phrase_generator_loading">

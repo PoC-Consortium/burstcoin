@@ -138,3 +138,6 @@ html.lockscreen, html.lockscreen body {
 #remember_password_container label {
 	font-weight:normal;
 }
+#center .panel {
+  display:inline-block;
+}
