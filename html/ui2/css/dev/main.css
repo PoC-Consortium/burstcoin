@@ -6,9 +6,7 @@ a:focus {
   color: #72afd2;
 }
 /* Layouts */
-.wrapper {
-  min-height: 100%;
-}
+
 .wrapper:before,
 .wrapper:after {
   display: table;

@@ -13,17 +13,11 @@
 html,
 body {
   overflow-x:hidden;
-  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-  -webkit-font-smoothing: antialiased;
   min-height: 100%;
   background: #E5E6EB;
   color: black !important;
 }
 
-.user-panel > .info {
-	padding-left:  5px;
-	padding-right: 0;
-}
 #forging_indicator {
 	font-size: 14px;
 } 
@@ -125,11 +119,6 @@ body {
 	-moz-box-shadow: 0px 2px 10px rgba(50, 50, 50, 0.5);
 	box-shadow: 0px 2px 10px rgba(50, 50, 50, 0.5);
 	
-}
-
-body {
-	
-	color: black !important;
 }
 
 .page {
@@ -773,10 +762,6 @@ a.list-group-item.active h4 span {
 
 .show_logout {
 	display:none;
-}
-
-#id_search {
-	margin-top:0;
 }
 
 table.settings td {

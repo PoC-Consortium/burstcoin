@@ -98,13 +98,6 @@ color:white;
 font-size:1em;
 line-height:40px;
 }
-.crowdbox {
-padding:10px 5%;
-background-color: #fff !important;
-border:1px solid lightgray;
-max-height:530px;
-min-height:530px;
-}
 
 .crowdtext {
 font-size:1.2em;
@@ -130,9 +123,6 @@ height:40px;
 line-height:40px;
 }
 
-.crowdbox .btn {
-padding: 7px;
-}
 
 .open-buyTicket {
 font-size:1.2em;

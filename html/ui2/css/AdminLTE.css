@@ -16,6 +16,7 @@ body {
 .layout-boxed html,
 .layout-boxed body {
   height: 100%;
+
 }
 body {
   font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -27,8 +28,6 @@ body {
 .wrapper {
   height: 100%;
   position: relative;
-  overflow-x: hidden;
-  overflow-y: auto;
 }
 .wrapper:before,
 .wrapper:after {
