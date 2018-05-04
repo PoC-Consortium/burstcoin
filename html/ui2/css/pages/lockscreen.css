@@ -102,6 +102,9 @@ html.lockscreen, html.lockscreen body {
 
 #login_panel #remember_password_container label{ color: rgba(150,150,150,0.5); }
 #login_panel #remember_password_container label:hover { color: rgba(150,150,150,1.0); }
+#login_panel #remember_password_container label{ opacity: 0.53; }
+#login_panel #remember_password_container label:hover { opacity: 1.0; }
+
 .lockscreen-credentials {
   height:34px;
 }

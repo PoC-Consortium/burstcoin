@@ -22,7 +22,11 @@ line-height:40px;
 font-size:1.2em;
 }
 #page-content-wrapper .crowd {
-margin-top:15px;
+margin-top:20px;
+}
+#page-content-wrapper {
+padding:20px;
+position:relative;
 }
 
 .progress {
@@ -41,4 +45,13 @@ left:0;
 color:white;
 font-size:0.8em;
 line-height:20px;
+}
+.crowdbox h2,hr {
+margin-top:10px;
+margin-bottom:10px;
+font-size: 20px;
+}
+#wrapper.toggled #page-content-wrapper {
+position:relative;
+margin-right:0;
 }

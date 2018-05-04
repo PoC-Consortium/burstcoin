@@ -9,15 +9,6 @@
 	margin-left: -10px !important;
 }
 
-
-html,
-body {
-  overflow-x:hidden;
-  min-height: 100%;
-  background: #E5E6EB;
-  color: black !important;
-}
-
 #forging_indicator {
 	font-size: 14px;
 } 
@@ -80,16 +71,7 @@ body {
   text-align: center;
   text-transform: uppercase;
 }
-#registration_link a, #custom_passphrase_link a {
-  color: rgba(255,255,255,0.5);
-}
-#registration_link a:hover, #custom_passphrase_link a {
-  color: rgba(255,255,255,1.0);
-  text-decoration: none;
-}
 
-#login_panel #remember_password_container label{ opacity: 0.53; }
-#login_panel #remember_password_container label:hover { opacity: 1.0; }
 
 
 /* wesley */
@@ -717,13 +699,7 @@ label .popover-content {
 #account_id_dropdown ul.dropdown-menu>li>a {
 	padding:3px 8px;
 }
-#remember_password_container {
-	color:#555555;
-	text-align:center;
-}
-#remember_password_container label {
-	font-weight:normal;
-}
+
 .popover {
 	z-index:9999999999;
 }
@@ -838,30 +814,11 @@ hr {
 }
 
 
-#lockscreen {
-  height:100%;
-  overflow:auto;
-}
-
-#center .panel-heading, #center .panel-body {
-  text-align:left;
-}
-
-#testnet_login {
-  display:inline-block;
-  text-align:left;
-  margin-bottom:0px;
-}
 
 #login_error  {
   text-align:left;
   margin-bottom:10px;
   margin: 0 auto;
-}
-
-#login_error .callout {
-  margin-top:10px;
-  margin-bottom:0;
 }
 
 #asset_exchange_sidebar_search {
@@ -1031,12 +988,4 @@ input.masked {
 
 .optional_message, .optional_note {
   display:none;
-}
-
-.modal-body {
-  padding-bottom:8px;
-} 
-
-#dgs_view_delivery_output, #dgs_view_purchase_modal_note, #dgs_delivery_modal_note, #dgs_view_refund_output, #transaction_info_output_top, #transaction_info_output_bottom {
-  word-wrap:break-word;
 }

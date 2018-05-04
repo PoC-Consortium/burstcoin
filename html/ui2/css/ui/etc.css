@@ -1,3 +1,13 @@
+
+#brs_update_explanation {
+    background:#DFF0D9;
+    color:#48874A;
+    padding:5px;
+    border:1px solid #D6E8C7;
+    margin-top:20px;
+    display:none;
+}
+
 #brs_update_explanation_1, #brs_update_explanation_2, #brs_update_explanation_3, #brs_update_explanation_4 {
 
     display:none;
@@ -35,4 +45,18 @@ brs_update_hashes {
     background:#48874A;  
     display:none;
     margin-top:20px;
+}
+.modal-body {
+  padding-bottom:8px;
+} 
+.animate-change {
+background-color:green;
+}
+#at td {
+background-color:#E5E6EB;
+}
+.incorrect {
+    background:#E2424F !important;
+    color:white !important;
+    border:1px solid #E4404B !important;
 }

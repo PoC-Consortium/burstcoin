@@ -549,11 +549,6 @@ body > .header {
     Component: callout
 ------------------------
 */
-.callout {
-  margin: 0 0 20px 0;
-  padding: 15px 30px 15px 15px;
-  border-left: 5px solid #eee;
-}
 .callout h4 {
   margin-top: 0;
 }
@@ -563,10 +558,6 @@ body > .header {
 .callout code,
 .callout .highlight {
   background-color: #fff;
-}
-.callout.callout-danger {
-  background-color: #fcf2f2;
-  border-color: #dFb5b4;
 }
 .callout.callout-warning {
   background-color: #fefbed;
@@ -692,20 +683,6 @@ body > .header {
   -moz-border-radius: 50%;
   border-radius: 50%;
 }
-/* Contains the password input and the login button */
-
-.lockscreen-item > .lockscreen-credentials input {
-  border: 0 !important;
-}
-.lockscreen-item > .lockscreen-credentials .btn {
-  background-color: #fff;
-  border: 0;
-}
-/* Extra to give the user an option to navigate the website [optional]*/
-.lockscreen-link {
-  margin-top: 30px;
-  text-align: center;
-}
 
 /* wesley */
 
@@ -731,11 +708,6 @@ body > .header {
 	-moz-box-shadow: 0px 2px 10px rgba(50, 50, 50, 0.5);
 	box-shadow: 0px 2px 10px rgba(50, 50, 50, 0.5);
 	
-}
-
-body {
-	
-	color: black !important;
 }
 
 .page {
@@ -1231,38 +1203,3 @@ a.list-group-item-header:hover {
     display:none;
     margin-top:20px;
 }
-
-#brs_update_explanation {
-    background:#DFF0D9;
-    color:#48874A;
-    padding:5px;
-    border:1px solid #D6E8C7;
-    margin-top:20px;
-    display:none;
-}
-.incorrect {
-    background:#E2424F !important;
-    color:white !important;
-    border:1px solid #E4404B !important;
-}
-#brs_update_explanation_1, #brs_update_explanation_2, #brs_update_explanation_3, #brs_update_explanation_4 {
-    display:none;
-}
-brs_update_hashes {
-    display:none;
-    margin-top:20px;
-}
-    
-#brs_update_hashes table {
-    border-collapse:collapse;
-    border:1px solid #bbb;
-}
-
-#brs_update_hashes table td {
-    padding:2px;
-    margin-bottom:1px;
-}
-
-
-
-
