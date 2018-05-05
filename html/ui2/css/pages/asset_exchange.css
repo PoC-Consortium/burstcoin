@@ -73,3 +73,40 @@
 #buy_automatic_price.nonzero, #sell_automatic_price.nonzero {
 	cursor:pointer
 }
+#asset_description {word-wrap: break-word;}
+
+ 
+#asset_exchange_sidebar_search {
+	border-bottom: 1px solid #ddd;
+	display: none;
+	margin-top: 10px;
+ }
+ 
+.owns_asset {background-color: #FFFFD5;}
+ 
+.asset_owner td {background-color: #FFFFD5 !important;}
+ 
+#asset_exchange_sidebar_content .list-group-item {border-right: 5px solid transparent !important;}
+ 
+	#asset_exchange_sidebar_content .list-group-item.owns_asset.active, #asset_exchange_sidebar_content .list-group-item.owns_asset:hover {border-right: 5px solid #FFE545 !important;}
+ 
+#asset_exchange_sidebar_content .glyphicon {
+	color: #000;
+	position: absolute;
+	right: 5px;
+	top: 10px;
+ }
+ 
+#asset_exchange_sidebar_content .group_icon {
+	color: #000;
+	position: absolute;
+	right: 5px;
+	top: 5px;
+ }
+ 
+#asset_exchange_sidebar_content .list-group-item.active .glyphicon {color: #fff;}
+
+#asset_exchange_page.no_assets .content-splitter-sidebar {display: none !important;}
+ 
+#asset_exchange_page.no_assets .content-splitter-right {left: 0 !important;}
+ 

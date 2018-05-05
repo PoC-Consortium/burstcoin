@@ -1,66 +1,65 @@
 .goods_info, .purchase_info {
-  padding:5px;
-  border:1px solid #ccc;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-  background:#fafafa;
-  color:black;
-  margin:5px;
-  margin-bottom:15px;
-}
-
-.goods_info table, .purchase_info table {
-  width:100%;
-}
-
-.purchase_info th, .purchase_info td {
-  vertical-align:top;
-}
-
+	padding: 5px;
+	border: 1px solid #ccc;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	background: #fafafa;
+	color: black;
+	margin: 5px;
+	margin-bottom: 15px;
+ }
+ 
+.goods_info table, .purchase_info table {width: 100%;}
+ 
+.purchase_info th, .purchase_info td {vertical-align: top;}
+ 
 .purchase_info th {
-  white-space:nowrap;
-  padding-right:5px;
-}
-
-.purchase_info td {
-  width:99%;
-}
+	white-space: nowrap;
+	padding-right: 5px;
+ }
+ 
+.purchase_info td {width: 99%;}
+ 
 .goods_info h3, .purchase_info h3 {
-  margin-bottom:5px;
-  margin-top:0px;
-  font-size:16px;
-  font-weight:bold;
-}
-
+	margin-bottom: 5px;
+	margin-top: 0px;
+	font-size: 16px;
+	font-weight: bold;
+ }
+ 
 .dgs_page_contents h3 {
-  margin-top:0;
-  margin-bottom:5px;
-  font-size:18px;
-  font-weight:bold;
-}
-
-.dgs_page_contents span.tags, .dgs_page_contents span.quantity {
-  color:#999999;
-}
-
-.dgs_page_contents .price, .dgs_page_contents .showmore {
-  margin-bottom:5px;
-}
-
-.dgs_page_contents hr {
-  border-top:1px solid #ddd;
-}
-
-table.purchase {
-  margin-bottom:5px;
-}
-
-table.purchase td {
-  vertical-align:top;
-  padding-right:5px;
-  padding-bottom:5px;
-}
-#dgs_view_delivery_output, #dgs_view_purchase_modal_note, #dgs_delivery_modal_note, #dgs_view_refund_output, #transaction_info_output_top, #transaction_info_output_bottom {
-  word-wrap:break-word;
-}
+	margin-top: 0;
+	margin-bottom: 5px;
+	font-size: 18px;
+	font-weight: bold;
+ }
+ 
+.dgs_page_contents span.tags, .dgs_page_contents span.quantity {color: #999999;}
+ 
+.dgs_page_contents .price, .dgs_page_contents .showmore {margin-bottom: 5px;}
+ 
+.dgs_page_contents hr {border-top: 1px solid #ddd;}
+ 
+table.purchase {margin-bottom: 5px;}
+ 
+	table.purchase td {
+		vertical-align: top;
+		padding-right: 5px;
+		padding-bottom: 5px;
+	 }
+ 
+#dgs_view_delivery_output, #dgs_view_purchase_modal_note, #dgs_delivery_modal_note, #dgs_view_refund_output, #transaction_info_output_top, #transaction_info_output_bottom {word-wrap: break-word;}
+ 
+.dgs_page_contents h3 {
+	font-size: 18px;
+	font-weight: bold;
+	margin-bottom: 5px;
+	margin-top: 0;
+ }
+ 
+.dgs_page_contents span.tags, .dgs_page_contents span.quantity {color: #999999;}
+ 
+.dgs_page_contents .price, .dgs_page_contents .showmore {margin-bottom: 5px;}
+ 
+.dgs_page_contents hr {border-top: 1px solid #ddd;}
