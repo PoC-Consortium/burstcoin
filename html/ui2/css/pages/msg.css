@@ -1,0 +1,135 @@
+.content-splitter-sidebar-inner {
+	background: #E5E6EB;
+	border-right: 1px solid #E5E6EB;
+	bottom: 0;
+	left: 0;
+	overflow: auto;
+	padding-bottom: 120px;
+	position: absolute;
+	right: 0;
+	top: 0px;
+ }
+#messages_page .content-splitter-right-inner {
+	bottom: 185px;
+	padding-bottom: 0;
+ }
+.content-splitter-right-inner {
+	bottom: 0;
+	left: 0;
+	overflow-x: hidden; /*padding-bottom:120px;*/
+	overflow: auto;
+	padding: 20px;
+	position: absolute;
+	right: 0;
+	top: 0px;
+ }
+.content-splitter-right {
+	bottom: 0;
+	left: 200px;
+	position: absolute;
+	right: 0;
+	top: 0;
+ }
+ .content-splitter-sidebar {
+	bottom: 0;
+	left: 0;
+	position: absolute;
+	top: 0;
+	width: 40%;
+ }
+ 
+.chat {
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	color: #000;
+	font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+	font-size: 16px;
+	font-weight: 200;
+	margin: 0 auto;
+	padding-bottom: 10px;
+	padding-left: 20px;
+	padding-right: 20px;
+	padding: 0;
+ }
+ 
+	.chat strong {font-weight: 500;}
+ 
+	.chat dt {
+		color: #999;
+		font-size: .6em;
+		margin-bottom: 1em;
+		text-align: center;
+	 }
+ 
+	.chat dd + dt {margin-top: 1.5em;}
+ 
+	.chat dd + dd {margin-top: .5em;}
+ 
+	.chat dd:after {
+		clear: both;
+		content: " ";
+		display: block;
+		height: .1em;
+	 }
+ 
+	.chat p::before {
+		-moz-box-sizing: content-box !important;
+		-webkit-box-sizing: content-box !important;
+		box-sizing: content-box !important;
+	 }
+ 
+.chat p {
+	-moz-border-radius: 1em;
+	-webkit-border-radius: 1em;
+	-webkit-font-smoothing: subpixel-antialiased;
+	background: rgb(230,230,230);
+	border-radius: 1em;
+	clear: both;
+	float: left;
+	line-height: 1.25;
+	margin-right: 25%;
+	padding: .45em .75em;
+	z-index: 1;
+ }
+ 
+	.chat .to p {
+		background: rgb(0,120,255);
+		clear: both;
+		color: #fff;
+		float: right;
+		margin-left: 25%;
+		margin-right: 0;
+	 }
+ 
+	.chat p + p {margin-top: .1em;}
+ 
+	.chat p:last-child {position: relative;}
+ 
+		.chat p:last-child::before {
+			border-bottom-right-radius: 50%;
+			border-right: 1.5em solid rgb(230,230,230);
+			bottom: 0;
+			clip: rect(1em,4em,3em,2em);
+			content: " ";
+			height: 2em;
+			left: -3em;
+			position: absolute;
+			width: 3em;
+			z-index: -1;
+		 }
+ 
+	.chat .to p:last-child::before {
+		border-bottom-left-radius: 50%;
+		border-left: 1.5em solid rgb(0,120,255);
+		border-right: none;
+		clip: rect(1em,2em,2em,0);
+		left: auto;
+		right: -3em;
+	 }
+ 
+	.chat .to.tentative p {
+		background-color: #DAE3F2 !important;
+		font-style: italic !important;
+	 }
+ 
+		.chat .to.tentative p:last-child::before {border-left: 1.5em solid #c0c0c0 !important;}
