@@ -40,7 +40,7 @@ var BRS = (function(BRS, $, undefined) {
     $('a[data-toggle="tab"]').on("shown.bs.tab", function(e) {
 	var target = $(e.target).attr("href");
 	$(target).scrollTop(0);
-    })
+    });
 
     $(".add_message").on("change", function(e) {
 	if ($(this).is(":checked")) {
@@ -181,7 +181,7 @@ var BRS = (function(BRS, $, undefined) {
 	$modal.find(".error_message").html(String(errorMessage).escapeHTML()).show();
 	$btn.button("reset");
 	$modal.modal("unlock");
-    }
+    };
 
     BRS.closeModal = function($modal) {
 	if (!$modal) {
@@ -195,7 +195,7 @@ var BRS = (function(BRS, $, undefined) {
 	$btn.button("reset");
 	$modal.modal("unlock");
 	$modal.modal("hide");
-    }
+    };
 
     $("input[name=feeNXT]").on("change", function() {
 	var $modal = $(this).closest(".modal");

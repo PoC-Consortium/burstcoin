@@ -18,7 +18,7 @@ var BRS = (function(BRS, $, undefined) {
             }
             BRS.dataLoaded(rows);
         });
-    }
+    };
 
     return BRS;
 }(BRS || {}, jQuery));

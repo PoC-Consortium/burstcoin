@@ -56,7 +56,7 @@ var BRS = (function(BRS, $, undefined) {
 	$("#user_info_modal_transactions").show();
 
 	BRS.userInfoModal.transactions();
-    }
+    };
 
     BRS.processAccountModalData = function(account) {
 	if (account.unconfirmedBalanceNQT == "0") {
@@ -83,7 +83,7 @@ var BRS = (function(BRS, $, undefined) {
 	}
 
 	$("#user_info_modal").modal("show");
-    }
+    };
 
     $("#user_info_modal").on("hidden.bs.modal", function(e) {
 	$(this).find(".user_info_modal_content").hide();
@@ -291,7 +291,7 @@ var BRS = (function(BRS, $, undefined) {
 		BRS.dataLoadFinished($("#user_info_modal_transactions_table"));
 	    }
 	});
-    }
+    };
 
     BRS.userInfoModal.aliases = function() {
 	BRS.sendRequest("getAliases", {
@@ -339,7 +339,7 @@ var BRS = (function(BRS, $, undefined) {
 	    $("#user_info_modal_aliases_table tbody").empty().append(rows);
 	    BRS.dataLoadFinished($("#user_info_modal_aliases_table"));
 	});
-    }
+    };
 
     BRS.userInfoModal.marketplace = function() {
 	BRS.sendRequest("getDGSGoods", {
@@ -362,7 +362,7 @@ var BRS = (function(BRS, $, undefined) {
 	    $("#user_info_modal_marketplace_table tbody").empty().append(rows);
 	    BRS.dataLoadFinished($("#user_info_modal_marketplace_table"));
 	});
-    }
+    };
 
     BRS.userInfoModal.assets = function() {
 	BRS.sendRequest("getAccount", {
@@ -405,7 +405,7 @@ var BRS = (function(BRS, $, undefined) {
 		BRS.userInfoModal.addIssuedAssets({});
 	    }
 	});
-    }
+    };
 
     BRS.userInfoModal.addIssuedAssets = function(assets) {
 	BRS.sendRequest("getAssetsByIssuer", {
@@ -433,7 +433,7 @@ var BRS = (function(BRS, $, undefined) {
 		BRS.dataLoadFinished($("#user_info_modal_assets_table"));
 	    }
 	});
-    }
+    };
 
     BRS.userInfoModal.assetsLoaded = function(assets) {
 	var assetArray = [];
@@ -485,7 +485,7 @@ var BRS = (function(BRS, $, undefined) {
 	$("#user_info_modal_assets_table tbody").empty().append(rows);
 
 	BRS.dataLoadFinished($("#user_info_modal_assets_table"));
-    }
+    };
 
     return BRS;
 }(BRS || {}, jQuery));

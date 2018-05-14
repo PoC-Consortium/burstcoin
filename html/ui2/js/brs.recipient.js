@@ -88,7 +88,7 @@ var BRS = (function(BRS, $, undefined) {
 		"type": "success"
 	    });
 	}
-    }
+    };
 
     BRS.sendMoneyShowAccountInformation = function(accountId) {
 	BRS.getAccountError(accountId, function(response) {
@@ -100,7 +100,7 @@ var BRS = (function(BRS, $, undefined) {
 
 	    }
 	});
-    }
+    };
 
     BRS.getAccountError = function(accountId, callback) {
 	BRS.sendRequest("getAccount", {
@@ -152,11 +152,11 @@ var BRS = (function(BRS, $, undefined) {
 		}
 	    }
 	});
-    }
+    };
 
     BRS.correctAddressMistake = function(el) {
 	$(el).closest(".modal-body").find("input[name=recipient],input[name=account_id]").val($(el).data("address")).trigger("blur");
-    }
+    };
 
     BRS.checkRecipient = function(account, modal) {
 	var classes = "callout-info callout-danger callout-warning";
@@ -255,7 +255,7 @@ var BRS = (function(BRS, $, undefined) {
 		callout.removeClass(classes).addClass("callout-" + response.type).html(response.message.escapeHTML()).show();
 	    });
 	}
-    }
+    };
 
     BRS.checkRecipientAlias = function(account, modal) {
 	var classes = "callout-info callout-danger callout-warning";
@@ -328,7 +328,7 @@ var BRS = (function(BRS, $, undefined) {
 		}
 	    }
 	});
-    }
+    };
 
     function checkForMerchant(accountInfo, modal) {
 	var requestType = modal.find("input[name=request_type]").val();

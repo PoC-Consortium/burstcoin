@@ -1,5 +1,5 @@
 /**
- * @depends {../3rdparty/jquery-2.1.0.js}
+ * @depends {../3rdparty/jquery.min.js}
  */
 
 var PassPhraseGenerator = {
@@ -19,7 +19,7 @@ var PassPhraseGenerator = {
 	},
 
 	percentage: function() {
-		return Math.round((this.seeds / this.seedLimit) * 100)
+		return Math.round((this.seeds / this.seedLimit) * 100);
 	},
 
 	passPhrase: "",
@@ -90,7 +90,7 @@ var PassPhraseGenerator = {
 				var percentage = PassPhraseGenerator.percentage() + "%";
 
 				$container.find(".progress-bar").css("width", percentage);
-				$container.find(".progress-bar span").text(percentage + " seeded")
+				$container.find(".progress-bar span").text(percentage + " seeded");
 
 				if (PassPhraseGenerator.isDone()) {
 					$container.find(".progress-bar").css("width", "100%");
@@ -124,4 +124,4 @@ var PassPhraseGenerator = {
 		this.passPhrase = "";
 		this.seeds = 0;
 	}
-}
+};

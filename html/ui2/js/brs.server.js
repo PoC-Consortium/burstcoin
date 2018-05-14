@@ -8,7 +8,7 @@ var BRS = (function(BRS, $, undefined) {
 
     BRS.setServerPassword = function(password) {
 	_password = password;
-    }
+    };
 
     BRS.sendOutsideRequest = function(url, data, callback, async) {
 	if ($.isFunction(data)) {
@@ -46,10 +46,10 @@ var BRS = (function(BRS, $, undefined) {
 		}, {});
 	    }
 	});
-    }
+    };
 
     BRS.sendRequest = function(requestType, data, callback, async) {
-	if (requestType == undefined) {
+	if (requestType === undefined) {
 	    return;
 	}
 
@@ -271,7 +271,7 @@ var BRS = (function(BRS, $, undefined) {
 	    type = "POST";
 	}
     async = (async === undefined ? true : async);
-    if(async == false){
+    if(async === false){
       url += "&" + $.param(data);
       var client = new XMLHttpRequest();
       client.open("GET", url, false); 
@@ -392,7 +392,7 @@ var BRS = (function(BRS, $, undefined) {
 		  }
 		*/
 
-		if (response.broadcasted == false) {
+		if (response.broadcasted === false) {
 		    BRS.showRawTransactionModal(response);
 		}
                 else {
@@ -414,7 +414,7 @@ var BRS = (function(BRS, $, undefined) {
 		BRS.addToConsole(this.url, this.type, this.data, error, true);
 	    }
 
-	    if ((error == "error" || textStatus == "error") && (xhr.status == 404 || xhr.status == 0)) {
+	    if ((error == "error" || textStatus == "error") && (xhr.status == 404 || xhr.status === 0)) {
 		if (type == "POST") {
 		    $.notify($.t("error_server_connect"), {
 			"type": "danger",
@@ -437,7 +437,7 @@ var BRS = (function(BRS, $, undefined) {
 	    }
 	});
     }
-    }
+    };
     BRS.verifyAndSignTransactionBytes = function(transactionBytes, signature, requestType, data) {
 	var transaction = {};
 
@@ -850,7 +850,7 @@ var BRS = (function(BRS, $, undefined) {
 
 	    break;
 	case "dgsListing":
-	    if (transaction.type !== 3 && transaction.subtype != 0) {
+	    if (transaction.type !== 3 && transaction.subtype !== 0) {
 		return false;
 	    }
 
@@ -1065,7 +1065,7 @@ var BRS = (function(BRS, $, undefined) {
 	var position = 1;
 
 	//non-encrypted message
-	if ((transaction.flags & position) != 0 || (requestType == "sendMessage" && data.message)) {
+	if ((transaction.flags & position) !== 0 || (requestType == "sendMessage" && data.message)) {
 	    var attachmentVersion = byteArray[pos];
 
 	    pos++;
@@ -1107,7 +1107,7 @@ var BRS = (function(BRS, $, undefined) {
 	position <<= 1;
 
 	//encrypted note
-	if ((transaction.flags & position) != 0) {
+	if ((transaction.flags & position) !== 0) {
 	    var attachmentVersion = byteArray[pos];
 
 	    pos++;
@@ -1164,7 +1164,7 @@ var BRS = (function(BRS, $, undefined) {
 
 	position <<= 1;
 
-	if ((transaction.flags & position) != 0) {
+	if ((transaction.flags & position) !== 0) {
 	    var attachmentVersion = byteArray[pos];
 
 	    pos++;

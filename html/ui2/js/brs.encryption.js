@@ -25,7 +25,7 @@ var BRS = (function(BRS, $, undefined) {
 	}
 
 	return BRS.getPublicKey(converters.stringToHexString(secretPhrase));
-    }
+    };
 
     BRS.getPublicKey = function(secretPhrase, isAccountNumber) {
 	if (isAccountNumber) {
@@ -51,17 +51,17 @@ var BRS = (function(BRS, $, undefined) {
 	    var digest = simpleHash(secretPhraseBytes);
 	    return converters.byteArrayToHexString(curve25519.keygen(digest).p);
 	}
-    }
+    };
 
     BRS.getPrivateKey = function(secretPhrase) {
 	SHA256_init();
 	SHA256_write(converters.stringToByteArray(secretPhrase));
 	return converters.shortArrayToHexString(curve25519_clamp(converters.byteArrayToShortArray(SHA256_finalize())));
-    }
+    };
 
     BRS.getAccountId = function(secretPhrase) {
 	return BRS.getAccountIdFromPublicKey(BRS.getPublicKey(converters.stringToHexString(secretPhrase)));
-    }
+    };
 
     BRS.getAccountIdFromPublicKey = function(publicKey, RSFormat) {
 	var hex = converters.hexStringToByteArray(publicKey);
@@ -90,7 +90,7 @@ var BRS = (function(BRS, $, undefined) {
         else {
 	    return accountId;
 	}
-    }
+    };
 
     BRS.encryptNote = function(message, options, secretPhrase) {
 	try {
@@ -160,7 +160,7 @@ var BRS = (function(BRS, $, undefined) {
 		};
 	    }
 	}
-    }
+    };
 
     BRS.decryptData = function(data, options, secretPhrase) {
 	try {
@@ -187,7 +187,7 @@ var BRS = (function(BRS, $, undefined) {
 		}
 	    }
 	}
-    }
+    };
 
     BRS.decryptNote = function(message, options, secretPhrase) {
 	try {
@@ -237,7 +237,7 @@ var BRS = (function(BRS, $, undefined) {
 		};
 	    }
 	}
-    }
+    };
 
     BRS.getSharedKeyWithAccount = function(account) {
 	try {
@@ -276,7 +276,7 @@ var BRS = (function(BRS, $, undefined) {
 	} catch (err) {
 	    throw err;
 	}
-    }
+    };
 
     BRS.signBytes = function(message, secretPhrase) {
 	var messageBytes = converters.hexStringToByteArray(message);
@@ -302,7 +302,7 @@ var BRS = (function(BRS, $, undefined) {
 	var v = curve25519.sign(h, x, s);
 
 	return converters.byteArrayToHexString(v.concat(h));
-    }
+    };
 
     BRS.verifyBytes = function(signature, message, publicKey) {
 	var signatureBytes = converters.hexStringToByteArray(signature);
@@ -320,21 +320,21 @@ var BRS = (function(BRS, $, undefined) {
 	var h2 = _hash.getBytes();
 
 	return areByteArraysEqual(h, h2);
-    }
+    };
 
     BRS.setEncryptionPassword = function(password) {
 	_password = password;
-    }
+    };
 
     BRS.setDecryptionPassword = function(password) {
 	_decryptionPassword = password;
-    }
+    };
 
     BRS.addDecryptedTransaction = function(identifier, content) {
 	if (!_decryptedTransactions[identifier]) {
 	    _decryptedTransactions[identifier] = content;
 	}
-    }
+    };
 
     BRS.tryToDecryptMessage = function(message) {
 	if (_decryptedTransactions && _decryptedTransactions[message.transaction]) {
@@ -356,7 +356,7 @@ var BRS = (function(BRS, $, undefined) {
 	} catch (err) {
 	    throw err;
 	}
-    }
+    };
 
     BRS.tryToDecrypt = function(transaction, fields, account, options) {
 	var showDecryptionForm = false;
@@ -478,7 +478,7 @@ var BRS = (function(BRS, $, undefined) {
 	    BRS.removeDecryptionForm();
 	    $(outputEl).append(output).show();
 	}
-    }
+    };
 
     BRS.removeDecryptionForm = function($modal) {
 	if (($modal && $modal.find("#decrypt_note_form_container").length) || (!$modal && $("#decrypt_note_form_container").length)) {
@@ -486,7 +486,7 @@ var BRS = (function(BRS, $, undefined) {
 	    $("#decrypt_note_form_container").find(".callout").html($.t("passphrase_required_to_decrypt_data"));
 	    $("#decrypt_note_form_container").hide().detach().appendTo("body");
 	}
-    }
+    };
 
     $("#decrypt_note_form_container button.btn-primary").click(function() {
 	BRS.decryptNoteFormSubmit();
@@ -613,7 +613,7 @@ var BRS = (function(BRS, $, undefined) {
 	if (rememberPassword) {
 	    _decryptionPassword = password;
 	}
-    }
+    };
 
     BRS.decryptAllMessages = function(messages, password) {
 	if (!password) {
@@ -667,7 +667,7 @@ var BRS = (function(BRS, $, undefined) {
         else {
 	    return false;
 	}
-    }
+    };
 
     function simpleHash(message) {
 	_hash.init();

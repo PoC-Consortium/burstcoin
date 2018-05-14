@@ -37,7 +37,7 @@ var BRS = (function(BRS, $, undefined) {
 		BRS.pageLoaded(callback);
 	    }
 	});
-    }
+    };
 
     function displayMessageSidebar(callback) {
 	var activeAccount = false;
@@ -369,7 +369,7 @@ var BRS = (function(BRS, $, undefined) {
 	return {
 	    "data": data
 	};
-    }
+    };
 
     $("#inline_message_form").submit(function(e) {
 	e.preventDefault();
@@ -521,7 +521,7 @@ var BRS = (function(BRS, $, undefined) {
 	    }
 	    $('#messages_page .content-splitter-right-inner').scrollTop($('#messages_page .content-splitter-right-inner')[0].scrollHeight);
 	}
-    }
+    };
 
     $("#message_details").on("click", "dd.to_decrypt", function(e) {
 	$("#messages_decrypt_modal").modal("show");
@@ -591,7 +591,7 @@ var BRS = (function(BRS, $, undefined) {
 	return {
 	    "stop": true
 	};
-    }
+    };
 
     return BRS;
 }(BRS || {}, jQuery));

@@ -14,7 +14,6 @@ function NxtAddress() {
 	var cwmap = [3, 2, 1, 0, 7, 6, 5, 4, 13, 14, 15, 16, 12, 8, 9, 10, 11];
 
 	var alphabet = '23456789ABCDEFGHJKLMNPQRSTUVWXYZ';
-	//var alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ345679';
 
 	this.guess = [];
 
@@ -190,7 +189,7 @@ function NxtAddress() {
 		}
 
 		this.guess[len] = s;
-	} //__________________________
+	}; //__________________________
 
 	this.ok = function() {
 		var sum = 0;
@@ -210,7 +209,7 @@ function NxtAddress() {
 		}
 
 		return (sum == 0);
-	} //__________________________
+	}; //__________________________
 
 	function from_acc(acc) {
 		var inp = [],
@@ -265,7 +264,7 @@ function NxtAddress() {
 		}
 
 		return out;
-	} //__________________________
+	}; //__________________________
 
 	this.account_id = function() {
 		var out = '',
@@ -298,7 +297,7 @@ function NxtAddress() {
 		while (newlen);
 
 		return out.split("").reverse().join("");
-	} //__________________________
+	}; //__________________________
 
 	this.set = function(adr, allow_accounts) {
 		if (typeof allow_accounts === 'undefined') allow_accounts = true;
@@ -369,7 +368,7 @@ function NxtAddress() {
 		reset();
 
 		return false;
-	}
+	};
 
 	this.format_guess = function(s, org) {
 		var d = '',
@@ -419,5 +418,5 @@ function NxtAddress() {
 		}
 
 		return d;
-	}
+	};
 }

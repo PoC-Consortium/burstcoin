@@ -71,7 +71,7 @@ var BRS = (function(BRS, $, undefined) {
 
 	    BRS.fetchingModalData = false;
 	}
-    }
+    };
 
     return BRS;
 }(BRS || {}, jQuery));

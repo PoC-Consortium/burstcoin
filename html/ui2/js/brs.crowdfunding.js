@@ -22,7 +22,7 @@ var BRS = (function(BRS, $, undefined) {
         else {
 	    BRS.pageLoaded();
 	}
-    }
+    };
 
 
     $("#menu-toggle").click(function(e) {
@@ -31,16 +31,16 @@ var BRS = (function(BRS, $, undefined) {
     });
     $('#deploy').on('show.bs.modal', function(e) {});
     $('#buy-ticket').on('click', function(e) {
-	$(".alert-area").html('')
+	$(".alert-area").html('');
 	$('.alert-area').hide();
 	$('.alert-area').fadeOut('slow');
-	e.preventDefault()
-	e.stopPropagation()
-	var totalAmount = parseInt($('#total-amount').val())
-	totalAmount = totalAmount * 100000000
-	var pass = $('#password').val()
-	var atId = $('#at-id').val()
-	var fee = 100000000
+	e.preventDefault();
+	e.stopPropagation();
+	var totalAmount = parseInt($('#total-amount').val());
+	totalAmount = totalAmount * 100000000;
+	var pass = $('#password').val();
+	var atId = $('#at-id').val();
+	var fee = 100000000;
 	jsonRequest = {
 	    requestType: "sendMoney",
 	    recipient: atId,
@@ -48,49 +48,49 @@ var BRS = (function(BRS, $, undefined) {
 	    feeNQT: fee,
 	    secretPhrase: pass,
 	    deadline: 100
-	}
+	};
 	$.ajax({
 	    url: '//' + window.location.hostname.toLowerCase() + myPort + '/burst',
 	    type: 'POST',
 	    dataType: "json",
 	    data: jsonRequest,
 	    success: function(response, textStatus, jqXHR) {
-		sendMoney(response)
+		sendMoney(response);
 	    }
 	});
     });
     $('#deploy-at-btn').on('click', function(e) {
-	$(".alert-area").html(' ')
+	$(".alert-area").html(' ');
 	$('.alert-area').hide();
 	$('.alert-area').fadeOut('slow');
-	e.preventDefault()
-	e.stopPropagation()
-	var nameA = $('#funding-name').val()
-	var descA = $('#funding-description').val()
-	var weeksA = $('#sel1').val()
-	var burstsA = $('#funding-amount').val()
-	var burstsA = burstsA * 100000000
-	var passA = $('#funding-password').val()
-	var feeA = 1000000000
-	var minA = 700000000
+	e.preventDefault();
+	e.stopPropagation();
+	var nameA = $('#funding-name').val();
+	var descA = $('#funding-description').val();
+	var weeksA = $('#sel1').val();
+	var burstsA = $('#funding-amount').val();
+	var burstsA = burstsA * 100000000;
+	var passA = $('#funding-password').val();
+	var feeA = 1000000000;
+	var minA = 700000000;
 	var hexA = Number(burstsA).toString(16).toLowerCase();
 	var finalA = '';
-	if ((hexA.length % 2) != 0) {
-	    hexA = "0" + hexA
+	if ((hexA.length % 2) !== 0) {
+	    hexA = "0" + hexA;
 	}
 	for (var i = hexA.length - 1; i > 0; i = i - 2) {
-	    finalA = finalA + hexA[i - 1] + hexA[i]
+	    finalA = finalA + hexA[i - 1] + hexA[i];
 	}
-	var finalLength = finalA.length
+	var finalLength = finalA.length;
 	for (var i = 0; i < 16 - finalLength; i = i + 1) {
-	    finalA = finalA
+	    finalA = finalA;
 	}
-	var codeA = '350003000000002501000000350004020000002102000000030000004f3501030400000033040304000000' + '352501050000001b050000004a3506030600000035070304000000320a030107000000020000000000000033020406000000' + '1a2400000001070000000100000000000000320b033203043502030400000033040304000000352501050000001b05000000f235070304000000320b033203041a7c000000'
-	descA = descA + 'Crowdfund'
-	var dataA = '0000000000000000' + weeksA + '0000000000000000' + finalA
-	$('#deploy-at-btn').attr('disabled', 'disabled')
+	var codeA = '350003000000002501000000350004020000002102000000030000004f3501030400000033040304000000' + '352501050000001b050000004a3506030600000035070304000000320a030107000000020000000000000033020406000000' + '1a2400000001070000000100000000000000320b033203043502030400000033040304000000352501050000001b05000000f235070304000000320b033203041a7c000000';
+	descA = descA + 'Crowdfund';
+	var dataA = '0000000000000000' + weeksA + '0000000000000000' + finalA;
+	$('#deploy-at-btn').attr('disabled', 'disabled');
 	setTimeout(function() {
-	    $('#deploy-at-btn').removeAttr('disabled')
+	    $('#deploy-at-btn').removeAttr('disabled');
 	}, 5000);
 	jsonRequest = {
 	    requestType: "createATProgram",
@@ -105,14 +105,14 @@ var BRS = (function(BRS, $, undefined) {
 	    cspages: "0",
 	    uspages: "0",
 	    minActivationAmountNQT: minA
-	}
+	};
 	$.ajax({
 	    url: '//' + window.location.hostname.toLowerCase() + myPort + '/burst',
 	    type: 'POST',
 	    dataType: "json",
 	    data: jsonRequest,
 	    success: function(response, textStatus, jqXHR) {
-		sendMoney(response)
+		sendMoney(response);
 	    }
 	});
     });
@@ -122,15 +122,15 @@ var BRS = (function(BRS, $, undefined) {
 	    var $this = $(this);
 	    if (state.indexOf("all") > -1) {
 		$this.closest('div.crowdbox').parent().fadeIn();
-		$this.closest('div.crowdbox').parent().css('display', 'visible')
+		$this.closest('div.crowdbox').parent().css('display', 'visible');
 	    }
             else if ($this.text().toLowerCase().indexOf(state) === -1) {
 		$this.closest('div.crowdbox').parent().fadeOut();
-		$this.closest('div.crowdbox').parent().css('display', 'none')
+		$this.closest('div.crowdbox').parent().css('display', 'none');
 	    }
             else {
 		$this.closest('div.crowdbox').parent().fadeIn();
-		$this.closest('div.crowdbox').parent().css('display', 'visible')
+		$this.closest('div.crowdbox').parent().css('display', 'visible');
 	    }
 	});
     }
@@ -139,14 +139,14 @@ var BRS = (function(BRS, $, undefined) {
 	if (("errorCode" in response)) {
 	    $('.alert-area').show();
 	    $('.alert-area').fadeIn('slow');
-	    $(".alert-area").html('<div class="alert alert-danger" role="alert"> Error sending transaction. </div>')
+	    $(".alert-area").html('<div class="alert alert-danger" role="alert"> Error sending transaction. </div>');
 	    $('.alert-area').hide();
 	    $('.alert-area').fadeIn('slow');
 	}
         else {
 	    $('.alert-area').show();
 	    $('.alert-area').fadeIn('slow');
-	    $(".alert-area").html('<div class="alert alert-success" role="alert"> Transaction has been processed successfully. </div>')
+	    $(".alert-area").html('<div class="alert alert-success" role="alert"> Transaction has been processed successfully. </div>');
 	    $('.alert-area').hide();
 	    $('.alert-area').fadeIn('slow');
 	}
@@ -199,7 +199,7 @@ var BRS = (function(BRS, $, undefined) {
 	var jsonRequest = {
 	    requestType: "getAT",
 	    at: atId
-	}
+	};
 	$.ajax({
 	    url: '//' + window.location.hostname.toLowerCase() + myPort + '/burst',
 	    type: 'POST',
@@ -214,7 +214,7 @@ var BRS = (function(BRS, $, undefined) {
     function getBlockHeight(atIds) {
 	var jsonRequest = {
 	    requestType: "getBlockchainStatus"
-	}
+	};
 	$.ajax({
 	    url: '//' + window.location.hostname.toLowerCase() + myPort + '/burst',
 	    type: 'POST',
@@ -259,63 +259,63 @@ var BRS = (function(BRS, $, undefined) {
     }
 
     function drawAT(funded, gatheredAmount, targetAmount, decision, transaction, blockHeight, atData) {
-	var tarAmount = 0
-	var atBalance = 0
+	var tarAmount = 0;
+	var atBalance = 0;
 	if (targetAmount.length > 8) {
-	    tarAmount = parseInt(targetAmount.substring(0, targetAmount.length - 8))
+	    tarAmount = parseInt(targetAmount.substring(0, targetAmount.length - 8));
 	}
 	if (atData.balanceNQT.length > 8) {
-	    atBalance = parseInt(atData.balanceNQT.substring(0, atData.balanceNQT.length - 8))
+	    atBalance = parseInt(atData.balanceNQT.substring(0, atData.balanceNQT.length - 8));
 	}
 	if (funded == 1 || funded == 2) {
 	    if (gatheredAmount.length > 8) {
-		atBalance = parseInt(gatheredAmount.substring(0, gatheredAmount.length - 8))
+		atBalance = parseInt(gatheredAmount.substring(0, gatheredAmount.length - 8));
 	    }
 	}
-	var ratio = atBalance / tarAmount * 100
-	var ratioText = ratio - 15
-	var ratioDesc = ratio.toFixed(1) + '%'
+	var ratio = atBalance / tarAmount * 100;
+	var ratioText = ratio - 15;
+	var ratioDesc = ratio.toFixed(1) + '%';
 	if (ratio > 100) {
-	    ratioText = 80
-	    ratioDesc = 'Funded!'
+	    ratioText = 80;
+	    ratioDesc = 'Funded!';
 	}
-	var blocks = 'blocks to go'
+	var blocks = 'blocks to go';
 	var descr = atData.description.substr(0, atData.description.length - 9);
-	var ends = parseInt(transaction) + parseInt(decision) - parseInt(blockHeight)
-	var diff = parseInt(blockHeight) - parseInt(transaction)
-	var fundedStr = 'ongoing'
-	var color = 'white'
-	var icon = 'glyphicon glyphicon-signal'
-	var finished = ''
-	var buttonStr = 'Pledge'
-	var buttonState = ''
+	var ends = parseInt(transaction) + parseInt(decision) - parseInt(blockHeight);
+	var diff = parseInt(blockHeight) - parseInt(transaction);
+	var fundedStr = 'ongoing';
+	var color = 'white';
+	var icon = 'glyphicon glyphicon-signal';
+	var finished = '';
+	var buttonStr = 'Pledge';
+	var buttonState = '';
 	if (funded == 2) {
-	    fundedStr = 'false'
-	    ratioDesc = 'Not funded!'
-	    icon = 'glyphicon glyphicon-remove-sign'
-	    ratioText = 40
-	    color = 'black'
-	    finished = 'finished'
-	    blocks = 'blocks ago'
-	    buttonState = 'disabled'
+	    fundedStr = 'false';
+	    ratioDesc = 'Not funded!';
+	    icon = 'glyphicon glyphicon-remove-sign';
+	    ratioText = 40;
+	    color = 'black';
+	    finished = 'finished';
+	    blocks = 'blocks ago';
+	    buttonState = 'disabled';
 	}
         else if (funded == 1) {
-	    fundedStr = 'true'
-	    ratioDesc = 'Successfully Funded!'
-	    icon = 'glyphicon glyphicon-ok-sign'
-	    ratioText = 40
-	    blocks = 'blocks ago'
-	    finished = 'finished'
-	    buttonStr = 'Donate'
+	    fundedStr = 'true';
+	    ratioDesc = 'Successfully Funded!';
+	    icon = 'glyphicon glyphicon-ok-sign';
+	    ratioText = 40;
+	    blocks = 'blocks ago';
+	    finished = 'finished';
+	    buttonStr = 'Donate';
 	}
-	if (funded == 0 && ends < 0) {
-	    ends = 'NaN'
-	    tarAmount = 'NaN'
+	if (funded === 0 && ends < 0) {
+	    ends = 'NaN';
+	    tarAmount = 'NaN';
 	}
         else {
-	    ends = Math.abs(ends)
+	    ends = Math.abs(ends);
 	}
-	var html = '<div class="col-lg-4 crowd '+ atData.creatorRS +'" name="'+ atData.name +'" creator="'+ atData.creatorRS +'">' + '<div class="crowdbox"> ' + '<a href="#" class="close hide-cf" data-dismiss="alert" aria-label="close"><i style="color: red;padding-top: 10px;" class="fas fa-minus-circle" aria-hidden="true"></i></a><h2 class="head">' + atData.name + '</h2>' + '<hr>' + '<div class="crowdtext">' + descr + '</div>' + '<div class="state" style="display:none">' + fundedStr + '</div>' + '<hr>' + '<div class="progress">' + '<span class="progress-value" style="color:#000000' + ';text-align: center'+ ' "> <span class="' + icon + '"></span><span>  ' + ratioDesc + '</span></span>' + '<div class="progress-bar" style="width:' + ratio + '%"></div>' + '</div>' + '<div class="text-amount">' + '<div class="row">' + '<div style= "text-align: center;">' + '   <span style=' + '   "font-size:1.2em;color:black">' + atBalance + '</span>' + '   <span style="font-size:0.9em;color:gray">pledged out of ' + tarAmount + '</span>' + '</div>' + '<div style="text-align: center;">' + '   <span><span style=' + '   "font-size:0.9em;color:gray">' + finished + ' </span><span style=' + '   "font-size:1.2em;color:black">' + ends + '</span> <span style=' + '   "font-size:0.9em;color:gray">' + blocks + '</span> </span>' + '</div>' + '<div style= "text-align: center;">' + '   <span><span style=' + '   "font-size:1.2em;color:black">' + ratio.toFixed(2) + '%</span> <span style=' + '   "font-size:0.9em;color:gray">funded</span></span>' + '</div>' + '</div>' + '</div>' + '<hr>' + '<div class="row">' + '<div class="col-lg-12"><strong>Creator: </strong> <span style=' + '"font-size:1.0 em;color:gray">' + atData.creatorRS + '</span></div>' + '<div class="row" style="margin-top: 32px;"><div class="" style="margin: 0 30px;"><button type="button" class="btn btn-primary btn-block hide-all-cfs btn-sm test" style="font-size: 13px; margin-right: 10px; width: auto;" creator-val="'+ atData.creatorRS +'">Hide All CFs from this creator</button>'
+	var html = '<div class="col-lg-4 crowd '+ atData.creatorRS +'" name="'+ atData.name +'" creator="'+ atData.creatorRS +'">' + '<div class="crowdbox"> ' + '<a href="#" class="close hide-cf" data-dismiss="alert" aria-label="close"><i style="color: red;padding-top: 10px;" class="fas fa-minus-circle" aria-hidden="true"></i></a><h2 class="head">' + atData.name + '</h2>' + '<hr>' + '<div class="crowdtext">' + descr + '</div>' + '<div class="state" style="display:none">' + fundedStr + '</div>' + '<hr>' + '<div class="progress">' + '<span class="progress-value" style="color:#000000' + ';text-align: center'+ ' "> <span class="' + icon + '"></span><span>  ' + ratioDesc + '</span></span>' + '<div class="progress-bar" style="width:' + ratio + '%"></div>' + '</div>' + '<div class="text-amount">' + '<div class="row">' + '<div style= "text-align: center;">' + '   <span style=' + '   "font-size:1.2em;color:black">' + atBalance + '</span>' + '   <span style="font-size:0.9em;color:gray">pledged out of ' + tarAmount + '</span>' + '</div>' + '<div style="text-align: center;">' + '   <span><span style=' + '   "font-size:0.9em;color:gray">' + finished + ' </span><span style=' + '   "font-size:1.2em;color:black">' + ends + '</span> <span style=' + '   "font-size:0.9em;color:gray">' + blocks + '</span> </span>' + '</div>' + '<div style= "text-align: center;">' + '   <span><span style=' + '   "font-size:1.2em;color:black">' + ratio.toFixed(2) + '%</span> <span style=' + '   "font-size:0.9em;color:gray">funded</span></span>' + '</div>' + '</div>' + '</div>' + '<hr>' + '<div class="row">' + '<div class="col-lg-12"><strong>Creator: </strong> <span style=' + '"font-size:1.0 em;color:gray">' + atData.creatorRS + '</span></div>' + '<div class="row" style="margin-top: 32px;"><div class="" style="margin: 0 30px;"><button type="button" class="btn btn-primary btn-block hide-all-cfs btn-sm test" style="font-size: 13px; margin-right: 10px; width: auto;" creator-val="'+ atData.creatorRS +'">Hide All CFs from this creator</button>';
 	
         $(document).ready(function(e) {
             $(".crowdfunding-link-notfunded").click(function(e) {		
@@ -342,9 +342,9 @@ var BRS = (function(BRS, $, undefined) {
 
 
 	if (buttonState != 'disabled') {
-	    html = html + '<a data-toggle="modal" data-at-id="' + atData.at + '" data-total-amount="1000" title="Add this item" class="open-buyTicket btn btn-primary btn-sm" font-size: 13px; href="#buyTicket" style="position: relative;right: -205px;top: -31px;"><i class="glyphicon glyphicon-send"></i>&nbsp;' + buttonStr + ' </a></div>'
+	    html = html + '<a data-toggle="modal" data-at-id="' + atData.at + '" data-total-amount="1000" title="Add this item" class="open-buyTicket btn btn-primary btn-sm" font-size: 13px; href="#buyTicket" style="position: relative;right: -205px;top: -31px;"><i class="glyphicon glyphicon-send"></i>&nbsp;' + buttonStr + ' </a></div>';
 	}
-	html = html + '</div>' + '</div>' + '</div>' + '</div>'
+	html = html + '</div>' + '</div>' + '</div>' + '</div>';
 	$('.at-block').append(html);
     }
     $(document).ready(function(e) {
@@ -355,14 +355,14 @@ var BRS = (function(BRS, $, undefined) {
 	    var query = $.trim($(this).parent().prevAll('.search-query').val()).toLowerCase();
 	    $('div.col-lg-4 div.crowdbox .crowdtext').each(function() {
 		var $this = $(this);
-		var h2Text = $this.closest('div.crowdbox').parent().find('h2')
+		var h2Text = $this.closest('div.crowdbox').parent().find('h2');
 		if ($this.text().toLowerCase().indexOf(query) === -1 && h2Text.text().toLowerCase().indexOf(query) === -1) {
 		    $this.closest('div.crowdbox').parent().fadeOut();
-		    $this.closest('div.crowdbox').parent().css('display', 'none')
+		    $this.closest('div.crowdbox').parent().css('display', 'none');
 		}
                 else {
 		    $this.closest('div.crowdbox').parent().fadeIn();
-		    $this.closest('div.crowdbox').parent().css('display', 'visible')
+		    $this.closest('div.crowdbox').parent().css('display', 'visible');
 		}
 	    });
 	});
@@ -376,7 +376,7 @@ var BRS = (function(BRS, $, undefined) {
             // show hidden cfs and hide show cfs
 	    $(".crowd").each(function(){
 		var hidden_status = $(this).attr('hidden-cf');
-                if(hidden_status == null){
+                if(hidden_status === null){
                     $(this).show();
                 }
                 if(hidden_status == 'yes'){
@@ -550,7 +550,7 @@ var BRS = (function(BRS, $, undefined) {
             // show hidden cfs and hide shown cfs
 	    $(".crowd").each(function(){
 		var hidden_status = $(this).attr('hidden-cf');
-                if(hidden_status == null){
+                if(hidden_status === null){
                     $(this).hide();
                 }
                 if(hidden_status == 'yes'){

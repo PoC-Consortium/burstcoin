@@ -23,7 +23,7 @@ var BRS = (function(BRS, $, undefined) {
 	    BRS.accountInfo.description = description;
 	    BRS.accountInfo.name = name;
 	}, 1000);
-    }
+    };
 
     return BRS;
 }(BRS || {}, jQuery));

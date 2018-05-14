@@ -20,7 +20,7 @@ var BRS = (function(BRS, $, undefined) {
 		}
 	    }
 	}, true);
-    }
+    };
 
     BRS.handleInitialBlocks = function(response) {
 	if (response.errorCode) {
@@ -82,12 +82,12 @@ var BRS = (function(BRS, $, undefined) {
 	    $("#dashboard_blocks_table tbody").empty().append(rows);
 	    BRS.dataLoadFinished($("#dashboard_blocks_table"));
 	}
-    }
+    };
 
     BRS.handleNewBlocks = function(response) {
 	if (BRS.downloadingBlockchain) {
 	    //new round started...
-	    if (BRS.tempBlocks.length == 0 && BRS.state.lastBlock != response.block) {
+	    if (BRS.tempBlocks.length === 0 && BRS.state.lastBlock != response.block) {
 		return;
 	    }
 	}
@@ -97,7 +97,7 @@ var BRS = (function(BRS, $, undefined) {
 	    var newBlocks = [];
 
 	    //there was only 1 new block (response)
-	    if (BRS.tempBlocks.length == 0) {
+	    if (BRS.tempBlocks.length === 0) {
 		//remove oldest block, add newest block
 		BRS.blocks.unshift(response);
 		newBlocks.push(response);
@@ -122,7 +122,7 @@ var BRS = (function(BRS, $, undefined) {
 	    BRS.tempBlocks.push(response);
 	    BRS.getBlock(response.previousBlock, BRS.handleNewBlocks);
 	}
-    }
+    };
 
     BRS.checkBlockHeight = function(blockHeight) {
 	if (blockHeight) {
@@ -130,7 +130,7 @@ var BRS = (function(BRS, $, undefined) {
 	}
 
 	//no checks needed at the moment
-    }
+    };
 
     //we always update the dashboard page..
     BRS.incoming.updateDashboardBlocks = function(newBlocks) {
@@ -156,7 +156,7 @@ var BRS = (function(BRS, $, undefined) {
 		    $("#dashboard_message").hide();
 		    $("#downloading_blockchain, #brs_update_explanation_blockchain_sync").hide();
 		    $("#brs_update_explanation_wait").removeAttr("style");
-		    if (BRS.settings["console_log"] && !BRS.inApp) {
+		    if (BRS.settings.console_log && !BRS.inApp) {
 			$("#show_console").show();
 		    }
 		    $.notify($.t("success_blockchain_up_to_date"), {
@@ -243,7 +243,7 @@ var BRS = (function(BRS, $, undefined) {
 		}));
 	    }
 	});
-    }
+    };
 
     BRS.pages.blocks = function() {
 	if (BRS.blocksPageType == "forged_blocks") {
@@ -276,7 +276,7 @@ var BRS = (function(BRS, $, undefined) {
 				return;
 			    }
 
-			    block["block"] = input.block;
+			    block.block = input.block;
 			    blocks[input["_extra"].nr] = block;
 			    nrBlocks++;
 
@@ -316,11 +316,11 @@ var BRS = (function(BRS, $, undefined) {
 		BRS.blocksPageLoaded(BRS.blocks);
 	    }
 	}
-    }
+    };
 
     BRS.incoming.blocks = function() {
 	BRS.loadPage("blocks");
-    }
+    };
 
     BRS.finish100Blocks = function(response) {
 	BRS.blocks.push(response);
@@ -330,7 +330,7 @@ var BRS = (function(BRS, $, undefined) {
         else {
 	    BRS.blocksPageLoaded(BRS.blocks);
 	}
-    }
+    };
 
     BRS.blocksPageLoaded = function(blocks) {
 	var rows = "";
@@ -386,7 +386,7 @@ var BRS = (function(BRS, $, undefined) {
 	    $("#forged_fees_total").html(BRS.formatStyledAmount(BRS.accountInfo.forgedBalanceNQT)).removeClass("loading_dots");
 	}
         else {
-	    if (time == 0) {
+	    if (time === 0) {
 		$("#blocks_transactions_per_hour").html("0").removeClass("loading_dots");
 	    }
             else {
@@ -396,7 +396,7 @@ var BRS = (function(BRS, $, undefined) {
 	}
 
 	BRS.dataLoaded(rows);
-    }
+    };
 
     $("#blocks_page_type .btn").click(function(e) {
 	//	$("#blocks_page_type li a").click(function(e) {

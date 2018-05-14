@@ -12,7 +12,7 @@ var BRS = (function(BRS, $, undefined) {
 		BRS.login(password);
 	    }
 	});
-    }
+    };
 
     BRS.showLoginOrWelcomeScreen = function() {
 	if (BRS.hasLocalStorage && localStorage.getItem("logged_in")) {
@@ -21,7 +21,7 @@ var BRS = (function(BRS, $, undefined) {
         else {
 	    BRS.showWelcomeScreen();
 	}
-    }
+    };
 
     BRS.showLoginScreen = function() {
 	$("#account_phrase_custom_panel, #account_phrase_generator_panel, #welcome_panel, #custom_passphrase_link").hide();
@@ -29,14 +29,14 @@ var BRS = (function(BRS, $, undefined) {
 	$("#account_phrase_generator_panel :input:not(:button):not([type=submit])").val("");
 	$("#login_panel").show();
 	setTimeout(function() {
-	    $("#login_password").focus()
+	    $("#login_password").focus();
 	}, 10);
-    }
+    };
 
     BRS.showWelcomeScreen = function() {
 	$("#login_panel, account_phrase_custom_panel, #account_phrase_generator_panel, #account_phrase_custom_panel, #welcome_panel, #custom_passphrase_link").hide();
 	$("#welcome_panel").show();
-    }
+    };
 
     BRS.registerUserDefinedAccount = function() {
 	$("#account_phrase_generator_panel, #login_panel, #welcome_panel, #custom_passphrase_link").hide();
@@ -44,7 +44,7 @@ var BRS = (function(BRS, $, undefined) {
 	$("#account_phrase_generator_panel :input:not(:button):not([type=submit])").val("");
 	$("#account_phrase_custom_panel").show();
 	$("#registration_password").focus();
-    }
+    };
 
     BRS.registerAccount = function() {
 	$("#login_panel, #welcome_panel").hide();
@@ -80,7 +80,7 @@ var BRS = (function(BRS, $, undefined) {
 
 	    PassPhraseGenerator.generatePassPhrase("#account_phrase_generator_panel");
 	}
-    }
+    };
 
     BRS.verifyGeneratedPassphrase = function() {
 	var password = $.trim($("#account_phrase_generator_panel .step_3 textarea").val());
@@ -95,10 +95,10 @@ var BRS = (function(BRS, $, undefined) {
 	    $("#account_phrase_generator_panel textarea").val("");
 	    $("#account_phrase_generator_panel .step_3 .callout").hide();
 	}
-    }
+    };
 
     $("#account_phrase_custom_panel form").submit(function(event) {
-	event.preventDefault()
+	event.preventDefault();
 
 	var password = $("#registration_password").val();
 	var repeat = $("#registration_password_repeat").val();
@@ -332,7 +332,7 @@ var BRS = (function(BRS, $, undefined) {
 
 
 	});
-    }
+    };
 
     $("#logout_button_container").on("show.bs.dropdown", function(e) {
 	if (!BRS.isForging) {
@@ -343,7 +343,7 @@ var BRS = (function(BRS, $, undefined) {
     BRS.showLockscreen = function() {
 	if (BRS.hasLocalStorage && localStorage.getItem("logged_in")) {
 	    setTimeout(function() {
-		$("#login_password").focus()
+		$("#login_password").focus();
 	    }, 10);
 	}
         else {
@@ -351,7 +351,7 @@ var BRS = (function(BRS, $, undefined) {
 	}
 
 	$("#center").show();
-    }
+    };
 
     BRS.unlock = function() {
 	if (BRS.hasLocalStorage && !localStorage.getItem("logged_in")) {
@@ -369,7 +369,7 @@ var BRS = (function(BRS, $, undefined) {
 	$("#login_error").html("").hide();
 
 	$(document.documentElement).scrollTop(0);
-    }
+    };
 
     $("#logout_button").click(function(e) {
 	if (!BRS.isForging) {
@@ -388,11 +388,11 @@ var BRS = (function(BRS, $, undefined) {
 	    BRS.setPassword("");
 	    window.location.reload();
 	}
-    }
+    };
 
     BRS.setPassword = function(password) {
 	BRS.setEncryptionPassword(password);
 	BRS.setServerPassword(password);
-    }
+    };
     return BRS;
 }(BRS || {}, jQuery));

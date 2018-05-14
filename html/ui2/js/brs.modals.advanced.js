@@ -24,7 +24,7 @@ var BRS = (function(BRS, $, undefined) {
 	}
 
 	$("#raw_transaction_modal").modal("show");
-    }
+    };
 
     $("#transaction_operations_modal").on("show.bs.modal", function(e) {
 	$(this).find(".output_table tbody").empty();
@@ -69,29 +69,29 @@ var BRS = (function(BRS, $, undefined) {
     BRS.forms.broadcastTransactionComplete = function(response, data) {
 	$("#parse_transaction_form").find(".error_message").hide();
 	$("#transaction_operations_modal").modal("hide");
-    }
+    };
 
     BRS.forms.parseTransactionComplete = function(response, data) {
 	$("#parse_transaction_form").find(".error_message").hide();
 	$("#parse_transaction_output_table tbody").empty().append(BRS.createInfoTable(response, true));
 	$("#parse_transaction_output").show();
-    }
+    };
 
     BRS.forms.parseTransactionError = function() {
 	$("#parse_transaction_output_table tbody").empty();
 	$("#parse_transaction_output").hide();
-    }
+    };
 
     BRS.forms.calculateFullHashComplete = function(response, data) {
 	$("#calculate_full_hash_form").find(".error_message").hide();
 	$("#calculate_full_hash_output_table tbody").empty().append(BRS.createInfoTable(response, true));
 	$("#calculate_full_hash_output").show();
-    }
+    };
 
     BRS.forms.calculateFullHashError = function() {
 	$("#calculate_full_hash_output_table tbody").empty();
 	$("#calculate_full_hash_output").hide();
-    }
+    };
 
     return BRS;
 }(BRS || {}, jQuery));

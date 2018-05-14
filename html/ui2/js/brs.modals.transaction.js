@@ -34,7 +34,7 @@ var BRS = (function(BRS, $, undefined) {
         else {
 	    BRS.processTransactionModalData(transaction);
 	}
-    }
+    };
 
     BRS.processTransactionModalData = function(transaction) {
 	var async = false;
@@ -159,7 +159,7 @@ var BRS = (function(BRS, $, undefined) {
 		};
 
 		if (transaction.sender != BRS.account) {
-		    data["sender"] = BRS.getAccountTitle(transaction, "sender");
+		    data.sender = BRS.getAccountTitle(transaction, "sender");
 		}
 
 		$("#transaction_info_table tbody").append(BRS.createInfoTable(data));
@@ -174,7 +174,7 @@ var BRS = (function(BRS, $, undefined) {
 		};
 
 		if (transaction.sender != BRS.account) {
-		    data["sender"] = BRS.getAccountTitle(transaction, "sender");
+		    data.sender = BRS.getAccountTitle(transaction, "sender");
 		}
 
 		$("#transaction_info_table tbody").append(BRS.createInfoTable(data));
@@ -187,7 +187,7 @@ var BRS = (function(BRS, $, undefined) {
 		};
 
 		if (transaction.sender != BRS.account) {
-		    data["sender"] = BRS.getAccountTitle(transaction, "sender");
+		    data.sender = BRS.getAccountTitle(transaction, "sender");
 		}
 
 		$("#transaction_info_table tbody").append(BRS.createInfoTable(data));
@@ -230,17 +230,17 @@ var BRS = (function(BRS, $, undefined) {
 		var data = {
 		    "type": type,
 		    "alias_name": transaction.attachment.alias
-		}
+		};
 
 		if (type == $.t("alias_sale")) {
-		    data["price"] = transaction.attachment.priceNQT
+		    data.price = transaction.attachment.priceNQT;
 		}
 
 		if (type != $.t("alias_sale_cancellation")) {
-		    data["recipient"] = BRS.getAccountTitle(transaction, "recipient");
+		    data.recipient = BRS.getAccountTitle(transaction, "recipient");
 		}
 
-		data["sender"] = BRS.getAccountTitle(transaction, "sender");
+		data.sender = BRS.getAccountTitle(transaction, "sender");
 
 		if (type == $.t("alias_sale")) {
 		    var message = "";
@@ -293,7 +293,7 @@ var BRS = (function(BRS, $, undefined) {
 		    "price": transaction.amountNQT,
 		    "recipient": BRS.getAccountTitle(transaction, "recipient"),
 		    "sender": BRS.getAccountTitle(transaction, "sender")
-		}
+		};
 
 		$("#transaction_info_table tbody").append(BRS.createInfoTable(data));
 		$("#transaction_info_table").show();
@@ -316,7 +316,7 @@ var BRS = (function(BRS, $, undefined) {
 		};
 
 		if (transaction.sender != BRS.account) {
-		    data["sender"] = BRS.getAccountTitle(transaction, "sender");
+		    data.sender = BRS.getAccountTitle(transaction, "sender");
 		}
 
 		$("#transaction_info_callout").html("<a href='#' data-goto-asset='" + String(transaction.transaction).escapeHTML() + "'>Click here</a> to view this asset in the Asset Exchange.").show();
@@ -337,8 +337,8 @@ var BRS = (function(BRS, $, undefined) {
 			"quantity": [transaction.attachment.quantityQNT, asset.decimals]
 		    };
 
-		    data["sender"] = BRS.getAccountTitle(transaction, "sender");
-		    data["recipient"] = BRS.getAccountTitle(transaction, "recipient");
+		    data.sender = BRS.getAccountTitle(transaction, "sender");
+		    data.recipient = BRS.getAccountTitle(transaction, "recipient");
 
 		    $("#transaction_info_table tbody").append(BRS.createInfoTable(data));
 		    $("#transaction_info_table").show();
@@ -363,7 +363,7 @@ var BRS = (function(BRS, $, undefined) {
 		    };
 
 		    if (transaction.sender != BRS.account) {
-			data["sender"] = BRS.getAccountTitle(transaction, "sender");
+			data.sender = BRS.getAccountTitle(transaction, "sender");
 		    }
 
 		    $("#transaction_info_table tbody").append(BRS.createInfoTable(data));
@@ -389,7 +389,7 @@ var BRS = (function(BRS, $, undefined) {
 		    };
 
 		    if (transaction.sender != BRS.account) {
-			data["sender"] = BRS.getAccountTitle(transaction, "sender");
+			data.sender = BRS.getAccountTitle(transaction, "sender");
 		    }
 
 		    $("#transaction_info_table tbody").append(BRS.createInfoTable(data));
@@ -419,7 +419,7 @@ var BRS = (function(BRS, $, undefined) {
 			    };
 
 			    if (transaction.sender != BRS.account) {
-				data["sender"] = BRS.getAccountTitle(transaction, "sender");
+				data.sender = BRS.getAccountTitle(transaction, "sender");
 			    }
 
 			    $("#transaction_info_table tbody").append(BRS.createInfoTable(data));
@@ -454,7 +454,7 @@ var BRS = (function(BRS, $, undefined) {
 			    };
 
 			    if (transaction.sender != BRS.account) {
-				data["sender"] = BRS.getAccountTitle(transaction, "sender");
+				data.sender = BRS.getAccountTitle(transaction, "sender");
 			    }
 
 			    $("#transaction_info_table tbody").append(BRS.createInfoTable(data));
@@ -630,19 +630,19 @@ var BRS = (function(BRS, $, undefined) {
 			    "price": purchase.priceNQT
 			};
 
-			data["quantity_formatted_html"] = BRS.format(purchase.quantity);
+			data.quantity_formatted_html = BRS.format(purchase.quantity);
 
 			if (purchase.quantity != "1") {
 			    var orderTotal = BRS.formatAmount(new BigInteger(String(purchase.quantity)).multiply(new BigInteger(String(purchase.priceNQT))));
-			    data["total_formatted_html"] = orderTotal + " BURST";
+			    data.total_formatted_html = orderTotal + " BURST";
 			}
 
 			if (transaction.attachment.discountNQT) {
-			    data["discount"] = transaction.attachment.discountNQT;
+			    data.discount = transaction.attachment.discountNQT;
 			}
 
-			data["buyer"] = BRS.getAccountFormatted(purchase, "buyer");
-			data["seller"] = BRS.getAccountFormatted(purchase, "seller");
+			data.buyer = BRS.getAccountFormatted(purchase, "buyer");
+			data.seller = BRS.getAccountFormatted(purchase, "seller");
 
 			if (transaction.attachment.goodsData) {
 			    if (BRS.account == purchase.seller || BRS.account == purchase.buyer) {
@@ -654,7 +654,7 @@ var BRS = (function(BRS, $, undefined) {
 				}, (purchase.buyer == BRS.account ? purchase.seller : purchase.buyer));
 			    }
                             else {
-				data["data"] = $.t("encrypted_goods_data_no_permission");
+				data.data = $.t("encrypted_goods_data_no_permission");
 			    }
 			}
 
@@ -757,12 +757,12 @@ var BRS = (function(BRS, $, undefined) {
 
 			var orderTotal = new BigInteger(String(purchase.quantity)).multiply(new BigInteger(String(purchase.priceNQT)));
 
-			data["order_total_formatted_html"] = BRS.formatAmount(orderTotal) + " BURST";
+			data.order_total_formatted_html = BRS.formatAmount(orderTotal) + " BURST";
 
-			data["refund"] = transaction.attachment.refundNQT;
+			data.refund = transaction.attachment.refundNQT;
 
-			data["buyer"] = BRS.getAccountFormatted(purchase, "buyer");
-			data["seller"] = BRS.getAccountFormatted(purchase, "seller");
+			data.buyer = BRS.getAccountFormatted(purchase, "buyer");
+			data.seller = BRS.getAccountFormatted(purchase, "seller");
 
 			$("#transaction_info_table tbody").append(BRS.createInfoTable(data));
 			$("#transaction_info_table").show();
@@ -775,7 +775,7 @@ var BRS = (function(BRS, $, undefined) {
 		break;
 	    default:
 		incorrect = true;
-		break
+		break;
 	    }
 	}
         else if (transaction.type == 4) {
@@ -862,7 +862,7 @@ var BRS = (function(BRS, $, undefined) {
 	    $("#transaction_info_modal").modal("show");
 	    BRS.fetchingModalData = false;
 	}
-    }
+    };
 
     $("#transaction_info_modal").on("hide.bs.modal", function(e) {
 	BRS.removeDecryptionForm($(this));

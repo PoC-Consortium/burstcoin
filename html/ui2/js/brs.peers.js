@@ -90,11 +90,11 @@ var BRS = (function(BRS, $, undefined) {
 		BRS.dataLoaded();
 	    }
 	});
-    }
+    };
 
     BRS.incoming.peers = function() {
 	BRS.loadPage("peers");
-    }
+    };
 
     return BRS;
 }(BRS || {}, jQuery));

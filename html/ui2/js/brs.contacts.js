@@ -12,7 +12,7 @@ var BRS = (function(BRS, $, undefined) {
 		});
 	    }
 	});
-    }
+    };
 
     BRS.pages.contacts = function() {
 	if (!BRS.databaseSupport) {
@@ -58,7 +58,7 @@ var BRS = (function(BRS, $, undefined) {
 
 	    BRS.dataLoaded(rows);
 	});
-    }
+    };
 
     BRS.forms.addContact = function($modal) {
 	var data = BRS.getFormData($modal.find("form:first"));
@@ -194,7 +194,7 @@ var BRS = (function(BRS, $, undefined) {
 		});
 	    }
 	});
-    }
+    };
 
     $("#update_contact_modal").on("show.bs.modal", function(e) {
 	var $invoker = $(e.relatedTarget);
@@ -363,7 +363,7 @@ var BRS = (function(BRS, $, undefined) {
 		});
 	    }
 	});
-    }
+    };
 
     $("#delete_contact_modal").on("show.bs.modal", function(e) {
 	var $invoker = $(e.relatedTarget);
@@ -404,7 +404,7 @@ var BRS = (function(BRS, $, undefined) {
 	return {
 	    "stop": true
 	};
-    }
+    };
     BRS.exportContacts = function() {
 	if (BRS.contacts && (Object.keys(BRS.contacts).length > 0)) {
 	    var contacts_download = document.createElement('a');
@@ -418,7 +418,7 @@ var BRS = (function(BRS, $, undefined) {
         else {
 	    console.log('No contacts found in database to backup');
 	}
-    }
+    };
     $("#export_contacts_button").on("click", function() {
 	BRS.exportContacts();
     });
@@ -487,7 +487,7 @@ var BRS = (function(BRS, $, undefined) {
 		}
 	    });
 	});
-    }
+    };
     $("#import_contacts_button_field").css({'display':'none'});
     $("#import_contacts_button_field").on("change", function(button_event) {
 	button_event.preventDefault();

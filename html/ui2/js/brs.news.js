@@ -39,7 +39,7 @@ var BRS = (function(BRS, $, undefined) {
 		    }
 		},
 		"filter": function(entry, tokens) {
-		    return tokens.title.indexOf("Donations toward") == -1 && tokens.title.indexOf("BURST tipping bot has arrived") == -1
+		    return tokens.title.indexOf("Donations toward") == -1 && tokens.title.indexOf("BURST tipping bot has arrived") == -1;
 		}
 	    };
 
@@ -50,11 +50,11 @@ var BRS = (function(BRS, $, undefined) {
 	}
 
 	BRS.pageLoaded();
-    }
+    };
 
     BRS.newsLoaded = function($el) {
 	$el.removeClass("data-loading").find("img").remove();
-    }
+    };
 
     $("#rss_news_enable").on("click", function() {
 	BRS.updateSettings("news", 1);

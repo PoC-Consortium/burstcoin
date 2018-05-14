@@ -163,7 +163,7 @@ var BRS = (function(BRS, $, undefined) {
 
 	    BRS.pageLoaded();
 	});
-    }
+    };
 
     $("#transfer_alias_modal, #sell_alias_modal, #cancel_alias_sale_modal").on("show.bs.modal", function(e) {
 	var $invoker = $(e.relatedTarget);
@@ -234,7 +234,7 @@ var BRS = (function(BRS, $, undefined) {
 	    "successMessage": successMessage,
 	    "errorMessage": errorMessage
 	};
-    }
+    };
 
     BRS.forms.sellAliasComplete = function(response, data) {
 	if (response.alreadyProcessed) {
@@ -263,7 +263,7 @@ var BRS = (function(BRS, $, undefined) {
 		$row.find("td.status").html("<span class='label label-small label-info'>" + $.t("for_sale_indirect") + "</span>");
 	    }
 	}
-    }
+    };
 
     /*
       $("#sell_alias_add_message").on("change", function(e) {
@@ -355,7 +355,7 @@ var BRS = (function(BRS, $, undefined) {
 
     BRS.forms.buyAliasError = function() {
 	$("#buy_alias_modal").find("input[name=priceNXT]").prop("readonly", false);
-    }
+    };
 
     BRS.forms.buyAliasComplete = function(response, data) {
 	if (response.alreadyProcessed) {
@@ -374,7 +374,7 @@ var BRS = (function(BRS, $, undefined) {
 	if ($("#aliases_table").parent().hasClass("data-empty")) {
 	    $("#aliases_table").parent().removeClass("data-empty");
 	}
-    }
+    };
 
     $("#register_alias_modal").on("show.bs.modal", function(e) {
 	var $invoker = $(e.relatedTarget);
@@ -440,7 +440,7 @@ var BRS = (function(BRS, $, undefined) {
 	if (BRS.hasTransactionUpdates(transactions)) {
 	    BRS.loadPage("aliases");
 	}
-    }
+    };
 
     BRS.forms.setAlias = function($modal) {
 	var data = BRS.getFormData($modal.find("form:first"));
@@ -472,12 +472,12 @@ var BRS = (function(BRS, $, undefined) {
 	    }
 	}
 
-	delete data["type"];
+	delete data.type;
 
 	return {
 	    "data": data
 	};
-    }
+    };
 
     function setAliasType(type, uri) {
 	$("#register_alias_type").val(type);
@@ -597,7 +597,7 @@ var BRS = (function(BRS, $, undefined) {
 		}
 	    }, false);
 	}
-    }
+    };
 
     BRS.forms.setAliasComplete = function(response, data) {
 	if (response.alreadyProcessed) {
@@ -671,7 +671,7 @@ var BRS = (function(BRS, $, undefined) {
 		});
 	    }
 	}
-    }
+    };
 
     $("#alias_search").on("submit", function(e) {
 	e.preventDefault();
@@ -705,7 +705,7 @@ var BRS = (function(BRS, $, undefined) {
 		    "account": BRS.getAccountTitle(response, "account"),
 		    "last_updated": BRS.formatTimestamp(response.timestamp),
 		    "data_formatted_html": String(response.aliasURI).autoLink()
-		}
+		};
 
 		if ("priceNQT" in response) {
 		    if (response.buyer == BRS.account) {

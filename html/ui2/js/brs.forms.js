@@ -151,7 +151,7 @@ var BRS = (function(BRS, $, undefined) {
 	delete data.add_note_to_self;
 
 	return data;
-    }
+    };
 
     BRS.submitForm = function($modal, $btn) {
 	if (!$btn) {
@@ -593,7 +593,7 @@ var BRS = (function(BRS, $, undefined) {
 		}
 	    }
 	});
-    }
+    };
 
     BRS.unlockForm = function($modal, $btn, hide) {
 	$modal.find("button").prop("disabled", false);
@@ -604,7 +604,7 @@ var BRS = (function(BRS, $, undefined) {
 	if (hide) {
 	    $modal.modal("hide");
 	}
-    }
+    };
 
     return BRS;
 }(BRS || {}, jQuery));

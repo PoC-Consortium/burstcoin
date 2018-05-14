@@ -96,7 +96,7 @@ var BRS = (function(BRS, $, undefined) {
                 BRS.loadAssetExchangeSidebar(callback);
             }
         }
-    }
+    };
 
     BRS.cacheAsset = function(asset) {
         if (BRS.assetIds.indexOf(asset.asset) != -1) {
@@ -121,7 +121,7 @@ var BRS = (function(BRS, $, undefined) {
         };
 
         BRS.assets.push(asset);
-    }
+    };
 
     BRS.forms.addAssetBookmark = function($modal) {
         var data = BRS.getFormData($modal.find("form:first"));
@@ -179,7 +179,7 @@ var BRS = (function(BRS, $, undefined) {
                 }
             });
         }
-    }
+    };
 
     $("#asset_exchange_bookmark_this_asset").on("click", function() {
         if (BRS.viewingAsset) {
@@ -195,7 +195,7 @@ var BRS = (function(BRS, $, undefined) {
     BRS.forms.addAssetBookmarkComplete = function(newAssets, submittedAssets) {
         BRS.assetSearch = false;
 
-        if (newAssets.length == 0) {
+        if (newAssets.length === 0) {
             BRS.closeModal();
             $.notify($.t("error_asset_already_bookmarked", {
                 "count": submittedAssets.length
@@ -225,7 +225,7 @@ var BRS = (function(BRS, $, undefined) {
                 $("#asset_exchange_sidebar a[data-asset=" + newAssets[0].asset + "]").addClass("active").trigger("click");
             });
         }
-    }
+    };
 
     BRS.saveAssetBookmarks = function(assets, callback) {
         var newAssetIds = [];
@@ -276,7 +276,7 @@ var BRS = (function(BRS, $, undefined) {
                 });
             }
 
-            if (newAssets.length == 0) {
+            if (newAssets.length === 0) {
                 if (callback) {
                     callback([], assets);
                 }
@@ -297,14 +297,14 @@ var BRS = (function(BRS, $, undefined) {
                 });
             }
         });
-    }
+    };
 
     BRS.positionAssetSidebar = function() {
         $("#asset_exchange_sidebar").parent().css("position", "relative");
         $("#asset_exchange_sidebar").parent().css("padding-bottom", "5px");
         //$("#asset_exchange_sidebar_content").height($(window).height() - 120);
         $("#asset_exchange_sidebar").height($(window).height() - 120);
-    }
+    };
 
     //called on opening the asset exchange page and automatic refresh
     BRS.loadAssetExchangeSidebar = function(callback) {
@@ -433,7 +433,7 @@ var BRS = (function(BRS, $, undefined) {
             $("#asset_exchange_sidebar_search").hide();
         }
 
-        if (isSearch && BRS.assetSearch.length == 0) {
+        if (isSearch && BRS.assetSearch.length === 0) {
             $("#no_asset_search_results").show();
             $("#asset_details, #no_asset_selected, #no_assets_available").hide();
         } else if (!$("#asset_exchange_sidebar a.active").length) {
@@ -450,7 +450,7 @@ var BRS = (function(BRS, $, undefined) {
         }
 
         BRS.pageLoaded(callback);
-    }
+    };
 
     BRS.incoming.asset_exchange = function() {
         if (!BRS.viewingAsset) {
@@ -476,7 +476,7 @@ var BRS = (function(BRS, $, undefined) {
                 }
             });
         }
-    }
+    };
 
     $("#asset_exchange_sidebar").on("click", "a", function(e, data) {
         e.preventDefault();
@@ -699,7 +699,7 @@ var BRS = (function(BRS, $, undefined) {
                 BRS.dataLoadFinished($("#asset_exchange_trade_history_table"), !refresh);
             }
         });
-    }
+    };
 
     // if this is clicked we can assume there is asset selected
     // might need to implement some safety check just in case.
@@ -760,7 +760,7 @@ var BRS = (function(BRS, $, undefined) {
                     order.quantityQNT = new BigInteger(order.quantityQNT);
                     order.totalNQT = new BigInteger(BRS.calculateOrderTotalNQT(order.quantityQNT, order.priceNQT));
 
-                    if (i == 0 && !refresh) {
+                    if (i === 0 && !refresh) {
                         $("#" + (type == "ask" ? "buy" : "sell") + "_asset_price").val(BRS.calculateOrderPricePerWholeQNT(order.priceNQT, BRS.currentAsset.decimals));
                     }
 
@@ -780,7 +780,7 @@ var BRS = (function(BRS, $, undefined) {
 
             BRS.dataLoadFinished($("#asset_exchange_" + type + "_orders_table"), !refresh);
         });
-    }
+    };
 
     BRS.isUserCancelledOrder = function(order) {
         if (BRS.unconfirmedTransactions.length) {
@@ -794,7 +794,7 @@ var BRS = (function(BRS, $, undefined) {
         }
 
         return false;
-    }
+    };
 
     $("#asset_exchange_search").on("submit", function(e) {
         e.preventDefault();
@@ -1148,7 +1148,7 @@ var BRS = (function(BRS, $, undefined) {
             "successMessage": (orderType == "placeBidOrder" ? $.t("success_buy_order_asset") : $.t("success_sell_order_asset")),
             "errorMessage": $.t("error_order_asset")
         };
-    }
+    };
 
     BRS.forms.orderAssetComplete = function(response, data) {
         if (response.alreadyProcessed) {
@@ -1195,7 +1195,7 @@ var BRS = (function(BRS, $, undefined) {
             $table.append(rowToAdd);
             $table.parent().parent().removeClass("data-empty").parent().addClass("no-padding");
         }
-    }
+    };
 
     BRS.forms.issueAsset = function($modal) {
         var data = BRS.getFormData($modal.find("form:first"));
@@ -1225,7 +1225,7 @@ var BRS = (function(BRS, $, undefined) {
                 "data": data
             };
         }
-    }
+    };
 
     $("#asset_exchange_sidebar_group_context").on("click", "a", function(e) {
         e.preventDefault();
@@ -1267,7 +1267,7 @@ var BRS = (function(BRS, $, undefined) {
         return {
             "stop": true
         };
-    }
+    };
 
     $("#asset_exchange_sidebar_context").on("click", "a", function(e) {
         e.preventDefault();
@@ -1382,7 +1382,7 @@ var BRS = (function(BRS, $, undefined) {
         var assetId = $("#asset_exchange_group_asset").val();
         var groupName = $("#asset_exchange_group_group").val();
 
-        if (groupName == 0) {
+        if (groupName === 0) {
             groupName = "";
         } else if (groupName == -1) {
             groupName = $("#asset_exchange_group_new_group").val();
@@ -1410,7 +1410,7 @@ var BRS = (function(BRS, $, undefined) {
         return {
             "stop": true
         };
-    }
+    };
 
     $("#asset_exchange_group_modal").on("hidden.bs.modal", function(e) {
         $("#asset_exchange_group_new_group_div").val("").hide();
@@ -1449,7 +1449,7 @@ var BRS = (function(BRS, $, undefined) {
                 BRS.dataLoaded();
             }
         });
-    }
+    };
 
     /* MY ASSETS PAGE */
     BRS.pages.my_assets = function() {
@@ -1575,7 +1575,7 @@ var BRS = (function(BRS, $, undefined) {
         } else {
             BRS.dataLoaded();
         }
-    }
+    };
 
     BRS.checkMyAssetsPageLoaded = function(count) {
         if ((count.assets + count.ignored_assets == count.total_assets) && (count.assets == count.ask_orders) && (count.assets == count.bid_orders)) {
@@ -1583,7 +1583,7 @@ var BRS = (function(BRS, $, undefined) {
         } else {
             return false;
         }
-    }
+    };
 
     BRS.myAssetsPageLoaded = function(result) {
         var rows = "";
@@ -1651,11 +1651,11 @@ var BRS = (function(BRS, $, undefined) {
         }
 
         BRS.dataLoaded(rows);
-    }
+    };
 
     BRS.incoming.my_assets = function() {
         BRS.loadPage("my_assets");
-    }
+    };
 
     $("#transfer_asset_modal").on("show.bs.modal", function(e) {
         var $invoker = $(e.relatedTarget);
@@ -1717,8 +1717,8 @@ var BRS = (function(BRS, $, undefined) {
         }
 
         if (!BRS.showedFormWarning) {
-            if (BRS.settings["asset_transfer_warning"] && BRS.settings["asset_transfer_warning"] != 0) {
-                if (new Big(data.quantity).cmp(new Big(BRS.settings["asset_transfer_warning"])) > 0) {
+            if (BRS.settings.asset_transfer_warning && BRS.settings.asset_transfer_warning !== 0) {
+                if (new Big(data.quantity).cmp(new Big(BRS.settings.asset_transfer_warning)) > 0) {
                     BRS.showedFormWarning = true;
                     return {
                         "error": $.t("error_max_asset_transfer_warning", {
@@ -1751,11 +1751,11 @@ var BRS = (function(BRS, $, undefined) {
         return {
             "data": data
         };
-    }
+    };
 
     BRS.forms.transferAssetComplete = function(response, data) {
         BRS.loadPage("my_assets");
-    }
+    };
 
     $("body").on("click", "a[data-goto-asset]", function(e) {
         e.preventDefault();
@@ -1803,7 +1803,7 @@ var BRS = (function(BRS, $, undefined) {
                 }
             }
         }]);
-    }
+    };
 
     /* OPEN ORDERS PAGE */
     BRS.pages.open_orders = function() {
@@ -1822,7 +1822,7 @@ var BRS = (function(BRS, $, undefined) {
                 BRS.pageLoaded();
             }
         });
-    }
+    };
 
     BRS.getOpenOrders = function(type, callback) {
         var uppercase = type.charAt(0).toUpperCase() + type.slice(1).toLowerCase();
@@ -1899,7 +1899,7 @@ var BRS = (function(BRS, $, undefined) {
                 });
             }
         });
-    }
+    };
 
     BRS.getUnconfirmedOrders = function(type, callback) {
         if (BRS.unconfirmedTransactions.length) {
@@ -1919,11 +1919,11 @@ var BRS = (function(BRS, $, undefined) {
                         "priceNQT": unconfirmedTransaction.attachment.priceNQT,
                         "quantityQNT": unconfirmedTransaction.attachment.quantityQNT,
                         "tentative": true
-                    })
+                    });
                 }
             }
 
-            if (unconfirmedOrders.length == 0) {
+            if (unconfirmedOrders.length === 0) {
                 callback([]);
             } else {
                 var nr_orders = 0;

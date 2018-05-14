@@ -31,7 +31,7 @@ var BRS = (function(BRS, $, undefined) {
     BRS.genesisRS = "BURST-2222-2222-2222-22222";
 
     BRS.account = "";
-    BRS.accountRS = ""
+    BRS.accountRS = "";
     BRS.publicKey = "";
     BRS.accountInfo = {};
 
@@ -202,7 +202,7 @@ var BRS = (function(BRS, $, undefined) {
 	  right: 0,
 	  top: 4
 	  });*/
-    }
+    };
 
     function _fix() {
 	var height = $(window).height() - $("body > .header").height();
@@ -233,7 +233,7 @@ var BRS = (function(BRS, $, undefined) {
 	stateInterval = setInterval(function() {
 	    BRS.getState();
 	}, 1000 * seconds);
-    }
+    };
 
     BRS.getState = function(callback) {
 	BRS.sendRequest("getBlockchainStatus", function(response) {
@@ -292,7 +292,7 @@ var BRS = (function(BRS, $, undefined) {
 		}
 	    }
 	});
-    }
+    };
 
     $("#logo, .sidebar-menu a").click(function(e, data) {
 	if ($(this).hasClass("ignore")) {
@@ -377,7 +377,7 @@ var BRS = (function(BRS, $, undefined) {
     BRS.loadPage = function(page, callback) {
 	BRS.pageLoading();
 	BRS.pages[page](callback);
-    }
+    };
 
     BRS.goToPage = function(page, callback) {
 	var $link = $("ul.sidebar-menu a[data-page=" + page + "]");
@@ -415,7 +415,7 @@ var BRS = (function(BRS, $, undefined) {
 		BRS.pages[page](callback);
 	    }
 	}
-    }
+    };
 
     BRS.pageLoading = function() {
 	BRS.hasMorePages = false;
@@ -423,7 +423,7 @@ var BRS = (function(BRS, $, undefined) {
 	var $pageHeader = $("#" + BRS.currentPage + "_page .content-header h1");
 	$pageHeader.find(".loading_dots").remove();
 	$pageHeader.append("<span class='loading_dots'><span>.</span><span>.</span><span>.</span></span>");
-    }
+    };
 
     BRS.pageLoaded = function(callback) {
 	var $currentPage = $("#" + BRS.currentPage + "_page");
@@ -437,7 +437,7 @@ var BRS = (function(BRS, $, undefined) {
 	if (callback) {
 	    callback();
 	}
-    }
+    };
 
     BRS.addPagination = function(section) {
 	var output = "";
@@ -461,7 +461,7 @@ var BRS = (function(BRS, $, undefined) {
 	if ($paginationContainer.length) {
 	    $paginationContainer.html(output);
 	}
-    }
+    };
 
     $(".data-pagination").on("click", "a", function(e) {
 	e.preventDefault();
@@ -478,7 +478,7 @@ var BRS = (function(BRS, $, undefined) {
 	BRS.pageLoading();
 
 	BRS.pages[BRS.currentPage]();
-    }
+    };
 
     BRS.createDatabase = function(callback) {
 	var schema = {
@@ -568,7 +568,7 @@ var BRS = (function(BRS, $, undefined) {
 		callback();
 	    }
 	}
-    }
+    };
 
     BRS.getAccountInfo = function(firstRun, callback) {
 	BRS.sendRequest("getAccount", {
@@ -707,7 +707,7 @@ var BRS = (function(BRS, $, undefined) {
 		callback();
 	    }
 	});
-    }
+    };
 
 	if (BRS.accountInfo.effectiveBalanceBURST == 0) {
 	    $("#forging_indicator").removeClass("forging");
@@ -771,7 +771,7 @@ var BRS = (function(BRS, $, undefined) {
 		    asset.asset = input["_extra"].asset;
 
 		    if (asset.difference.charAt(0) != "-") {
-			var quantity = BRS.formatQuantity(asset.difference, asset.decimals)
+			var quantity = BRS.formatQuantity(asset.difference, asset.decimals);
 
 			if (quantity != "0") {
 			    $.notify($.t("you_received_assets", {
@@ -786,7 +786,7 @@ var BRS = (function(BRS, $, undefined) {
 		    else {
 			asset.difference = asset.difference.substring(1);
 
-			var quantity = BRS.formatQuantity(asset.difference, asset.decimals)
+			var quantity = BRS.formatQuantity(asset.difference, asset.decimals);
 
 			if (quantity != "0") {
 			    $.notify($.t("you_sold_assets", {
@@ -806,11 +806,11 @@ var BRS = (function(BRS, $, undefined) {
 		"type": "success"
 	    });
 	}
-    }
+    };
 
     BRS.checkLocationHash = function(password) {
 	if (window.location.hash) {
-	    var hash = window.location.hash.replace("#", "").split(":")
+	    var hash = window.location.hash.replace("#", "").split(":");
 
 	    if (hash.length == 2) {
 		if (hash[0] == "message") {
@@ -843,7 +843,7 @@ var BRS = (function(BRS, $, undefined) {
 
 	    window.location.hash = "#";
 	}
-    }
+    };
 
     BRS.updateBlockchainDownloadProgress = function() {
 	if (BRS.state.lastBlockchainFeederHeight && BRS.state.numberOfBlocks < BRS.state.lastBlockchainFeederHeight) {
@@ -863,7 +863,7 @@ var BRS = (function(BRS, $, undefined) {
 		"percent": percentage
 	    }));
 	}
-    }
+    };
 
     BRS.checkIfOnAFork = function() {
 	if (!BRS.downloadingBlockchain) {
@@ -888,7 +888,7 @@ var BRS = (function(BRS, $, undefined) {
 		});
 	    }
 	}
-    }
+    };
 
     $("#id_search").on("submit", function(e) {
 	e.preventDefault();

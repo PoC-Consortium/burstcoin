@@ -20,7 +20,7 @@ var BRS = (function(BRS, $, undefined) {
 		type: 'danger'
 	    });
 	}
-    }
+    };
 
     BRS.forms.stopForgingComplete = function(response, data) {
 	if ($("#stop_forging_modal .show_logout").css("display") == "inline") {
@@ -43,7 +43,7 @@ var BRS = (function(BRS, $, undefined) {
 		type: 'danger'
 	    });
 	}
-    }
+    };
 
     $("#forging_indicator").click(function(e) {
 	e.preventDefault();

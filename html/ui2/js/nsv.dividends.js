@@ -991,7 +991,7 @@ var NSV = (function(NSV, $, undefined) {
 					if (response.recipientRS == cur_account) {
 					    NSV_div_send_acc_array[cur_index].amount += parseInt(response.attachment.quantityQNT,10);
 					    if (NSV.div_send_check_arr(response.senderRS) == -1) {
-						NSV.div_send_push_newacc(response.senderRS)
+						NSV.div_send_push_newacc(response.senderRS);
 					    }
 					}
 					
@@ -1000,7 +1000,7 @@ var NSV = (function(NSV, $, undefined) {
 					    NSV_div_send_acc_array[cur_index].amount -= parseInt(response.attachment.quantityQNT,10);
 					    if (response.recipientRS != "BURST-NU58-Z4QR-XXKE-94DHH") {	//genesis (86281612813136630310)										
 						if (NSV.div_send_check_arr(response.recipientRS) == -1) {
-						    NSV.div_send_push_newacc(response.recipientRS)
+						    NSV.div_send_push_newacc(response.recipientRS);
 						}
 					    }
                                             else {
@@ -1285,7 +1285,7 @@ var NSV = (function(NSV, $, undefined) {
 	    return;
 	}		
 	var out_message = "Sending Replacement assets(" + NSV_shareswap_repl_asset + ")...\n";
-	out_message = out_message + "Amount, Account, Tran ID\n"
+	out_message = out_message + "Amount, Account, Tran ID\n";
 	document.getElementById("nsv_shareswap_details").value = out_message;
 	
 	for (var i=0; i<NSV_shareswap_unredeemed.length; i++) {
@@ -1344,7 +1344,7 @@ var NSV = (function(NSV, $, undefined) {
 		}, {});
 	    }
 	});
-    }	
+    };	
 
     
     return NSV;

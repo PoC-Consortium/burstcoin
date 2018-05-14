@@ -28,7 +28,7 @@ var BRS = (function(BRS, $, undefined) {
 	    }
 	}
 
-	if (BRS.settings["news"] != -1) {
+	if (BRS.settings.news != -1) {
 	    $("#settings_news_initial").remove();
 	}
 
@@ -37,7 +37,7 @@ var BRS = (function(BRS, $, undefined) {
 	}
 
 	BRS.pageLoaded();
-    }
+    };
 
     function getCssGradientStyle(start, stop, vertical) {
 	var output = "";
@@ -80,28 +80,28 @@ var BRS = (function(BRS, $, undefined) {
 	    }
 	    BRS.applySettings();
 	}
-    }
+    };
 
     BRS.applySettings = function(key) {
 	if (!key || key == "language") {
-	    if ($.i18n.lng() != BRS.settings["language"]) {
-		$.i18n.setLng(BRS.settings["language"], null, function() {
+	    if ($.i18n.lng() != BRS.settings.language) {
+		$.i18n.setLng(BRS.settings.language, null, function() {
 		    $("[data-i18n]").i18n();
 		});
 		if (key && window.localstorage) {
-		    window.localStorage.setItem('i18next_lng', BRS.settings["language"]);
+		    window.localStorage.setItem('i18next_lng', BRS.settings.language);
 		}
 		if (BRS.inApp) {
 		    parent.postMessage({
 			"type": "language",
-			"version": BRS.settings["language"]
+			"version": BRS.settings.language
 		    }, "*");
 		}
 	    }
 	}
 
 	if (!key || key == "submit_on_enter") {
-	    if (BRS.settings["submit_on_enter"]) {
+	    if (BRS.settings.submit_on_enter) {
 		$(".modal form:not('#decrypt_note_form_container')").on("submit.onEnter", function(e) {
 		    e.preventDefault();
 		    BRS.submitForm($(this).closest(".modal"));
@@ -113,7 +113,7 @@ var BRS = (function(BRS, $, undefined) {
 	}
 
 	if (!key || key == "animate_forging") {
-	    if (BRS.settings["animate_forging"]) {
+	    if (BRS.settings.animate_forging) {
 		$("#forging_indicator").addClass("animated");
 	    }
             else {
@@ -122,17 +122,17 @@ var BRS = (function(BRS, $, undefined) {
 	}
 
 	if (!key || key == "news") {
-	    if (BRS.settings["news"] == 0) {
+	    if (BRS.settings.news === 0) {
 		$("#news_link").hide();
 	    }
-            else if (BRS.settings["news"] == 1) {
+            else if (BRS.settings.news == 1) {
 		$("#news_link").show();
 	    }
 	}
 
 	if (!BRS.inApp && !BRS.downloadingBlockchain) {
 	    if (!key || key == "console_log") {
-		if (BRS.settings["console_log"] == 0) {
+		if (BRS.settings.console_log === 0) {
 		    $("#show_console").hide();
 		}
                 else {
@@ -153,14 +153,14 @@ var BRS = (function(BRS, $, undefined) {
 	}
 
 	if (!key || key == "remember_passphrase") {
-	    if (BRS.settings["remember_passphrase"]) {
+	    if (BRS.settings.remember_passphrase) {
 		BRS.setCookie("remember_passphrase", 1, 1000);
 	    }
             else {
 		BRS.deleteCookie("remember_passphrase");
 	    }
 	}
-    }
+    };
     BRS.updateSettings = function(key, value) {
 	if (key) {
 	    BRS.settings[key] = value;
@@ -178,7 +178,7 @@ var BRS = (function(BRS, $, undefined) {
 	}
 
 	BRS.applySettings(key);
-    }
+    };
 
     $("#settings_box select").on("change", function(e) {
 	e.preventDefault();

@@ -82,7 +82,7 @@ var BRS = (function(BRS, $, undefined) {
                 }
             }
         }
-    }
+    };
 
     BRS.checkForNewVersion = function() {
         var installVersusNormal, installVersusBeta, normalVersusBeta;
@@ -120,13 +120,13 @@ var BRS = (function(BRS, $, undefined) {
             BRS.isOutdated = false;
             $("#brs_update_explanation_up_to_date").show();
         }
-    }
+    };
 
     BRS.versionCompare = function(v1, v2) {
-        if (v2 == undefined) {
+        if (v2 === undefined) {
             return -1;
         }
-        else if (v1 == undefined) {
+        else if (v1 === undefined) {
             return -1;
         }
 
@@ -193,7 +193,7 @@ var BRS = (function(BRS, $, undefined) {
         else {
             return 0;
         }
-    }
+    };
 
     BRS.supportsUpdateVerification = function() {
         if ((typeof File !== 'undefined') && !File.prototype.slice) {
@@ -212,7 +212,7 @@ var BRS = (function(BRS, $, undefined) {
         }
 
         return true;
-    }
+    };
 
     BRS.verifyClientUpdate = function(e) {
         e.stopPropagation();
@@ -266,7 +266,7 @@ var BRS = (function(BRS, $, undefined) {
         worker.postMessage({
             file: files[0]
         });
-    }
+    };
 
     BRS.downloadClientUpdate = function(version) {
         if (version == "release") {
@@ -318,7 +318,7 @@ var BRS = (function(BRS, $, undefined) {
         }
 
         return false;
-    }
+    };
 
     return BRS;
 }(BRS || {}, jQuery));

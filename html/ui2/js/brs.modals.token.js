@@ -21,7 +21,7 @@ var BRS = (function(BRS, $, undefined) {
         else {
 	    return {};
 	}
-    }
+    };
 
     BRS.forms.generateTokenComplete = function(response, data) {
 	$("#token_modal").find(".error_message").hide();
@@ -35,11 +35,11 @@ var BRS = (function(BRS, $, undefined) {
 	    });
 	    $("#generate_token_modal").modal("hide");
 	}
-    }
+    };
 
     BRS.forms.generateTokenError = function() {
 	$("#generate_token_output").hide();
-    }
+    };
 
     BRS.forms.decodeTokenComplete = function(response, data) {
 	$("#token_modal").find(".error_message").hide();
@@ -56,11 +56,11 @@ var BRS = (function(BRS, $, undefined) {
 		"timestamp": BRS.formatTimestamp(response.timestamp)
 	    })).addClass("callout-danger").removeClass("callout-info").show();
 	}
-    }
+    };
 
     BRS.forms.decodeTokenError = function() {
 	$("#decode_token_output").hide();
-    }
+    };
 
     $("#token_modal ul.nav li").click(function(e) {
 	e.preventDefault();
