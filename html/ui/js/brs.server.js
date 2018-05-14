@@ -7,380 +7,359 @@ var BRS = (function(BRS, $, undefined) {
     BRS.multiQueue = null;
 
     BRS.setServerPassword = function(password) {
-	_password = password;
+        _password = password;
     }
 
     BRS.sendOutsideRequest = function(url, data, callback, async) {
-	if ($.isFunction(data)) {
-	    async = callback;
-	    callback = data;
-	    data = {};
-	}
-        else {
-	    data = data || {};
-	}
+        if ($.isFunction(data)) {
+            async = callback;
+            callback = data;
+            data = {};
+        } else {
+            data = data || {};
+        }
 
-	$.support.cors = true;
+        $.support.cors = true;
 
-	$.ajax({
-	    url: url,
-	    crossDomain: true,
-	    dataType: "json",
-	    type: "GET",
-	    timeout: 30000,
-	    async: (async === undefined ? true : async),
-	    data: data
-	}).done(function(json) {
-	    //why is this necessary??..
-	    if (json.errorCode && !json.errorDescription) {
-		json.errorDescription = (json.errorMessage ? json.errorMessage : $.t("server_error_unknown"));
-	    }
-	    if (callback) {
-		callback(json, data);
-	    }
-	}).fail(function(xhr, textStatus, error) {
-	    if (callback) {
-		callback({
-		    "errorCode": -1,
-		    "errorDescription": error
-		}, {});
-	    }
-	});
+        $.ajax({
+            url: url,
+            crossDomain: true,
+            dataType: "json",
+            type: "GET",
+            timeout: 30000,
+            async: (async === undefined ? true : async),
+            data: data
+        }).done(function(json) {
+            //why is this necessary??..
+            if (json.errorCode && !json.errorDescription) {
+                json.errorDescription = (json.errorMessage ? json.errorMessage : $.t("server_error_unknown"));
+            }
+            if (callback) {
+                callback(json, data);
+            }
+        }).fail(function(xhr, textStatus, error) {
+            if (callback) {
+                callback({
+                    "errorCode": -1,
+                    "errorDescription": error
+                }, {});
+            }
+        });
     }
 
     BRS.sendRequest = function(requestType, data, callback, async) {
-	if (requestType == undefined) {
-	    return;
-	}
+        if (requestType == undefined) {
+            return;
+        }
 
-	if ($.isFunction(data)) {
-	    async = callback;
-	    callback = data;
-	    data = {};
-	}
-        else {
-	    data = data || {};
-	}
+        if ($.isFunction(data)) {
+            async = callback;
+            callback = data;
+            data = {};
+        } else {
+            data = data || {};
+        }
 
-	$.each(data, function(key, val) {
-	    if (key != "secretPhrase") {
-		if (typeof val == "string") {
-		    data[key] = $.trim(val);
-		}
-	    }
-	});
+        $.each(data, function(key, val) {
+            if (key != "secretPhrase") {
+                if (typeof val == "string") {
+                    data[key] = $.trim(val);
+                }
+            }
+        });
 
-	//convert NXT to NQT...
-	try {
-	    var nxtFields = ["feeNXT", "amountNXT", "priceNXT", "refundNXT", "discountNXT", "minActivationAmountNXT"];
+        //convert NXT to NQT...
+        try {
+            var nxtFields = ["feeNXT", "amountNXT", "priceNXT", "refundNXT", "discountNXT", "minActivationAmountNXT"];
 
-	    for (var i = 0; i < nxtFields.length; i++) {
-		var nxtField = nxtFields[i];
-		var field = nxtField.replace("NXT", "");
+            for (var i = 0; i < nxtFields.length; i++) {
+                var nxtField = nxtFields[i];
+                var field = nxtField.replace("NXT", "");
 
-		if (nxtField in data) {
-		    data[field + "NQT"] = BRS.convertToNQT(data[nxtField]);
-		    delete data[nxtField];
-		}
-	    }
-	} catch (err) {
-	    if (callback) {
-		callback({
-		    "errorCode": 1,
-		    "errorDescription": err + " (Field: " + field + ")"
-		});
-	    }
+                if (nxtField in data) {
+                    data[field + "NQT"] = BRS.convertToNQT(data[nxtField]);
+                    delete data[nxtField];
+                }
+            }
+        } catch (err) {
+            if (callback) {
+                callback({
+                    "errorCode": 1,
+                    "errorDescription": err + " (Field: " + field + ")"
+                });
+            }
 
-	    return;
-	}
+            return;
+        }
 
-	if (!data.recipientPublicKey) {
-	    delete data.recipientPublicKey;
-	}
-	if (!data.referencedTransactionFullHash) {
-	    delete data.referencedTransactionFullHash;
-	}
+        if (!data.recipientPublicKey) {
+            delete data.recipientPublicKey;
+        }
+        if (!data.referencedTransactionFullHash) {
+            delete data.referencedTransactionFullHash;
+        }
 
-	//gets account id from passphrase client side, used only for login.
-	if (requestType == "getAccountId") {
-	    var accountId = BRS.getAccountId(data.secretPhrase);
+        //gets account id from passphrase client side, used only for login.
+        if (requestType == "getAccountId") {
+            var accountId = BRS.getAccountId(data.secretPhrase);
 
-	    var nxtAddress = new NxtAddress();
+            var nxtAddress = new NxtAddress();
 
-	    if (nxtAddress.set(accountId)) {
-		var accountRS = nxtAddress.toString();
-	    }
-            else {
-		var accountRS = "";
-	    }
+            if (nxtAddress.set(accountId)) {
+                var accountRS = nxtAddress.toString();
+            } else {
+                var accountRS = "";
+            }
 
-	    if (callback) {
-		callback({
-		    "account": accountId,
-		    "accountRS": accountRS
-		});
-	    }
-	    return;
-	}
+            if (callback) {
+                callback({
+                    "account": accountId,
+                    "accountRS": accountRS
+                });
+            }
+            return;
+        }
 
-	//check to see if secretPhrase supplied matches logged in account, if not - show error.
-	if ("secretPhrase" in data) {
-	    var accountId = BRS.getAccountId(BRS.rememberPassword ? _password : data.secretPhrase);
-	    if (accountId != BRS.account) {
-		if (callback) {
-		    callback({
-			"errorCode": 1,
-			"errorDescription": $.t("error_passphrase_incorrect")
-		    });
-		}
-		return;
-	    }
-            else {
-		//ok, accountId matches..continue with the real request.
-		BRS.processAjaxRequest(requestType, data, callback, async);
-	    }
-	}
-        else {
-	    BRS.processAjaxRequest(requestType, data, callback, async);
-	}
+        //check to see if secretPhrase supplied matches logged in account, if not - show error.
+        if ("secretPhrase" in data) {
+            var accountId = BRS.getAccountId(BRS.rememberPassword ? _password : data.secretPhrase);
+            if (accountId != BRS.account) {
+                if (callback) {
+                    callback({
+                        "errorCode": 1,
+                        "errorDescription": $.t("error_passphrase_incorrect")
+                    });
+                }
+                return;
+            } else {
+                //ok, accountId matches..continue with the real request.
+                BRS.processAjaxRequest(requestType, data, callback, async);
+            }
+        } else {
+            BRS.processAjaxRequest(requestType, data, callback, async);
+        }
     }
 
     BRS.processAjaxRequest = function(requestType, data, callback, async) {
-	if (!BRS.multiQueue) {
-	    BRS.multiQueue = $.ajaxMultiQueue(8);
-	}
+        if (!BRS.multiQueue) {
+            BRS.multiQueue = $.ajaxMultiQueue(8);
+        }
 
-	if (data["_extra"]) {
-	    var extra = data["_extra"];
-	    delete data["_extra"];
-	}
-        else {
-	    var extra = null;
-	}
+        if (data["_extra"]) {
+            var extra = data["_extra"];
+            delete data["_extra"];
+        } else {
+            var extra = null;
+        }
 
-	var currentPage = null;
-	var currentSubPage = null;
+        var currentPage = null;
+        var currentSubPage = null;
 
-	//means it is a page request, not a global request.. Page requests can be aborted.
-	if (requestType.slice(-1) == "+") {
-	    requestType = requestType.slice(0, -1);
-	    currentPage = BRS.currentPage;
-	}
-        else {
-	    //not really necessary... we can just use the above code..
-	    var plusCharacter = requestType.indexOf("+");
+        //means it is a page request, not a global request.. Page requests can be aborted.
+        if (requestType.slice(-1) == "+") {
+            requestType = requestType.slice(0, -1);
+            currentPage = BRS.currentPage;
+        } else {
+            //not really necessary... we can just use the above code..
+            var plusCharacter = requestType.indexOf("+");
 
-	    if (plusCharacter > 0) {
-		var subType = requestType.substr(plusCharacter);
-		requestType = requestType.substr(0, plusCharacter);
-		currentPage = BRS.currentPage;
-	    }
-	}
+            if (plusCharacter > 0) {
+                var subType = requestType.substr(plusCharacter);
+                requestType = requestType.substr(0, plusCharacter);
+                currentPage = BRS.currentPage;
+            }
+        }
 
-	if (currentPage && BRS.currentSubPage) {
-	    currentSubPage = BRS.currentSubPage;
-	}
+        if (currentPage && BRS.currentSubPage) {
+            currentSubPage = BRS.currentSubPage;
+        }
 
-	var type = (("secretPhrase" in data) || (data.broadcast == "false") ? "POST" : "GET");
-	var url = BRS.server + "/burst?requestType=" + requestType;
+        var type = (("secretPhrase" in data) || (data.broadcast == "false") ? "POST" : "GET");
+        var url = BRS.server + "/burst?requestType=" + requestType;
 
-	if (type == "GET") {
+        if (type == "GET") {
             // rico666: gives us lots (thousands) of connection refused messages in the UI
             // has been there for ages, no clear function visible
-	    //   if (typeof data == "string") {
-	    //	data += "&random=" + Math.random();
-	    //    }
+            //   if (typeof data == "string") {
+            //	data += "&random=" + Math.random();
+            //    }
             //    else {
-	    data.random = Math.random();
-	    //    }
-	}
+            data.random = Math.random();
+            //    }
+        }
 
-	var secretPhrase = "";
+        var secretPhrase = "";
 
-	//unknown account..
-	if (type == "POST" && (BRS.accountInfo.errorCode && BRS.accountInfo.errorCode == 5)) {
-	    if (callback) {
-		callback({
-		    "errorCode": 2,
-		    "errorDescription": $.t("error_new_account")
-		}, data);
-	    }
-            else {
-		$.notify($.t("error_new_account"), {
-		    "type": "danger"
-		});
-	    }
-	    return;
-	}
+        //unknown account..
+        if (type == "POST" && (BRS.accountInfo.errorCode && BRS.accountInfo.errorCode == 5)) {
+            if (callback) {
+                callback({
+                    "errorCode": 2,
+                    "errorDescription": $.t("error_new_account")
+                }, data);
+            } else {
+                $.notify($.t("error_new_account"), {
+                    "type": "danger"
+                });
+            }
+            return;
+        }
 
-	if (data.referencedTransactionFullHash) {
-	    if (!/^[a-z0-9]{64}$/.test(data.referencedTransactionFullHash)) {
-		if (callback) {
-		    callback({
-			"errorCode": -1,
-			"errorDescription": $.t("error_invalid_referenced_transaction_hash")
-		    }, data);
-		}
-                else {
-		    $.notify($.t("error_invalid_referenced_transaction_hash"), {
-			"type": "danger"
-		    });
-		}
-		return;
-	    }
-	}
+        if (data.referencedTransactionFullHash) {
+            if (!/^[a-z0-9]{64}$/.test(data.referencedTransactionFullHash)) {
+                if (callback) {
+                    callback({
+                        "errorCode": -1,
+                        "errorDescription": $.t("error_invalid_referenced_transaction_hash")
+                    }, data);
+                } else {
+                    $.notify($.t("error_invalid_referenced_transaction_hash"), {
+                        "type": "danger"
+                    });
+                }
+                return;
+            }
+        }
 
-	if (!BRS.isLocalHost && type == "POST" && requestType != "startForging" && requestType != "stopForging") {
-	    if (BRS.rememberPassword) {
-		secretPhrase = _password;
-	    }
-            else {
-		secretPhrase = data.secretPhrase;
-	    }
+        if (!BRS.isLocalHost && type == "POST" && requestType != "startForging" && requestType != "stopForging") {
+            if (BRS.rememberPassword) {
+                secretPhrase = _password;
+            } else {
+                secretPhrase = data.secretPhrase;
+            }
 
-	    delete data.secretPhrase;
+            delete data.secretPhrase;
 
-	    if (BRS.accountInfo && BRS.accountInfo.publicKey) {
-		data.publicKey = BRS.accountInfo.publicKey;
-	    }
-            else {
-		data.publicKey = BRS.generatePublicKey(secretPhrase);
-		BRS.accountInfo.publicKey = data.publicKey;
-	    }
-	}
-        else if (type == "POST" && BRS.rememberPassword) {
-	    data.secretPhrase = _password;
-	}
+            if (BRS.accountInfo && BRS.accountInfo.publicKey) {
+                data.publicKey = BRS.accountInfo.publicKey;
+            } else {
+                data.publicKey = BRS.generatePublicKey(secretPhrase);
+                BRS.accountInfo.publicKey = data.publicKey;
+            }
+        } else if (type == "POST" && BRS.rememberPassword) {
+            data.secretPhrase = _password;
+        }
 
-	$.support.cors = true;
+        $.support.cors = true;
 
-	if (type == "GET") {
-	    var ajaxCall = BRS.multiQueue.queue;
-	}
-        else {
-	    var ajaxCall = $.ajax;
-	}
+        if (type == "GET") {
+            var ajaxCall = BRS.multiQueue.queue;
+        } else {
+            var ajaxCall = $.ajax;
+        }
 
-	//workaround for 1 specific case.. ugly
-	if (data.querystring) {
-	    data = data.querystring;
-	    type = "POST";
-	}
+        //workaround for 1 specific case.. ugly
+        if (data.querystring) {
+            data = data.querystring;
+            type = "POST";
+        }
 
-	if (requestType == "broadcastTransaction") {
-	    type = "POST";
-	}
-    async = (async === undefined ? true : async);
-    if(async == false){
-      url += "&" + $.param(data);
-      var client = new XMLHttpRequest();
-      client.open("GET", url, false); 
-      client.setRequestHeader("Content-Type", "text/plain;charset=UTF-8");
-      client.data = data;
-      client.send();
-      var response = JSON.parse(client.responseText);
-      callback(response,data);
-    }else{
-	ajaxCall({
-	    url: url,
-	    crossDomain: true,
-	    dataType: "json",
-	    type: type,
-	    timeout: 30000,
-	    async: true,
-	    currentPage: currentPage,
-	    currentSubPage: currentSubPage,
-	    shouldRetry: (type == "GET" ? 2 : undefined),
-	    data: data
-	}).done(function(response, status, xhr) {
-	    if (BRS.console) {
-		BRS.addToConsole(this.url, this.type, this.data, response);
-	    }
+        if (requestType == "broadcastTransaction") {
+            type = "POST";
+        }
+        async = (async === undefined ? true : async);
+        if (async == false) {
+            url += "&" + $.param(data);
+            var client = new XMLHttpRequest();
+            client.open("GET", url, false);
+            client.setRequestHeader("Content-Type", "text/plain;charset=UTF-8");
+            client.data = data;
+            client.send();
+            var response = JSON.parse(client.responseText);
+            callback(response, data);
+        } else {
+            ajaxCall({
+                url: url,
+                crossDomain: true,
+                dataType: "json",
+                type: type,
+                timeout: 30000,
+                async: true,
+                currentPage: currentPage,
+                currentSubPage: currentSubPage,
+                shouldRetry: (type == "GET" ? 2 : undefined),
+                data: data
+            }).done(function(response, status, xhr) {
+                if (BRS.console) {
+                    BRS.addToConsole(this.url, this.type, this.data, response);
+                }
 
-	    if (typeof data == "object" && "recipient" in data) {
-		if (/^BURST\-/i.test(data.recipient)) {
-		    data.recipientRS = data.recipient;
+                if (typeof data == "object" && "recipient" in data) {
+                    if (/^BURST\-/i.test(data.recipient)) {
+                        data.recipientRS = data.recipient;
 
-		    var address = new NxtAddress();
+                        var address = new NxtAddress();
 
-		    if (address.set(data.recipient)) {
-			data.recipient = address.account_id();
-		    }
-		}
-                else {
-		    var address = new NxtAddress();
+                        if (address.set(data.recipient)) {
+                            data.recipient = address.account_id();
+                        }
+                    } else {
+                        var address = new NxtAddress();
 
-		    if (address.set(data.recipient)) {
-			data.recipientRS = address.toString();
-		    }
-		}
-	    }
+                        if (address.set(data.recipient)) {
+                            data.recipientRS = address.toString();
+                        }
+                    }
+                }
 
-	    if (secretPhrase && response.unsignedTransactionBytes && !response.errorCode && !response.error) {
-		var publicKey = BRS.generatePublicKey(secretPhrase);
-		var signature = BRS.signBytes(response.unsignedTransactionBytes, converters.stringToHexString(secretPhrase));
+                if (secretPhrase && response.unsignedTransactionBytes && !response.errorCode && !response.error) {
+                    var publicKey = BRS.generatePublicKey(secretPhrase);
+                    var signature = BRS.signBytes(response.unsignedTransactionBytes, converters.stringToHexString(secretPhrase));
 
-		if (!BRS.verifyBytes(signature, response.unsignedTransactionBytes, publicKey)) {
-		    if (callback) {
-			callback({
-			    "errorCode": 1,
-			    "errorDescription": $.t("error_signature_verification_client")
-			}, data);
-		    }
-                    else {
-			$.notify($.t("error_signature_verification_client"), {
-			    "type": "danger"
-			});
-		    }
-		    return;
-		}
-                else {
-		    var payload = BRS.verifyAndSignTransactionBytes(response.unsignedTransactionBytes, signature, requestType, data);
+                    if (!BRS.verifyBytes(signature, response.unsignedTransactionBytes, publicKey)) {
+                        if (callback) {
+                            callback({
+                                "errorCode": 1,
+                                "errorDescription": $.t("error_signature_verification_client")
+                            }, data);
+                        } else {
+                            $.notify($.t("error_signature_verification_client"), {
+                                "type": "danger"
+                            });
+                        }
+                        return;
+                    } else {
+                        var payload = BRS.verifyAndSignTransactionBytes(response.unsignedTransactionBytes, signature, requestType, data);
 
-		    if (!payload) {
-			if (callback) {
-			    callback({
-				"errorCode": 1,
-				"errorDescription": $.t("error_signature_verification_server")
-			    }, data);
-			}
-                        else {
-			    $.notify($.t("error_signature_verification_server"), {
-				"type": "danger"
-			    });
-			}
-			return;
-		    }
-                    else {
-			if (data.broadcast == "false") {
-			    response.transactionBytes = payload;
-			    BRS.showRawTransactionModal(response);
-			}
-                        else {
-			    if (callback) {
-				if (extra) {
-				    data["_extra"] = extra;
-				}
+                        if (!payload) {
+                            if (callback) {
+                                callback({
+                                    "errorCode": 1,
+                                    "errorDescription": $.t("error_signature_verification_server")
+                                }, data);
+                            } else {
+                                $.notify($.t("error_signature_verification_server"), {
+                                    "type": "danger"
+                                });
+                            }
+                            return;
+                        } else {
+                            if (data.broadcast == "false") {
+                                response.transactionBytes = payload;
+                                BRS.showRawTransactionModal(response);
+                            } else {
+                                if (callback) {
+                                    if (extra) {
+                                        data["_extra"] = extra;
+                                    }
 
-				BRS.broadcastTransactionBytes(payload, callback, response, data);
-			    }
-                            else {
-				BRS.broadcastTransactionBytes(payload, null, response, data);
-			    }
-			}
-		    }
-		}
-	    }
-            else {
-		if (response.errorCode || response.errorDescription || response.errorMessage || response.error) {
-		    response.errorDescription = BRS.translateServerError(response);
-		    delete response.fullHash;
-		    if (!response.errorCode) {
-			response.errorCode = -1;
-		    }
-		}
+                                    BRS.broadcastTransactionBytes(payload, callback, response, data);
+                                } else {
+                                    BRS.broadcastTransactionBytes(payload, null, response, data);
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    if (response.errorCode || response.errorDescription || response.errorMessage || response.error) {
+                        response.errorDescription = BRS.translateServerError(response);
+                        delete response.fullHash;
+                        if (!response.errorCode) {
+                            response.errorCode = -1;
+                        }
+                    }
 
-		/*
+                    /*
 		  if (response.errorCode && !response.errorDescription) {
 		  response.errorDescription = (response.errorMessage ? response.errorMessage : $.t("error_unknown"));
 		  }
@@ -392,876 +371,859 @@ var BRS = (function(BRS, $, undefined) {
 		  }
 		*/
 
-		if (response.broadcasted == false) {
-		    BRS.showRawTransactionModal(response);
-		}
-                else {
-		    if (callback) {
-			if (extra) {
-			    data["_extra"] = extra;
-			}
-			callback(response, data);
-		    }
-		    if (data.referencedTransactionFullHash && !response.errorCode) {
-			$.notify($.t("info_referenced_transaction_hash"), {
-			    "type": "info"
-			});
-		    }
-		}
-	    }
-	}).fail(function(xhr, textStatus, error) {
-	    if (BRS.console) {
-		BRS.addToConsole(this.url, this.type, this.data, error, true);
-	    }
+                    if (response.broadcasted == false) {
+                        BRS.showRawTransactionModal(response);
+                    } else {
+                        if (callback) {
+                            if (extra) {
+                                data["_extra"] = extra;
+                            }
+                            callback(response, data);
+                        }
+                        if (data.referencedTransactionFullHash && !response.errorCode) {
+                            $.notify($.t("info_referenced_transaction_hash"), {
+                                "type": "info"
+                            });
+                        }
+                    }
+                }
+            }).fail(function(xhr, textStatus, error) {
+                if (BRS.console) {
+                    BRS.addToConsole(this.url, this.type, this.data, error, true);
+                }
 
-	    if ((error == "error" || textStatus == "error") && (xhr.status == 404 || xhr.status == 0)) {
-		if (type == "POST") {
-		    $.notify($.t("error_server_connect"), {
-			"type": "danger",
-			"offset": 10
-		    });
-		}
-	    }
+                if ((error == "error" || textStatus == "error") && (xhr.status == 404 || xhr.status == 0)) {
+                    if (type == "POST") {
+                        $.notify($.t("error_server_connect"), {
+                            "type": "danger",
+                            "offset": 10
+                        });
+                    }
+                }
 
-	    if (error == "abort") {
-		return;
-	    }
-            else if (callback) {
-		if (error == "timeout") {
-		    error = $.t("error_request_timeout");
-		}
-		callback({
-		    "errorCode": -1,
-		    "errorDescription": error
-		}, {});
-	    }
-	});
-    }
+                if (error == "abort") {
+                    return;
+                } else if (callback) {
+                    if (error == "timeout") {
+                        error = $.t("error_request_timeout");
+                    }
+                    callback({
+                        "errorCode": -1,
+                        "errorDescription": error
+                    }, {});
+                }
+            });
+        }
     }
     BRS.verifyAndSignTransactionBytes = function(transactionBytes, signature, requestType, data) {
-	var transaction = {};
-
-	var byteArray = converters.hexStringToByteArray(transactionBytes);
-
-	transaction.type = byteArray[0];
-
-	transaction.version = (byteArray[1] & 0xF0) >> 4;
-	transaction.subtype = byteArray[1] & 0x0F;
-
-	transaction.timestamp = String(converters.byteArrayToSignedInt32(byteArray, 2));
-	transaction.deadline = String(converters.byteArrayToSignedShort(byteArray, 6));
-	transaction.publicKey = converters.byteArrayToHexString(byteArray.slice(8, 40));
-	transaction.recipient = String(converters.byteArrayToBigInteger(byteArray, 40));
-	transaction.amountNQT = String(converters.byteArrayToBigInteger(byteArray, 48));
-	transaction.feeNQT = String(converters.byteArrayToBigInteger(byteArray, 56));
-
-	var refHash = byteArray.slice(64, 96);
-	transaction.referencedTransactionFullHash = converters.byteArrayToHexString(refHash);
-	if (transaction.referencedTransactionFullHash == "0000000000000000000000000000000000000000000000000000000000000000") {
-	    transaction.referencedTransactionFullHash = "";
-	}
-	//transaction.referencedTransactionId = converters.byteArrayToBigInteger([refHash[7], refHash[6], refHash[5], refHash[4], refHash[3], refHash[2], refHash[1], refHash[0]], 0);
-
-	transaction.flags = 0;
-
-	if (transaction.version > 0) {
-	    transaction.flags = converters.byteArrayToSignedInt32(byteArray, 160);
-	    transaction.ecBlockHeight = String(converters.byteArrayToSignedInt32(byteArray, 164));
-	    transaction.ecBlockId = String(converters.byteArrayToBigInteger(byteArray, 168));
-	}
-
-	if (!("amountNQT" in data)) {
-	    data.amountNQT = "0";
-	}
-
-	if (!("recipient" in data)) {
-	    //recipient == genesis
-	    data.recipient = "0";
-	    data.recipientRS = "BURST-2222-2222-2222-22222";
-	}
-
-	if (transaction.publicKey != BRS.accountInfo.publicKey) {
-	    return false;
-	}
-
-	if (transaction.deadline !== data.deadline) {
-	    return false;
-	}
-
-	if (transaction.recipient !== data.recipient) {
-	    if (data.recipient == "1739068987193023818" && transaction.recipient == "0") {
-		//ok
-	    }
-            else {
-		return false;
-	    }
-	}
+        var transaction = {};
+
+        var byteArray = converters.hexStringToByteArray(transactionBytes);
+
+        transaction.type = byteArray[0];
+
+        transaction.version = (byteArray[1] & 0xF0) >> 4;
+        transaction.subtype = byteArray[1] & 0x0F;
+
+        transaction.timestamp = String(converters.byteArrayToSignedInt32(byteArray, 2));
+        transaction.deadline = String(converters.byteArrayToSignedShort(byteArray, 6));
+        transaction.publicKey = converters.byteArrayToHexString(byteArray.slice(8, 40));
+        transaction.recipient = String(converters.byteArrayToBigInteger(byteArray, 40));
+        transaction.amountNQT = String(converters.byteArrayToBigInteger(byteArray, 48));
+        transaction.feeNQT = String(converters.byteArrayToBigInteger(byteArray, 56));
+
+        var refHash = byteArray.slice(64, 96);
+        transaction.referencedTransactionFullHash = converters.byteArrayToHexString(refHash);
+        if (transaction.referencedTransactionFullHash == "0000000000000000000000000000000000000000000000000000000000000000") {
+            transaction.referencedTransactionFullHash = "";
+        }
+        //transaction.referencedTransactionId = converters.byteArrayToBigInteger([refHash[7], refHash[6], refHash[5], refHash[4], refHash[3], refHash[2], refHash[1], refHash[0]], 0);
+
+        transaction.flags = 0;
+
+        if (transaction.version > 0) {
+            transaction.flags = converters.byteArrayToSignedInt32(byteArray, 160);
+            transaction.ecBlockHeight = String(converters.byteArrayToSignedInt32(byteArray, 164));
+            transaction.ecBlockId = String(converters.byteArrayToBigInteger(byteArray, 168));
+        }
+
+        if (!("amountNQT" in data)) {
+            data.amountNQT = "0";
+        }
+
+        if (!("recipient" in data)) {
+            //recipient == genesis
+            data.recipient = "0";
+            data.recipientRS = "BURST-2222-2222-2222-22222";
+        }
+
+        if (transaction.publicKey != BRS.accountInfo.publicKey) {
+            return false;
+        }
 
-	if (transaction.amountNQT !== data.amountNQT || transaction.feeNQT !== data.feeNQT) {
-	    return false;
-	}
+        if (transaction.deadline !== data.deadline) {
+            return false;
+        }
 
-	if ("referencedTransactionFullHash" in data) {
-	    if (transaction.referencedTransactionFullHash !== data.referencedTransactionFullHash) {
-		return false;
-	    }
-	}
-        else if (transaction.referencedTransactionFullHash !== "") {
-	    return false;
-	}
+        if (transaction.recipient !== data.recipient) {
+            if (data.recipient == "1739068987193023818" && transaction.recipient == "0") {
+                //ok
+            } else {
+                return false;
+            }
+        }
 
-	if (transaction.version > 0) {
-	    //has empty attachment, so no attachmentVersion byte...
-	    if (requestType == "sendMoney" || requestType == "sendMessage") {
-		var pos = 176;
-	    }
-            else {
-		var pos = 177;
-	    }
-	}
-        else {
-	    var pos = 160;
-	}
+        if (transaction.amountNQT !== data.amountNQT || transaction.feeNQT !== data.feeNQT) {
+            return false;
+        }
 
-	switch (requestType) {
-	case "sendMoney":
-	    if (transaction.type !== 0 || transaction.subtype !== 0) {
-		return false;
-	    }
-	    break;
-	case "sendMessage":
-	    if (transaction.type !== 1 || transaction.subtype !== 0) {
-		return false;
-	    }
+        if ("referencedTransactionFullHash" in data) {
+            if (transaction.referencedTransactionFullHash !== data.referencedTransactionFullHash) {
+                return false;
+            }
+        } else if (transaction.referencedTransactionFullHash !== "") {
+            return false;
+        }
 
-	    break;
-	case "setAlias":
-	    if (transaction.type !== 1 || transaction.subtype !== 1) {
-		return false;
-	    }
+        if (transaction.version > 0) {
+            //has empty attachment, so no attachmentVersion byte...
+            if (requestType == "sendMoney" || requestType == "sendMessage") {
+                var pos = 176;
+            } else {
+                var pos = 177;
+            }
+        } else {
+            var pos = 160;
+        }
 
-	    var aliasLength = parseInt(byteArray[pos], 10);
+        switch (requestType) {
+            case "sendMoney":
+                if (transaction.type !== 0 || transaction.subtype !== 0) {
+                    return false;
+                }
+                break;
+            case "sendMessage":
+                if (transaction.type !== 1 || transaction.subtype !== 0) {
+                    return false;
+                }
 
-	    pos++;
+                break;
+            case "setAlias":
+                if (transaction.type !== 1 || transaction.subtype !== 1) {
+                    return false;
+                }
 
-	    transaction.aliasName = converters.byteArrayToString(byteArray, pos, aliasLength);
+                var aliasLength = parseInt(byteArray[pos], 10);
 
-	    pos += aliasLength;
+                pos++;
 
-	    var uriLength = converters.byteArrayToSignedShort(byteArray, pos);
+                transaction.aliasName = converters.byteArrayToString(byteArray, pos, aliasLength);
 
-	    pos += 2;
+                pos += aliasLength;
 
-	    transaction.aliasURI = converters.byteArrayToString(byteArray, pos, uriLength);
+                var uriLength = converters.byteArrayToSignedShort(byteArray, pos);
 
-	    pos += uriLength;
+                pos += 2;
 
-	    if (transaction.aliasName !== data.aliasName || transaction.aliasURI !== data.aliasURI) {
-		return false;
-	    }
-	    break;
+                transaction.aliasURI = converters.byteArrayToString(byteArray, pos, uriLength);
 
-	case "setRewardRecipient":
-	    if (transaction.type !== 20 || transaction.subtype !== 0) {
-		return false;
-	    }
-	    break;
+                pos += uriLength;
 
-	case "createPoll":
-	    if (transaction.type !== 1 || transaction.subtype !== 2) {
-		return false;
-	    }
+                if (transaction.aliasName !== data.aliasName || transaction.aliasURI !== data.aliasURI) {
+                    return false;
+                }
+                break;
 
-	    var nameLength = converters.byteArrayToSignedShort(byteArray, pos);
+            case "setRewardRecipient":
+                if (transaction.type !== 20 || transaction.subtype !== 0) {
+                    return false;
+                }
+                break;
 
-	    pos += 2;
+            case "createPoll":
+                if (transaction.type !== 1 || transaction.subtype !== 2) {
+                    return false;
+                }
 
-	    transaction.name = converters.byteArrayToString(byteArray, pos, nameLength);
+                var nameLength = converters.byteArrayToSignedShort(byteArray, pos);
 
-	    pos += nameLength;
+                pos += 2;
 
-	    var descriptionLength = converters.byteArrayToSignedShort(byteArray, pos);
+                transaction.name = converters.byteArrayToString(byteArray, pos, nameLength);
 
-	    pos += 2;
+                pos += nameLength;
 
-	    transaction.description = converters.byteArrayToString(byteArray, pos, descriptionLength);
+                var descriptionLength = converters.byteArrayToSignedShort(byteArray, pos);
 
-	    pos += descriptionLength;
+                pos += 2;
 
-	    var nr_options = byteArray[pos];
+                transaction.description = converters.byteArrayToString(byteArray, pos, descriptionLength);
 
-	    pos++;
+                pos += descriptionLength;
 
-	    for (var i = 0; i < nr_options; i++) {
-		var optionLength = converters.byteArrayToSignedShort(byteArray, pos);
+                var nr_options = byteArray[pos];
 
-		pos += 2;
+                pos++;
 
-		transaction["option" + i] = converters.byteArrayToString(byteArray, pos, optionLength);
+                for (var i = 0; i < nr_options; i++) {
+                    var optionLength = converters.byteArrayToSignedShort(byteArray, pos);
 
-		pos += optionLength;
-	    }
+                    pos += 2;
 
-	    transaction.minNumberOfOptions = String(byteArray[pos]);
+                    transaction["option" + i] = converters.byteArrayToString(byteArray, pos, optionLength);
 
-	    pos++;
+                    pos += optionLength;
+                }
 
-	    transaction.maxNumberOfOptions = String(byteArray[pos]);
+                transaction.minNumberOfOptions = String(byteArray[pos]);
 
-	    pos++;
+                pos++;
 
-	    transaction.optionsAreBinary = String(byteArray[pos]);
+                transaction.maxNumberOfOptions = String(byteArray[pos]);
 
-	    pos++;
+                pos++;
 
-	    if (transaction.name !== data.name || transaction.description !== data.description || transaction.minNumberOfOptions !== data.minNumberOfOptions || transaction.maxNumberOfOptions !== data.maxNumberOfOptions || transaction.optionsAreBinary !== data.optionsAreBinary) {
-		return false;
-	    }
+                transaction.optionsAreBinary = String(byteArray[pos]);
 
-	    for (var i = 0; i < nr_options; i++) {
-		if (transaction["option" + i] !== data["option" + i]) {
-		    return false;
-		}
-	    }
+                pos++;
 
-	    if (("option" + i) in data) {
-		return false;
-	    }
+                if (transaction.name !== data.name || transaction.description !== data.description || transaction.minNumberOfOptions !== data.minNumberOfOptions || transaction.maxNumberOfOptions !== data.maxNumberOfOptions || transaction.optionsAreBinary !== data.optionsAreBinary) {
+                    return false;
+                }
 
-	    break;
-	case "castVote":
-	    if (transaction.type !== 1 || transaction.subtype !== 3) {
-		return false;
-	    }
+                for (var i = 0; i < nr_options; i++) {
+                    if (transaction["option" + i] !== data["option" + i]) {
+                        return false;
+                    }
+                }
 
-	    transaction.poll = String(converters.byteArrayToBigInteger(byteArray, pos));
+                if (("option" + i) in data) {
+                    return false;
+                }
 
-	    pos += 8;
+                break;
+            case "castVote":
+                if (transaction.type !== 1 || transaction.subtype !== 3) {
+                    return false;
+                }
 
-	    var voteLength = byteArray[pos];
+                transaction.poll = String(converters.byteArrayToBigInteger(byteArray, pos));
 
-	    pos++;
+                pos += 8;
 
-	    transaction.votes = [];
+                var voteLength = byteArray[pos];
 
-	    for (var i = 0; i < voteLength; i++) {
-		transaction.votes.push(byteArray[pos]);
+                pos++;
 
-		pos++;
-	    }
+                transaction.votes = [];
 
-	    return false;
+                for (var i = 0; i < voteLength; i++) {
+                    transaction.votes.push(byteArray[pos]);
 
-	    break;
-	case "hubAnnouncement":
-	    if (transaction.type !== 1 || transaction.subtype != 4) {
-		return false;
-	    }
+                    pos++;
+                }
 
-	    var minFeePerByte = String(converters.byteArrayToBigInteger(byteArray, pos));
+                return false;
 
-	    pos += 8;
+                break;
+            case "hubAnnouncement":
+                if (transaction.type !== 1 || transaction.subtype != 4) {
+                    return false;
+                }
 
-	    var numberOfUris = parseInt(byteArray[pos], 10);
+                var minFeePerByte = String(converters.byteArrayToBigInteger(byteArray, pos));
 
-	    pos++;
+                pos += 8;
 
-	    var uris = [];
+                var numberOfUris = parseInt(byteArray[pos], 10);
 
-	    for (var i = 0; i < numberOfUris; i++) {
-		var uriLength = parseInt(byteArray[pos], 10);
+                pos++;
 
-		pos++;
+                var uris = [];
 
-		uris[i] = converters.byteArrayToString(byteArray, pos, uriLength);
+                for (var i = 0; i < numberOfUris; i++) {
+                    var uriLength = parseInt(byteArray[pos], 10);
 
-		pos += uriLength;
-	    }
+                    pos++;
 
-	    //do validation
+                    uris[i] = converters.byteArrayToString(byteArray, pos, uriLength);
 
-	    return false;
+                    pos += uriLength;
+                }
 
-	    break;
-	case "setAccountInfo":
-	    if (transaction.type !== 1 || transaction.subtype != 5) {
-		return false;
-	    }
+                //do validation
 
-	    var nameLength = parseInt(byteArray[pos], 10);
+                return false;
 
-	    pos++;
+                break;
+            case "setAccountInfo":
+                if (transaction.type !== 1 || transaction.subtype != 5) {
+                    return false;
+                }
 
-	    transaction.name = converters.byteArrayToString(byteArray, pos, nameLength);
+                var nameLength = parseInt(byteArray[pos], 10);
 
-	    pos += nameLength;
+                pos++;
 
-	    var descriptionLength = converters.byteArrayToSignedShort(byteArray, pos);
+                transaction.name = converters.byteArrayToString(byteArray, pos, nameLength);
 
-	    pos += 2;
+                pos += nameLength;
 
-	    transaction.description = converters.byteArrayToString(byteArray, pos, descriptionLength);
+                var descriptionLength = converters.byteArrayToSignedShort(byteArray, pos);
 
-	    pos += descriptionLength;
+                pos += 2;
 
-	    if (transaction.name !== data.name || transaction.description !== data.description) {
-		return false;
-	    }
+                transaction.description = converters.byteArrayToString(byteArray, pos, descriptionLength);
 
-	    break;
-	case "sellAlias":
-	    if (transaction.type !== 1 || transaction.subtype !== 6) {
-		return false;
-	    }
+                pos += descriptionLength;
 
-	    var aliasLength = parseInt(byteArray[pos], 10);
+                if (transaction.name !== data.name || transaction.description !== data.description) {
+                    return false;
+                }
 
-	    pos++;
+                break;
+            case "sellAlias":
+                if (transaction.type !== 1 || transaction.subtype !== 6) {
+                    return false;
+                }
 
-	    transaction.alias = converters.byteArrayToString(byteArray, pos, aliasLength);
+                var aliasLength = parseInt(byteArray[pos], 10);
 
-	    pos += aliasLength;
+                pos++;
 
-	    transaction.priceNQT = String(converters.byteArrayToBigInteger(byteArray, pos));
+                transaction.alias = converters.byteArrayToString(byteArray, pos, aliasLength);
 
-	    pos += 8;
+                pos += aliasLength;
 
-	    if (transaction.alias !== data.aliasName || transaction.priceNQT !== data.priceNQT) {
-		return false;
-	    }
+                transaction.priceNQT = String(converters.byteArrayToBigInteger(byteArray, pos));
 
-	    break;
-	case "buyAlias":
-	    if (transaction.type !== 1 && transaction.subtype !== 7) {
-		return false;
-	    }
+                pos += 8;
 
-	    var aliasLength = parseInt(byteArray[pos], 10);
+                if (transaction.alias !== data.aliasName || transaction.priceNQT !== data.priceNQT) {
+                    return false;
+                }
 
-	    pos++;
+                break;
+            case "buyAlias":
+                if (transaction.type !== 1 && transaction.subtype !== 7) {
+                    return false;
+                }
 
-	    transaction.alias = converters.byteArrayToString(byteArray, pos, aliasLength);
+                var aliasLength = parseInt(byteArray[pos], 10);
 
-	    pos += aliasLength;
+                pos++;
 
-	    if (transaction.alias !== data.aliasName) {
-		return false;
-	    }
+                transaction.alias = converters.byteArrayToString(byteArray, pos, aliasLength);
 
-	    break;
-	case "issueAsset":
-	    if (transaction.type !== 2 || transaction.subtype !== 0) {
-		return false;
-	    }
+                pos += aliasLength;
 
-	    var nameLength = byteArray[pos];
+                if (transaction.alias !== data.aliasName) {
+                    return false;
+                }
 
-	    pos++;
+                break;
+            case "issueAsset":
+                if (transaction.type !== 2 || transaction.subtype !== 0) {
+                    return false;
+                }
 
-	    transaction.name = converters.byteArrayToString(byteArray, pos, nameLength);
+                var nameLength = byteArray[pos];
 
-	    pos += nameLength;
+                pos++;
 
-	    var descriptionLength = converters.byteArrayToSignedShort(byteArray, pos);
+                transaction.name = converters.byteArrayToString(byteArray, pos, nameLength);
 
-	    pos += 2;
+                pos += nameLength;
 
-	    transaction.description = converters.byteArrayToString(byteArray, pos, descriptionLength);
+                var descriptionLength = converters.byteArrayToSignedShort(byteArray, pos);
 
-	    pos += descriptionLength;
+                pos += 2;
 
-	    transaction.quantityQNT = String(converters.byteArrayToBigInteger(byteArray, pos));
+                transaction.description = converters.byteArrayToString(byteArray, pos, descriptionLength);
 
-	    pos += 8;
+                pos += descriptionLength;
 
-	    transaction.decimals = String(byteArray[pos]);
+                transaction.quantityQNT = String(converters.byteArrayToBigInteger(byteArray, pos));
 
-	    pos++;
+                pos += 8;
 
-	    if (transaction.name !== data.name || transaction.description !== data.description || transaction.quantityQNT !== data.quantityQNT || transaction.decimals !== data.decimals) {
-		return false;
-	    }
+                transaction.decimals = String(byteArray[pos]);
 
-	    break;
-	case "transferAsset":
-	    if (transaction.type !== 2 || transaction.subtype !== 1) {
-		return false;
-	    }
+                pos++;
 
-	    transaction.asset = String(converters.byteArrayToBigInteger(byteArray, pos));
+                if (transaction.name !== data.name || transaction.description !== data.description || transaction.quantityQNT !== data.quantityQNT || transaction.decimals !== data.decimals) {
+                    return false;
+                }
 
-	    pos += 8;
+                break;
+            case "transferAsset":
+                if (transaction.type !== 2 || transaction.subtype !== 1) {
+                    return false;
+                }
 
-	    transaction.quantityQNT = String(converters.byteArrayToBigInteger(byteArray, pos));
+                transaction.asset = String(converters.byteArrayToBigInteger(byteArray, pos));
 
-	    pos += 8;
+                pos += 8;
 
-	    if (transaction.asset !== data.asset || transaction.quantityQNT !== data.quantityQNT) {
-		return false;
-	    }
-	    break;
-	case "placeAskOrder":
-	case "placeBidOrder":
-	    if (transaction.type !== 2) {
-		return false;
-	    }
-            else if (requestType == "placeAskOrder" && transaction.subtype !== 2) {
-		return false;
-	    }
-            else if (requestType == "placeBidOrder" && transaction.subtype !== 3) {
-		return false;
-	    }
+                transaction.quantityQNT = String(converters.byteArrayToBigInteger(byteArray, pos));
 
-	    transaction.asset = String(converters.byteArrayToBigInteger(byteArray, pos));
+                pos += 8;
 
-	    pos += 8;
+                if (transaction.asset !== data.asset || transaction.quantityQNT !== data.quantityQNT) {
+                    return false;
+                }
+                break;
+            case "placeAskOrder":
+            case "placeBidOrder":
+                if (transaction.type !== 2) {
+                    return false;
+                } else if (requestType == "placeAskOrder" && transaction.subtype !== 2) {
+                    return false;
+                } else if (requestType == "placeBidOrder" && transaction.subtype !== 3) {
+                    return false;
+                }
 
-	    transaction.quantityQNT = String(converters.byteArrayToBigInteger(byteArray, pos));
+                transaction.asset = String(converters.byteArrayToBigInteger(byteArray, pos));
 
-	    pos += 8;
+                pos += 8;
 
-	    transaction.priceNQT = String(converters.byteArrayToBigInteger(byteArray, pos));
+                transaction.quantityQNT = String(converters.byteArrayToBigInteger(byteArray, pos));
 
-	    pos += 8;
+                pos += 8;
 
-	    if (transaction.asset !== data.asset || transaction.quantityQNT !== data.quantityQNT || transaction.priceNQT !== data.priceNQT) {
-		return false;
-	    }
-	    break;
-	case "cancelAskOrder":
-	case "cancelBidOrder":
-	    if (transaction.type !== 2) {
-		return false;
-	    }
-            else if (requestType == "cancelAskOrder" && transaction.subtype !== 4) {
-		return false;
-	    }
-            else if (requestType == "cancelBidOrder" && transaction.subtype !== 5) {
-		return false;
-	    }
+                transaction.priceNQT = String(converters.byteArrayToBigInteger(byteArray, pos));
 
-	    transaction.order = String(converters.byteArrayToBigInteger(byteArray, pos));
+                pos += 8;
 
-	    pos += 8;
+                if (transaction.asset !== data.asset || transaction.quantityQNT !== data.quantityQNT || transaction.priceNQT !== data.priceNQT) {
+                    return false;
+                }
+                break;
+            case "cancelAskOrder":
+            case "cancelBidOrder":
+                if (transaction.type !== 2) {
+                    return false;
+                } else if (requestType == "cancelAskOrder" && transaction.subtype !== 4) {
+                    return false;
+                } else if (requestType == "cancelBidOrder" && transaction.subtype !== 5) {
+                    return false;
+                }
 
-	    if (transaction.order !== data.order) {
-		return false;
-	    }
+                transaction.order = String(converters.byteArrayToBigInteger(byteArray, pos));
 
-	    break;
-	case "dgsListing":
-	    if (transaction.type !== 3 && transaction.subtype != 0) {
-		return false;
-	    }
+                pos += 8;
 
-	    var nameLength = converters.byteArrayToSignedShort(byteArray, pos);
+                if (transaction.order !== data.order) {
+                    return false;
+                }
 
-	    pos += 2;
+                break;
+            case "dgsListing":
+                if (transaction.type !== 3 && transaction.subtype != 0) {
+                    return false;
+                }
 
-	    transaction.name = converters.byteArrayToString(byteArray, pos, nameLength);
+                var nameLength = converters.byteArrayToSignedShort(byteArray, pos);
 
-	    pos += nameLength;
+                pos += 2;
 
-	    var descriptionLength = converters.byteArrayToSignedShort(byteArray, pos);
+                transaction.name = converters.byteArrayToString(byteArray, pos, nameLength);
 
-	    pos += 2;
+                pos += nameLength;
 
-	    transaction.description = converters.byteArrayToString(byteArray, pos, descriptionLength);
+                var descriptionLength = converters.byteArrayToSignedShort(byteArray, pos);
 
-	    pos += descriptionLength;
+                pos += 2;
 
-	    var tagsLength = converters.byteArrayToSignedShort(byteArray, pos);
+                transaction.description = converters.byteArrayToString(byteArray, pos, descriptionLength);
 
-	    pos += 2;
+                pos += descriptionLength;
 
-	    transaction.tags = converters.byteArrayToString(byteArray, pos, tagsLength);
+                var tagsLength = converters.byteArrayToSignedShort(byteArray, pos);
 
-	    pos += tagsLength;
+                pos += 2;
 
-	    transaction.quantity = String(converters.byteArrayToSignedInt32(byteArray, pos));
+                transaction.tags = converters.byteArrayToString(byteArray, pos, tagsLength);
 
-	    pos += 4;
+                pos += tagsLength;
 
-	    transaction.priceNQT = String(converters.byteArrayToBigInteger(byteArray, pos));
+                transaction.quantity = String(converters.byteArrayToSignedInt32(byteArray, pos));
 
-	    pos += 8;
+                pos += 4;
 
-	    if (transaction.name !== data.name || transaction.description !== data.description || transaction.tags !== data.tags || transaction.quantity !== data.quantity || transaction.priceNQT !== data.priceNQT) {
-		return false;
-	    }
+                transaction.priceNQT = String(converters.byteArrayToBigInteger(byteArray, pos));
 
-	    break;
-	case "dgsDelisting":
-	    if (transaction.type !== 3 && transaction.subtype !== 1) {
-		return false;
-	    }
+                pos += 8;
 
-	    transaction.goods = String(converters.byteArrayToBigInteger(byteArray, pos));
+                if (transaction.name !== data.name || transaction.description !== data.description || transaction.tags !== data.tags || transaction.quantity !== data.quantity || transaction.priceNQT !== data.priceNQT) {
+                    return false;
+                }
 
-	    pos += 8;
+                break;
+            case "dgsDelisting":
+                if (transaction.type !== 3 && transaction.subtype !== 1) {
+                    return false;
+                }
 
-	    if (transaction.goods !== data.goods) {
-		return false;
-	    }
+                transaction.goods = String(converters.byteArrayToBigInteger(byteArray, pos));
 
-	    break;
-	case "dgsPriceChange":
-	    if (transaction.type !== 3 && transaction.subtype !== 2) {
-		return false;
-	    }
+                pos += 8;
 
-	    transaction.goods = String(converters.byteArrayToBigInteger(byteArray, pos));
+                if (transaction.goods !== data.goods) {
+                    return false;
+                }
 
-	    pos += 8;
+                break;
+            case "dgsPriceChange":
+                if (transaction.type !== 3 && transaction.subtype !== 2) {
+                    return false;
+                }
 
-	    transaction.priceNQT = String(converters.byteArrayToBigInteger(byteArray, pos));
+                transaction.goods = String(converters.byteArrayToBigInteger(byteArray, pos));
 
-	    pos += 8;
+                pos += 8;
 
-	    if (transaction.goods !== data.goods || transaction.priceNQT !== data.priceNQT) {
-		return false;
-	    }
+                transaction.priceNQT = String(converters.byteArrayToBigInteger(byteArray, pos));
 
-	    break;
-	case "dgsQuantityChange":
-	    if (transaction.type !== 3 && transaction.subtype !== 3) {
-		return false;
-	    }
+                pos += 8;
 
-	    transaction.goods = String(converters.byteArrayToBigInteger(byteArray, pos));
+                if (transaction.goods !== data.goods || transaction.priceNQT !== data.priceNQT) {
+                    return false;
+                }
 
-	    pos += 8;
+                break;
+            case "dgsQuantityChange":
+                if (transaction.type !== 3 && transaction.subtype !== 3) {
+                    return false;
+                }
 
-	    transaction.deltaQuantity = String(converters.byteArrayToSignedInt32(byteArray, pos));
+                transaction.goods = String(converters.byteArrayToBigInteger(byteArray, pos));
 
-	    pos += 4;
+                pos += 8;
 
-	    if (transaction.goods !== data.goods || transaction.deltaQuantity !== data.deltaQuantity) {
-		return false;
-	    }
+                transaction.deltaQuantity = String(converters.byteArrayToSignedInt32(byteArray, pos));
 
-	    break;
-	case "dgsPurchase":
-	    if (transaction.type !== 3 && transaction.subtype !== 4) {
-		return false;
-	    }
+                pos += 4;
 
-	    transaction.goods = String(converters.byteArrayToBigInteger(byteArray, pos));
+                if (transaction.goods !== data.goods || transaction.deltaQuantity !== data.deltaQuantity) {
+                    return false;
+                }
 
-	    pos += 8;
+                break;
+            case "dgsPurchase":
+                if (transaction.type !== 3 && transaction.subtype !== 4) {
+                    return false;
+                }
 
-	    transaction.quantity = String(converters.byteArrayToSignedInt32(byteArray, pos));
+                transaction.goods = String(converters.byteArrayToBigInteger(byteArray, pos));
 
-	    pos += 4;
+                pos += 8;
 
-	    transaction.priceNQT = String(converters.byteArrayToBigInteger(byteArray, pos));
+                transaction.quantity = String(converters.byteArrayToSignedInt32(byteArray, pos));
 
-	    pos += 8;
+                pos += 4;
 
-	    transaction.deliveryDeadlineTimestamp = String(converters.byteArrayToSignedInt32(byteArray, pos));
+                transaction.priceNQT = String(converters.byteArrayToBigInteger(byteArray, pos));
 
-	    pos += 4;
+                pos += 8;
 
-	    if (transaction.goods !== data.goods || transaction.quantity !== data.quantity || transaction.priceNQT !== data.priceNQT || transaction.deliveryDeadlineTimestamp !== data.deliveryDeadlineTimestamp) {
-		return false;
-	    }
+                transaction.deliveryDeadlineTimestamp = String(converters.byteArrayToSignedInt32(byteArray, pos));
 
-	    break;
-	case "dgsDelivery":
-	    if (transaction.type !== 3 && transaction.subtype !== 5) {
-		return false;
-	    }
+                pos += 4;
 
-	    transaction.purchase = String(converters.byteArrayToBigInteger(byteArray, pos));
+                if (transaction.goods !== data.goods || transaction.quantity !== data.quantity || transaction.priceNQT !== data.priceNQT || transaction.deliveryDeadlineTimestamp !== data.deliveryDeadlineTimestamp) {
+                    return false;
+                }
 
-	    pos += 8;
+                break;
+            case "dgsDelivery":
+                if (transaction.type !== 3 && transaction.subtype !== 5) {
+                    return false;
+                }
 
-	    var encryptedGoodsLength = converters.byteArrayToSignedShort(byteArray, pos);
+                transaction.purchase = String(converters.byteArrayToBigInteger(byteArray, pos));
 
-	    var goodsLength = converters.byteArrayToSignedInt32(byteArray, pos);
+                pos += 8;
 
-	    transaction.goodsIsText = goodsLength < 0; // ugly hack??
+                var encryptedGoodsLength = converters.byteArrayToSignedShort(byteArray, pos);
 
-	    if (goodsLength < 0) {
-		goodsLength &= 2147483647;
-	    }
+                var goodsLength = converters.byteArrayToSignedInt32(byteArray, pos);
 
-	    pos += 4;
+                transaction.goodsIsText = goodsLength < 0; // ugly hack??
 
-	    transaction.goodsData = converters.byteArrayToHexString(byteArray.slice(pos, pos + encryptedGoodsLength));
+                if (goodsLength < 0) {
+                    goodsLength &= 2147483647;
+                }
 
-	    pos += encryptedGoodsLength;
+                pos += 4;
 
-	    transaction.goodsNonce = converters.byteArrayToHexString(byteArray.slice(pos, pos + 32));
+                transaction.goodsData = converters.byteArrayToHexString(byteArray.slice(pos, pos + encryptedGoodsLength));
 
-	    pos += 32;
+                pos += encryptedGoodsLength;
 
-	    transaction.discountNQT = String(converters.byteArrayToBigInteger(byteArray, pos));
+                transaction.goodsNonce = converters.byteArrayToHexString(byteArray.slice(pos, pos + 32));
 
-	    pos += 8;
+                pos += 32;
 
-	    var goodsIsText = (transaction.goodsIsText ? "true" : "false");
+                transaction.discountNQT = String(converters.byteArrayToBigInteger(byteArray, pos));
 
-	    if (goodsIsText != data.goodsIsText) {
-		return false;
-	    }
+                pos += 8;
 
-	    if (transaction.purchase !== data.purchase || transaction.goodsData !== data.goodsData || transaction.goodsNonce !== data.goodsNonce || transaction.discountNQT !== data.discountNQT) {
-		return false;
-	    }
+                var goodsIsText = (transaction.goodsIsText ? "true" : "false");
 
-	    break;
-	case "dgsFeedback":
-	    if (transaction.type !== 3 && transaction.subtype !== 6) {
-		return false;
-	    }
+                if (goodsIsText != data.goodsIsText) {
+                    return false;
+                }
 
-	    transaction.purchase = String(converters.byteArrayToBigInteger(byteArray, pos));
+                if (transaction.purchase !== data.purchase || transaction.goodsData !== data.goodsData || transaction.goodsNonce !== data.goodsNonce || transaction.discountNQT !== data.discountNQT) {
+                    return false;
+                }
 
-	    pos += 8;
+                break;
+            case "dgsFeedback":
+                if (transaction.type !== 3 && transaction.subtype !== 6) {
+                    return false;
+                }
 
-	    if (transaction.purchase !== data.purchase) {
-		return false;
-	    }
+                transaction.purchase = String(converters.byteArrayToBigInteger(byteArray, pos));
 
-	    break;
-	case "dgsRefund":
-	    if (transaction.type !== 3 && transaction.subtype !== 7) {
-		return false;
-	    }
+                pos += 8;
 
-	    transaction.purchase = String(converters.byteArrayToBigInteger(byteArray, pos));
+                if (transaction.purchase !== data.purchase) {
+                    return false;
+                }
 
-	    pos += 8;
+                break;
+            case "dgsRefund":
+                if (transaction.type !== 3 && transaction.subtype !== 7) {
+                    return false;
+                }
 
-	    transaction.refundNQT = String(converters.byteArrayToBigInteger(byteArray, pos));
+                transaction.purchase = String(converters.byteArrayToBigInteger(byteArray, pos));
 
-	    pos += 8;
+                pos += 8;
 
-	    if (transaction.purchase !== data.purchase || transaction.refundNQT !== data.refundNQT) {
-		return false;
-	    }
+                transaction.refundNQT = String(converters.byteArrayToBigInteger(byteArray, pos));
 
-	    break;
-	case "leaseBalance":
-	    if (transaction.type !== 4 && transaction.subtype !== 0) {
-		return false;
-	    }
+                pos += 8;
 
-	    transaction.period = String(converters.byteArrayToSignedShort(byteArray, pos));
+                if (transaction.purchase !== data.purchase || transaction.refundNQT !== data.refundNQT) {
+                    return false;
+                }
 
-	    pos += 2;
+                break;
+            case "leaseBalance":
+                if (transaction.type !== 4 && transaction.subtype !== 0) {
+                    return false;
+                }
 
-	    if (transaction.period !== data.period) {
-		return false;
-	    }
+                transaction.period = String(converters.byteArrayToSignedShort(byteArray, pos));
 
-	    break;
-	default:
-	    //invalid requestType..
-	    return false;
-	}
+                pos += 2;
 
-	var position = 1;
+                if (transaction.period !== data.period) {
+                    return false;
+                }
 
-	//non-encrypted message
-	if ((transaction.flags & position) != 0 || (requestType == "sendMessage" && data.message)) {
-	    var attachmentVersion = byteArray[pos];
+                break;
+            default:
+                //invalid requestType..
+                return false;
+        }
 
-	    pos++;
+        var position = 1;
 
-	    var messageLength = converters.byteArrayToSignedInt32(byteArray, pos);
+        //non-encrypted message
+        if ((transaction.flags & position) != 0 || (requestType == "sendMessage" && data.message)) {
+            var attachmentVersion = byteArray[pos];
 
-	    transaction.messageIsText = messageLength < 0; // ugly hack??
+            pos++;
 
-	    if (messageLength < 0) {
-		messageLength &= 2147483647;
-	    }
+            var messageLength = converters.byteArrayToSignedInt32(byteArray, pos);
 
-	    pos += 4;
+            transaction.messageIsText = messageLength < 0; // ugly hack??
 
-	    if (transaction.messageIsText) {
-		transaction.message = converters.byteArrayToString(byteArray, pos, messageLength);
-	    }
-            else {
-		var slice = byteArray.slice(pos, pos + messageLength);
-		transaction.message = converters.byteArrayToHexString(slice);
-	    }
+            if (messageLength < 0) {
+                messageLength &= 2147483647;
+            }
 
-	    pos += messageLength;
+            pos += 4;
 
-	    var messageIsText = (transaction.messageIsText ? "true" : "false");
+            if (transaction.messageIsText) {
+                transaction.message = converters.byteArrayToString(byteArray, pos, messageLength);
+            } else {
+                var slice = byteArray.slice(pos, pos + messageLength);
+                transaction.message = converters.byteArrayToHexString(slice);
+            }
 
-	    if (messageIsText != data.messageIsText) {
-		return false;
-	    }
+            pos += messageLength;
 
-	    if (transaction.message !== data.message) {
-		return false;
-	    }
-	}
-        else if (data.message) {
-	    return false;
-	}
+            var messageIsText = (transaction.messageIsText ? "true" : "false");
 
-	position <<= 1;
+            if (messageIsText != data.messageIsText) {
+                return false;
+            }
 
-	//encrypted note
-	if ((transaction.flags & position) != 0) {
-	    var attachmentVersion = byteArray[pos];
+            if (transaction.message !== data.message) {
+                return false;
+            }
+        } else if (data.message) {
+            return false;
+        }
 
-	    pos++;
+        position <<= 1;
 
-	    var encryptedMessageLength = converters.byteArrayToSignedInt32(byteArray, pos);
+        //encrypted note
+        if ((transaction.flags & position) != 0) {
+            var attachmentVersion = byteArray[pos];
 
-	    transaction.messageToEncryptIsText = encryptedMessageLength < 0;
+            pos++;
 
-	    if (encryptedMessageLength < 0) {
-		encryptedMessageLength &= 2147483647;
-	    }
+            var encryptedMessageLength = converters.byteArrayToSignedInt32(byteArray, pos);
 
-	    pos += 4;
+            transaction.messageToEncryptIsText = encryptedMessageLength < 0;
 
-	    transaction.encryptedMessageData = converters.byteArrayToHexString(byteArray.slice(pos, pos + encryptedMessageLength));
+            if (encryptedMessageLength < 0) {
+                encryptedMessageLength &= 2147483647;
+            }
 
-	    pos += encryptedMessageLength;
+            pos += 4;
 
-	    transaction.encryptedMessageNonce = converters.byteArrayToHexString(byteArray.slice(pos, pos + 32));
+            transaction.encryptedMessageData = converters.byteArrayToHexString(byteArray.slice(pos, pos + encryptedMessageLength));
 
-	    pos += 32;
+            pos += encryptedMessageLength;
 
-	    var messageToEncryptIsText = (transaction.messageToEncryptIsText ? "true" : "false");
+            transaction.encryptedMessageNonce = converters.byteArrayToHexString(byteArray.slice(pos, pos + 32));
 
-	    if (messageToEncryptIsText != data.messageToEncryptIsText) {
-		return false;
-	    }
+            pos += 32;
 
-	    if (transaction.encryptedMessageData !== data.encryptedMessageData || transaction.encryptedMessageNonce !== data.encryptedMessageNonce) {
-		return false;
-	    }
-	}
-        else if (data.encryptedMessageData) {
-	    return false;
-	}
+            var messageToEncryptIsText = (transaction.messageToEncryptIsText ? "true" : "false");
 
-	position <<= 1;
+            if (messageToEncryptIsText != data.messageToEncryptIsText) {
+                return false;
+            }
 
-	if ((transaction.flags & position) != 0) {
-	    var attachmentVersion = byteArray[pos];
+            if (transaction.encryptedMessageData !== data.encryptedMessageData || transaction.encryptedMessageNonce !== data.encryptedMessageNonce) {
+                return false;
+            }
+        } else if (data.encryptedMessageData) {
+            return false;
+        }
 
-	    pos++;
+        position <<= 1;
 
-	    var recipientPublicKey = converters.byteArrayToHexString(byteArray.slice(pos, pos + 32));
+        if ((transaction.flags & position) != 0) {
+            var attachmentVersion = byteArray[pos];
 
-	    if (recipientPublicKey != data.recipientPublicKey) {
-		return false;
-	    }
-	    pos += 32;
-	}
-        else if (data.recipientPublicKey) {
-	    return false;
-	}
+            pos++;
 
-	position <<= 1;
+            var recipientPublicKey = converters.byteArrayToHexString(byteArray.slice(pos, pos + 32));
 
-	if ((transaction.flags & position) != 0) {
-	    var attachmentVersion = byteArray[pos];
+            if (recipientPublicKey != data.recipientPublicKey) {
+                return false;
+            }
+            pos += 32;
+        } else if (data.recipientPublicKey) {
+            return false;
+        }
 
-	    pos++;
+        position <<= 1;
 
-	    var encryptedToSelfMessageLength = converters.byteArrayToSignedInt32(byteArray, pos);
+        if ((transaction.flags & position) != 0) {
+            var attachmentVersion = byteArray[pos];
 
-	    transaction.messageToEncryptToSelfIsText = encryptedToSelfMessageLength < 0;
+            pos++;
 
-	    if (encryptedToSelfMessageLength < 0) {
-		encryptedToSelfMessageLength &= 2147483647;
-	    }
+            var encryptedToSelfMessageLength = converters.byteArrayToSignedInt32(byteArray, pos);
 
-	    pos += 4;
+            transaction.messageToEncryptToSelfIsText = encryptedToSelfMessageLength < 0;
 
-	    transaction.encryptToSelfMessageData = converters.byteArrayToHexString(byteArray.slice(pos, pos + encryptedToSelfMessageLength));
+            if (encryptedToSelfMessageLength < 0) {
+                encryptedToSelfMessageLength &= 2147483647;
+            }
 
-	    pos += encryptedToSelfMessageLength;
+            pos += 4;
 
-	    transaction.encryptToSelfMessageNonce = converters.byteArrayToHexString(byteArray.slice(pos, pos + 32));
+            transaction.encryptToSelfMessageData = converters.byteArrayToHexString(byteArray.slice(pos, pos + encryptedToSelfMessageLength));
 
-	    pos += 32;
+            pos += encryptedToSelfMessageLength;
 
-	    var messageToEncryptToSelfIsText = (transaction.messageToEncryptToSelfIsText ? "true" : "false");
+            transaction.encryptToSelfMessageNonce = converters.byteArrayToHexString(byteArray.slice(pos, pos + 32));
 
-	    if (messageToEncryptToSelfIsText != data.messageToEncryptToSelfIsText) {
-		return false;
-	    }
+            pos += 32;
 
-	    if (transaction.encryptToSelfMessageData !== data.encryptToSelfMessageData || transaction.encryptToSelfMessageNonce !== data.encryptToSelfMessageNonce) {
-		return false;
-	    }
-	}
-        else if (data.encryptToSelfMessageData) {
-	    return false;
-	}
+            var messageToEncryptToSelfIsText = (transaction.messageToEncryptToSelfIsText ? "true" : "false");
 
-	return transactionBytes.substr(0, 192) + signature + transactionBytes.substr(320);
+            if (messageToEncryptToSelfIsText != data.messageToEncryptToSelfIsText) {
+                return false;
+            }
+
+            if (transaction.encryptToSelfMessageData !== data.encryptToSelfMessageData || transaction.encryptToSelfMessageNonce !== data.encryptToSelfMessageNonce) {
+                return false;
+            }
+        } else if (data.encryptToSelfMessageData) {
+            return false;
+        }
+
+        return transactionBytes.substr(0, 192) + signature + transactionBytes.substr(320);
     }
 
     BRS.broadcastTransactionBytes = function(transactionData, callback, originalResponse, originalData) {
-	$.ajax({
-	    url: BRS.server + "/burst?requestType=broadcastTransaction",
-	    crossDomain: true,
-	    dataType: "json",
-	    type: "POST",
-	    timeout: 30000,
-	    async: true,
-	    data: {
-		"transactionBytes": transactionData
-	    }
-	}).done(function(response, status, xhr) {
-	    if (BRS.console) {
-		BRS.addToConsole(this.url, this.type, this.data, response);
-	    }
+        $.ajax({
+            url: BRS.server + "/burst?requestType=broadcastTransaction",
+            crossDomain: true,
+            dataType: "json",
+            type: "POST",
+            timeout: 30000,
+            async: true,
+            data: {
+                "transactionBytes": transactionData
+            }
+        }).done(function(response, status, xhr) {
+            if (BRS.console) {
+                BRS.addToConsole(this.url, this.type, this.data, response);
+            }
 
-	    if (callback) {
-		if (response.errorCode) {
-		    if (!response.errorDescription) {
-			response.errorDescription = (response.errorMessage ? response.errorMessage : "Unknown error occured.");
-		    }
-		    callback(response, originalData);
-		}
-                else if (response.error) {
-		    response.errorCode = 1;
-		    response.errorDescription = response.error;
-		    callback(response, originalData);
-		}
-                else {
-		    if ("transactionBytes" in originalResponse) {
-			delete originalResponse.transactionBytes;
-		    }
-		    originalResponse.broadcasted = true;
-		    originalResponse.transaction = response.transaction;
-		    originalResponse.fullHash = response.fullHash;
-		    callback(originalResponse, originalData);
-		    if (originalData.referencedTransactionFullHash) {
-			$.notify($.t("info_referenced_transaction_hash"), {
-			    "type": "info"
-			});
-		    }
-		}
-	    }
-	}).fail(function(xhr, textStatus, error) {
-	    if (BRS.console) {
-		BRS.addToConsole(this.url, this.type, this.data, error, true);
-	    }
+            if (callback) {
+                if (response.errorCode) {
+                    if (!response.errorDescription) {
+                        response.errorDescription = (response.errorMessage ? response.errorMessage : "Unknown error occured.");
+                    }
+                    callback(response, originalData);
+                } else if (response.error) {
+                    response.errorCode = 1;
+                    response.errorDescription = response.error;
+                    callback(response, originalData);
+                } else {
+                    if ("transactionBytes" in originalResponse) {
+                        delete originalResponse.transactionBytes;
+                    }
+                    originalResponse.broadcasted = true;
+                    originalResponse.transaction = response.transaction;
+                    originalResponse.fullHash = response.fullHash;
+                    callback(originalResponse, originalData);
+                    if (originalData.referencedTransactionFullHash) {
+                        $.notify($.t("info_referenced_transaction_hash"), {
+                            "type": "info"
+                        });
+                    }
+                }
+            }
+        }).fail(function(xhr, textStatus, error) {
+            if (BRS.console) {
+                BRS.addToConsole(this.url, this.type, this.data, error, true);
+            }
 
-	    if (callback) {
-		if (error == "timeout") {
-		    error = $.t("error_request_timeout");
-		}
-		callback({
-		    "errorCode": -1,
-		    "errorDescription": error
-		}, {});
-	    }
-	});
+            if (callback) {
+                if (error == "timeout") {
+                    error = $.t("error_request_timeout");
+                }
+                callback({
+                    "errorCode": -1,
+                    "errorDescription": error
+                }, {});
+            }
+        });
     }
 
     return BRS;
