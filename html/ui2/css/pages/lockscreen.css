@@ -77,11 +77,10 @@ border-radius: 15px 15px 15px 15px;
 
 .lockscreen-item > .lockscreen-credentials input {
   border: 0 !important;
-  border-radius: 15px 15px 15px 15px;
 }
 .lockscreen-item > .lockscreen-credentials .btn {
   color: #ffffff;
-  border-radius: 0px 15px 15px 0px;
+  border-radius: 0px 4px 4px 0px;
 }
 #registration_link {
   color: #fff;
