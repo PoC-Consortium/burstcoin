@@ -8,7 +8,7 @@ html.lockscreen, html.lockscreen body {
   overflow-x:auto;
 }
 .lockscreen {
-  background-color: #282C2F;
+   background: linear-gradient(141deg, #3E64F3 0%, #3348CC 25%, #2B37B2 50%, #343499 75%, #433078 100%);
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -41,11 +41,8 @@ html.lockscreen, html.lockscreen body {
 /* Will contain the image and the sign in form */
 .lockscreen-item {
   padding: 0;
-  background: #3c4247;
   position: relative;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
+border-radius: 15px 15px 15px 15px;
   margin: 10px auto;
   width: 300px;
 }
@@ -80,32 +77,26 @@ html.lockscreen, html.lockscreen body {
 
 .lockscreen-item > .lockscreen-credentials input {
   border: 0 !important;
+  border-radius: 15px 15px 15px 15px;
 }
 .lockscreen-item > .lockscreen-credentials .btn {
-  background-color: #3c4247;
-  border: 0;
+  color: #ffffff;
+  border-radius: 0px 15px 15px 0px;
 }
 #registration_link {
   color: #fff;
-  margin-top: 30px;
+  margin-top: 20px;
   text-align: center;
   text-transform: uppercase;
 }
-#registration_link a, #custom_passphrase_link a {
-  color: rgba(255,255,255,0.5);
-}
-#registration_link a:hover, #custom_passphrase_link a {
-  color: rgba(255,255,255,1.0);
-  text-decoration: none;
-}
-
-#login_panel #remember_password_container label{ color: rgba(150,150,150,0.5); }
-#login_panel #remember_password_container label:hover { color: rgba(150,150,150,1.0); }
-#login_panel #remember_password_container label{ opacity: 0.53; }
-#login_panel #remember_password_container label:hover { opacity: 1.0; }
+#registration_link a, #custom_passphrase_link a{ color: rgba(255,255,255,0.7);}
+#registration_link a:hover, #custom_passphrase_link a:hover{ color: rgba(255,255,255,1.0);}
+#login_panel #remember_password_container label{ color: rgba(255,255,255,0.7); }
+#login_panel #remember_password_container label:hover { color: rgba(255,255,255,1.0); }
 
 .lockscreen-credentials {
   height:34px;
+  color:rgba(0,0,0,0.0);
 }
 .lockscreen header, .lockscreen #page {
 	display: none !important;
@@ -134,7 +125,7 @@ html.lockscreen, html.lockscreen body {
   margin-bottom:0;
 }
 #remember_password_container {
-	color:#555555;
+	margin-top:12px;
 	text-align:center;
 }
 #remember_password_container label {
@@ -143,4 +134,10 @@ html.lockscreen, html.lockscreen body {
 #center .panel {
   display:inline-block;
 }
- 
+.btn.btn-login {
+  border-radius: 0;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  border-width: 1px;
+}

@@ -16,8 +16,8 @@
   <table id="center" style="display:none;width:100%;height:100%;">
     <tr>
       <td style="text-align:center;vertical-align:middle">
-        <center><img src="img/burst_logo.png" alt="Burst" width="242" height="64" style="margin-right:20px;opacity: 0.75;" />
-		<i style="color: grey;font-size: large;">
+        <center><img src="img/burst_logo.png" alt="Burst" width="242" height="64" style="margin-right:20px;" />
+		<i style="color: #c4c4c4;font-size: large;">
 		<div id="brs_version" style="padding-bottom: 20px;padding-left: 210px;" id="loading_dots"><span>.</span><span>.</span><span>.</span> 
 		</div>
 		</i></center>
@@ -32,7 +32,7 @@
                 <div class="input-group">
                   <input type="password" class="form-control" id="login_password" name="login_password" placeholder="Your Passphrase" data-i18n="[placeholder]your_passphrase" autocomplete="" autofocus />
                   <div class="input-group-btn">
-                    <button class="btn btn-flat" onclick="BRS.login($('#login_password').val()); return false;"><i class="fa fa-arrow-right text-muted"></i></button>
+                    <button class="btn btn-login" onclick="BRS.login($('#login_password').val()); return false;"><i class="fa fa-arrow-right text-muted"></i></button>
                   </div>
                   <input type="hidden" name="check_password_length" id="login_check_password_length" value="1" />
                 </div>

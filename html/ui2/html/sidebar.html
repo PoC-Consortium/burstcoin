@@ -3,7 +3,15 @@
     <div class="pull-left info">
       <div class="pull-left info">
         <div style="margin-bottom:5px;margin-top:5px;"><a href="#" id="account_name" data-toggle="modal" data-target="#account_info_modal" data-i18n="no_name_set">No Name Set</a></div>
-        <div <span id="account_id" </span> </div>
+        <div id="account_id_dropdown" class="dropdown">
+          <span id="account_id" class="dropdown-toggle" data-toggle="dropdown" data-type="account_id"></span>
+          <ul class="sbdropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+            <li role="presentation"><a class="copy_link" role="menuitem" tabindex="-1" href="#" data-type="account_rs" data-i18n="copy_account_id">Copy Account ID</a></li>
+            <li role="presentation"><a class="copy_link" role="menuitem" tabindex="-1" href="#" data-type="account_id">Copy Numeric Account     ID</a></li>
+            <li role="presentation" class="remote_only"><a class="copy_link" role="menuitem" tabindex="-1" href="#" data-type="message_link" data-i18n="copy_send_message_link">Copy "Send Message" Link</a></li>
+            <li role="presentation" class="remote_only"><a class="copy_link" role="menuitem" tabindex="-1" href="#" data-type="send_link" data-i18n="copy_send_burst_link">Copy "Send BURST" Link</a></li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
