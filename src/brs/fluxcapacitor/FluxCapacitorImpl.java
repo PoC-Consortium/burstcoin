@@ -13,8 +13,10 @@ public class FluxCapacitorImpl implements FluxCapacitor {
   public FluxCapacitorImpl(Blockchain blockchain, PropertyService propertyService) {
     this.blockchain = blockchain;
 
-    featureCapacitor = new FeatureCapacitor(propertyService);
-    intCapacitor = new IntCapacitor(propertyService);
+    final HistorianImpl historian = new HistorianImpl(propertyService);
+
+    featureCapacitor = new FeatureCapacitor(historian);
+    intCapacitor = new IntCapacitor(historian);
   }
 
   @Override

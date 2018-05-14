@@ -21,9 +21,14 @@ public class Props {
   public static final String DEV_P2P_REBROADCAST_TO  = "DEV.P2P.rebroadcastTo";
   public static final String DEV_P2P_BOOTSTRAP_PEERS = "DEV.P2P.BootstrapPeers";
 
-  public static final String DEV_FEATURE_POC2_END = "DEV.Feature.PoC2.end";
-
-  public static final String DEV_BLOCK_SIZE_SETTING = "DEV.FluxInt.BlockSize";
+  public static final String DEV_DIGITAL_GOODS_STORE_BLOCK_HEIGHT = "DEV.digitalGoodsStore.startBlock";
+  public static final String DEV_AUTOMATED_TRANSACTION_BLOCK_HEIGHT = "DEV.automatedTransactions.startBlock";
+  public static final String DEV_AT_FIX_BLOCK_2_BLOCK_HEIGHT = "DEV.atFixBlock2.startBlock";
+  public static final String DEV_AT_FIX_BLOCK_3_BLOCK_HEIGHT = "DEV.atFixBlock3.startBlock";
+  public static final String DEV_AT_FIX_BLOCK_4_BLOCK_HEIGHT = "DEV.atFixBlock4.startBlock";
+  public static final String DEV_PRE_DYMAXION_BLOCK_HEIGHT = "DEV.preDymaxion.startBlock";
+  public static final String DEV_POC2_BLOCK_HEIGHT = "DEV.poc2.startBlock";
+  public static final String DEV_DYMAXION_BLOCK_HEIGHT = "DEV.dymaxion.startBlock";
   
   public static final String BRS_DEBUG_TRACE_QUOTE = "brs.debugTraceQuote";
   public static final String BRS_DEBUG_TRACE_SEPARATOR = "brs.debugTraceSeparator";
@@ -32,8 +37,6 @@ public class Props {
 
   public static final String BRS_DEBUG_TRACE_LOG = "brs.debugTraceLog";
   public static final String BRS_COMMUNICATION_LOGGING_MASK = "brs.communicationLoggingMask";
-
-
 
   // GPU options
   public static final String GPU_ACCELERATION     = "GPU.Acceleration";

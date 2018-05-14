@@ -1,6 +1,6 @@
 package brs.fluxcapacitor;
 
-import java.util.Comparator;
+import java.util.Arrays;
 import java.util.List;
 
 class FluxHistory<T> {
@@ -8,42 +8,37 @@ class FluxHistory<T> {
   private final T defaultValue;
   private final List<Element<T>> history;
 
-  public FluxHistory(T defaultValue, List<Element<T>> history) {
+  FluxHistory(T defaultValue, Element<T>... history) {
     this.defaultValue = defaultValue;
 
-    history.sort(Comparator.comparingInt(o -> o.height));
-
-    this.history = history;
+    this.history = Arrays.asList(history);
   }
 
   static class Element<T> {
 
-    private final int height;
+    private final HistoricalMoments moment;
     private final T value;
 
-    public Element(int height, T value) {
-      this.height = height;
+    public Element(HistoricalMoments moment, T value) {
+      this.moment = moment;
       this.value = value;
+    }
+
+
+    public HistoricalMoments getMoment() {
+      return moment;
+    }
+
+    T getValue() {
+      return value;
     }
   }
 
-  T getValueAtHeight(int searchedHeight) {
-    T finalValue = null;
+  T getDefaultValue() {
+    return defaultValue;
+  }
 
-    if (history != null && ! history.isEmpty()) {
-      for(Element<T> element : history) {
-        if(element.height > searchedHeight) {
-          break;
-        } else {
-          finalValue = element.value;
-        }
-      }
-    }
-
-    if(finalValue == null) {
-      finalValue = defaultValue;
-    }
-
-    return finalValue;
+  List<Element<T>> getHistory() {
+    return history;
   }
 }

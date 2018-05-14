@@ -1,15 +1,9 @@
 package brs.fluxcapacitor;
 
-import brs.services.PropertyService;
-
 public class IntCapacitor extends TypeCapacitor<Integer> {
 
-  public IntCapacitor(PropertyService propertyService) {
-    super(propertyService);
+  public IntCapacitor(HistorianImpl historian) {
+    super(historian);
   }
 
-  @Override
-  public Integer parseFromPropertyLine(String propertyValue) {
-    return Integer.parseInt(propertyValue);
-  }
 }
