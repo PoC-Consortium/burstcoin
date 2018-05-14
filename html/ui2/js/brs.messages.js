@@ -376,7 +376,7 @@ var BRS = (function(BRS, $, undefined) {
 
 	var data = {
 	    "recipient": $.trim($("#inline_message_recipient").val()),
-	    "feeNXT": "1",
+	    "feeNXT": "0.00735",
 	    "deadline": "1440",
 	    "secretPhrase": $.trim($("#inline_message_password").val())
 	};
