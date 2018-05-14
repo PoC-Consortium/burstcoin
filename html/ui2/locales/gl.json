@@ -1,6 +1,6 @@
 {
     "account": "Conta",
-    "account_balance": "Saldo da Conta",
+    "account_balance": "saldo da Conta",
     "account_details": "Detalles da conta",
     "account_id": "ID da conta",
     "account_info": "Información da conta",
@@ -695,6 +695,7 @@
     "remove_from_group": "Quitar do grupo",
     "repeat": "Repetir",
     "returning_user_q": "¿Usuario existente?",
+    "same_out": "Same Amount",
     "search_aliases": "Búsqueda de Alias...",
     "search_assets": "Búsqueda de activos...",
     "search_by_id": "Búsqueda por ID...",
