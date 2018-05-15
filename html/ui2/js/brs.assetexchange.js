@@ -109,7 +109,7 @@ var BRS = (function(BRS, $, undefined) {
             asset.groupName = "";
         }
 
-        var asset = {
+        asset = {
             "asset": String(asset.asset),
             "name": String(asset.name).toLowerCase(),
             "description": String(asset.description),
@@ -482,14 +482,14 @@ var BRS = (function(BRS, $, undefined) {
         e.preventDefault();
 
         currentAssetID = String($(this).data("asset")).escapeHTML();
-
+        var refresh;
         //refresh is true if data is refreshed automatically by the system (when a new block arrives)
         if (data && data.refresh) {
-            var refresh = true;
+            refresh = true;
         } else {
-            var refresh = false;
+            refresh = false;
         }
-
+        var $links;
         //clicked on a group
         if (!currentAssetID) {
             if (BRS.databaseSupport) {
@@ -497,15 +497,14 @@ var BRS = (function(BRS, $, undefined) {
                 var closed = $(this).data("closed");
 
                 if (!group) {
-                    var $links = $("#asset_exchange_sidebar a.list-group-item-ungrouped");
+                    $links = $("#asset_exchange_sidebar a.list-group-item-ungrouped");
                 } else {
-                    var $links = $("#asset_exchange_sidebar a.list-group-item-grouped[data-groupname='" + group.escapeHTML() + "']");
+                    $links = $("#asset_exchange_sidebar a.list-group-item-grouped[data-groupname='" + group.escapeHTML() + "']");
                 }
 
                 if (!group) {
                     group = "undefined";
                 }
-
                 if (closed) {
                     var pos = BRS.closedGroups.indexOf(group);
                     if (pos >= 0) {
@@ -717,7 +716,7 @@ var BRS = (function(BRS, $, undefined) {
             "limit": 50
         }, function(response, input) {
             var orders = response[type + "Orders"];
-
+            var i;
             if (!orders) {
                 orders = [];
             }
@@ -725,7 +724,7 @@ var BRS = (function(BRS, $, undefined) {
             if (BRS.unconfirmedTransactions.length) {
                 var added = false;
 
-                for (var i = 0; i < BRS.unconfirmedTransactions.length; i++) {
+                for (i = 0; i < BRS.unconfirmedTransactions.length; i++) {
                     var unconfirmedTransaction = BRS.unconfirmedTransactions[i];
                     unconfirmedTransaction.order = unconfirmedTransaction.transaction;
 
@@ -752,8 +751,7 @@ var BRS = (function(BRS, $, undefined) {
                 $("#" + (type == "ask" ? "sell" : "buy") + "_orders_count").html("(" + orders.length + (orders.length == 50 ? "+" : "") + ")");
 
                 var rows = "";
-
-                for (var i = 0; i < orders.length; i++) {
+                for (i = 0; i < orders.length; i++) {
                     var order = orders[i];
 
                     order.priceNQT = new BigInteger(order.priceNQT);
@@ -855,7 +853,7 @@ var BRS = (function(BRS, $, undefined) {
 
     $("#asset_exchange_bid_orders_table tbody, #asset_exchange_ask_orders_table tbody").on("click", "td", function(e) {
         var $target = $(e.target);
-
+        var totalNQT;
         if ($target.prop("tagName").toLowerCase() == "a") {
             return;
         }
@@ -867,7 +865,7 @@ var BRS = (function(BRS, $, undefined) {
         try {
             var priceNQT = new BigInteger(String($tr.data("price")));
             var quantityQNT = new BigInteger(String($tr.data("quantity")));
-            var totalNQT = new BigInteger(BRS.calculateOrderTotalNQT(quantityQNT, priceNQT));
+            totalNQT = new BigInteger(BRS.calculateOrderTotalNQT(quantityQNT, priceNQT));
 
             $("#" + type + "_asset_price").val(BRS.calculateOrderPricePerWholeQNT(priceNQT, BRS.currentAsset.decimals));
             $("#" + type + "_asset_quantity").val(BRS.convertToQNTf(quantityQNT, BRS.currentAsset.decimals));
@@ -875,10 +873,10 @@ var BRS = (function(BRS, $, undefined) {
         } catch (err) {
             return;
         }
-
+        var balanceNQT;
         if (type == "sell") {
             try {
-                var balanceNQT = new BigInteger(BRS.accountInfo.unconfirmedBalanceNQT);
+                balanceNQT = new BigInteger(BRS.accountInfo.unconfirmedBalanceNQT);
             } catch (err) {
                 return;
             }
@@ -1063,18 +1061,22 @@ var BRS = (function(BRS, $, undefined) {
 
         var orderType = $invoker.data("type");
         var assetId = $invoker.data("asset");
-
+        var quantityQNT;
+        var priceNQT;
+        var feeNQT;
+        var totalNXT;
+        var quantity;
         $("#asset_order_modal_button").html(orderType + " Asset").data("resetText", orderType + " Asset");
 
         orderType = orderType.toLowerCase();
 
         try {
             //TODO
-            var quantity = String($("#" + orderType + "_asset_quantity").val());
-            var quantityQNT = new BigInteger(BRS.convertToQNT(quantity, BRS.currentAsset.decimals));
-            var priceNQT = new BigInteger(BRS.calculatePricePerWholeQNT(BRS.convertToNQT(String($("#" + orderType + "_asset_price").val())), BRS.currentAsset.decimals));
-            var feeNQT = new BigInteger(BRS.convertToNQT(String($("#" + orderType + "_asset_fee").val())));
-            var totalNXT = BRS.formatAmount(BRS.calculateOrderTotalNQT(quantityQNT, priceNQT, BRS.currentAsset.decimals), false, true);
+            quantity = String($("#" + orderType + "_asset_quantity").val());
+            quantityQNT = new BigInteger(BRS.convertToQNT(quantity, BRS.currentAsset.decimals));
+            priceNQT = new BigInteger(BRS.calculatePricePerWholeQNT(BRS.convertToNQT(String($("#" + orderType + "_asset_price").val())), BRS.currentAsset.decimals));
+            feeNQT = new BigInteger(BRS.convertToNQT(String($("#" + orderType + "_asset_fee").val())));
+            totalNXT = BRS.formatAmount(BRS.calculateOrderTotalNQT(quantityQNT, priceNQT, BRS.currentAsset.decimals), false, true);
         } catch (err) {
             $.notify("Invalid input.", {
                 "type": "danger"
@@ -1094,24 +1096,25 @@ var BRS = (function(BRS, $, undefined) {
         }
 
         var priceNQTPerWholeQNT = priceNQT.multiply(new BigInteger("" + Math.pow(10, BRS.currentAsset.decimals)));
-
+        var description;
+        var tooltipTitle;
         if (orderType == "buy") {
-            var description = $.t("buy_order_description", {
+            description = $.t("buy_order_description", {
                 "quantity": BRS.formatQuantity(quantityQNT, BRS.currentAsset.decimals, true),
                 "asset_name": $("#asset_name").html().escapeHTML(),
                 "burst": BRS.formatAmount(priceNQTPerWholeQNT)
             });
-            var tooltipTitle = $.t("buy_order_description_help", {
+            tooltipTitle = $.t("buy_order_description_help", {
                 "burst": BRS.formatAmount(priceNQTPerWholeQNT, false, true),
                 "total_burst": totalNXT
             });
         } else {
-            var description = $.t("sell_order_description", {
+            description = $.t("sell_order_description", {
                 "quantity": BRS.formatQuantity(quantityQNT, BRS.currentAsset.decimals, true),
                 "asset_name": $("#asset_name").html().escapeHTML(),
                 "burst": BRS.formatAmount(priceNQTPerWholeQNT)
             });
-            var tooltipTitle = $.t("sell_order_description_help", {
+            tooltipTitle = $.t("sell_order_description_help", {
                 "burst": BRS.formatAmount(priceNQTPerWholeQNT, false, true),
                 "total_burst": totalNXT
             });
@@ -1149,16 +1152,16 @@ var BRS = (function(BRS, $, undefined) {
             "errorMessage": $.t("error_order_asset")
         };
     };
-
+    
     BRS.forms.orderAssetComplete = function(response, data) {
         if (response.alreadyProcessed) {
             return;
         }
-
+        var $table;
         if (data.requestType == "placeBidOrder") {
-            var $table = $("#asset_exchange_bid_orders_table tbody");
+            $table = $("#asset_exchange_bid_orders_table tbody");
         } else {
-            var $table = $("#asset_exchange_ask_orders_table tbody");
+            $table = $("#asset_exchange_ask_orders_table tbody");
         }
 
         if ($table.find("tr[data-transaction='" + String(response.transaction).escapeHTML() + "']").length) {
@@ -1498,7 +1501,7 @@ var BRS = (function(BRS, $, undefined) {
 
                             response.priceNQT = new BigInteger(response.priceNQT);
 
-                            result.ask_orders[input["_extra"].asset] = response.priceNQT;
+                            result.ask_orders[input._extra.asset] = response.priceNQT;
                             count.ask_orders++;
                             if (BRS.checkMyAssetsPageLoaded(count)) {
                                 BRS.myAssetsPageLoaded(result);
@@ -1535,7 +1538,7 @@ var BRS = (function(BRS, $, undefined) {
 
                             response.priceNQT = new BigInteger(response.priceNQT);
 
-                            result.bid_orders[input["_extra"].asset] = response.priceNQT;
+                            result.bid_orders[input._extra.asset] = response.priceNQT;
                             count.bid_orders++;
                             if (BRS.checkMyAssetsPageLoaded(count)) {
                                 BRS.myAssetsPageLoaded(result);
@@ -1561,7 +1564,7 @@ var BRS = (function(BRS, $, undefined) {
                     }
 
                     asset.asset = input.asset;
-                    asset.balanceQNT = new BigInteger(input["_extra"].balanceQNT);
+                    asset.balanceQNT = new BigInteger(input._extra.balanceQNT);
                     asset.quantityQNT = new BigInteger(asset.quantityQNT);
 
                     result.assets[count.assets] = asset;
@@ -1587,7 +1590,7 @@ var BRS = (function(BRS, $, undefined) {
 
     BRS.myAssetsPageLoaded = function(result) {
         var rows = "";
-
+        var total;
         result.assets.sort(function(a, b) {
             if (a.name.toLowerCase() > b.name.toLowerCase()) {
                 return 1;
@@ -1607,13 +1610,13 @@ var BRS = (function(BRS, $, undefined) {
             var percentageAsset = BRS.calculatePercentage(asset.balanceQNT, asset.quantityQNT);
 
             if (highestBidOrder != -1) {
-                var total = new BigInteger(BRS.calculateOrderTotalNQT(asset.balanceQNT, highestBidOrder, asset.decimals));
+                total = new BigInteger(BRS.calculateOrderTotalNQT(asset.balanceQNT, highestBidOrder, asset.decimals));
             } else {
-                var total = 0;
+                total = 0;
             }
 
             var tentative = -1;
-
+            var totalNQT;
             if (BRS.unconfirmedTransactions.length) {
                 for (var j = 0; j < BRS.unconfirmedTransactions.length; j++) {
                     var unconfirmedTransaction = BRS.unconfirmedTransactions[j];
@@ -1637,7 +1640,7 @@ var BRS = (function(BRS, $, undefined) {
             }
 
             if (highestBidOrder != -1) {
-                var totalNQT = new BigInteger(BRS.calculateOrderTotalNQT(asset.balanceQNT, highestBidOrder));
+                totalNQT = new BigInteger(BRS.calculateOrderTotalNQT(asset.balanceQNT, highestBidOrder));
             }
 
             var sign = "+";
@@ -1722,7 +1725,7 @@ var BRS = (function(BRS, $, undefined) {
                     BRS.showedFormWarning = true;
                     return {
                         "error": $.t("error_max_asset_transfer_warning", {
-                            "qty": String(BRS.settings["asset_transfer_warning"]).escapeHTML()
+                            "qty": String(BRS.settings.asset_transfer_warning).escapeHTML()
                         })
                     };
                 }
@@ -1858,7 +1861,7 @@ var BRS = (function(BRS, $, undefined) {
                             var nr_orders_complete = 0;
 
                             for (var i = 0; i < nr_orders; i++) {
-                                var order = orders[i];
+                                order = orders[i];
 
                                 BRS.sendRequest("getAsset+", {
                                     "asset": order.asset,
@@ -1870,8 +1873,8 @@ var BRS = (function(BRS, $, undefined) {
                                         return;
                                     }
 
-                                    orders[input["_extra"].id].assetName = asset.name;
-                                    orders[input["_extra"].id].decimals = asset.decimals;
+                                    orders[input._extra.id].assetName = asset.name;
+                                    orders[input._extra.id].decimals = asset.decimals;
 
                                     nr_orders_complete++;
 
@@ -1928,15 +1931,15 @@ var BRS = (function(BRS, $, undefined) {
             } else {
                 var nr_orders = 0;
 
-                for (var i = 0; i < unconfirmedOrders.length; i++) {
+                for (i = 0; i < unconfirmedOrders.length; i++) {
                     BRS.sendRequest("getAsset+", {
                         "asset": unconfirmedOrders[i].asset,
                         "_extra": {
                             "id": i
                         }
                     }, function(asset, input) {
-                        unconfirmedOrders[input["_extra"].id].assetName = asset.name;
-                        unconfirmedOrders[input["_extra"].id].decimals = asset.decimals;
+                        unconfirmedOrders[input._extra.id].assetName = asset.name;
+                        unconfirmedOrders[input._extra.id].decimals = asset.decimals;
 
                         nr_orders++;
 
@@ -1949,7 +1952,7 @@ var BRS = (function(BRS, $, undefined) {
         } else {
             callback([]);
         }
-    }
+    };
 
     BRS.openOrdersLoaded = function(orders, type, callback) {
         if (!orders.length) {
@@ -2008,13 +2011,13 @@ var BRS = (function(BRS, $, undefined) {
         orders = {};
 
         callback();
-    }
+    };
 
     BRS.incoming.open_orders = function(transactions) {
         if (BRS.hasTransactionUpdates(transactions)) {
             BRS.loadPage("open_orders");
         }
-    }
+    };
 
     $("#cancel_order_modal").on("show.bs.modal", function(e) {
         var $invoker = $(e.relatedTarget);
@@ -2042,7 +2045,7 @@ var BRS = (function(BRS, $, undefined) {
             "data": data,
             "requestType": requestType
         };
-    }
+    };
 
     BRS.forms.cancelOrderComplete = function(response, data) {
         if (data.requestType == "cancelAskOrder") {
@@ -2060,7 +2063,7 @@ var BRS = (function(BRS, $, undefined) {
         }
 
         $("#open_orders_page tr[data-order=" + String(data.order).escapeHTML() + "]").addClass("tentative tentative-crossed").find("td.cancel").html("/");
-    }
+    };
 
     return BRS;
 }(BRS || {}, jQuery));

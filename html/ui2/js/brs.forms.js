@@ -7,9 +7,9 @@ var BRS = (function(BRS, $, undefined) {
     BRS.forms = {};
 
     $(".modal form input").keydown(function(e) {
-        if (e.which == "13") {
+        if (e.which === "13") {
             e.preventDefault();
-            if (BRS.settings["submit_on_enter"] && e.target.type != "textarea") {
+            if (BRS.settings.submit_on_enter && e.target.type !== "textarea") {
                 $(this).submit();
             } else {
                 return false;
@@ -29,7 +29,7 @@ var BRS = (function(BRS, $, undefined) {
             "send_message", "decrypt_messages", "start_forging", "stop_forging", "generate_token", "send_money", "set_alias", "add_asset_bookmark", "sell_alias"
         ];
 
-        if (ignore.indexOf(requestType) != -1) {
+        if (ignore.indexOf(requestType) !== -1) {
             return "";
         } else {
             var key = "success_" + requestType;
@@ -45,7 +45,7 @@ var BRS = (function(BRS, $, undefined) {
     function getErrorMessage(requestType) {
         var ignore = ["start_forging", "stop_forging", "generate_token", "validate_token"];
 
-        if (ignore.indexOf(requestType) != -1) {
+        if (ignore.indexOf(requestType) !== -1) {
             return "";
         } else {
             var key = "error_" + requestType;
@@ -59,7 +59,8 @@ var BRS = (function(BRS, $, undefined) {
     }
 
     BRS.addMessageData = function(data, requestType) {
-        if (requestType == "sendMessage") {
+        var encrypted;
+        if (requestType === "sendMessage") {
             data.add_message = true;
         }
 
@@ -80,7 +81,7 @@ var BRS = (function(BRS, $, undefined) {
             delete data.add_note_to_self;
         }
 
-        data["_extra"] = {
+        data._extra = {
             "message": data.message,
             "note_to_self": data.note_to_self
         };
@@ -101,7 +102,7 @@ var BRS = (function(BRS, $, undefined) {
                         options.publicKey = data.recipientPublicKey;
                     }
 
-                    var encrypted = BRS.encryptNote(data.message, options, data.secretPhrase);
+                    encrypted = BRS.encryptNote(data.message, options, data.secretPhrase);
 
                     data.encryptedMessageData = encrypted.message;
                     data.encryptedMessageNonce = encrypted.nonce;
@@ -120,9 +121,7 @@ var BRS = (function(BRS, $, undefined) {
 
         if (data.add_note_to_self && data.note_to_self) {
             try {
-                var options = {};
-
-                var encrypted = BRS.encryptNote(data.note_to_self, {
+                encrypted = BRS.encryptNote(data.note_to_self, {
                     "publicKey": converters.hexStringToByteArray(BRS.generatePublicKey(data.secretPhrase))
                 }, data.secretPhrase);
 
@@ -143,7 +142,7 @@ var BRS = (function(BRS, $, undefined) {
         delete data.add_note_to_self;
 
         return data;
-    }
+    };
 
 
     BRS.submitForm = function($modal, $btn) {
@@ -151,19 +150,19 @@ var BRS = (function(BRS, $, undefined) {
             $btn = $modal.find("button.btn-primary:not([data-dismiss=modal])");
         }
 
-        var $modal = $btn.closest(".modal");
-
+        $modal = $btn.closest(".modal");
+        var $form;
         $modal.modal("lock");
         $modal.find("button").prop("disabled", true);
         $btn.button("loading");
 
         if ($btn.data("form")) {
-            var $form = $modal.find("form#" + $btn.data("form"));
+            $form = $modal.find("form#" + $btn.data("form"));
             if (!$form.length) {
                 $form = $modal.find("form:first");
             }
         } else {
-            var $form = $modal.find("form:first");
+            $form = $modal.find("form:first");
         }
 
         var requestType = $form.find("input[name=request_type]").val();
@@ -176,10 +175,10 @@ var BRS = (function(BRS, $, undefined) {
 
         var data = null;
 
-        var formFunction = BRS["forms"][requestType];
-        var formErrorFunction = BRS["forms"][requestType + "Error"];
+        var formFunction = BRS.forms[requestType];
+        var formErrorFunction = BRS.forms[requestType + "Error"];
 
-        if (typeof formErrorFunction != "function") {
+        if (typeof formErrorFunction !== "function") {
             formErrorFunction = false;
         }
 
@@ -265,7 +264,7 @@ var BRS = (function(BRS, $, undefined) {
             return;
         }
 
-        if (typeof formFunction == "function") {
+        if (typeof formFunction === "function") {
             var output = formFunction($modal);
 
             if (!output) {
@@ -314,18 +313,18 @@ var BRS = (function(BRS, $, undefined) {
                     return;
                 } else {
                     data.recipient = convertedAccountId;
-                    data["_extra"] = {
+                    data._extra = {
                         "convertedAccount": true
                     };
                 }
             }
         }
 
-        if (requestType == "sendMoney" || requestType == "transferAsset") {
+        if (requestType === "sendMoney" || requestType === "transferAsset") {
             var merchantInfo = $modal.find("input[name=merchant_info]").val();
 
             var result = merchantInfo.match(/#merchant:(.*)#/i);
-
+            var regexp;
             if (result && result[1]) {
                 merchantInfo = $.trim(result[1]);
 
@@ -338,9 +337,9 @@ var BRS = (function(BRS, $, undefined) {
                     return;
                 }
 
-                if (merchantInfo == "numeric") {
+                if (merchantInfo === "numeric") {
                     merchantInfo = "[0-9]+";
-                } else if (merchantInfo == "alphanumeric") {
+                } else if (merchantInfo === "alphanumeric") {
                     merchantInfo = "[a-zA-Z0-9]+";
                 }
 
@@ -361,23 +360,22 @@ var BRS = (function(BRS, $, undefined) {
                 }
 
                 if (regexParts[2].indexOf("i") !== -1) {
-                    var regexp = new RegExp(regexParts[1], "i");
+                    regexp = new RegExp(regexParts[1], "i");
                 } else {
-                    var regexp = new RegExp(regexParts[1]);
+                    regexp = new RegExp(regexParts[1]);
                 }
 
                 if (!regexp.test(data.message)) {
                     var regexType;
-                    var errorMessage;
                     var lengthRequirement = strippedRegex.match(/\{(.*)\}/);
 
                     if (lengthRequirement) {
                         strippedRegex = strippedRegex.replace(lengthRequirement[0], "+");
                     }
 
-                    if (strippedRegex == "[0-9]+") {
+                    if (strippedRegex === "[0-9]+") {
                         regexType = "numeric";
-                    } else if (strippedRegex == "[a-z0-9]+" || strippedRegex.toLowerCase() == "[a-za-z0-9]+" || strippedRegex == "[a-z0-9]+") {
+                    } else if (strippedRegex === "[a-z0-9]+" || strippedRegex.toLowerCase() === "[a-za-z0-9]+" || strippedRegex === "[a-z0-9]+") {
                         regexType = "alphanumeric";
                     } else {
                         regexType = "custom";
@@ -386,11 +384,11 @@ var BRS = (function(BRS, $, undefined) {
                     if (lengthRequirement) {
                         var minLength, maxLength, requiredLength;
 
-                        if (lengthRequirement[1].indexOf(",") != -1) {
+                        if (lengthRequirement[1].indexOf(",") !== -1) {
                             lengthRequirement = lengthRequirement[1].split(",");
-                            var minLength = parseInt(lengthRequirement[0], 10);
+                            minLength = parseInt(lengthRequirement[0], 10);
                             if (lengthRequirement[1]) {
-                                var maxLength = parseInt(lengthRequirement[1], 10);
+                                maxLength = parseInt(lengthRequirement[1], 10);
                                 errorMessage = $.t("error_merchant_message_" + regexType + "_range_length", {
                                     "minLength": minLength,
                                     "maxLength": maxLength
@@ -401,7 +399,7 @@ var BRS = (function(BRS, $, undefined) {
                                 });
                             }
                         } else {
-                            var requiredLength = parseInt(lengthRequirement[1], 10);
+                            requiredLength = parseInt(lengthRequirement[1], 10);
                             errorMessage = $.t("error_merchant_message_" + regexType + "_length", {
                                 "length": requiredLength
                             });
@@ -438,7 +436,7 @@ var BRS = (function(BRS, $, undefined) {
         if (data.doNotBroadcast) {
             data.broadcast = "false";
             delete data.doNotBroadcast;
-            if (data.secretPhrase == "") {
+            if (data.secretPhrase === "") {
                 delete data.secretPhrase;
             }
         }
@@ -453,11 +451,11 @@ var BRS = (function(BRS, $, undefined) {
         }
 
         if (!BRS.showedFormWarning) {
-            if ("amountNXT" in data && BRS.settings["amount_warning"] && BRS.settings["amount_warning"] != "0") {
-                if (new BigInteger(BRS.convertToNQT(data.amountNXT)).compareTo(new BigInteger(BRS.settings["amount_warning"])) > 0) {
+            if ("amountNXT" in data && BRS.settings.amount_warning && BRS.settings.amount_warning !== "0") {
+                if (new BigInteger(BRS.convertToNQT(data.amountNXT)).compareTo(new BigInteger(BRS.settings.amount_warning)) > 0) {
                     BRS.showedFormWarning = true;
                     $form.find(".error_message").html($.t("error_max_amount_warning", {
-                        "burst": BRS.formatAmount(BRS.settings["amount_warning"])
+                        "burst": BRS.formatAmount(BRS.settings.amount_warning)
                     })).show();
                     if (formErrorFunction) {
                         formErrorFunction(false, data);
@@ -467,11 +465,11 @@ var BRS = (function(BRS, $, undefined) {
                 }
             }
 
-            if ("feeNXT" in data && BRS.settings["fee_warning"] && BRS.settings["fee_warning"] != "0") {
-                if (new BigInteger(BRS.convertToNQT(data.feeNXT)).compareTo(new BigInteger(BRS.settings["fee_warning"])) > 0) {
+            if ("feeNXT" in data && BRS.settings.fee_warning && BRS.settings.fee_warning !== "0") {
+                if (new BigInteger(BRS.convertToNQT(data.feeNXT)).compareTo(new BigInteger(BRS.settings.fee_warning)) > 0) {
                     BRS.showedFormWarning = true;
                     $form.find(".error_message").html($.t("error_max_fee_warning", {
-                        "burst": BRS.formatAmount(BRS.settings["fee_warning"])
+                        "burst": BRS.formatAmount(BRS.settings.fee_warning)
                     })).show();
                     if (formErrorFunction) {
                         formErrorFunction(false, data);
@@ -484,6 +482,7 @@ var BRS = (function(BRS, $, undefined) {
 
         BRS.sendRequest(requestType, data, function(response) {
             //todo check again.. response.error
+            var formCompleteFunction;
             if (response.fullHash) {
                 BRS.unlockForm($modal, $btn);
 
@@ -497,10 +496,10 @@ var BRS = (function(BRS, $, undefined) {
                     });
                 }
 
-                var formCompleteFunction = BRS["forms"][originalRequestType + "Complete"];
+                formCompleteFunction = BRS.forms[originalRequestType + "Complete"];
 
-                if (requestType != "parseTransaction") {
-                    if (typeof formCompleteFunction == "function") {
+                if (requestType !== "parseTransaction") {
+                    if (typeof formCompleteFunction === "function") {
                         data.requestType = requestType;
 
                         if (response.transaction) {
@@ -516,7 +515,7 @@ var BRS = (function(BRS, $, undefined) {
                         BRS.addUnconfirmedTransaction(response.transaction);
                     }
                 } else {
-                    if (typeof formCompleteFunction == "function") {
+                    if (typeof formCompleteFunction === "function") {
                         data.requestType = requestType;
                         formCompleteFunction(response, data);
                     }
@@ -537,9 +536,9 @@ var BRS = (function(BRS, $, undefined) {
                 var sentToFunction = false;
 
                 if (!errorMessage) {
-                    var formCompleteFunction = BRS["forms"][originalRequestType + "Complete"];
+                    formCompleteFunction = BRS.forms[originalRequestType + "Complete"];
 
-                    if (typeof formCompleteFunction == 'function') {
+                    if (typeof formCompleteFunction === 'function') {
                         sentToFunction = true;
                         data.requestType = requestType;
 
@@ -591,7 +590,6 @@ var BRS = (function(BRS, $, undefined) {
         };
 
         BRS.sendRequest("sendMoneyMulti", data, function(response) {
-            console.log(response);
             if (response.errorCode) {
                 $(".multi-out").find(".error_message").html(response.errorDescription.escapeHTML()).show();
             } else {
@@ -616,7 +614,6 @@ var BRS = (function(BRS, $, undefined) {
         };
 
         BRS.sendRequest("sendMoneyMultiSame", data, function(response) {
-            console.log(response);
             if (response.errorCode) {
                 $(".multi-out").find(".error_message").html(response.errorDescription.escapeHTML()).show();
             } else {

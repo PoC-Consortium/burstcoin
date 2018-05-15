@@ -267,7 +267,7 @@ var BRS = (function(BRS, $, undefined) {
     };
 
     BRS.calculateOrderPricePerWholeQNT = function(price, decimals, returnAsObject) {
-        if (typeof price != "object") {
+        if (typeof price !== "object") {
             price = new BigInteger(String(price));
         }
 
@@ -292,11 +292,11 @@ var BRS = (function(BRS, $, undefined) {
     };
 
     BRS.calculateOrderTotalNQT = function(quantityQNT, priceNQT) {
-        if (typeof quantityQNT != "object") {
+        if (typeof quantityQNT !== "object") {
             quantityQNT = new BigInteger(String(quantityQNT));
         }
 
-        if (typeof priceNQT != "object") {
+        if (typeof priceNQT !== "object") {
             priceNQT = new BigInteger(String(priceNQT));
         }
 
@@ -306,11 +306,11 @@ var BRS = (function(BRS, $, undefined) {
     };
 
     BRS.calculateOrderTotal = function(quantityQNT, priceNQT) {
-        if (typeof quantityQNT != "object") {
+        if (typeof quantityQNT !== "object") {
             quantityQNT = new BigInteger(String(quantityQNT));
         }
 
-        if (typeof priceNQT != "object") {
+        if (typeof priceNQT !== "object") {
             priceNQT = new BigInteger(String(priceNQT));
         }
 
@@ -330,7 +330,7 @@ var BRS = (function(BRS, $, undefined) {
         var negative = "";
         var afterComma = "";
 
-        if (typeof amount != "object") {
+        if (typeof amount !== "object") {
             amount = new BigInteger(String(amount));
         }
 
@@ -343,7 +343,7 @@ var BRS = (function(BRS, $, undefined) {
             negative = "-";
         }
 
-        if (fractionalPart && fractionalPart != "0") {
+        if (fractionalPart && fractionalPart !== "0") {
             afterComma = ".";
 
             for (var i = fractionalPart.length; i < 8; i++) {
@@ -372,9 +372,9 @@ var BRS = (function(BRS, $, undefined) {
         var parts = amount.split(".");
 
         //no fractional part
-        if (parts.length == 1) {
+        if (parts.length === 1) {
             return parts[0];
-        } else if (parts.length == 2) {
+        } else if (parts.length === 2) {
             var fraction = parts[1];
             fraction = fraction.replace(/0+$/, "");
 
@@ -387,7 +387,6 @@ var BRS = (function(BRS, $, undefined) {
             throw "Incorrect input";
         }
     };
-
     BRS.convertToNQT = function(currency) {
         currency = String(currency);
 
@@ -396,18 +395,18 @@ var BRS = (function(BRS, $, undefined) {
         var amount = parts[0];
 
         //no fractional part
-        if (parts.length == 1) {
-            var fraction = "00000000";
-        } else if (parts.length == 2) {
+        var fraction;
+        if (parts.length === 1) {
+            fraction = "00000000";
+        } else if (parts.length === 2) {
             if (parts[1].length <= 8) {
-                var fraction = parts[1];
+                fraction = parts[1];
             } else {
-                var fraction = parts[1].substring(0, 8);
+                fraction = parts[1].substring(0, 8);
             }
         } else {
             throw "Invalid input";
         }
-
         for (var i = fraction.length; i < 8; i++) {
             fraction += "0";
         }
@@ -450,7 +449,7 @@ var BRS = (function(BRS, $, undefined) {
 
             afterComma = afterComma.replace(/0+$/, "");
 
-            if (afterComma == ".") {
+            if (afterComma === ".") {
                 afterComma = "";
             }
         }
@@ -473,13 +472,13 @@ var BRS = (function(BRS, $, undefined) {
         var qnt = parts[0];
 
         //no fractional part
-        if (parts.length == 1) {
+        if (parts.length === 1) {
             if (decimals) {
                 for (var i = 0; i < decimals; i++) {
                     qnt += "0";
                 }
             }
-        } else if (parts.length == 2) {
+        } else if (parts.length === 2) {
             var fraction = parts[1];
             if (fraction.length > decimals) {
                 throw $.t("error_fraction_decimals", {
@@ -503,11 +502,10 @@ var BRS = (function(BRS, $, undefined) {
         //remove leading zeroes
         return qnt.replace(/^0+/, "");
     };
-
     BRS.format = function(params, no_escaping) {
-        if (typeof params != "object") {
+        if (typeof params !== "object") {
             var amount = String(params);
-            var negative = amount.charAt(0) == "-" ? "-" : "";
+            var negative = amount.charAt(0) === "-" ? "-" : "";
             if (negative) {
                 amount = amount.substring(1);
             }
@@ -544,17 +542,16 @@ var BRS = (function(BRS, $, undefined) {
     };
 
     BRS.formatAmount = function(amount, round, no_escaping) {
-        if (typeof amount == "undefined") {
+        if (typeof amount === "undefined") {
             return "0";
-        } else if (typeof amount == "string") {
+        } else if (typeof amount === "string") {
             amount = new BigInteger(amount);
         }
 
         var negative = "";
         var afterComma = "";
-        var formattedAmount = "";
 
-        if (typeof amount == "object") {
+        if (typeof amount === "object") {
             var params = BRS.convertToNXT(amount, true);
 
             negative = params.negative;
@@ -574,10 +571,10 @@ var BRS = (function(BRS, $, undefined) {
             amount = "" + amount;
 
             if (amount.indexOf(".") !== -1) {
-                var afterComma = amount.substr(amount.indexOf("."));
+                afterComma = amount.substr(amount.indexOf("."));
                 amount = amount.replace(afterComma, "");
             } else {
-                var afterComma = "";
+                afterComma = "";
             }
         }
 
@@ -587,14 +584,13 @@ var BRS = (function(BRS, $, undefined) {
             "afterComma": afterComma
         }, no_escaping);
     };
-
     BRS.formatTimestamp = function(timestamp, date_only) {
-        if (typeof timestamp == "object") {
-            var date = timestamp;
+        if (typeof timestamp === "object") {
+            date = timestamp;
         } else {
-            var date = new Date(Date.UTC(2014, 7, 11, 2, 0, 0, 0) + timestamp * 1000);
+            date = new Date(Date.UTC(2014, 7, 11, 2, 0, 0, 0) + timestamp * 1000);
         }
-
+        var date;
         if (!isNaN(date) && typeof(date.getFullYear) == 'function') {
             var d = date.getDate();
             var dd = d < 10 ? '0' + d : d;
@@ -647,7 +643,7 @@ var BRS = (function(BRS, $, undefined) {
     BRS.formatTime = function(timestamp) {
         var date = new Date(Date.UTC(2013, 10, 24, 12, 0, 0, 0) + timestamp * 1000);
 
-        if (!isNaN(date) && typeof(date.getFullYear) == 'function') {
+        if (!isNaN(date) && typeof(date.getFullYear) === 'function') {
             var res = "";
 
             var hours = date.getHours();
@@ -676,7 +672,7 @@ var BRS = (function(BRS, $, undefined) {
             return false;
         }
         var parts = ip.split('.');
-        if (parts[0] === '10' || parts[0] == '127' || (parts[0] === '172' && (parseInt(parts[1], 10) >= 16 && parseInt(parts[1], 10) <= 31)) || (parts[0] === '192' && parts[1] === '168')) {
+        if (parts[0] === '10' || parts[0] === '127' || (parts[0] === '172' && (parseInt(parts[1], 10) >= 16 && parseInt(parts[1], 10) <= 31)) || (parts[0] === '192' && parts[1] === '168')) {
             return true;
         }
         return false;
@@ -705,7 +701,7 @@ var BRS = (function(BRS, $, undefined) {
     };
 
     BRS.convertFromHex8 = function(hex) {
-        var hex = hex.toString(); //force conversion
+        hex = hex.toString(); //force conversion
         var str = '';
         for (var i = 0; i < hex.length; i += 2)
             str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
@@ -725,7 +721,7 @@ var BRS = (function(BRS, $, undefined) {
         var data = {};
 
         for (var s in serialized) {
-            data[serialized[s]['name']] = serialized[s]['value'];
+            data[serialized[s].name] = serialized[s].value;
         }
 
         if (!unmodified) {
@@ -764,7 +760,7 @@ var BRS = (function(BRS, $, undefined) {
 
         var formattedAcc = "";
 
-        if (type == "string" || type == "number") {
+        if (type === "string" || type == "number") {
             formattedAcc = object;
             object = null;
         } else {
@@ -775,7 +771,7 @@ var BRS = (function(BRS, $, undefined) {
             }
         }
 
-        if (formattedAcc == BRS.account || formattedAcc == BRS.accountRS) {
+        if (formattedAcc === BRS.account || formattedAcc == BRS.accountRS) {
             return $.t("you");
         } else if (formattedAcc in BRS.contacts) {
             return BRS.contacts[formattedAcc].name.escapeHTML();
@@ -787,7 +783,7 @@ var BRS = (function(BRS, $, undefined) {
     BRS.getAccountFormatted = function(object, acc) {
         var type = typeof object;
 
-        if (type == "string" || type == "number") {
+        if (type === "string" || type == "number") {
             return String(object).escapeHTML();
         } else {
             if (typeof object[acc + "RS"] == "undefined") {
@@ -990,9 +986,9 @@ var BRS = (function(BRS, $, undefined) {
                 } else {
                     value = BRS.formatQuantity(value, 0);
                 }
-            } else if (key == "price" || key == "total" || key == "amount" || key == "fee" || key == "refund" || key == "discount") {
+            } else if (key === "price" || key === "total" || key === "amount" || key === "fee" || key === "refund" || key === "discount") {
                 value = BRS.formatAmount(new BigInteger(String(value))) + " BURST";
-            } else if (key == "sender" || key == "recipient" || key == "account" || key == "seller" || key == "buyer") {
+            } else if (key === "sender" || key === "recipient" || key === "account" || key === "seller" || key === "buyer") {
                 value = "<a href='#' data-user='" + String(value).escapeHTML() + "'>" + BRS.getAccountTitle(value) + "</a>";
             } else {
                 value = String(value).escapeHTML().nl2br();
@@ -1017,10 +1013,10 @@ var BRS = (function(BRS, $, undefined) {
     };
 
     BRS.formatStyledAmount = function(amount, round) {
-        var amount = BRS.formatAmount(amount, round);
+        amount = BRS.formatAmount(amount, round);
 
         amount = amount.split(".");
-        if (amount.length == 2) {
+        if (amount.length === 2) {
             amount = amount[0] + "<span style='font-size:12px'>." + amount[1] + "</span>";
         } else {
             amount = amount[0];
@@ -1038,11 +1034,11 @@ var BRS = (function(BRS, $, undefined) {
             return false;
         }
 
-        if (typeof type == "number") {
+        if (typeof type === "number") {
             type = [type];
         }
 
-        if (typeof subtype == "number") {
+        if (typeof subtype === "number") {
             subtype = [subtype];
         }
 
@@ -1051,13 +1047,13 @@ var BRS = (function(BRS, $, undefined) {
         for (var i = 0; i < BRS.unconfirmedTransactions.length; i++) {
             var unconfirmedTransaction = BRS.unconfirmedTransactions[i];
 
-            if (type.indexOf(unconfirmedTransaction.type) == -1 || subtype.indexOf(unconfirmedTransaction.subtype) == -1) {
+            if (type.indexOf(unconfirmedTransaction.type) === -1 || subtype.indexOf(unconfirmedTransaction.subtype) == -1) {
                 continue;
             }
 
             if (fields) {
                 for (var key in fields) {
-                    if (unconfirmedTransaction[key] == fields[key]) {
+                    if (unconfirmedTransaction[key] === fields[key]) {
                         if (single) {
                             return BRS.completeUnconfirmedTransactionDetails(unconfirmedTransaction);
                         } else {
@@ -1086,7 +1082,7 @@ var BRS = (function(BRS, $, undefined) {
     };
 
     BRS.completeUnconfirmedTransactionDetails = function(unconfirmedTransaction) {
-        if (unconfirmedTransaction.type == 3 && unconfirmedTransaction.subtype == 4 && !unconfirmedTransaction.name) {
+        if (unconfirmedTransaction.type === 3 && unconfirmedTransaction.subtype === 4 && !unconfirmedTransaction.name) {
             BRS.sendRequest("getDGSGood", {
                 "goods": unconfirmedTransaction.attachment.goods
             }, function(response) {
@@ -1096,7 +1092,7 @@ var BRS = (function(BRS, $, undefined) {
                 unconfirmedTransaction.seller = response.seller;
                 unconfirmedTransaction.sellerRS = response.sellerRS;
             }, false);
-        } else if (unconfirmedTransaction.type == 3 && unconfirmedTransaction.subtype === 0) {
+        } else if (unconfirmedTransaction.type === 3 && unconfirmedTransaction.subtype === 0) {
             unconfirmedTransaction.goods = unconfirmedTransaction.transaction;
         }
 
@@ -1125,7 +1121,7 @@ var BRS = (function(BRS, $, undefined) {
                 $(this).parent(".showmore").find("a.adjust").text(moreText).click(function(e) {
                     e.preventDefault();
 
-                    if ($(this).text() == moreText) {
+                    if ($(this).text() === moreText) {
                         $(this).parents("div:first").find(".moreblock").css('height', 'auto').css('overflow', 'visible');
                         $(this).parents("div:first").find("p.continued").css('display', 'none');
                         $(this).text(lessText);
@@ -1243,7 +1239,7 @@ var BRS = (function(BRS, $, undefined) {
             if (response.errorMessage) {
                 response.errorDescription = response.errorMessage;
             } else if (response.error) {
-                if (typeof response.error == "string") {
+                if (typeof response.error === "string") {
                     response.errorDescription = response.error;
                     response.errorCode = -1;
                 } else {
@@ -1290,33 +1286,33 @@ var BRS = (function(BRS, $, undefined) {
                     case "Public key for this account has already been announced":
                         return $.t("error_public_key_already_announced");
                     default:
-                        if (response.errorDescription.indexOf("Alias already owned by another account") != -1) {
+                        if (response.errorDescription.indexOf("Alias already owned by another account") !== -1) {
                             return $.t("error_alias_owned_by_other_account");
-                        } else if (response.errorDescription.indexOf("Invalid alias sell price") != -1) {
+                        } else if (response.errorDescription.indexOf("Invalid alias sell price") !== -1) {
                             return $.t("error_invalid_alias_sell_price");
-                        } else if (response.errorDescription.indexOf("Alias hasn't been registered yet") != -1) {
+                        } else if (response.errorDescription.indexOf("Alias hasn't been registered yet") !== -1) {
                             return $.t("error_alias_not_yet_registered");
-                        } else if (response.errorDescription.indexOf("Alias doesn't belong to sender") != -1) {
+                        } else if (response.errorDescription.indexOf("Alias doesn't belong to sender") !== -1) {
                             return $.t("error_alias_not_from_sender");
-                        } else if (response.errorDescription.indexOf("Alias is owned by account other than recipient") != -1) {
+                        } else if (response.errorDescription.indexOf("Alias is owned by account other than recipient") !== -1) {
                             return $.t("error_alias_not_from_recipient");
-                        } else if (response.errorDescription.indexOf("Alias is not for sale") != -1) {
+                        } else if (response.errorDescription.indexOf("Alias is not for sale") !== -1) {
                             return $.t("error_alias_not_for_sale");
-                        } else if (response.errorDescription.indexOf("Invalid alias name") != -1) {
+                        } else if (response.errorDescription.indexOf("Invalid alias name") !== -1) {
                             return $.t("error_invalid_alias_name");
-                        } else if (response.errorDescription.indexOf("Invalid URI length") != -1) {
+                        } else if (response.errorDescription.indexOf("Invalid URI length") !== -1) {
                             return $.t("error_invalid_alias_uri_length");
-                        } else if (response.errorDescription.indexOf("Invalid ask order") != -1) {
+                        } else if (response.errorDescription.indexOf("Invalid ask order") !== -1) {
                             return $.t("error_invalid_ask_order");
-                        } else if (response.errorDescription.indexOf("Invalid bid order") != -1) {
+                        } else if (response.errorDescription.indexOf("Invalid bid order") !== -1) {
                             return $.t("error_invalid_bid_order");
-                        } else if (response.errorDescription.indexOf("Goods price or quantity changed") != -1) {
+                        } else if (response.errorDescription.indexOf("Goods price or quantity changed") !== -1) {
                             return $.t("error_dgs_price_quantity_changed");
-                        } else if (response.errorDescription.indexOf("Invalid digital goods price change") != -1) {
+                        } else if (response.errorDescription.indexOf("Invalid digital goods price change") !== -1) {
                             return $.t("error_invalid_dgs_price_change");
-                        } else if (response.errorDescription.indexOf("Invalid digital goods refund") != -1) {
+                        } else if (response.errorDescription.indexOf("Invalid digital goods refund") !== -1) {
                             return $.t("error_invalid_dgs_refund");
-                        } else if (response.errorDescription.indexOf("Purchase does not exist yet, or already delivered") != -1) {
+                        } else if (response.errorDescription.indexOf("Purchase does not exist yet, or already delivered") !== -1) {
                             return $.t("error_purchase_not_exist_or_delivered");
                         } else if (response.errorDescription.match(/Goods.*not yet listed or already delisted/)) {
                             return $.t("error_dgs_not_listed");
@@ -1333,8 +1329,8 @@ var BRS = (function(BRS, $, undefined) {
                         }
 
                         break;
-                break;
                 }
+                var match; break;
             case 1:
                 switch (response.errorDescription) {
                     case "This request is only accepted using POST!":
@@ -1347,16 +1343,15 @@ var BRS = (function(BRS, $, undefined) {
                 break;
             case 2:
                 return response.errorDescription;
-                break;
             case 3:
-                var match = response.errorDescription.match(/"([^"]+)" not specified/i);
+                match = response.errorDescription.match(/"([^"]+)" not specified/i);
                 if (match && match[1]) {
                     return $.t("error_not_specified", {
                         "name": BRS.getTranslatedFieldName(match[1]).toLowerCase()
                     }).capitalize();
                 }
 
-                var match = response.errorDescription.match(/At least one of (.*) must be specified/i);
+                match = response.errorDescription.match(/At least one of (.*) must be specified/i);
                 if (match && match[1]) {
                     var fieldNames = match[1].split(",");
                     var translatedFieldNames = [];
@@ -1376,7 +1371,7 @@ var BRS = (function(BRS, $, undefined) {
                 }
                 break;
             case 4:
-                var match = response.errorDescription.match(/Incorrect "([^"]+)"/i);
+                match = response.errorDescription.match(/Incorrect "([^"]+)"/i);
 
                 if (match && match[1]) {
                     return $.t("error_incorrect_name", {
@@ -1387,14 +1382,14 @@ var BRS = (function(BRS, $, undefined) {
                 }
                 break;
             case 5:
-                var match = response.errorDescription.match(/Unknown (.*)/i);
+                match = response.errorDescription.match(/Unknown (.*)/i);
                 if (match && match[1]) {
                     return $.t("error_unknown_name", {
                         "name": BRS.getTranslatedFieldName(match[1]).toLowerCase()
                     }).capitalize();
                 }
 
-                if (response.errorDescription == "Account is not forging") {
+                if (response.errorDescription === "Account is not forging") {
                     return $.t("error_not_forging");
                 } else {
                     return response.errorDescription;
@@ -1411,7 +1406,7 @@ var BRS = (function(BRS, $, undefined) {
                 }
                 break;
             case 7:
-                if (response.errorDescription == "Not allowed") {
+                if (response.errorDescription === "Not allowed") {
                     return $.t("error_not_allowed");
                 } else {
                     return response.errorDescription;
@@ -1438,7 +1433,7 @@ var BRS = (function(BRS, $, undefined) {
                 }
                 break;
             case 9:
-                if (response.errorDescription == "Feature not available") {
+                if (response.errorDescription === "Feature not available") {
                     return $.t("error_feature_not_available");
                 } else {
                     return response.errorDescription;
@@ -1454,7 +1449,7 @@ var BRS = (function(BRS, $, undefined) {
             return "_" + $1.toLowerCase();
         });
 
-        if (nameKey.charAt(0) == "_") {
+        if (nameKey.charAt(0) === "_") {
             nameKey = nameKey.substring(1);
         }
 

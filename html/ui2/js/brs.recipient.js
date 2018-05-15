@@ -21,7 +21,7 @@ var BRS = (function(BRS, $, undefined) {
         });
 
         $recipientFields.on("oldRecipientPaste", function() {});
-    }
+    };
 
     $("#send_message_modal, #send_money_modal, #add_contact_modal").on("show.bs.modal", function(e) {
         var $invoker = $(e.relatedTarget);
@@ -120,7 +120,7 @@ var BRS = (function(BRS, $, undefined) {
 
     BRS.sendMoneyShowAccountInformation = function(accountId) {
         BRS.getAccountError(accountId, function(response) {
-            if (response.type == "success") {
+            if (response.type === "success") {
                 $("#send_money_account_info").hide();
             } else {
                 $("#send_money_account_info").html(response.message).show();
@@ -143,13 +143,13 @@ var BRS = (function(BRS, $, undefined) {
                 });
             } else {
                 if (response.errorCode) {
-                    if (response.errorCode == 4) {
+                    if (response.errorCode === 4) {
                         callback({
                             "type": "danger",
                             "message": $.t("recipient_malformed") + (!/^(BURST\-)/i.test(accountId) ? " " + $.t("recipient_alias_suggestion") : ""),
                             "account": null
                         });
-                    } else if (response.errorCode == 5) {
+                    } else if (response.errorCode === 5) {
                         callback({
                             "type": "warning",
                             "message": $.t("recipient_unknown_pka"),
@@ -211,7 +211,7 @@ var BRS = (function(BRS, $, undefined) {
                     callout.removeClass(classes).addClass("callout-" + response.type).html(message).show();
                 });
             } else {
-                if (address.guess.length == 1) {
+                if (address.guess.length === 1) {
                     callout.removeClass(classes).addClass("callout-danger").html($.t("recipient_malformed_suggestion", {
                         "recipient": "<span class='malformed_address' data-address='" + String(address.guess[0]).escapeHTML() + "' onclick='BRS.correctAddressMistake(this);'>" + address.format_guess(address.guess[0], account) + "</span>"
                     })).show();
@@ -229,7 +229,7 @@ var BRS = (function(BRS, $, undefined) {
                 }
             }
         } else if (!(/^\d+$/.test(account))) {
-            if (BRS.databaseSupport && account.charAt(0) != '@') {
+            if (BRS.databaseSupport && account.charAt(0) !== '@') {
                 BRS.database.select("contacts", [{
                     "name": account
                 }], function(error, contact) {
@@ -246,7 +246,7 @@ var BRS = (function(BRS, $, undefined) {
                                 "account_id": BRS.getAccountFormatted(contact, "account")
                             }) + " " + response.message.escapeHTML()).show();
 
-                            if (response.type == "info" || response.type == "warning") {
+                            if (response.type === "info" || response.type === "warning") {
                                 accountInputField.val(contact.accountRS);
                             }
                         });
@@ -257,7 +257,7 @@ var BRS = (function(BRS, $, undefined) {
                     }
                 });
             } else if (/^[a-z0-9@]+$/i.test(account)) {
-                if (account.charAt(0) == '@') {
+                if (account.charAt(0) === '@') {
                     account = account.substring(1);
                     BRS.checkRecipientAlias(account, modal);
                 }
@@ -342,7 +342,7 @@ var BRS = (function(BRS, $, undefined) {
     function checkForMerchant(accountInfo, modal) {
         var requestType = modal.find("input[name=request_type]").val();
 
-        if (requestType == "sendMoney" || requestType == "transferAsset") {
+        if (requestType === "sendMoney" || requestType === "transferAsset") {
             if (accountInfo.match(/merchant/i)) {
                 modal.find("input[name=merchant_info]").val(accountInfo);
                 var checkbox = modal.find("input[name=add_message]");

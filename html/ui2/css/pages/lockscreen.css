@@ -8,7 +8,7 @@ html.lockscreen, html.lockscreen body {
   overflow-x:auto;
 }
 .lockscreen {
-   background: linear-gradient(141deg, #3E64F3 0%, #3348CC 25%, #2B37B2 50%, #343499 75%, #433078 100%);
+   background: linear-gradient(141deg, #3dc6c2 0%, #3ca4bc 25%, #3c8dbc 50%, #3c73bc 75%, #2b50bf 100%);
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;

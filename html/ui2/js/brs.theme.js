@@ -9,7 +9,7 @@ $(function() {
     'theme-red',
     'theme-yellow',
     'theme-purple',
-    'theme-green',
+    'theme-green'
   ];
   /**
    * get stored setting
