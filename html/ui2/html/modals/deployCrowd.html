@@ -2,10 +2,8 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button class="close" data-dismiss="modal" type=
-          "button"><span>&#215;</span><span class=
-          "sr-only">Close</span></button>
-        <h4 class="modal-title">New Project (Fee: 10 BURST)</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">New Crowdfund Project</h4>
       </div>
       <form class="funding-form">
         <fieldset>
@@ -61,10 +59,9 @@
       </form>
       <div class="alert-area"></div>
       <div class="modal-footer">
-        <button class="btn btn-default" data-dismiss="modal"
-          type="button">Close</button> <button class=
-          "btn btn-default" data-dismiss="modal" id=
-          "deploy-at-btn" type="button">Start Crowdfund</button>
+        <div class="advanced_info"><strong data-i18n="fee">Fee</strong>: <span class="advanced_fee">10 BURST</span></div>
+        <button type="button" class="btn btn-default" data-dismiss="modal" data-i18n="cancel">Cancel</button>
+        <button class="btn btn-primary" data-dismiss="modal" id="deploy-at-btn" type="button">Start Crowdfund</button>
       </div>
     </div>
   </div>
