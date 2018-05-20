@@ -39,7 +39,7 @@
             <!--<div class="col-xs-6 col-sm-6 col-md-6 advanced_extend" data-normal="6" data-advanced="3">-->
             <div class="col-xs-2 col-sm-2 col-md-2">
               <div class="form-group">
-                <label for="nsv_div_send_fee">FEE</label> <i class="fas fa-question-circle show_popover" style="color:#4CAA6E" data-content="Fee is one NXT per assetholder plus one additional NXT." data-container="body"></i>
+                <label for="nsv_div_send_fee">FEE</label> <i class="fas fa-question-circle show_popover" style="color:#4CAA6E" data-content="Fee is one BURST per assetholder plus one additional BURST." data-container="body"></i>
                 <input type="text" name="feeNXT" id="nsv_div_send_fee" disabled class="form-control" placeholder="Fee" data-default="" tabindex="5">
               </div>
             </div>
@@ -63,7 +63,7 @@
       <div class="modal-footer" style="margin-top:0;">
         <div class="input-group"><label for="nsv_div_send_adv_checkbox"><input type="checkbox" id="nsv_div_send_adv_checkbox" onclick="NSV.div_send_act_adv()"> Advanced </label></div>
         <!--<div class="input-group"><label for="nsv_div_send_adv_checkbox">Advanced </label><input type="checkbox" id="nsv_div_send_adv_checkbox" name="Advanced"></div>-->
-        <!--<div class="advanced_info"><strong>Fee:</strong> <span class="advanced_fee">1 NXT</span> - <a href="#">advanced</a></div>-->
+        <!--<div class="advanced_info"><strong>Fee:</strong> <span class="advanced_fee">1 BURST</span> - <a href="#">advanced</a></div>-->
         <button type="button" class="btn btn-default" data-dismiss="modal" id="nsv_div_send_cancel_dividends">Cancel</button>
         <button type="button" class="btn btn-info" data-loading-text="Submitting..." id ="nsv_div_send_calc_but" onclick="NSV.div_send_calc_dividends()">Calculate Dividends</button>
         <button type="button" class="btn btn-success" data-loading-text="Submitting..." id ="nsv_div_send_gen_but" onclick="NSV.div_send_gen_dividends()" disabled>Activate Dividends</button>
@@ -102,7 +102,7 @@
             </div>
             <div class="col-xs-2 col-sm-2 col-md-2">
               <div class="form-group">
-                <label for="send_div_ad_fee">FEE</label> <i class="fas fa-question-circle show_popover" style="color:#4CAA6E" data-content="Fee is 1NXT per transaction." data-container="body"></i>
+                <label for="send_div_ad_fee">FEE</label> <i class="fas fa-question-circle show_popover" style="color:#4CAA6E" data-content="Fee is 1 BURST per transaction." data-container="body"></i>
                 <input type="number" name="feeNXT" id="send_div_ad_fee" disabled class="form-control" placeholder="Fee" data-default="" tabindex="3">
               </div>
             </div>
@@ -111,7 +111,7 @@
             <div class="modal-body">
               <div class="form-group">
                 <label for="nsv_div_ad_accounts_list">LIST OF ACCOUNTS</label> <i class="fas fa-question-circle show_popover" style="color:#4CAA6E" data-content="Comma seperated list of accounts." data-container="body"></i>
-                <textarea class="form-control" id="nsv_div_ad_accounts_list" name="message" rows="4" placeholder="NXT-Account1,NXT-Account2,NXT-Account3,etc." tabindex="4"></textarea>
+                <textarea class="form-control" id="nsv_div_ad_accounts_list" name="message" rows="4" placeholder="BURST-Account1,BURST-Account2,BURST-Account3,etc." tabindex="4"></textarea>
               </div>
               <div class="form-group secret_phrase">
                 <label for="nsv_div_ad_password">SECRET PHRASE</label>
