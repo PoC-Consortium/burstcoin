@@ -108,6 +108,9 @@ public final class JSONResponses {
   public static final JSONStreamAware UNKNOWN_AT = unknown(AT_PARAMETER);
   public static final JSONStreamAware INCORRECT_AT = incorrect(AT_PARAMETER);
   public static final JSONStreamAware INCORRECT_CREATION_BYTES = incorrect("incorrect creation bytes");
+
+  public static final JSONStreamAware MISSING_PRIORITY = missing(FEE_SUGGESTION_PRIORITY_PARAMETER);
+  public static final JSONStreamAware INCORRECT_PRIORITY = incorrect(FEE_SUGGESTION_PRIORITY_PARAMETER);
     
     
   public static final JSONStreamAware NOT_ENOUGH_FUNDS;

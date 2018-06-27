@@ -120,6 +120,7 @@ public class Parameters {
   public static final String ESCROWS_RESPONSE = "escrows";
   public static final String ACCOUNTS_RESPONSE = "accounts";
   public static final String RECIPIENTS_RESPONSE = "recipients";
+  public static final String FEE_SUGGESTION_PRIORITY_PARAMETER = "priority";
 
   public static boolean isFalse(String text) {
     return "false".equalsIgnoreCase(text);

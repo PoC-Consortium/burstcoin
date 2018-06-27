@@ -174,6 +174,7 @@ public final class APIServlet extends HttpServlet {
     map.put("getATIds", new GetATIds(atService));
     map.put("getATLong", GetATLong.instance);
     map.put("getAccountATs", new GetAccountATs(parameterService, atService, accountService));
+    map.put("getFeeSuggestion", new GetFeeSuggestion());
 
     if (API.enableDebugAPI) {
       map.put("clearUnconfirmedTransactions", new ClearUnconfirmedTransactions(transactionProcessor));
