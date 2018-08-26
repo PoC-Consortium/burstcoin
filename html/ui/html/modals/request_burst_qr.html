@@ -1,0 +1,119 @@
+<div class="modal fade" id="request_burst_qr_modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-700">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" data-i18n="request_burst_qr">Request BURST QR</h4>
+            </div>
+            <div class="modal-body">
+                <span id="response"></span>
+                <div class="ordinary">
+                    <!-- form -->
+                    <div class="display-visible" id="request_burst_div">
+                        <form role="form" autocomplete="off" name="request_burst_form">
+                            <div class="callout callout-danger error_message" style="display:none"></div>
+                            <div class="form-group">
+                                <label for="request_burst_account_id" data-i18n="recipient">RECIPIENT</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="recipient" id="request_burst_account_id" placeholder="Recipient Account" data-i18n="[placeholder]recipient_account" disabled/>
+                                    <span class="input-group-addon">Your account ID</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="request_burst_amount" data-i18n="amount">AMOUNT</label>
+                                <div class="input-group" id="request_burst_amount_div">
+                                    <input type="text" name="amountNXT" id="request_burst_amount" step="any" min="0.00000001" class="form-control" placeholder="Amount" data-i18n="[placeholder]amount"  tabindex="1">
+                                    <span class="input-group-addon">BURST</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="request_burst_fee" data-i18n="fee">FEE</label>
+                                <div class="input-group has-success" id="request_burst_fee_div">
+                                    <input type="number" name="feeNXT" id="request_burst_fee" class="form-control" step="0.001" min="0.00735" placeholder="Fee" data-i18n="[placeholder]fee" data-default="0.1" value="0.1" tabindex="2">
+                                    <span class="input-group-addon">BURST</span>
+                                </div>
+                                <div class="padding-top-5 font-size-14">
+                                    <span class="suggested_fee" data-18n="or_use_suggested_fee">Or use a <a data-toggle="tooltip" data-placement="top" data-html="true"  data-i18n="[title]suggested_fee_help">suggested fee</a>:</span>
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group padding-left-5 padding-top-0 margin-top-0">
+                                                <div class="radio">
+                                                    <label>
+                                                        <input type="radio" name="request_burst_suggested_fee" value="standard" tabindex="3">
+                                                        <span data-i18n="standard">Standard</span>
+                                                    </label>
+                                                </div>
+                                                <div class="radio">
+                                                    <label>
+                                                        <input type="radio" name="request_burst_suggested_fee" value="cheap" tabindex="4">
+                                                        <span data-i18n="cheap">Cheap</span>
+                                                    </label>
+                                                </div>
+                                                <div class="radio">
+                                                    <label>
+                                                        <input type="radio" name="request_burst_suggested_fee" value="priority" tabindex="5">
+                                                        <span data-i18n="priority">Priority</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group padding-left-5">
+                                        <label>
+                                            <input type="checkbox" name="immutable" id="request_burst_immutable" tabindex="6" style="position:absolute">
+                                            <span data-i18n="immutable" style="font-weight:normal;margin-left:20px">Immutable</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- end form -->
+                    <!-- qr code response -->
+                    <div class="display-none" id="request_burst_response_div">
+                        <div class="row margin-bottom-10">
+                            <div class="col-xs-12 col-sm-12 col-md-12 bold">
+                                <span data-i18n="recipient">Recipient:</span>
+                                <span id="request_burst_recipient_response" class="text-info"></span>
+                            </div>
+                         </div>
+                        <div class="row margin-bottom-10">
+                            <div class="col-xs-12 col-sm-12 col-md-12 bold">
+                                <span data-i18n="amount">Amount:</span>
+                                <span id="request_burst_amount_response" class="text-info"></span>
+                            </div>
+                        </div>
+                        <div class="row margin-bottom-10">
+                            <div class="col-xs-12 col-sm-12 col-md-12 bold">
+                                <span data-i18n="fee">Fee:</span>
+                                <span id="request_burst_fee_response" class="text-info"></span>
+                            </div>
+                        </div>
+                        <div class="row margin-bottom-10">
+                            <div class="col-xs-12 col-sm-12 col-md-12 bold">
+                                <span data-i18n="immutable">Immutable:</span>
+                                <span id="request_burst_immutable_response" class="text-info"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+                                <div class="" id="request_burst_qrcode_response"></div>
+                             </div>
+                        </div>
+                    </div>
+                    <!-- end response -->
+                </div>
+            </div>
+            <div class="modal-footer ordinary" style="margin-top:0;">
+                <button type="button" class="btn btn-default" id="new_qr_button" data-i18n="new_gr">New QR</button>
+                <button type="button" class="btn btn-default" id="cancel_button" data-dismiss="modal" data-i18n="cancel">Cancel</button>
+                <button type="button" class="btn btn-generic" id="generate_qr_button" data-i18n="generate_qr">Generate QR</button>
+            </div>
+        </div>
+    </div>
+</div>

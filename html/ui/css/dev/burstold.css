@@ -584,14 +584,34 @@ to {
   color: #749a02;
   text-shadow: 0 0 9px #266000;
 }
-.btn-suggested-fee{
-     color: #fff !important;
-     background-color: #428bca;
-     border-color: #357ebd;
-     text-shadow: 0 -1px 0 rgba(0,0,0,0.2);
-     -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,0.15),0 1px 1px rgba(0,0,0,0.075);
-     box-shadow: inset 0 1px 0 rgba(255,255,255,0.15),0 1px 1px rgba(0,0,0,0.075);
- }
- .btn-suggested-fee:hover, .btn-suggested-fee:active, .btn-suggested-fee:focus {
-     color: #fff !important;
- }
+.btn-suggested-fee {
+    color: #fff !important;
+    background-color: #428bca;
+    border-color: #357ebd;
+    text-shadow: 0 -1px 0 rgba(0,0,0,0.2);
+    -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,0.15),0 1px 1px rgba(0,0,0,0.075);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.15),0 1px 1px rgba(0,0,0,0.075);
+}
+.btn-suggested-fee:hover, .btn-suggested-fee:active, .btn-suggested-fee:focus {
+    color: #fff !important;
+}
+.btn-generic {
+    color: #fff !important;
+    background-color: #428bca;
+    border-color: #357ebd;
+    text-shadow: 0 -1px 0 rgba(0,0,0,0.2);
+    -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,0.15),0 1px 1px rgba(0,0,0,0.075);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.15),0 1px 1px rgba(0,0,0,0.075);
+}
+.btn-generic:hover, .btn-generic:active, .btn-generic:focus {
+    color: #fff !important;
+}
+.display-none{
+    display:none;
+}
+.display-visible{
+    display:visible;
+}
+.bold{
+    font-weight:bold;
+}
