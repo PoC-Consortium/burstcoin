@@ -32,6 +32,8 @@ public class Parameters {
   public static final String RECIPIENTS_PARAMETER = "recipients";
   public static final String SELLER_PARAMETER = "seller";
   public static final String BUYER_PARAMETER = "buyer";
+  public static final String FIRST_BLOCKHEIGHT_PARAMETER = "firstBlockHeight";
+  public static final String LAST_BLOCKHEIGHT_PARAMETER = "lastBlockHeight";
   public static final String FIRST_INDEX_PARAMETER = "firstIndex";
   public static final String LAST_INDEX_PARAMETER = "lastIndex";
   public static final String NUMBER_OF_CONFIRMATIONS_PARAMETER = "numberOfConfirmations";

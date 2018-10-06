@@ -26,6 +26,8 @@ import static brs.http.common.Parameters.GOODS_DATA_PARAMETER;
 import static brs.http.common.Parameters.GOODS_NONCE_PARAMETER;
 import static brs.http.common.Parameters.HEX_STRING_PARAMETER;
 import static brs.http.common.Parameters.LAST_INDEX_PARAMETER;
+import static brs.http.common.Parameters.FIRST_BLOCKHEIGHT_PARAMETER;
+import static brs.http.common.Parameters.LAST_BLOCKHEIGHT_PARAMETER;
 import static brs.http.common.Parameters.ORDER_PARAMETER;
 import static brs.http.common.Parameters.PRICE_NQT_PARAMETER;
 import static brs.http.common.Parameters.QUANTITY_PARAMETER;
@@ -192,6 +194,32 @@ final class ParameterParser {
     } catch (RuntimeException e) {
       throw new ParameterException(INCORRECT_RECIPIENT);
     }
+  }
+
+  static int getFirstBlockHeight(HttpServletRequest req) {
+    int firstBlockHeight;
+    try {
+      firstBlockHeight = Integer.parseInt(req.getParameter(FIRST_BLOCKHEIGHT_PARAMETER));
+      if (firstBlockHeight < 0) {
+        return -1;
+      }
+    } catch (NumberFormatException e) {
+      return -1;
+    }
+    return firstBlockHeight;
+  }
+
+  static int getLastBlockHeight(HttpServletRequest req) {
+    int lastBlockHeight;
+    try {
+      lastBlockHeight = Integer.parseInt(req.getParameter(LAST_BLOCKHEIGHT_PARAMETER));
+      if (lastBlockHeight < 0) {
+        return Integer.MAX_VALUE;
+      }
+    } catch (NumberFormatException e) {
+      return Integer.MAX_VALUE;
+    }
+    return lastBlockHeight;
   }
 
   static int getFirstIndex(HttpServletRequest req) {
