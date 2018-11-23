@@ -118,7 +118,7 @@ public class UnconfirmedTransactionStoreImpl implements UnconfirmedTransactionSt
   }
 
   private boolean tooManyTransactionsWithReferencedFullHash(Transaction transaction) {
-    return ! StringUtils.isEmpty(transaction.getReferencedTransactionFullHash()) && maxPercentageUnconfirmedTransactionsFullHash <= (((numberUnconfirmedTransactionsFullHash + 1) / maxSize) * 100);
+    return ! StringUtils.isEmpty(transaction.getReferencedTransactionFullHash()) && numberUnconfirmedTransactionsFullHash >  (double) maxSize / 100. * (double) maxPercentageUnconfirmedTransactionsFullHash);
   }
 
   private boolean cacheFullAndTransactionCheaperThanAllTheRest(Transaction transaction) {
