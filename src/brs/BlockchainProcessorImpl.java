@@ -4,6 +4,7 @@ import static brs.Constants.FEE_QUANT;
 import static brs.Constants.ONE_BURST;
 import static brs.fluxcapacitor.FeatureToggle.PRE_DYMAXION;
 import static brs.fluxcapacitor.FeatureToggle.SLOT_FEE_ENFORCING;
+import static brs.fluxcapacitor.FeatureToggle.SLOT_FEE_ENFORCING_OPTION_2;
 
 import brs.props.Props;
 import brs.db.cache.DBCacheManagerImpl;
@@ -909,6 +910,9 @@ public final class BlockchainProcessorImpl implements BlockchainProcessor {
           }
         }
 
+        long[] feeArray = new long[block.getTransactions().size()];
+        long slotIdx = 0;
+
         for (Transaction transaction : block.getTransactions()) {
           if (transaction.getTimestamp() > curTime + MAX_TIMESTAMP_DIFFERENCE) {
             throw new BlockOutOfOrderException("Invalid transaction timestamp: "
@@ -976,6 +980,10 @@ public final class BlockchainProcessorImpl implements BlockchainProcessor {
 
           calculatedTotalAmount += transaction.getAmountNQT();
           calculatedTotalFee += transaction.getFeeNQT();
+		  
+		  feeArray[slotIdx] = transaction.getFeeNQT();
+		  slotIdx += 1;
+		  
           digest.update(transaction.getBytes());
         }
 
@@ -983,10 +991,19 @@ public final class BlockchainProcessorImpl implements BlockchainProcessor {
             || calculatedTotalFee > block.getTotalFeeNQT()) {
           throw new BlockNotAcceptedException("Total amount or fee don't match transaction totals for block " + block.getHeight());
         }
-				
+
+		if (Burst.getFluxCapacitor().isActive(FeatureToggle.SLOT_FEE_ENFORCING_OPTION_2)) {
+			Arrays.sort(feeArray);
+			for (int slotIdx = 0; slotIdx < feeArray.length; slotIdx++) {
+				if (feeArray[slotIdx] >= Constants.FEE_QUANT * (slotIdx + 1)) {
+					throw new BlockNotAcceptedException("Transaction fee is not enough to be included in this block " + block.getHeight());
+				}   
+			}
+		}
+		
         if (Burst.getFluxCapacitor().isActive(FeatureToggle.SLOT_FEE_ENFORCING)
 			&& Constants.FEE_QUANT * ((block.getTransactions().size() / 2) * (1 + block.getTransactions().size())) > block.getTotalFeeNQT())) {
-          throw new BlockNotAcceptedException("Total amount or fees are not enough to match the number of transactions for block " + block.getHeight());
+          throw new BlockNotAcceptedException("Total fees are not enough to match the number of transactions for block " + block.getHeight());
         }        
 
         if (!Arrays.equals(digest.digest(), block.getPayloadHash())) {
