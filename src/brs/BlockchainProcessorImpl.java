@@ -3,6 +3,7 @@ package brs;
 import static brs.Constants.FEE_QUANT;
 import static brs.Constants.ONE_BURST;
 import static brs.fluxcapacitor.FeatureToggle.PRE_DYMAXION;
+import static brs.fluxcapacitor.FeatureToggle.SLOT_FEE_ENFORCING;
 
 import brs.props.Props;
 import brs.db.cache.DBCacheManagerImpl;
@@ -982,6 +983,12 @@ public final class BlockchainProcessorImpl implements BlockchainProcessor {
             || calculatedTotalFee > block.getTotalFeeNQT()) {
           throw new BlockNotAcceptedException("Total amount or fee don't match transaction totals for block " + block.getHeight());
         }
+				
+        if (Burst.getFluxCapacitor().isActive(FeatureToggle.SLOT_FEE_ENFORCING)
+			&& Constants.FEE_QUANT * ((block.getTransactions().size() / 2) * (1 + block.getTransactions().size())) > block.getTotalFeeNQT())) {
+          throw new BlockNotAcceptedException("Total amount or fees are not enough to match the number of transactions for block " + block.getHeight());
+        }        
+
         if (!Arrays.equals(digest.digest(), block.getPayloadHash())) {
           throw new BlockNotAcceptedException("Payload hash doesn't match for block " + block.getHeight());
         }

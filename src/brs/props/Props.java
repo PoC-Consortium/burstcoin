@@ -28,6 +28,7 @@ public class Props {
   public static final Prop DEV_AT_FIX_BLOCK_4_BLOCK_HEIGHT = new Prop("DEV.atFixBlock4.startBlock", -1);
   public static final Prop DEV_PRE_DYMAXION_BLOCK_HEIGHT = new Prop("DEV.preDymaxion.startBlock", -1);
   public static final Prop DEV_POC2_BLOCK_HEIGHT = new Prop("DEV.poc2.startBlock", -1);
+  public static final Prop DEV_SLOT_FEE_ENFORCING_BLOCK_HEIGHT = new Prop("DEV.slotFeeEnforcing.startBlock", -1);
   public static final Prop DEV_DYMAXION_BLOCK_HEIGHT = new Prop("DEV.dymaxion.startBlock", -1);
   
   public static final Prop BRS_DEBUG_TRACE_QUOTE = new Prop("brs.debugTraceQuote", "\"");
