@@ -1002,7 +1002,7 @@ public final class BlockchainProcessorImpl implements BlockchainProcessor {
         }
 
         if (Burst.getFluxCapacitor().isActive(FeatureToggle.SLOT_FEE_ENFORCING)
-            && Constants.FEE_QUANT * ((block.getTransactions().size() / 2) * (1 + block.getTransactions().size())) > block.getTotalFeeNQT())) {
+            && Constants.FEE_QUANT * ((block.getTransactions().size() / 2.0) * (1 + block.getTransactions().size())) > block.getTotalFeeNQT())) {
             throw new BlockNotAcceptedException("Total fees are not enough to match the number of transactions for block " + block.getHeight());
         }        
 
